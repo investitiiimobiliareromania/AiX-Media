@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/layout/navbar";
+
 import { Footer } from "@/components/layout/footer";
 import { CategoryHero } from "@/components/editorial/CategoryHero";
 import { ArticleGrid } from "@/components/editorial/ArticleGrid";

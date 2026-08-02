@@ -1,7 +1,7 @@
 // src/components/layout/LanguageSwitcher.tsx
 "use client";
 
-import { useRouter } from "next/navigation";
+
 import { useEffect } from "react";
 
 /**
@@ -10,13 +10,16 @@ import { useEffect } from "react";
  * The cookie is read on the server via the getLocale helper.
  */
 export default function LanguageSwitcher() {
-  const router = useRouter();
+
 
   // Determine current locale from cookie (client side fallback to "ro")
   const getCurrentLocale = () => {
     if (typeof document === "undefined") return "ro";
     const match = document.cookie.match(/(?:^|; )NEXT_LOCALE=([^;]*)/);
-    return match ? decodeURIComponent(match[1]) : "ro";
+    if (match && match[1]) {
+      return decodeURIComponent(match[1]);
+    }
+    return "ro";
   };
 
   const toggleLocale = () => {
@@ -24,7 +27,7 @@ export default function LanguageSwitcher() {
     // Set cookie for 30 days
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${30 * 24 * 60 * 60}`;
     // Force a hard reload to let server re-render with new locale
-    router.refresh();
+    window.location.reload();
   };
 
   // Ensure the cookie is set on first render if missing

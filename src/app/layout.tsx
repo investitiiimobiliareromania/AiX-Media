@@ -1,5 +1,5 @@
-import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { type Metadata, type Viewport } from "next";
 
 import {
   JsonLd,
@@ -35,18 +35,19 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = rootMetadata;
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang={siteConfig.language}

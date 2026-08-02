@@ -1,0 +1,254 @@
+{
+  "/": {
+    "status": "error",
+    "console": [
+      {
+        "type": "error",
+        "text": "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/news": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/news"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/authors": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/authors"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/podcasts": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/podcasts"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/radio": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/radio"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/tv": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/tv"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/academy": {
+    "status": "error",
+    "console": [
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/admin": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/admin"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/admin/login": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/admin/login"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/admin/dashboard": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/admin/dashboard"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/admin/articles": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/admin/articles"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/admin/media": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/admin/media"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/admin/settings": {
+    "status": "error",
+    "console": [
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/admin/settings"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  },
+  "/news/[slug]": {
+    "status": "no-slug",
+    "console": [],
+    "screenshot": null
+  },
+  "/authors/[slug]": {
+    "status": "no-slug",
+    "console": [],
+    "screenshot": null
+  },
+  "/podcast/[slug]": {
+    "status": "no-slug",
+    "console": [],
+    "screenshot": null
+  },
+  "/video/[slug]": {
+    "status": "no-slug",
+    "console": [],
+    "screenshot": null
+  },
+  "/academy/[slug]": {
+    "status": "error",
+    "console": [
+      {
+        "type": "exception",
+        "text": "g is not defined"
+      }
+    ],
+    "screenshot": null
+  }
+}

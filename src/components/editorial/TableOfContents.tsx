@@ -17,7 +17,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
 
   lines.forEach((line) => {
     const match = line.match(/^(#{2,3})\s+(.+)$/);
-    if (match) {
+    if (match && match[1] && match[2]) {
       const level = match[1].length;
       const text = match[2].trim();
       const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');

@@ -1,3 +1,6 @@
+"use client";
+
+
 import { ArrowRight } from "lucide-react";
 
 interface NewsletterBlockProps {

@@ -128,7 +128,7 @@ export default function ArticlePage() {
                   Indicatorii macroeconomici sugerează o stabilizare. ROBOR și IRCC reflectă aceste schimbări, impactând direct costul finanțării pentru companii și persoane fizice. Este esențial ca investitorii să înțeleagă dinamica acestor indicatori pentru a-și optimiza portofoliile.
                 </p>
                 <blockquote>
-                  "Nu poți controla direcția vântului, dar poți ajusta pânzele." – Principiu fundamental în managementul riscului.
+                  “Nu poți controla direcția vântului, dar poți ajusta pânzele.” – Principiu fundamental în managementul riscului.
                 </blockquote>
                 <p>
                   În sectorul imobiliar, costul ridicat al creditării a determinat o migrare către achizițiile cash în segmentul de lux, unde randamentele din chirii rămân atractive.
