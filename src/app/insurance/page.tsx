@@ -1,41 +1,60 @@
-import { Metadata } from 'next';
-import { CategoryHero } from '@/components/editorial/CategoryHero';
-import { ArticleGrid } from '@/components/editorial/ArticleGrid';
-import { NewsletterBlock } from '@/components/editorial/NewsletterBlock';
-import { articleService } from '@/services/article.service';
-import { categoryBySlug } from '@/constants/categories';
-import { ArticleRow } from '@/repositories/article.repository';
+import { type Metadata } from "next";
 
-const slug = 'insurance';
+import { IntelligenceDashboard } from "@/components/editorial/IntelligenceDashboard";
+import { ArticleGrid } from "@/components/editorial/ArticleGrid";
+import { EmptyState } from "@/components/editorial/EmptyState";
+import { NewsletterPremium } from "@/components/editorial/NewsletterPremium";
+import { PremiumHero } from "@/components/editorial/PremiumHero";
+import { categoryConfigs, type CategorySlug } from "@/config/category-configs";
+import { categoryBySlug } from "@/constants/categories";
+import { ArticleRow } from "@/repositories/article.repository";
+import { articleService } from "@/services/article.service";
+
+const slug: CategorySlug = "insurance";
 const category = categoryBySlug[slug];
+const config = categoryConfigs[slug];
 
 export const metadata: Metadata = {
-  title: `${category.label} Intelligence`,
-  description: category.description,
+  title: `${config.eyebrow} | AiX Media`,
+  description: config.description,
+  keywords: [
+    "insurance Romania",
+    "asigurari Romania",
+    "insurance market intelligence",
+    "insurance analysis",
+    "protection Romania",
+    "risk management Romania",
+  ],
   alternates: { canonical: `/${slug}` },
-  openGraph: { title: `${category.label} Intelligence`, description: category.description, type: 'website' },
-  twitter: { card: 'summary_large_image', title: `${category.label} Intelligence`, description: category.description },
+  openGraph: {
+    title: config.headline,
+    description: config.description,
+    type: "website",
+    siteName: "AiX Media",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: config.headline,
+    description: config.description,
+  },
 };
 
-interface GridArticle {
-  category: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  href: string;
-  author?: string;
-  readTime?: string;
-}
-
-function mapArticle(row: ArticleRow): GridArticle {
+function mapArticle(row: ArticleRow) {
   return {
     category: category.label,
-    title: row.title ?? '',
-    excerpt: row.excerpt ?? '',
-    date: row.publish_date ?? '',
+    title: row.title ?? "",
+    excerpt: row.excerpt ?? "",
+    date: row.publish_date
+      ? new Date(row.publish_date).toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      : "",
     href: `/news/${row.slug}`,
     author: row.author_id ?? undefined,
-    readTime: row.read_time ? `${row.read_time} min` : undefined,
+    readTime: row.read_time ? `${row.read_time} min read` : undefined,
+    imageUrl: row.cover_image_url ?? undefined,
   };
 }
 
@@ -45,18 +64,44 @@ export default async function InsurancePage() {
 
   return (
     <>
-      <CategoryHero title={category.label} description={category.description} />
-      {articles.length ? (
-        <ArticleGrid articles={articles} />
+      <PremiumHero
+        eyebrow={config.eyebrow}
+        headline={config.headline}
+        description={config.description}
+        ctaLabel={config.ctaLabel}
+        ctaHref="#intelligence"
+        secondaryCtaLabel="View All Reports"
+        secondaryCtaHref="/news"
+        marketSignals={config.marketSignals}
+      />
+
+      <IntelligenceDashboard
+        metrics={config.intelligenceMetrics}
+        categorySlug={slug}
+        title={config.dashboardTitle}
+        description={config.dashboardDescription}
+      />
+
+      {articles.length > 0 ? (
+        <ArticleGrid
+          title="Insurance Analysis"
+          description="Expert analysis and intelligence reports from Romania's insurance and risk markets."
+          articles={articles}
+          categorySlug={slug}
+        />
       ) : (
-        <section className="py-16 md:py-24 text-center">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4 text-foreground">Coming Soon</h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-            Our analysts are preparing exclusive insights, market analysis and intelligence reports for this category.
-          </p>
-        </section>
+        <EmptyState
+          category={category.label}
+          headline={config.featuredInsightHeadline}
+          description={config.featuredInsightExcerpt}
+        />
       )}
-      <NewsletterBlock />
+
+      <NewsletterPremium
+        overline={config.newsletterOverline}
+        headline={config.newsletterHeadline}
+        description={config.newsletterDescription}
+      />
     </>
   );
 }

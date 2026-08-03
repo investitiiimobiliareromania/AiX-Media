@@ -1,33 +1,95 @@
-import { ArticleCard } from "./ArticleCard";
+import { ArticleCard, type ArticleCardData } from "@/components/editorial/ArticleCard";
+import { FeaturedStory } from "@/components/editorial/FeaturedStory";
+import { Container, Section } from "@/components/layout/container";
+import { SectionHeader } from "@/components/editorial/section-header";
 
 interface ArticleGridProps {
   title?: string;
-  articles: Array<{
-    category: string;
-    title: string;
-    excerpt: string;
-    date: string;
-    href: string;
-    author?: string;
-    readTime?: string;
-  }>;
+  description?: string;
+  articles: ArticleCardData[];
+  categorySlug?: string;
 }
 
-export function ArticleGrid({ title, articles }: ArticleGridProps) {
+export function ArticleGrid({
+  title = "Latest Analysis",
+  description,
+  articles,
+  categorySlug,
+}: ArticleGridProps) {
+  if (articles.length === 0) return null;
+
+  const [featured, second, third, ...grid] = articles;
+
   return (
-    <section className="py-16 md:py-24 border-b border-border">
-      <div className="container mx-auto px-4 md:px-6">
-        {title && (
-          <h2 className="text-2xl md:text-3xl font-heading font-bold uppercase tracking-tight text-foreground mb-12 border-b-2 border-foreground pb-4 inline-block pr-12">
-            {title}
-          </h2>
-        )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-          {articles.map((article, i) => (
-            <ArticleCard key={i} {...article} />
-          ))}
+    <Section
+      spacing="lg"
+      className="border-t border-border"
+      aria-labelledby="article-grid-heading"
+    >
+      <Container size="wide">
+        <SectionHeader
+          overline="Editorial"
+          title={title}
+          description={description}
+          headingLevel="h2"
+        />
+
+        <div className="mt-10 space-y-8">
+
+          {/* ── Row 1: Featured (large) + sidebar (2 secondary) ── */}
+          {featured && (
+            <div
+              className={
+                second
+                  ? "grid gap-px bg-border lg:grid-cols-[1.55fr_1fr]"
+                  : ""
+              }
+            >
+              {/* Primary featured */}
+              <FeaturedStory
+                article={featured}
+                variant="primary"
+                categorySlug={categorySlug}
+                className="bg-background"
+              />
+
+              {/* Secondary sidebar */}
+              {second && (
+                <div className="flex flex-col divide-y divide-border bg-surface/30">
+                  <FeaturedStory
+                    article={second}
+                    variant="secondary"
+                    categorySlug={categorySlug}
+                    className="flex-1 px-7 py-7"
+                  />
+                  {third && (
+                    <FeaturedStory
+                      article={third}
+                      variant="secondary"
+                      categorySlug={categorySlug}
+                      className="flex-1 px-7 py-7"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── Row 2: 3-col card grid for remaining articles ── */}
+          {grid.length > 0 && (
+            <div className="grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
+              {grid.map((article) => (
+                <ArticleCard
+                  key={article.href}
+                  {...article}
+                  categorySlug={categorySlug}
+                  className="bg-background"
+                />
+              ))}
+            </div>
+          )}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

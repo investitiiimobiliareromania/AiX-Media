@@ -3,6 +3,11 @@
   --section-md: 3rem;
   --section-lg: 4rem;
   --section-xl: 6rem;
+  --section-2xl: 9rem;
+
+  /* Hero cinematic text sizes */
+  --text-display-3xl: clamp(3.25rem, 5vw + 1.75rem, 6.5rem);
+  --text-display-hero: clamp(2.75rem, 4vw + 1.5rem, 5.5rem);
 
   --text-display-2xl: clamp(3rem, 2.4rem + 2.4vw, 4.5rem);
   --text-display-xl: clamp(2.5rem, 2.1rem + 1.6vw, 3.75rem);

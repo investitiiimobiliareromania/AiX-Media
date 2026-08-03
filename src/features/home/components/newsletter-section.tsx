@@ -1,28 +1,11 @@
-import { Heading, Overline, Text } from "@/components/common/typography";
-import { Container, Section } from "@/components/layout/container";
-import { NewsletterForm } from "@/features/home/components/newsletter-form";
+import { NewsletterPremium } from "@/components/editorial/NewsletterPremium";
 
 export function NewsletterSection() {
   return (
-    <Section spacing="lg" aria-labelledby="newsletter-title">
-      <Container size="narrow">
-        <div className="border border-border bg-surface/40 px-6 py-10 sm:px-10 sm:py-12">
-          <div className="mx-auto max-w-xl space-y-4 text-center">
-            <Overline>Newsletter</Overline>
-            <Heading as="h2" level="h3" id="newsletter-title">
-              The AiX Briefing
-            </Heading>
-            <Text tone="muted">
-              A concise morning digest for Romania&apos;s business leaders.
-              Subscribe to receive editorial updates when publishing begins.
-            </Text>
-          </div>
-
-          <div className="mx-auto mt-8 max-w-xl">
-            <NewsletterForm />
-          </div>
-        </div>
-      </Container>
-    </Section>
+    <NewsletterPremium
+      overline="The AiX Briefing"
+      headline="Intelligence, distilled weekly."
+      description="A concise morning briefing for Romania's business leaders. Market data, editorial analysis, and strategic intelligence — in under 5 minutes."
+    />
   );
 }
