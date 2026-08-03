@@ -43,3 +43,6 @@ lh-reports/
 lighthouse_results/
 lighthouse-*.json
 localhost_*.report.*
+lighthouse_*.json
+lighthouse-*.html
+lighthouse_*.html
