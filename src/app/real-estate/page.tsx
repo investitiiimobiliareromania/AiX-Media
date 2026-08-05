@@ -1,107 +1,64 @@
 import { type Metadata } from "next";
+import { categoryConfigs } from "@/config/category-configs";
+import { getAllArticles } from "@/lib/media/service";
+import { PremiumHero } from "@/components/media/PremiumHero";
+import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
+import { EditorialGrid } from "@/components/media/EditorialGrid";
+import { NewsletterBox } from "@/components/media/NewsletterBox";
 
-import { IntelligenceDashboard } from "@/components/editorial/IntelligenceDashboard";
-import { ArticleGrid } from "@/components/editorial/ArticleGrid";
-import { EmptyState } from "@/components/editorial/EmptyState";
-import { NewsletterPremium } from "@/components/editorial/NewsletterPremium";
-import { PremiumHero } from "@/components/editorial/PremiumHero";
-import { categoryConfigs, type CategorySlug } from "@/config/category-configs";
-import { categoryBySlug } from "@/constants/categories";
-import { ArticleRow } from "@/repositories/article.repository";
-import { articleService } from "@/services/article.service";
-
-const slug: CategorySlug = "real-estate";
-const category = categoryBySlug[slug];
+const slug = "real-estate";
 const config = categoryConfigs[slug];
 
 export const metadata: Metadata = {
-  title: `${config.eyebrow} | AiX Media`,
+  title: `${config.title} | AiX Media`,
   description: config.description,
   keywords: [
     "real estate Romania",
     "property market intelligence",
-    "imobiliare Romania",
-    "real estate investment",
-    "property analysis Bucharest",
-    "Romania housing market",
+    "commercial real estate Bucharest",
+    "real estate investment CEE",
+    "property yield analysis",
   ],
   alternates: { canonical: `/${slug}` },
-  openGraph: {
-    title: config.headline,
-    description: config.description,
-    type: "website",
-    siteName: "AiX Media",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: config.headline,
-    description: config.description,
-  },
 };
 
-function mapArticle(row: ArticleRow) {
-  return {
-    category: category.label,
-    title: row.title ?? "",
-    excerpt: row.excerpt ?? "",
-    date: row.publish_date
-      ? new Date(row.publish_date).toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })
-      : "",
-    href: `/news/${row.slug}`,
-    author: row.author_id ?? undefined,
-    readTime: row.read_time ? `${row.read_time} min read` : undefined,
-    imageUrl: row.cover_image_url ?? undefined,
-  };
-}
-
-export default async function RealEstatePage() {
-  const rows = await articleService.getArticles({ categoryId: slug });
-  const articles = rows.map(mapArticle);
+export default function RealEstatePage() {
+  const articles = getAllArticles("real-estate");
 
   return (
-    <>
+    <div className="space-y-8">
       <PremiumHero
         eyebrow={config.eyebrow}
         headline={config.headline}
         description={config.description}
         ctaLabel={config.ctaLabel}
-        ctaHref="#intelligence"
-        secondaryCtaLabel="View All Reports"
-        secondaryCtaHref="/news"
+        ctaHref="#articles"
+        secondaryCtaLabel="View Market Signals"
+        secondaryCtaHref="#dashboard"
         marketSignals={config.marketSignals}
       />
 
-      <IntelligenceDashboard
-        metrics={config.intelligenceMetrics}
-        categorySlug={slug}
-        title={config.dashboardTitle}
-        description={config.dashboardDescription}
-      />
+      <div id="dashboard">
+        <IntelligenceDashboard
+          metrics={config.intelligenceMetrics}
+          title={config.dashboardTitle}
+          description={config.dashboardDescription}
+        />
+      </div>
 
-      {articles.length > 0 ? (
-        <ArticleGrid
-          title="Real Estate Analysis"
-          description="Exclusive market reports and property intelligence from AiX Media analysts."
+      <div id="articles">
+        <EditorialGrid
           articles={articles}
-          categorySlug={slug}
+          title="Real Estate Intelligence Reports"
+          description="Institutional market analysis, transaction teardowns, and urban growth corridors."
         />
-      ) : (
-        <EmptyState
-          category={category.label}
-          headline={config.featuredInsightHeadline}
-          description={config.featuredInsightExcerpt}
-        />
-      )}
+      </div>
 
-      <NewsletterPremium
+      <NewsletterBox
         overline={config.newsletterOverline}
         headline={config.newsletterHeadline}
         description={config.newsletterDescription}
       />
-    </>
+    </div>
   );
 }

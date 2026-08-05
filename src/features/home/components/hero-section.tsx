@@ -6,9 +6,9 @@ import { Container, Section } from "@/components/layout/container";
 import { siteConfig } from "@/config/site";
 
 const platformStats = [
-  { label: "Editorial Verticals", value: "6" },
-  { label: "Intelligence Categories", value: "12+" },
-  { label: "Markets Covered", value: "3" },
+  { label: "Editorial Verticals", value: "10" },
+  { label: "Intelligence Categories", value: "15+" },
+  { label: "Markets Covered", value: "4" },
 ] as const;
 
 export function HeroSection() {
@@ -22,7 +22,6 @@ export function HeroSection() {
   return (
     <Section spacing="none" aria-labelledby="home-hero-title">
       <div className="relative overflow-hidden border-b border-border">
-        {/* Atmospheric background */}
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,oklch(0.78_0.11_85/0.08)_0%,transparent_65%)]" />
           <div
@@ -37,8 +36,6 @@ export function HeroSection() {
 
         <Container size="wide" className="relative z-10">
           <div className="grid gap-12 py-24 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20 lg:py-32">
-
-            {/* Left: editorial statement */}
             <div className="space-y-8">
               <div className="flex items-center gap-4">
                 <span className="h-px w-10 bg-gold flex-shrink-0" aria-hidden />
@@ -59,9 +56,7 @@ export function HeroSection() {
               </h1>
 
               <p className="max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-                Private intelligence for people making important decisions. Editorial
-                coverage across real estate, insurance, investments, and Romania&apos;s
-                capital markets.
+                Institutional business intelligence for executives, investors, and decision makers. Coverage across real estate, capital markets, enterprise growth, and macroeconomic policy.
               </p>
 
               <div className="flex flex-wrap items-center gap-4">
@@ -84,7 +79,6 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Right: meta information */}
             <div className="border-t border-border pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
               <dl className="space-y-6">
                 <div>

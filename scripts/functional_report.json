@@ -3,10 +3,6 @@
     "status": "error",
     "console": [
       {
-        "type": "error",
-        "text": "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
-      },
-      {
         "type": "exception",
         "text": "g is not defined"
       }
@@ -17,8 +13,412 @@
     "status": "error",
     "console": [
       {
+        "type": "error",
+        "text": "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
         "type": "response",
-        "text": "404 http://localhost:4001/news"
+        "text": "404 http://localhost:4001/oferta-rapida?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/calculatoare?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/gap-analyzer?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/advisor?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/investitii-imobiliare/analyzer?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/wealth-passport?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/smart-forms?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/client-journey?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/luxury-garage?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/financial-twin?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/simulator?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/risk-simulator?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/mission-control?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/urgente?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance-corporate?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-interruption-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-equipment-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-construction-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cargo-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cyber-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-malpractice-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-directors-liability?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-professional-liability?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-general-liability?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-goods-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-building-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/imm-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-annual?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-business-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-family?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-individual?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/roadside-assistance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/fleet-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/casco-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/rca-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/accident-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/life-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/home-insurance?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/contact-broker-credite?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/faq?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/de-ce-broker?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/compara-banci?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/consolidare-credite?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-persoane-juridice?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-investitii-imobiliare?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-verde?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-constructii?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-refinantare?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-noua-casa?_rsc=ZT0-uqATtlNBUI5v"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-ipotecar?_rsc=ZT0-uqATtlNBUI5v"
       },
       {
         "type": "error",
@@ -26,7 +426,7 @@
       },
       {
         "type": "exception",
-        "text": "g is not defined"
+        "text": "Navigation timeout of 30000 ms exceeded"
       }
     ],
     "screenshot": null
@@ -53,8 +453,412 @@
     "status": "error",
     "console": [
       {
+        "type": "error",
+        "text": "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      },
+      {
         "type": "response",
-        "text": "404 http://localhost:4001/podcasts"
+        "text": "404 http://localhost:4001/oferta-rapida?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/calculatoare?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/gap-analyzer?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/investitii-imobiliare/analyzer?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/wealth-passport?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/advisor?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/smart-forms?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/client-journey?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/luxury-garage?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/financial-twin?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/simulator?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/risk-simulator?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/mission-control?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/urgente?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance-corporate?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-interruption-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-equipment-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-construction-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cargo-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cyber-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-malpractice-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-directors-liability?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-professional-liability?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-general-liability?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-goods-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-building-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/imm-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-annual?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-business-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-family?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-individual?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/roadside-assistance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/fleet-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/casco-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/rca-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/accident-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/life-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/home-insurance?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/contact-broker-credite?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/faq?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/de-ce-broker?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/compara-banci?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/consolidare-credite?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-persoane-juridice?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-investitii-imobiliare?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-verde?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-constructii?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-refinantare?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-noua-casa?_rsc=k25s7uCwnsxPhw8A"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-ipotecar?_rsc=k25s7uCwnsxPhw8A"
       },
       {
         "type": "error",
@@ -62,7 +866,7 @@
       },
       {
         "type": "exception",
-        "text": "g is not defined"
+        "text": "Navigation timeout of 30000 ms exceeded"
       }
     ],
     "screenshot": null
@@ -71,8 +875,412 @@
     "status": "error",
     "console": [
       {
+        "type": "error",
+        "text": "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      },
+      {
         "type": "response",
-        "text": "404 http://localhost:4001/radio"
+        "text": "404 http://localhost:4001/oferta-rapida?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/calculatoare?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/gap-analyzer?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/advisor?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/wealth-passport?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/smart-forms?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/investitii-imobiliare/analyzer?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/client-journey?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/luxury-garage?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/financial-twin?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/simulator?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/risk-simulator?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/mission-control?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/urgente?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance-corporate?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-interruption-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-equipment-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-construction-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cargo-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cyber-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-malpractice-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-directors-liability?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-professional-liability?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-general-liability?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-goods-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-building-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/imm-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-annual?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-business-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-family?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-individual?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/roadside-assistance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/fleet-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/casco-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/rca-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/accident-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/life-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/home-insurance?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/contact-broker-credite?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/faq?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/de-ce-broker?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/compara-banci?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/consolidare-credite?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-persoane-juridice?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-investitii-imobiliare?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-verde?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-constructii?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-refinantare?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-noua-casa?_rsc=Gq3gePP6UKxGMQ21"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-ipotecar?_rsc=Gq3gePP6UKxGMQ21"
       },
       {
         "type": "error",
@@ -80,7 +1288,7 @@
       },
       {
         "type": "exception",
-        "text": "g is not defined"
+        "text": "Navigation timeout of 30000 ms exceeded"
       }
     ],
     "screenshot": null
@@ -89,8 +1297,412 @@
     "status": "error",
     "console": [
       {
+        "type": "error",
+        "text": "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
         "type": "response",
-        "text": "404 http://localhost:4001/tv"
+        "text": "404 http://localhost:4001/oferta-rapida?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/calculatoare?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/gap-analyzer?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/investitii-imobiliare/analyzer?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/advisor?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/wealth-passport?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/client-journey?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/smart-forms?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/luxury-garage?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/financial-twin?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/simulator?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/risk-simulator?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/mission-control?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/urgente?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance-corporate?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-interruption-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-equipment-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-construction-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cargo-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-cyber-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-malpractice-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-directors-liability?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-professional-liability?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-general-liability?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-goods-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/business-building-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/imm-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-annual?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-business-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-family?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/travel-insurance-individual?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/roadside-assistance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/fleet-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/casco-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/rca-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/accident-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/health-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/life-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/servicii/home-insurance?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/contact-broker-credite?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/faq?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/de-ce-broker?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/compara-banci?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/consolidare-credite?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-persoane-juridice?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-investitii-imobiliare?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-verde?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-constructii?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-refinantare?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-noua-casa?_rsc=iTHopKv0dh2cdFSk"
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      },
+      {
+        "type": "response",
+        "text": "404 http://localhost:4001/credite/credit-ipotecar?_rsc=iTHopKv0dh2cdFSk"
       },
       {
         "type": "error",
@@ -98,7 +1710,7 @@
       },
       {
         "type": "exception",
-        "text": "g is not defined"
+        "text": "Navigation timeout of 30000 ms exceeded"
       }
     ],
     "screenshot": null
@@ -118,11 +1730,7 @@
     "console": [
       {
         "type": "response",
-        "text": "404 http://localhost:4001/admin"
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        "text": "307 http://localhost:4001/admin"
       },
       {
         "type": "exception",
@@ -135,12 +1743,8 @@
     "status": "error",
     "console": [
       {
-        "type": "response",
-        "text": "404 http://localhost:4001/admin/login"
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        "type": "verbose",
+        "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o"
       },
       {
         "type": "exception",
@@ -154,11 +1758,7 @@
     "console": [
       {
         "type": "response",
-        "text": "404 http://localhost:4001/admin/dashboard"
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        "text": "304 http://localhost:4001/admin/dashboard"
       },
       {
         "type": "exception",
@@ -171,14 +1771,6 @@
     "status": "error",
     "console": [
       {
-        "type": "response",
-        "text": "404 http://localhost:4001/admin/articles"
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
-      },
-      {
         "type": "exception",
         "text": "g is not defined"
       }
@@ -188,14 +1780,6 @@
   "/admin/media": {
     "status": "error",
     "console": [
-      {
-        "type": "response",
-        "text": "404 http://localhost:4001/admin/media"
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
-      },
       {
         "type": "exception",
         "text": "g is not defined"
@@ -207,14 +1791,6 @@
     "status": "error",
     "console": [
       {
-        "type": "response",
-        "text": "404 http://localhost:4001/admin/settings"
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
-      },
-      {
         "type": "exception",
         "text": "g is not defined"
       }
@@ -222,8 +1798,13 @@
     "screenshot": null
   },
   "/news/[slug]": {
-    "status": "no-slug",
-    "console": [],
+    "status": "error",
+    "console": [
+      {
+        "type": "exception",
+        "text": "Navigation timeout of 30000 ms exceeded"
+      }
+    ],
     "screenshot": null
   },
   "/authors/[slug]": {
@@ -232,8 +1813,13 @@
     "screenshot": null
   },
   "/podcast/[slug]": {
-    "status": "no-slug",
-    "console": [],
+    "status": "error",
+    "console": [
+      {
+        "type": "exception",
+        "text": "Navigation timeout of 30000 ms exceeded"
+      }
+    ],
     "screenshot": null
   },
   "/video/[slug]": {

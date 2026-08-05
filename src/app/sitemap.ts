@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-import { categories } from "@/constants/categories";
+import { categoriesList } from "@/constants/categories";
 import { siteConfig } from "@/config/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,8 +14,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const categoryRoutes: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `${siteConfig.url}/${category.slug}`,
+  const categoryRoutes: MetadataRoute.Sitemap = categoriesList.map((category) => ({
+    url: `${siteConfig.url}${category.href}`,
     lastModified,
     changeFrequency: "daily",
     priority: 0.8,

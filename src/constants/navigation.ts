@@ -1,41 +1,47 @@
-import type { SiteCategory } from "@/config/site";
-
-export type NavItem = {
+export interface NavItem {
   label: string;
   href: string;
-  category?: SiteCategory;
-};
+  category?: string;
+  isBadge?: string;
+}
 
-export const primaryNavigation: NavItem[] = [
-  { label: "Real Estate", href: "/real-estate", category: "real-estate" },
-  { label: "Insurance", href: "/insurance", category: "insurance" },
-  { label: "Credit", href: "/credit", category: "credit" },
-  { label: "Investments", href: "/investments", category: "investments" },
+export const mainNavigation: NavItem[] = [
+  { label: "News", href: "/news", category: "news" },
+  { label: "Markets", href: "/markets", category: "markets" },
   { label: "Business", href: "/business", category: "business" },
-  { label: "Luxury", href: "/luxury", category: "luxury" },
+  { label: "Real Estate", href: "/real-estate", category: "real-estate" },
+  { label: "Investments", href: "/investments", category: "investments" },
+  { label: "Finance", href: "/finance", category: "finance" },
+  { label: "Companies", href: "/companies", category: "companies" },
+  { label: "Calendar", href: "/calendar", category: "calendar" },
+  { label: "AiX Radio", href: "/radio", category: "radio", isBadge: "LIVE" },
+  { label: "AiX TV", href: "/tv", category: "tv", isBadge: "HD" },
+  { label: "Podcasts", href: "/podcasts", category: "podcasts" },
+  { label: "Academy", href: "/academy", category: "academy" },
 ];
 
 export const footerNavigation = {
-  sections: [
-    {
-      title: "Sections",
-      items: primaryNavigation,
-    },
-    {
-      title: "Company",
-      items: [
-        { label: "About", href: "/about" },
-        { label: "Contact", href: "/contact" },
-        { label: "Advertise", href: "/advertise" },
-      ],
-    },
-    {
-      title: "Legal",
-      items: [
-        { label: "Privacy Policy", href: "/privacy" },
-        { label: "Terms of Service", href: "/terms" },
-        { label: "Cookie Policy", href: "/cookies" },
-      ],
-    },
+  media: [
+    { label: "Breaking Intelligence", href: "/news" },
+    { label: "Market Dashboard", href: "/markets" },
+    { label: "AiX Radio 24/7", href: "/radio" },
+    { label: "AiX TV Broadcasts", href: "/tv" },
+    { label: "Executive Podcasts", href: "/podcasts" },
   ],
-} as const;
+  intelligence: [
+    { label: "Real Estate Analysis", href: "/real-estate" },
+    { label: "Investment & Wealth", href: "/investments" },
+    { label: "Corporate Business", href: "/business" },
+    { label: "Finance & Rates", href: "/finance" },
+    { label: "Company Profiles", href: "/companies" },
+    { label: "Macro Calendar", href: "/calendar" },
+    { label: "Editorial Board", href: "/authors" },
+    { label: "Intelligence Academy", href: "/academy" },
+  ],
+  company: [
+    { label: "About AiX Media", href: "/news" },
+    { label: "Editorial Standards", href: "/news" },
+    { label: "Executive Briefings", href: "/#newsletter" },
+    { label: "FT Terminal Search", href: "/search" },
+  ],
+};

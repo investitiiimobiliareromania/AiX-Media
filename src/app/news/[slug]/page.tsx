@@ -1,156 +1,149 @@
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { ArticleGrid } from "@/components/editorial/ArticleGrid";
-import { NewsletterBlock } from "@/components/editorial/NewsletterBlock";
-import { TableOfContents } from "@/components/editorial/TableOfContents";
-import { generateNewsArticleSchema, estimateReadTime } from "@/lib/seo-helpers";
-import { FaFacebook, FaTwitter, FaLinkedin, FaLink } from "react-icons/fa";
-import type { Metadata } from "next";
+import { type Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getArticleBySlug, getAllArticles } from "@/lib/media/service";
+import { ArticleCard } from "@/components/media/ArticleCard";
+import { NewsletterBox } from "@/components/media/NewsletterBox";
+import { Clock, Calendar, ArrowLeft, Share2, ShieldCheck } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Evoluția dobânzilor în 2026: Ce anticipează analiștii | Cristian Văduva",
-  description: "O analiză detaliată a politicii monetare globale și a impactului acesteia asupra piețelor locale de creditare și real estate.",
-  alternates: {
-    canonical: "https://cristianvaduva.com/news/evolutia-dobanzilor-2026",
-  },
-  openGraph: {
-    title: "Evoluția dobânzilor în 2026",
-    description: "Analiză macroeconomică detaliată.",
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Evoluția dobânzilor în 2026",
-    description: "Analiză macroeconomică detaliată.",
-  },
-};
+interface ArticlePageProps {
+  params: Promise<{ slug: string }>;
+}
 
-const articleBody = `Piața financiară globală traversează o perioadă de transformare profundă. După ani de politici monetare expansioniste, băncile centrale au recalibrat agresiv ratele dobânzilor pentru a tempera inflația. Acum, în 2026, ne aflăm într-un punct de inflexiune.
+export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
-## Ce spun cifrele?
-Indicatorii macroeconomici sugerează o stabilizare. ROBOR și IRCC reflectă aceste schimbări, impactând direct costul finanțării pentru companii și persoane fizice. Este esențial ca investitorii să înțeleagă dinamica acestor indicatori pentru a-și optimiza portofoliile.
+  if (!article) {
+    return { title: "Article Not Found | AiX Media" };
+  }
 
-> "Nu poți controla direcția vântului, dar poți ajusta pânzele." – Principiu fundamental în managementul riscului.
+  return {
+    title: `${article.title} | AiX Media`,
+    description: article.excerpt,
+    alternates: { canonical: `/news/${article.slug}` },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: "article",
+      publishedTime: article.publishedAt,
+      authors: [article.authorName],
+      images: [article.coverImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.coverImage],
+    },
+  };
+}
 
-În sectorul imobiliar, costul ridicat al creditării a determinat o migrare către achizițiile cash în segmentul de lux, unde randamentele din chirii rămân atractive.
+export default async function ArticleDetailPage({ params }: ArticlePageProps) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
-## Concluzii pentru investitori
-Adaptabilitatea este cheia. Diversificarea portofoliului, utilizarea instrumentelor de hedging (cum ar fi asigurările financiare) și monitorizarea atentă a deciziilor de politică monetară sunt pași critici în acest mediu economic.`;
+  if (!article) {
+    notFound();
+  }
 
-const jsonLd = generateNewsArticleSchema({
-  title: "Evoluția dobânzilor în 2026: Ce anticipează analiștii și cum te poți pregăti.",
-  description: "O analiză detaliată a politicii monetare globale și a impactului acesteia asupra piețelor locale de creditare și real estate.",
-  slug: "evolutia-dobanzilor-2026",
-  authorName: "Cristian Văduva",
-  categoryName: "Macroeconomie",
-});
-
-const relatedArticles = [
-  {
-    category: "Investiții",
-    title: "Cum să îți diversifici portofoliul în 2026",
-    excerpt: "Strategii eficiente pentru minimizarea riscului.",
-    date: "Azi",
-    href: "/news/diversificare-portofoliu-2026",
-  },
-  {
-    category: "Real Estate",
-    title: "Noile tendințe în arhitectura rezidențială",
-    excerpt: "Sustenabilitate și integrare tehnologică.",
-    date: "Ieri",
-    href: "/news/tendinte-arhitectura-rezidentiala",
-  },
-];
-
-export default function ArticlePage() {
-  const readTime = estimateReadTime(articleBody);
+  const related = getAllArticles()
+    .filter((a) => a.id !== article.id)
+    .slice(0, 3);
 
   return (
-    <>
-      {/* Schema.org NewsArticle JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <article className="max-w-4xl mx-auto space-y-10 py-6">
+      {/* Top Nav Back Link */}
+      <div className="flex items-center justify-between font-mono text-xs text-neutral-400">
+        <Link href="/news" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Intelligence Feed
+        </Link>
+        <span className="px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase font-semibold">
+          {article.categoryLabel}
+        </span>
+      </div>
 
-      <Navbar />
-      <main className="flex-1 pt-[72px]">
-        {/* Article Hero */}
-        <article>
-          <header className="container mx-auto px-4 md:px-6 py-12 md:py-24 max-w-4xl">
-            <div className="mb-6 text-sm font-bold uppercase tracking-widest text-red-600">
-              Macroeconomie
-            </div>
-            <h1 className="text-4xl md:text-6xl font-heading font-extrabold tracking-tight text-balance leading-[1.1] mb-6 text-foreground">
-              Evoluția dobânzilor în 2026: Ce anticipează analiștii și cum te poți pregăti.
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground text-pretty mb-8 leading-relaxed font-medium">
-              O analiză detaliată a politicii monetare globale și a impactului acesteia asupra piețelor locale de creditare și real estate.
-            </p>
-            <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-y border-border gap-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-foreground rounded-full" />
-                <div>
-                  <div className="font-bold text-foreground">Cristian Văduva</div>
-                  <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">
-                    23 Iulie 2026 • {readTime}
-                  </div>
-                </div>
+      {/* Title & Excerpt */}
+      <div className="space-y-4 text-center md:text-left">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+          {article.title}
+        </h1>
+        <p className="text-base sm:text-lg text-neutral-300 leading-relaxed font-serif italic">
+          {article.excerpt}
+        </p>
+
+        <div className="pt-4 border-t border-b border-neutral-800 py-3 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-neutral-400">
+          <div className="flex items-center gap-3">
+            {article.authorAvatar && (
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-neutral-700">
+                <Image src={article.authorAvatar} alt={article.authorName} fill className="object-cover" />
               </div>
-              <div className="flex items-center gap-4 text-muted-foreground">
-                <button className="hover:text-foreground transition-colors p-2"><FaFacebook className="w-5 h-5" /></button>
-                <button className="hover:text-foreground transition-colors p-2"><FaTwitter className="w-5 h-5" /></button>
-                <button className="hover:text-foreground transition-colors p-2"><FaLinkedin className="w-5 h-5" /></button>
-                <button className="hover:text-foreground transition-colors p-2"><FaLink className="w-5 h-5" /></button>
-              </div>
-            </div>
-          </header>
-
-          {/* Hero Image */}
-          <div className="w-full aspect-[21/9] bg-muted flex items-center justify-center border-y border-border overflow-hidden">
-             <div className="w-full h-full bg-[#0a0a0a] flex items-center justify-center text-white/10 font-heading font-black text-9xl tracking-tighter">
-               DATA
-             </div>
-          </div>
-
-          {/* Article Body */}
-          <div className="container mx-auto px-4 md:px-6 py-16 md:py-24">
-            <div className="max-w-prose mx-auto">
-              {/* Dynamic Table of Contents */}
-              <TableOfContents content={articleBody} />
-
-              <div className="prose prose-lg md:prose-xl prose-headings:font-heading prose-headings:font-bold prose-p:text-foreground/80 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
-                <p>
-                  Piața financiară globală traversează o perioadă de transformare profundă. După ani de politici monetare expansioniste, băncile centrale au recalibrat agresiv ratele dobânzilor pentru a tempera inflația. Acum, în 2026, ne aflăm într-un punct de inflexiune.
-                </p>
-                <h2 id="ce-spun-cifrele">Ce spun cifrele?</h2>
-                <p>
-                  Indicatorii macroeconomici sugerează o stabilizare. ROBOR și IRCC reflectă aceste schimbări, impactând direct costul finanțării pentru companii și persoane fizice. Este esențial ca investitorii să înțeleagă dinamica acestor indicatori pentru a-și optimiza portofoliile.
-                </p>
-                <blockquote>
-                  “Nu poți controla direcția vântului, dar poți ajusta pânzele.” – Principiu fundamental în managementul riscului.
-                </blockquote>
-                <p>
-                  În sectorul imobiliar, costul ridicat al creditării a determinat o migrare către achizițiile cash în segmentul de lux, unde randamentele din chirii rămân atractive.
-                </p>
-                <h2 id="concluzii-pentru-investitori">Concluzii pentru investitori</h2>
-                <p>
-                  Adaptabilitatea este cheia. Diversificarea portofoliului, utilizarea instrumentelor de hedging (cum ar fi asigurările financiare) și monitorizarea atentă a deciziilor de politică monetară sunt pași critici în acest mediu economic.
-                </p>
-              </div>
+            )}
+            <div>
+              <div className="text-white font-medium">{article.authorName}</div>
+              <div className="text-[10px] text-amber-400">{article.authorRole || "Editorial Team"}</div>
             </div>
           </div>
-        </article>
 
-        {/* Related Stories & Newsletter */}
-        <div className="bg-muted/30 border-t border-border">
-          <ArticleGrid title="Articole Recomandate" articles={relatedArticles} />
-          <div className="container mx-auto px-4 md:px-6 pb-24">
-             <NewsletterBlock />
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5 text-neutral-500" />
+              {article.publishedAt}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              {article.readTime}
+            </span>
           </div>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+
+      {/* Main Cover Image */}
+      <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl bg-neutral-950">
+        <Image src={article.coverImage} alt={article.title} fill priority className="object-cover" />
+      </div>
+
+      {/* Article Content */}
+      <div className="prose prose-invert prose-amber max-w-none text-neutral-300 leading-relaxed space-y-6 text-sm sm:text-base">
+        <p>{article.content}</p>
+        <p>
+          Romanian market dynamics continue to demonstrate structural resilience across primary assets. As capital flows shift toward higher-yielding opportunities in Central &amp; Eastern Europe, institutional decision-makers are placing higher emphasis on transparent macroeconomic data, regulatory foresight, and long-term infrastructure investment.
+        </p>
+        <blockquote className="p-4 rounded-xl bg-neutral-900 border-l-4 border-amber-400 text-white font-semibold my-6 not-italic">
+          &ldquo;Signal accuracy and deep regional context are essential when evaluating market expansion in Central &amp; Eastern Europe.&rdquo;
+        </blockquote>
+        <p>
+          AiX Media analysts will continue to monitor rate trajectories, corporate earnings disclosures, and transaction flows across all major financial sectors.
+        </p>
+      </div>
+
+      {/* Author Box */}
+      <div className="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 flex items-center gap-4">
+        {article.authorAvatar && (
+          <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 border border-amber-500/40">
+            <Image src={article.authorAvatar} alt={article.authorName} fill className="object-cover" />
+          </div>
+        )}
+        <div>
+          <h4 className="text-sm font-bold text-white">{article.authorName}</h4>
+          <p className="text-xs text-amber-400 font-mono">{article.authorRole || "Senior Media Analyst"}</p>
+          <p className="text-xs text-neutral-400 mt-1">Specializing in macroeconomic policy, institutional capital allocation, and CEE market intelligence.</p>
+        </div>
+      </div>
+
+      {/* Related Articles */}
+      <div className="pt-8 space-y-6 border-t border-neutral-800">
+        <h3 className="text-xl font-bold text-white">Related Intelligence Investigations</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {related.map((rel) => (
+            <ArticleCard key={rel.id} article={rel} />
+          ))}
+        </div>
+      </div>
+
+      <NewsletterBox />
+    </article>
   );
 }

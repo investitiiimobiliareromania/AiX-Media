@@ -1,76 +1,87 @@
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { ArticleGrid } from "@/components/editorial/ArticleGrid";
-import { FaLinkedin, FaTwitter, FaGlobe } from "react-icons/fa";
-import type { Metadata } from "next";
+import { type Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getAuthorBySlug, getAllArticles } from "@/lib/media/service";
+import { ArticleCard } from "@/components/media/ArticleCard";
+import { NewsletterBox } from "@/components/media/NewsletterBox";
+import { ArrowLeft, ShieldCheck, BookOpen } from "lucide-react";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+interface AuthorDetailPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: AuthorDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://cristianvaduva.com';
+  const author = getAuthorBySlug(slug);
+
+  if (!author) {
+    return { title: "Author Profile Not Found | AiX Media" };
+  }
+
   return {
-    title: `Profil Autor | Cristian Văduva`,
-    description: `Articole și analize scrise de autor.`,
-    alternates: {
-      canonical: `${domain}/authors/${slug}`,
-    },
+    title: `${author.name} (${author.role}) | AiX Media`,
+    description: author.bio,
+    alternates: { canonical: `/authors/${author.slug}` },
   };
 }
 
-const authorArticles = [
-  {
-    category: "Macroeconomie",
-    title: "Evoluția dobânzilor în 2026: Ce anticipează BNR",
-    excerpt: "Analiză detaliată a politicii monetare și impactul asupra creditării.",
-    date: "Azi",
-    href: "/news/evolutie-dobanzi-2026",
-  },
-  {
-    category: "Real Estate",
-    title: "Piața de birouri din București își revine spectaculos",
-    excerpt: "Tranzacțiile de închiriere au atins un nou record în trimestrul III.",
-    date: "Ieri",
-    href: "/news/piata-birouri-bucuresti",
-  },
-];
+export default async function AuthorDetailPage({ params }: AuthorDetailPageProps) {
+  const { slug } = await params;
+  const author = getAuthorBySlug(slug);
 
-export default function AuthorPage() {
+  if (!author) {
+    notFound();
+  }
+
+  const authorArticles = getAllArticles().slice(0, 3);
+
   return (
-    <>
-      <Navbar />
-      <main className="flex-1 pt-[72px]">
-        {/* Author Profile Header */}
-        <section className="bg-foreground text-background pt-32 pb-16 md:pt-40 md:pb-24 border-b border-border">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="max-w-4xl flex flex-col md:flex-row items-start gap-8">
-              <div className="w-24 h-24 md:w-32 md:h-32 bg-white/10 rounded-full border-2 border-white/20 flex items-center justify-center font-heading font-black text-3xl md:text-5xl text-white">
-                CV
-              </div>
-              <div>
-                <div className="mb-4 inline-flex items-center gap-2 border border-white/20 px-3 py-1 bg-white/5 text-xs font-bold uppercase tracking-widest text-white/60">
-                  Senior Editorial Analyst
-                </div>
-                <h1 className="text-4xl md:text-6xl font-heading font-extrabold tracking-tight mb-4">
-                  Cristian Văduva
-                </h1>
-                <p className="text-lg md:text-xl text-white/60 font-medium text-pretty leading-relaxed mb-6 max-w-2xl">
-                  Fondator AiX OS. Expert în asigurări premium Generali, analize imobiliare de lux și optimizarea riscurilor financiare corporate.
-                </p>
-                <div className="flex items-center gap-4 text-white/60">
-                  <a href="#" className="hover:text-white transition-colors p-2"><FaLinkedin className="w-5 h-5" /></a>
-                  <a href="#" className="hover:text-white transition-colors p-2"><FaTwitter className="w-5 h-5" /></a>
-                  <a href="#" className="hover:text-white transition-colors p-2"><FaGlobe className="w-5 h-5" /></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+    <div className="max-w-4xl mx-auto space-y-10 py-6">
+      <div className="flex items-center justify-between font-mono text-xs text-neutral-400">
+        <Link href="/authors" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Editorial Board
+        </Link>
+        <span className="px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase font-semibold">
+          Verified Journalist
+        </span>
+      </div>
 
-        {/* Author Articles */}
-        <div className="container mx-auto px-4 md:px-6 py-16">
-          <ArticleGrid title="Articole Scrise de Cristian Văduva" articles={authorArticles} />
+      {/* Author Bio Banner */}
+      <div className="p-8 rounded-3xl bg-neutral-900/80 border border-neutral-800 flex flex-col md:flex-row items-center gap-6 shadow-2xl">
+        <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-amber-500/40 shrink-0">
+          <Image src={author.avatar} alt={author.name} fill className="object-cover" />
         </div>
-      </main>
-      <Footer />
-    </>
+        <div className="space-y-2 text-center md:text-left flex-1">
+          <h1 className="text-3xl font-black text-white">{author.name}</h1>
+          <p className="text-xs font-mono text-amber-400 font-semibold">{author.role}</p>
+          <p className="text-sm text-neutral-300 leading-relaxed">{author.bio}</p>
+
+          <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-2 font-mono text-[11px]">
+            {author.expertise.map((exp, i) => (
+              <span key={i} className="px-2.5 py-0.5 rounded bg-neutral-950 text-neutral-400 border border-neutral-800">
+                {exp}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Latest Articles by Author */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-bold text-white flex items-center gap-2 border-b border-neutral-800 pb-3">
+          <BookOpen className="w-5 h-5 text-amber-400" />
+          Latest Investigations & Reports
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {authorArticles.map((art) => (
+            <ArticleCard key={art.id} article={art} />
+          ))}
+        </div>
+      </section>
+
+      <NewsletterBox />
+    </div>
   );
 }

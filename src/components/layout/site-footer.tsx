@@ -1,91 +1,126 @@
+"use client";
+
+import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
-
-import { Logo } from "@/components/common/logo";
-import { Overline, Text } from "@/components/common/typography";
-import { Container } from "@/components/layout/container";
-import { Separator } from "@/components/ui/separator";
-import { siteConfig } from "@/config/site";
-import { categories } from "@/constants/categories";
 import { footerNavigation } from "@/constants/navigation";
-import { cn } from "@/lib/utils";
+import { Radio, Tv, Mail, ArrowRight, ShieldCheck, Globe, Award } from "lucide-react";
 
-type SiteFooterProps = {
-  className?: string;
-};
-
-export function SiteFooter({ className }: SiteFooterProps) {
-  const year = new Date().getFullYear();
-
+export function SiteFooter() {
   return (
-    <footer className={cn("mt-auto border-t border-border bg-surface/40", className)}>
-      <Container size="wide">
-        <div className="grid gap-12 py-12 lg:grid-cols-[1.2fr_1fr_1fr_1fr] lg:py-16">
-          <div className="space-y-6 lg:col-span-1">
-            <Logo showTagline />
-            <Text size="sm" tone="muted" className="max-w-sm">
-              {siteConfig.description}
-            </Text>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors hover:text-gold"
-            >
-              <Mail className="size-4" />
-              Contact editorial
+    <footer className="bg-[#030303] text-neutral-400 border-t border-neutral-800/80 pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-900">
+          {/* Brand Info */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center font-bold text-black text-2xl shadow-lg">
+                A
+              </div>
+              <div className="flex flex-col">
+                <span className="font-black text-2xl tracking-tight text-white uppercase">
+                  AiX <span className="text-amber-400 font-light">MEDIA</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
+                  Business & Intelligence Network
+                </span>
+              </div>
             </Link>
-          </div>
 
-          {footerNavigation.sections.map((section) => (
-            <div key={section.title} className="space-y-4">
-              <Overline className="text-[0.65rem]">{section.title}</Overline>
-              <ul className="space-y-3">
-                {section.items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {item.label}
-                      <ArrowUpRight className="size-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <p className="text-sm text-neutral-400 leading-relaxed max-w-md">
+              Romania&apos;s next-generation business and intelligence media platform. Delivering macroeconomic insights, capital markets analysis, real estate dynamics, broadcasting 24/7 on AiX Radio.
+            </p>
+
+            <div className="flex items-center gap-4 pt-2 text-xs text-neutral-400 font-mono">
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                Institutional Rigor
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Globe className="w-4 h-4 text-amber-400" />
+                CEE Coverage
+              </span>
             </div>
-          ))}
-        </div>
-
-        <Separator className="bg-border" />
-
-        <div className="grid gap-6 py-8 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {categories.map((category) => (
-              <Link
-                key={category.slug}
-                href={`/${category.slug}`}
-                className="text-xs tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:text-gold"
-              >
-                {category.label}
-              </Link>
-            ))}
           </div>
 
-          <p className="font-mono text-xs text-muted-foreground">
-            {siteConfig.url.replace("https://", "")}
-          </p>
+          {/* Media Links */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wider font-mono">
+              Media Products
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {footerNavigation.media.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-amber-400 transition-colors block py-0.5"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Intelligence Pillars */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wider font-mono">
+              Editorial Verticals
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {footerNavigation.intelligence.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="hover:text-amber-400 transition-colors block py-0.5"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Executive Newsletter Box */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-semibold text-white uppercase tracking-wider font-mono">
+              Executive Briefing
+            </h4>
+            <p className="text-xs text-neutral-400">
+              Receive private market intelligence reports before markets open.
+            </p>
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-2">
+              <input
+                type="email"
+                placeholder="executive@company.com"
+                className="w-full px-3 py-2 text-xs bg-neutral-900 border border-neutral-800 rounded focus:border-amber-400 focus:outline-none text-white"
+              />
+              <button
+                type="submit"
+                className="w-full py-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs rounded transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span>Subscribe Briefing</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </form>
+          </div>
         </div>
 
-        <Separator className="bg-border" />
-
-        <div className="flex flex-col gap-3 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {siteConfig.author}. All rights reserved.
-          </p>
-          <p className="text-xs tracking-wide uppercase">
-            {siteConfig.tagline}
-          </p>
+        {/* Bottom Credits & Copyright */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-400 font-mono">
+          <div>
+            © {new Date().getFullYear()} AiX Media Group. All rights reserved. Bloomberg-level analytical integrity.
+          </div>
+          <div className="flex items-center gap-6">
+            <Link href="/news" className="hover:text-amber-400">Privacy Policy</Link>
+            <Link href="/news" className="hover:text-amber-400">Terms of Service</Link>
+            <Link href="/news" className="hover:text-amber-400">Editorial Code</Link>
+          </div>
         </div>
-      </Container>
+      </div>
     </footer>
   );
+}
+
+export function Footer() {
+  return <SiteFooter />;
 }
