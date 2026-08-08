@@ -45,12 +45,12 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800/80 text-white w-full max-w-full box-border overflow-x-clip overflow-x-hidden">
       {/* Top Ticker / Market Bar */}
       <div className="bg-[#0a0a0a] border-b border-neutral-900 px-3 sm:px-4 py-1.5 text-xs text-neutral-400 overflow-x-hidden no-scrollbar w-full max-w-full">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 whitespace-nowrap min-w-0">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap overflow-hidden min-w-0">
           <div className="flex items-center gap-1.5 text-amber-400 font-semibold tracking-wider uppercase text-[10px] shrink-0">
             <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
             <span>AiX Terminal</span>
           </div>
-          <div className="flex items-center gap-4 overflow-x-auto no-scrollbar shrink min-w-0">
+          <div className="flex items-center gap-4 overflow-x-hidden no-scrollbar shrink min-w-0 flex-wrap">
             {markets.slice(0, 6).map((item) => (
               <div key={item.symbol} className="flex items-center gap-1.5 text-[11px]">
                 <span className="font-mono text-neutral-400 font-medium">{item.symbol}:</span>
