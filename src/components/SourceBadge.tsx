@@ -2,21 +2,24 @@ import React from "react";
 
 interface SourceBadgeProps {
   source?: string;
-  date?: string;
+  publishedAt?: string;
+  fetchedAt?: string;
+  isDelayed?: boolean;
   className?: string;
 }
 
-export function SourceBadge({ source, date, className = "" }: SourceBadgeProps) {
+export function SourceBadge({ source, publishedAt, fetchedAt, isDelayed, className = "" }: SourceBadgeProps) {
   if (!source) return null;
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-neutral-900/80 text-neutral-400 border border-neutral-800/60 font-mono text-[9px] uppercase tracking-wider ${className}`}>
-      <span>Source: {source}</span>
-      {date && (
-        <>
-          <span className="w-1 h-1 rounded-full bg-neutral-700" />
-          <span>{date}</span>
-        </>
+    <div className={`flex flex-col gap-0.5 text-neutral-500 font-mono text-[9px] uppercase tracking-wider ${className}`}>
+      <span className="text-neutral-400 font-semibold">Source: {source}</span>
+      {publishedAt && <span>Published: {publishedAt}</span>}
+      {fetchedAt && (
+        <span>
+          Fetched: {fetchedAt.includes("T") ? fetchedAt.split("T")[0] : fetchedAt}
+        </span>
       )}
-    </span>
+      {isDelayed && <span className="text-amber-500/70 font-semibold">Delayed</span>}
+    </div>
   );
 }

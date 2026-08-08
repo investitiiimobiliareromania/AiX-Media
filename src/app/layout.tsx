@@ -44,11 +44,15 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+import { getMarketData } from "@/lib/market-data";
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const marketSnapshot = await getMarketData();
+
   return (
     <html
       lang={siteConfig.language}
@@ -59,7 +63,7 @@ export default function RootLayout({
         <JsonLd data={organizationJsonLd} />
         <AppProviders>
           <SkipLink />
-          <NewSiteHeader />
+          <NewSiteHeader currencies={marketSnapshot.currencies} />
           <main id="main-content" className="flex-1">
             {children}
           </main>

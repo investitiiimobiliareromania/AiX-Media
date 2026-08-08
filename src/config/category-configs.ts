@@ -25,6 +25,9 @@ export interface IntelligenceMetric {
   isPositive?: boolean;
   source?: string;
   date?: string;
+  publishedAt?: string;
+  fetchedAt?: string;
+  isDelayed?: boolean;
 }
 
 export interface CategoryConfig {

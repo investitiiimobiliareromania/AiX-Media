@@ -10,6 +10,17 @@ const prohibitedPatterns = [
   /Dan\s+Radu/i,
   /Romania's\s+Bloomberg/i,
   /24\/7/i,
+  /Updated\s+Real-Time/i,
+  /Live\s+market\s+data/i,
+  /Live\s+BVB/i,
+  /Live\s+BNR/i,
+  /18,420\.5/i,
+  /4\.9765/i,
+  /4\.5830/i,
+  /5\.58%/i,
+  /2,348\.4/i,
+  /84\.72/i,
+  /2\.81/i,
 ];
 
 let issues = [];

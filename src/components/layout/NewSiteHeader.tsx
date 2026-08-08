@@ -9,12 +9,18 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { mainNavigation } from "@/constants/navigation";
 import { AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 
+import { MarketDataPoint } from "@/lib/market-data";
+
+interface NewSiteHeaderProps {
+  currencies?: MarketDataPoint[];
+}
+
 /**
  * Clean, robust responsive header implementation.
  * Mobile (<768px): logo, ecosystem button, menu button.
  * Desktop (>=768px): logo, navigation links, ecosystem button.
  */
-export function NewSiteHeader() {
+export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
   const pathname = usePathname();
 
   // Mobile state
@@ -173,6 +179,42 @@ export function NewSiteHeader() {
 
   return (
     <header className="relative z-50 w-full bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800/80 text-white">
+      {/* Header Ticker */}
+      <div className="bg-[#020202] border-b border-neutral-900 px-4 py-1.5 text-xs text-neutral-400 no-scrollbar w-full overflow-x-auto">
+        <div className="mx-auto flex items-center justify-between gap-4 max-w-[1600px] w-full">
+          <div className="flex items-center gap-1.5 text-amber-500 font-semibold uppercase text-[10px] tracking-wider shrink-0">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+            <span>Curs BNR</span>
+          </div>
+
+          <div className="flex items-center gap-6 overflow-x-auto no-scrollbar font-mono text-[11px]">
+            {currencies.length > 0 && currencies.every(c => c.value !== null) ? (
+              <>
+                {currencies.map((c) => (
+                  <div key={c.symbol} className="flex items-center gap-1.5 shrink-0">
+                    <span className="text-neutral-500">{c.symbol}</span>
+                    <span className="text-white font-bold">{c.value?.toFixed(4)}</span>
+                  </div>
+                ))}
+                <span className="text-[10px] text-neutral-500 shrink-0">
+                  Sursă: BNR • Publicat: {currencies[0]?.publishedAt || "N/A"}
+                </span>
+              </>
+            ) : (
+              <span className="text-neutral-500 font-bold text-amber-500/80">BNR • Market data unavailable</span>
+            )}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3 text-neutral-500 font-mono text-[9px] uppercase tracking-wider shrink-0">
+            <span>București</span>
+            <span>•</span>
+            <span>London</span>
+            <span>•</span>
+            <span>New York</span>
+          </div>
+        </div>
+      </div>
+
       {/* Inner container */}
       <div className="mx-auto flex w-full max-w-[1600px] min-w-0 items-center px-4 md:px-6 h-16">
         {/* Logo */}

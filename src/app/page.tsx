@@ -39,6 +39,8 @@ import {
   Search,
 } from "lucide-react";
 
+import { getMarketData } from "@/lib/market-data";
+
 export const metadata: Metadata = {
   title: "AiX Media | Business Intelligence & Capital Markets",
   description:
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
   const featuredArticles = getFeaturedArticles();
   const mainFeatured = featuredArticles[0] || getAllArticles()[0];
   const secondaryFeatured = featuredArticles.slice(1, 4);
@@ -63,15 +65,67 @@ export default function HomePage() {
   const companies = getAllCompanies();
   const events = getEconomicEvents();
 
+  const snapshot = await getMarketData();
+  const getMetric = (symbol: string) => {
+    const list = [
+      ...snapshot.currencies,
+      ...snapshot.interestRates,
+      ...snapshot.equities,
+      ...snapshot.commodities,
+    ];
+    return list.find(item => item.symbol === symbol);
+  };
+
+  const bet = getMetric("BET");
+  const eurRon = getMetric("EUR/RON");
+  const robor = getMetric("ROBOR 3M");
+  const ircc = getMetric("IRCC");
+
   const homepageMetrics = [
-    { label: "BVB BET Index", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "EUR / RON", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "ROBOR 3M", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "IRCC Benchmark", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "Prime RE Yield", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "PE Dry Powder", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "CPI Inflation", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
-    { label: "Business Confidence", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    {
+      label: "BVB BET Index",
+      value: bet && bet.value !== null ? bet.value.toString() : "Unavailable",
+      change: "",
+      subtext: bet && bet.value !== null ? "BVB Index" : "Connection offline",
+      isPositive: true,
+      source: "BVB",
+      publishedAt: bet?.publishedAt,
+      fetchedAt: bet?.fetchedAt || new Date().toISOString(),
+      isDelayed: bet?.isDelayed
+    },
+    {
+      label: "EUR / RON",
+      value: eurRon && eurRon.value !== null ? eurRon.value.toFixed(4) : "Unavailable",
+      change: "",
+      subtext: eurRon && eurRon.value !== null ? "BNR Reference Rate" : "Connection offline",
+      isPositive: true,
+      source: "BNR",
+      publishedAt: eurRon?.publishedAt,
+      fetchedAt: eurRon?.fetchedAt || new Date().toISOString(),
+      isDelayed: eurRon?.isDelayed
+    },
+    {
+      label: "ROBOR 3M",
+      value: robor && robor.value !== null ? `${robor.value}%` : "Unavailable",
+      change: "",
+      subtext: robor && robor.value !== null ? "Interbank Rate" : "Date oficiale indisponibile automat",
+      isPositive: true,
+      source: "BNR",
+      publishedAt: robor?.publishedAt,
+      fetchedAt: robor?.fetchedAt || new Date().toISOString(),
+      isDelayed: robor?.isDelayed
+    },
+    {
+      label: "IRCC Benchmark",
+      value: ircc && ircc.value !== null ? `${ircc.value}%` : "Unavailable",
+      change: "",
+      subtext: ircc && ircc.value !== null ? "Quarterly Benchmark" : "Sursă oficială: indisponibilă pentru preluare",
+      isPositive: true,
+      source: "BNR",
+      publishedAt: ircc?.publishedAt,
+      fetchedAt: ircc?.fetchedAt || new Date().toISOString(),
+      isDelayed: ircc?.isDelayed
+    },
   ];
 
   return (

@@ -168,31 +168,7 @@ Northern Bucharest remains the engine of high-end real estate transactions in Ro
   },
 ];
 
-export const marketItems: MarketItem[] = [
-  { symbol: "BET", name: "Bucharest Exchange Trading", value: "Unavailable", changeDaily: "", isPositive: true, category: "indices", status: "CLOSED" },
-  { symbol: "BET-TR", name: "BET Total Return Index", value: "Unavailable", changeDaily: "", isPositive: true, category: "indices", status: "CLOSED" },
-  { symbol: "BET-FI", name: "BET Financial Investment", value: "Unavailable", changeDaily: "", isPositive: true, category: "indices", status: "CLOSED" },
-  { symbol: "BET-NG", name: "BET Energy & Utilities", value: "Unavailable", changeDaily: "", isPositive: true, category: "indices", status: "CLOSED" },
-  { symbol: "EUR/RON", name: "Euro / Romanian Leu", value: "Unavailable", changeDaily: "", isPositive: true, category: "currencies", status: "CLOSED" },
-  { symbol: "USD/RON", name: "US Dollar / Romanian Leu", value: "Unavailable", changeDaily: "", isPositive: false, category: "currencies", status: "CLOSED" },
-  { symbol: "GBP/RON", name: "British Pound / Leu", value: "Unavailable", changeDaily: "", isPositive: true, category: "currencies", status: "CLOSED" },
-  { symbol: "CHF/RON", name: "Swiss Franc / Leu", value: "Unavailable", changeDaily: "", isPositive: true, category: "currencies", status: "CLOSED" },
-  { symbol: "ROBOR 3M", name: "Interbank Rate 3M", value: "Unavailable", changeDaily: "", isPositive: true, category: "rates", status: "CLOSED" },
-  { symbol: "ROBOR 6M", name: "Interbank Rate 6M", value: "Unavailable", changeDaily: "", isPositive: true, category: "rates", status: "CLOSED" },
-  { symbol: "IRCC", name: "Consumer Credit Benchmark", value: "Unavailable", changeDaily: "", isPositive: true, category: "rates", status: "CLOSED" },
-  { symbol: "BNR RATE", name: "National Bank Key Rate", value: "Unavailable", changeDaily: "", isPositive: true, category: "rates", status: "CLOSED" },
-  { symbol: "RO 10Y BOND", name: "Romanian Govt 10Y Bond", value: "Unavailable", changeDaily: "", isPositive: true, category: "bonds", status: "CLOSED" },
-  { symbol: "CPI INFLATION", name: "Romania Annual CPI", value: "Unavailable", changeDaily: "", isPositive: true, category: "rates", status: "CLOSED" },
-  { symbol: "XAU/USD", name: "Gold Spot", value: "Unavailable", changeDaily: "", isPositive: true, category: "commodities", status: "CLOSED" },
-  { symbol: "XAG/USD", name: "Silver Spot", value: "Unavailable", changeDaily: "", isPositive: true, category: "commodities", status: "CLOSED" },
-  { symbol: "BRENT", name: "Brent Crude Oil", value: "Unavailable", changeDaily: "", isPositive: false, category: "commodities", status: "CLOSED" },
-  { symbol: "NG", name: "Natural Gas (TTF)", value: "Unavailable", changeDaily: "", isPositive: true, category: "commodities", status: "CLOSED" },
-  { symbol: "BTC/USD", name: "Bitcoin", value: "Unavailable", changeDaily: "", isPositive: true, category: "crypto", status: "CLOSED" },
-  { symbol: "ETH/USD", name: "Ethereum", value: "Unavailable", changeDaily: "", isPositive: true, category: "crypto", status: "CLOSED" },
-  { symbol: "S&P 500", name: "S&P 500 Index", value: "Unavailable", changeDaily: "", isPositive: true, category: "global", status: "CLOSED" },
-  { symbol: "NASDAQ", name: "NASDAQ Composite", value: "Unavailable", changeDaily: "", isPositive: true, category: "global", status: "CLOSED" },
-  { symbol: "DAX", name: "DAX Performance Index", value: "Unavailable", changeDaily: "", isPositive: false, category: "global", status: "CLOSED" },
-];
+export const marketItems: MarketItem[] = [];
 
 export const radioShows: RadioShow[] = [
   {
@@ -490,15 +466,15 @@ export const aixBriefings: AiXBriefing[] = [
     title: "AiX Morning Intelligence Briefing: August 5, 2026",
     date: "2026-08-05",
     whatChanged: [
-      "BVB BET index posted a 2.3% gain, breaking past 18,420 points driven by energy listings.",
-      "ROBOR 3M dropped to 5.58%, signaling further interbank rate stabilization.",
-      "FDI figures released by BNR show a 14% year-on-year increase in private capital deployment.",
+      "BVB BET index posted a gain driven by energy listings.",
+      "ROBOR 3M dropped, signaling further interbank rate stabilization.",
+      "FDI figures released by BNR show a year-on-year increase in private capital deployment.",
     ],
     whyItMatters: [
       "Equities are outperforming CEE regional peers, attracting increased Western European institutional flows.",
       "Falling interbank rates ease debt service burdens for corporate borrowers and mortgage holders.",
       "Long-term FDI confidence validates Romania's infrastructure and renewable energy convergence trajectory.",
     ],
-    marketRecap: "Markets opened bullish across BVB indices. EUR/RON remains firmly pegged at 4.9765.",
+    marketRecap: "Markets opened bullish across BVB indices. EUR/RON remains stable.",
   },
 ];
