@@ -21,6 +21,8 @@ const prohibitedPatterns = [
   /2,348\.4/i,
   /84\.72/i,
   /2\.81/i,
+  /Real-Time\s+BVB/i,
+  /Real-Time\s+BNR/i,
 ];
 
 let issues = [];
@@ -34,7 +36,7 @@ function searchFile(filePath) {
     const content = fs.readFileSync(filePath, 'utf8');
     prohibitedPatterns.forEach(pat => {
       if (pat.test(content)) {
-        issues.push(`${filePath}: matches ${pat}`);
+        issues.push(`${filePath}: matches prohibited pattern ${pat}`);
       }
     });
   } catch (error) {
@@ -62,16 +64,59 @@ function walk(dir) {
   }
 }
 
-// targetDir will be 'src' when run from the root, or we can target the 'src' directory relative to repository root
-// Since we run the script as 'node ./src/scripts/content-integrity-check.js', process.cwd() is the repository root.
+// 1. Walk through the src directory to check for prohibited patterns
 const targetDir = path.join(process.cwd(), 'src');
 walk(targetDir);
+
+// 2. Verify BVB Companies dataset for provenance metadata
+const bvbDataPath = path.join(process.cwd(), 'src/lib/bvb-data.ts');
+if (fs.existsSync(bvbDataPath)) {
+  const fileContent = fs.readFileSync(bvbDataPath, 'utf8');
+  
+  // Verify BVB Companies have source, sourceUrl, reportedAt, retrievedAt, and isin
+  const entries = fileContent.split('id: "comp-');
+  for (let i = 1; i < entries.length; i++) {
+    const entry = entries[i];
+    const tickerMatch = entry.match(/symbol:\s*"([^"]+)"/);
+    const ticker = tickerMatch ? tickerMatch[1] : `Entry #${i}`;
+    
+    if (!entry.includes('source:')) {
+      issues.push(`BVB Data Integrity: ${ticker} is missing 'source' metadata.`);
+    }
+    if (!entry.includes('sourceUrl:')) {
+      issues.push(`BVB Data Integrity: ${ticker} is missing 'sourceUrl' metadata.`);
+    }
+    if (!entry.includes('reportedAt:')) {
+      issues.push(`BVB Data Integrity: ${ticker} is missing 'reportedAt' metadata.`);
+    }
+    if (!entry.includes('retrievedAt:')) {
+      issues.push(`BVB Data Integrity: ${ticker} is missing 'retrievedAt' metadata.`);
+    }
+    if (!entry.includes('isin:')) {
+      issues.push(`BVB Data Integrity: ${ticker} is missing 'isin' metadata.`);
+    }
+  }
+} else {
+  issues.push(`BVB Data Integrity: bvb-data.ts was not found at ${bvbDataPath}`);
+}
+
+// 3. Verify that there are no "Live" or "Real-Time" claims in market-data.ts
+const marketDataPath = path.join(process.cwd(), 'src/lib/market-data.ts');
+if (fs.existsSync(marketDataPath)) {
+  const content = fs.readFileSync(marketDataPath, 'utf8');
+  if (/live/i.test(content) && !/status:\s*"live"/i.test(content) && !/isDelayed/i.test(content)) {
+    // Avoid false positives on structural parameters, but flag fake labels
+    if (content.includes('label: "Live"') || content.includes('title: "Live"')) {
+      issues.push(`Market Data Integrity: Prohibited 'Live' label found in market-data.ts`);
+    }
+  }
+}
 
 if (issues.length > 0) {
   console.error('Content integrity issues found:');
   issues.forEach(i => console.error(i));
   process.exit(1);
 } else {
-  console.log('No content integrity issues found.');
+  console.log('No content integrity issues found. BVB company provenance check passed.');
   process.exit(0);
 }

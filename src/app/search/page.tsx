@@ -6,6 +6,8 @@ import { getAllArticles, getTvVideos, getPodcastEpisodes, getAllCompanies } from
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { Search, Compass, Building2, Mic, Film, TrendingUp } from "lucide-react";
 
+import { BvbCompanyProfile } from "@/lib/bvb-data";
+
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const allArticles = getAllArticles();
@@ -25,7 +27,9 @@ export default function SearchPage() {
     ? companies.filter(
         (c) =>
           c.name.toLowerCase().includes(query.toLowerCase()) ||
-          c.symbol.toLowerCase().includes(query.toLowerCase())
+          c.symbol.toLowerCase().includes(query.toLowerCase()) ||
+          ((c as unknown as BvbCompanyProfile).isin && (c as unknown as BvbCompanyProfile).isin.toLowerCase().includes(query.toLowerCase())) ||
+          (c.sector && c.sector.toLowerCase().includes(query.toLowerCase()))
       )
     : companies;
 
