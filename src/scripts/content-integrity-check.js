@@ -23,6 +23,14 @@ const prohibitedPatterns = [
   /2\.81/i,
   /Real-Time\s+BVB/i,
   /Real-Time\s+BNR/i,
+  /Lorem\s+ipsum/i,
+  /TODO/i,
+  /FIXME/i,
+  /Bloomberg-style/i,
+  /FT\s+Terminal/i,
+  /example\.com/i,
+  /fake\s+expert/i,
+  /fake\s+journalist/i,
 ];
 
 let issues = [];

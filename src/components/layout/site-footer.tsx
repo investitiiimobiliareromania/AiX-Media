@@ -229,6 +229,7 @@ export function SiteFooter() {
             <Link href="/contact" className="hover:text-amber-400">Contact Desk</Link>
             <Link href="/privacy" className="hover:text-amber-400">Privacy Policy</Link>
             <Link href="/cookies" className="hover:text-amber-400">Cookie Policy</Link>
+            <Link href="/gdpr" className="hover:text-amber-400">GDPR</Link>
             <Link href="/terms" className="hover:text-amber-400">Terms of Use</Link>
             <Link href="/legal" className="hover:text-amber-400">Legal Notice</Link>
           </div>
