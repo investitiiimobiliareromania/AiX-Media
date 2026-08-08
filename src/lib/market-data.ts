@@ -19,7 +19,7 @@ export type MarketDataSnapshot = {
   commodities: MarketDataPoint[];
 };
 
-const BNR_XML_URL = "https://www.bnr.ro/23988-cursurile-pietei-valutare-in-format-xml";
+const BNR_XML_URL = "https://curs.bnr.ro/nbrfxrates.xml";
 
 interface CacheEntry {
   snapshot: MarketDataSnapshot;
