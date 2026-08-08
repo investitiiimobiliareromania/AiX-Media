@@ -53,7 +53,7 @@ export const categoriesList: CategoryInfo[] = [
     slug: "radio",
     label: "AiX Business Radio",
     name: "AiX Radio",
-    description: "24/7 business commentary, live interviews, market updates, and executive podcasts.",
+    description: "Business commentary, live interviews, market updates, and executive podcasts.",
     href: "/radio",
   },
   {

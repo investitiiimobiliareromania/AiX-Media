@@ -72,6 +72,8 @@ export interface MarketItem {
   category: "indices" | "currencies" | "commodities" | "rates" | "crypto" | "global" | "bonds";
   status: "OPEN" | "CLOSED";
   chartPoints?: number[];
+  source?: string;
+  date?: string;
 }
 
 export interface Company {

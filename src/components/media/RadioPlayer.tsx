@@ -31,7 +31,7 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
           
           <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-rose-600 text-white text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg animate-pulse">
             <span className="w-2 h-2 rounded-full bg-white"></span>
-            ON AIR • 24/7
+            ON AIR
           </div>
         </div>
 

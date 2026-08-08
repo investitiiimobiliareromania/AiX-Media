@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "AiX Media | Romania's Bloomberg - Business Intelligence & Capital Markets",
+  title: "AiX Media | Business Intelligence & Capital Markets",
   description:
     "Digital headquarters of Romania's next generation business intelligence network. Live market terminal, BVB indices, macroeconomics, real estate intelligence, radio and video journalism.",
   alternates: { canonical: "/" },
@@ -86,10 +86,10 @@ export default function HomePage() {
           <div className="flex items-center gap-4 text-xs text-neutral-400 font-mono">
             <Link href="/search" className="flex items-center gap-1 text-neutral-300 hover:text-amber-400">
               <Search className="w-3.5 h-3.5" />
-              <span>FT Terminal Search</span>
+              <span>AiX Terminal Search</span>
             </Link>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline">Updated Real-Time</span>
+            <span className="hidden sm:inline">Periodic Updates</span>
           </div>
         </div>
 
@@ -118,7 +118,7 @@ export default function HomePage() {
       <IntelligenceDashboard
         metrics={homepageMetrics.slice(0, 4)}
         title="Romania & CEE Market Intelligence Dashboard"
-        description="Real-time macro indicators, capital markets, interest rates, and institutional benchmarks."
+        description="Business commentary, live interviews, market updates, and executive podcasts."
       />
 
       {/* 5. Top Editorial Investigations Grid */}
@@ -289,10 +289,10 @@ export default function HomePage() {
           <div>
             <div className="text-xs font-mono uppercase text-amber-400 font-semibold tracking-wider flex items-center gap-1.5">
               <Mic className="w-4 h-4" />
-              Executive Audio
+              AiX Live Audio
             </div>
             <h2 className="text-2xl font-black text-white tracking-tight mt-0.5">
-              Podcasts: Strategic Dialogues & Masterclasses
+              Broadcasting Live: Strategic Dialogues & Masterclasses
             </h2>
           </div>
           <Link href="/podcasts" className="text-xs font-mono text-amber-400 hover:underline flex items-center gap-1">

@@ -25,7 +25,7 @@ export const footerNavigation = {
   media: [
     { label: "Breaking Intelligence", href: "/news" },
     { label: "Market Dashboard", href: "/markets" },
-    { label: "AiX Radio 24/7", href: "/radio" },
+    { label: "AiX Radio", href: "/radio" },
     { label: "AiX TV Broadcasts", href: "/tv" },
     { label: "Executive Podcasts", href: "/podcasts" },
   ],

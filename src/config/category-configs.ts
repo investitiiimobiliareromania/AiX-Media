@@ -23,6 +23,8 @@ export interface IntelligenceMetric {
   change?: string;
   subtext: string;
   isPositive?: boolean;
+  source?: string;
+  date?: string;
 }
 
 export interface CategoryConfig {
@@ -209,7 +211,7 @@ export const categoryConfigs: Record<CategorySlug, CategoryConfig> = {
   "radio": {
     slug: "radio",
     title: "AiX Business Radio",
-    eyebrow: "AiX Live Audio 24/7",
+    eyebrow: "AiX Live Audio",
     headline: "Continuous business news, market commentary & executive interviews.",
     description:
       "Broadcasted live to decision-makers. Featuring morning market briefings, midday executive roundtables, and evening analysis.",

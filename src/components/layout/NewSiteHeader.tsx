@@ -1,65 +1,168 @@
+// src/components/layout/NewSiteHeader.tsx
 "use client";
-import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { Search, Menu, X, ChevronDown } from 'lucide-react';
-import Link from 'next/link';
 
-// Canonical ecosystem nodes
-const ECOSYSTEM_NODES = [
-  { name: 'AiX OS', url: 'https://os.cristianvaduva.com' },
-  { name: 'AiX Health', url: 'https://health.cristianvaduva.com' },
-  { name: 'Subvenții', url: 'https://subventii.cristianvaduva.com' },
-  { name: 'HomeFind', url: 'https://homefind.cristianvaduva.com' },
-  { name: 'CV Finance / Credite', url: 'https://credite.cristianvaduva.com' },
-  { name: 'Insurance', url: 'https://insurance.cristianvaduva.com' },
-  { name: 'Cristian Văduva', url: 'https://cristianvaduva.com' },
-  { name: 'AiX Luxury', url: 'https://aixluxury.com' },
-  { name: 'Market Pulse', url: 'https://cristianvaduva.com/market-pulse' },
-];
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { mainNavigation } from "@/constants/navigation";
+import { AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 
+/**
+ * Clean, robust responsive header implementation.
+ * Mobile (<768px): logo, ecosystem button, menu button.
+ * Desktop (>=768px): logo, navigation links, ecosystem button.
+ */
 export function NewSiteHeader() {
+  const pathname = usePathname();
+
+  // Mobile state
   const [menuOpen, setMenuOpen] = useState(false);
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
 
-  // Global Escape handler
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setMenuOpen(false);
-        setEcosystemOpen(false);
-      }
-    };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
-  }, []);
+  // Desktop ecosystem dropdown state
+  const [ecosystemDesktopOpen, setEcosystemDesktopOpen] = useState(false);
 
-  // Body scroll lock for mobile menu
+  // Body scroll lock when mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
-  // Click‑outside for desktop ecosystem dropdown
+  // Escape key closes any open overlay
   useEffect(() => {
-    if (!ecosystemOpen) return;
-    const clickHandler = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest('#ecosystem-panel') && !target.closest('#ecosystem-button')) {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
         setEcosystemOpen(false);
+        setEcosystemDesktopOpen(false);
       }
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  }, [ecosystemOpen]);
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
+
+  // Click‑outside for desktop ecosystem dropdown
+  useEffect(() => {
+    if (!ecosystemDesktopOpen) return;
+    const clickHandler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("#desktop-ecosystem-button") && !target.closest("#desktop-ecosystem-panel")) {
+        setEcosystemDesktopOpen(false);
+      }
+    };
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
+  }, [ecosystemDesktopOpen]);
+
+  /** Helper to render navigation links */
+  const renderNavLinks = () =>
+    mainNavigation.map((item) => {
+      const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+      return (
+        <Link
+          key={item.href}
+          href={item.href}
+          className={`px-2.5 py-1.5 rounded-md text-sm font-medium flex items-center gap-1 min-h-[36px] ${
+            isActive
+              ? "text-amber-400 bg-amber-500/10 border border-amber-500/20"
+              : "text-neutral-300 hover:text-white hover:bg-neutral-900"
+          }`}
+        >
+          {item.label}
+          {item.isBadge && (
+            <span
+              className={`text-[8px] px-1 py-0.5 rounded font-mono font-bold uppercase tracking-wider ${
+                item.isBadge === "LIVE"
+                  ? "bg-rose-500/20 text-rose-400 border border-rose-500/30 animate-pulse"
+                  : "bg-amber-400/20 text-amber-300 border border-amber-400/30"
+              }`}
+            >
+              {item.isBadge}
+            </span>
+          )}
+        </Link>
+      );
+    });
+
+  /** Helper to render mobile menu portal */
+  const renderMobileMenu = () => {
+    if (!menuOpen || typeof document === "undefined") return null;
+    return createPortal(
+      <>
+        <div
+          data-testid="mobile-overlay"
+          className="fixed inset-0 bg-black/70"
+          style={{ zIndex: 99998 }}
+          onClick={() => setMenuOpen(false)}
+          aria-hidden="true"
+        />
+        <aside
+          id="mobile-menu-drawer"
+          data-testid="mobile-drawer"
+          className="fixed inset-y-0 right-0 w-[min(88vw,420px)] max-w-full bg-[#050505] overflow-y-auto p-4"
+          style={{ zIndex: 99999, height: "100dvh" }}
+        >
+          {/* Close button */}
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="absolute top-2 right-2 text-amber-400"
+            onClick={() => setMenuOpen(false)}
+          >
+            <X className="w-5 h-5" />
+          </button>
+          {/* Primary navigation (mobile) */}
+          <nav className="mt-10 space-y-2">
+            {renderNavLinks()}
+          </nav>
+          {/* Mobile Ecosystem accordion */}
+          <div className="mt-8 border-t border-neutral-900 pt-4">
+            <button
+              type="button"
+              aria-label="Toggle Ecosystem"
+              aria-expanded={ecosystemOpen}
+              aria-controls="mobile-ecosystem-panel"
+              className="w-full flex items-center justify-between text-left text-neutral-300"
+              onClick={() => setEcosystemOpen((prev) => !prev)}
+            >
+              <span className="flex items-center gap-2 text-sm font-medium">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                AiX Ecosystem
+              </span>
+              <ChevronDown className={`w-4 h-4 text-amber-400 transition-transform ${ecosystemOpen ? "rotate-180" : ""}`} />
+            </button>
+            {ecosystemOpen && (
+              <div id="mobile-ecosystem-panel" className="mt-3 space-y-2">
+                {AIX_ECOSYSTEM_NODES.map((node) => (
+                  <a
+                    key={node.id}
+                    href={node.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-3 py-2.5 rounded bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:border-amber-500/30 hover:text-white text-sm"
+                  >
+                    {node.name}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </aside>
+      </>
+      , document.body
+    );
+  };
 
   return (
-    <header className="sticky top-0 z-[9999] bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800/80 text-white w-full">
-      {/* Main Header */}
-      <div className="max-w-screen-xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <header className="relative z-50 w-full bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800/80 text-white">
+      {/* Inner container */}
+      <div className="mx-auto flex w-full max-w-[1600px] min-w-0 items-center px-4 md:px-6 h-16">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link href="/" className="shrink-0 flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 via-amber-400 to-amber-600 flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-amber-500/10">
             A
           </div>
@@ -73,148 +176,71 @@ export function NewSiteHeader() {
           </div>
         </Link>
 
-        {/* Desktop Controls */}
-        <div className="flex items-center gap-4">
-          {/* Desktop Ecosystem Button */}
+        {/* Desktop navigation – visible md+ */}
+        <nav className="hidden md:flex flex-1 min-w-0 items-center gap-2 ml-6" aria-label="Main Navigation">
+          {renderNavLinks()}
+        </nav>
+
+        {/* Desktop Ecosystem button – visible md+ */}
+        <div className="hidden md:flex items-center ml-auto">
           <button
-            id="ecosystem-button"
+            id="desktop-ecosystem-button"
             type="button"
-            aria-expanded={ecosystemOpen}
-            aria-controls="ecosystem-panel"
-            aria-label="AiX Ecosystem"
-            onClick={() => setEcosystemOpen(prev => !prev)}
-            className="hidden lg:flex items-center gap-2 px-3 py-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-amber-500/40"
+            aria-label="Open AiX Ecosystem"
+            aria-expanded={ecosystemDesktopOpen}
+            aria-controls="desktop-ecosystem-panel"
+            className="flex items-center gap-1 px-3 py-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-amber-500/30"
+            onClick={() => setEcosystemDesktopOpen((prev) => !prev)}
           >
             AiX Ecosystem
-            <ChevronDown className={`w-4 h-4 transition-transform ${ecosystemOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-amber-400 transition-transform ${ecosystemDesktopOpen ? "rotate-180" : ""}`} />
           </button>
+        </div>
 
-          {/* Search */}
-          <Link
-            href="/search"
-            className="w-11 h-11 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-amber-500/40 flex items-center justify-center"
-            aria-label="Search AiX Media Terminal"
-          >
-            <Search className="w-4 h-4 text-amber-400" />
-          </Link>
-
-          {/* Mobile MENU button */}
+        {/* Mobile controls – visible <md */}
+        <div className="flex md:hidden ml-auto items-center gap-2">
+          {/* Mobile Ecosystem */}
           <button
             type="button"
+            aria-label="Open AiX Ecosystem"
+            aria-expanded={ecosystemOpen}
+            aria-controls="mobile-ecosystem-panel"
+            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center"
+            onClick={() => setEcosystemOpen((prev) => !prev)}
+          >
+            ECOSYSTEM
+          </button>
+          {/* Mobile Menu */}
+          <button
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu-drawer"
-            aria-label={menuOpen ? 'Închide meniul' : 'Deschide meniul'}
-            onClick={() => setMenuOpen(prev => !prev)}
-            className="lg:hidden w-11 h-11 rounded-lg bg-neutral-900 text-neutral-200 hover:text-white border border-neutral-800 flex items-center justify-center"
+            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center"
+            onClick={() => setMenuOpen((prev) => !prev)}
           >
             {menuOpen ? <X className="w-5 h-5 text-amber-400" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Overlay */}
-      
-      {/* Mobile Overlay and Drawer rendered via portal */}
-      {menuOpen && typeof document !== 'undefined' && createPortal(
-        <>
-          {/* Overlay */}
-          <div
-            data-testid="mobile-overlay"
-            className="fixed inset-0"
-            style={{
-              zIndex: 99998,
-              background: 'rgba(0,0,0,0.65)',
-            }}
-            onClick={() => setMenuOpen(false)}
-            aria-hidden="true"
-          />
-          {/* Drawer */}
-          <aside
-            id="aix-mobile-menu"
-            data-testid="mobile-drawer"
-            className="fixed top-0 right-0 bottom-0 p-4"
-            style={{
-              zIndex: 99999,
-              width: 'min(88vw, 420px)',
-              maxWidth: '100vw',
-              height: '100dvh',
-              background: '#050505',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-            }}
-          >
-            {/* Close button */}
-            <button
-              type="button"
-              aria-label="Close menu"
-              data-testid="drawer-close"
-              className="absolute top-2 right-2 text-amber-400"
-              onClick={() => setMenuOpen(false)}
-            >
-              <X className="w-5 h-5" />
-            </button>
-            {/* Primary Navigation */}
-            <nav className="space-y-2 mt-10">
-              <Link href="/news" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">News</Link>
-              <Link href="/markets" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Markets</Link>
-              <Link href="/business" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Business</Link>
-              <Link href="/real-estate" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Real Estate</Link>
-              <Link href="/investments" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Investments</Link>
-              <Link href="/finance" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Finance</Link>
-              <Link href="/companies" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Companies</Link>
-              <Link href="/calendar" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Calendar</Link>
-              <Link href="/search" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Search</Link>
-              <Link href="/radio" onClick={() => setMenuOpen(false)} className="block px-3 py-2.5 rounded bg-neutral-900/90 border border-neutral-800 text-neutral-200 hover:border-amber-500/30 hover:text-white">Radio</Link>
-            </nav>
-            {/* Ecosystem Accordion */}
-            <div className="border-t border-neutral-900 pt-4 mt-4">
-              <button
-                type="button"
-                aria-expanded={ecosystemOpen}
-                aria-controls="mobile-ecosystem-panel"
-                onClick={() => setEcosystemOpen(prev => !prev)}
-                className="w-full flex items-center justify-between text-left text-neutral-300 hover:text-white"
-              >
-                <span className="flex items-center gap-2 text-sm font-medium">
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                  AiX Ecosystem
-                </span>
-                <ChevronDown className={`w-4 h-4 text-amber-400 transition-transform ${ecosystemOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {ecosystemOpen && (
-                <div id="mobile-ecosystem-panel" className="mt-3 space-y-2">
-                  {ECOSYSTEM_NODES.map(node => (
-                    <a
-                      key={node.name}
-                      href={node.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block px-3 py-2.5 rounded bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:border-amber-500/30 hover:text-white text-sm"
-                    >
-                      {node.name}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          </aside>
-        </>,
-        document.body
-      )}
+      {/* Mobile overlay & drawer – rendered via portal */}
+      {renderMobileMenu()}
 
-      {/* Desktop Ecosystem Dropdown */}
-      {ecosystemOpen && (
+
+      {/* Desktop Ecosystem dropdown panel */}
+      {ecosystemDesktopOpen && (
         <div
-          id="ecosystem-panel"
-          className="absolute top-full right-0 mt-1 w-64 bg-[#070707] border border-neutral-800 shadow-xl rounded z-[9999] p-4"
+          id="desktop-ecosystem-panel"
+          className="absolute top-full right-0 mt-1 w-64 bg-[#070707] border border-neutral-800 shadow-xl rounded p-4 z-[9999]"
         >
-          {ECOSYSTEM_NODES.map(node => (
+          {AIX_ECOSYSTEM_NODES.map((node) => (
             <a
-              key={node.name}
+              key={node.id}
               href={node.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block mb-2 last:mb-0 text-sm text-neutral-300 hover:text-white"
+              className="block px-3 py-2.5 rounded bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:border-amber-500/30 hover:text-white text-sm mb-2"
             >
               {node.name}
             </a>

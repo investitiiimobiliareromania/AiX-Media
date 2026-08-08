@@ -1,6 +1,7 @@
 import React from "react";
 import { IntelligenceMetric } from "@/config/category-configs";
 import { TrendingUp, TrendingDown, Activity, BarChart3 } from "lucide-react";
+import { SourceBadge } from "@/components/SourceBadge";
 
 interface IntelligenceDashboardProps {
   metrics: IntelligenceMetric[];
@@ -12,7 +13,7 @@ interface IntelligenceDashboardProps {
 export function IntelligenceDashboard({
   metrics,
   title = "Market Intelligence Dashboard",
-  description = "Bloomberg-grade economic indicators and sector performance metrics.",
+  description = "Institutional economic indicators and sector performance metrics.",
 }: IntelligenceDashboardProps) {
   return (
     <section className="my-10 p-6 md:p-8 rounded-2xl bg-[#0a0a0a] border border-neutral-800 relative overflow-hidden shadow-2xl">
@@ -30,11 +31,12 @@ export function IntelligenceDashboard({
 
         <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Updated Real-Time
+          Periodic Updates
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
         {metrics.map((metric, idx) => (
           <div
             key={idx}
@@ -64,9 +66,16 @@ export function IntelligenceDashboard({
               </div>
             </div>
 
-            <div className="text-[11px] text-neutral-400 font-mono flex items-center gap-1.5 pt-2 border-t border-neutral-800/50">
-              <BarChart3 className="w-3 h-3 text-amber-400" />
-              <span>{metric.subtext}</span>
+            <div className="pt-2 border-t border-neutral-800/50 space-y-1.5">
+              <div className="text-[11px] text-neutral-400 font-mono flex items-center gap-1.5">
+                <BarChart3 className="w-3 h-3 text-amber-400" />
+                <span>{metric.subtext}</span>
+              </div>
+              {metric.source && (
+                <div className="pt-0.5">
+                  <SourceBadge source={metric.source} date={metric.date} />
+                </div>
+              )}
             </div>
           </div>
         ))}

@@ -11,7 +11,7 @@ const config = categoryConfigs[slug];
 
 export const metadata: Metadata = {
   title: `${config.title} | AiX Media`,
-  description: config.description,
+  description: "Business commentary, live interviews, market updates, and executive podcasts.",
   alternates: { canonical: `/${slug}` },
 };
 
@@ -22,7 +22,7 @@ export default function RadioPage() {
   return (
     <div className="space-y-8">
       <PremiumHero
-        eyebrow={config.eyebrow}
+        eyebrow="AiX Live Audio"
         headline={config.headline}
         description={config.description}
         ctaLabel={config.ctaLabel}
@@ -43,7 +43,7 @@ export default function RadioPage() {
             <h2 className="text-xl md:text-2xl font-bold text-white mt-1">Daily Shows & Host Directory</h2>
           </div>
           <span className="text-xs font-mono text-neutral-400 bg-neutral-950 px-3 py-1.5 rounded border border-neutral-800">
-            Broadcasting 24/7
+            Broadcasting Live
           </span>
         </div>
 
@@ -56,7 +56,7 @@ export default function RadioPage() {
               <div className="flex items-center justify-between font-mono text-xs">
                 <span className="text-amber-400 font-bold">{show.airTime}</span>
                 <span className="px-2 py-0.5 rounded bg-neutral-950 text-neutral-400 border border-neutral-800">
-                  {show.status}
+                  ON AIR
                 </span>
               </div>
               <h3 className="text-lg font-bold text-white">{show.title}</h3>
