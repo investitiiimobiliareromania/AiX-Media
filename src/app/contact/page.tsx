@@ -121,29 +121,38 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {AIX_ECOSYSTEM_NODES.map((node) => (
-            <a
+            <div
               key={node.id}
-              href={node.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-4 rounded-xl bg-neutral-900/60 border border-neutral-800 hover:border-amber-500/40 transition-colors flex flex-col justify-between group"
+              className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 hover:border-amber-500/40 transition-colors flex flex-col justify-between group min-w-0"
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono text-amber-400 uppercase font-semibold">
+                <div className="flex items-center justify-between mb-2 gap-1">
+                  <span className="text-[10px] font-mono text-amber-400 uppercase font-semibold truncate">
                     {node.categoryLabel}
                   </span>
-                  <span className="text-xs text-neutral-500 group-hover:text-amber-400 transition-colors">↗</span>
+                  <span className="text-[10px] text-neutral-500 font-mono shrink-0">
+                    {new URL(node.url).hostname}
+                  </span>
                 </div>
                 <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
                   {node.name}
                 </h3>
                 <p className="text-xs text-neutral-400 mt-1 line-clamp-2">{node.description}</p>
               </div>
-              <span className="mt-3 text-[11px] font-mono text-amber-400/90 font-semibold">
-                Access Platform →
-              </span>
-            </a>
+
+              <div className="mt-4 pt-3 border-t border-neutral-800/80">
+                <a
+                  href={node.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Accesează ${node.name}`}
+                  className="inline-flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-xs font-mono font-semibold transition-all cursor-pointer w-full min-h-[36px]"
+                >
+                  <span>Accesează</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </section>
