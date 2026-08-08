@@ -1,7 +1,7 @@
 // src/components/layout/NewSiteHeader.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -29,6 +29,57 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
 
   // Desktop ecosystem dropdown state
   const [ecosystemDesktopOpen, setEcosystemDesktopOpen] = useState(false);
+
+  // Sticky header scroll behavior
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const scrollRef = useRef({ lastScrollY: 0, menuOpen: false });
+
+  // Update ref values to avoid recreating listener
+  useEffect(() => {
+    scrollRef.current.menuOpen = menuOpen;
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const ref = scrollRef.current;
+
+      // If mobile menu is open, force visible
+      if (ref.menuOpen) {
+        setHeaderVisible(true);
+        ref.lastScrollY = currentScrollY;
+        return;
+      }
+
+      // If near top of page, always show
+      if (currentScrollY <= 80) {
+        setHeaderVisible(true);
+        ref.lastScrollY = currentScrollY;
+        return;
+      }
+
+      // Ignore tiny scroll changes (less than 10px) to prevent jitter
+      const diff = currentScrollY - ref.lastScrollY;
+      if (Math.abs(diff) < 10) {
+        return;
+      }
+
+      if (diff > 0) {
+        // Scrolling down -> hide
+        setHeaderVisible(false);
+      } else {
+        // Scrolling up -> show
+        setHeaderVisible(true);
+      }
+
+      ref.lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -178,7 +229,11 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
   };
 
   return (
-    <header className="relative z-50 w-full bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800/80 text-white">
+    <header
+      className={`sticky top-0 z-50 w-full bg-[#050505]/95 backdrop-blur-md border-b border-neutral-800/80 text-white transition-transform duration-300 ease-in-out transform ${
+        headerVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* Header Ticker */}
       <div className="bg-[#020202] border-b border-neutral-900 px-4 py-1.5 text-xs text-neutral-400 no-scrollbar w-full overflow-x-auto">
         <div className="mx-auto flex items-center justify-between gap-4 max-w-[1600px] w-full">
