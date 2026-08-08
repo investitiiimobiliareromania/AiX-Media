@@ -277,44 +277,20 @@ export const podcastEpisodes: PodcastEpisode[] = [
   },
 ];
 
-export const tvVideos: VideoItem[] = [
-  {
-    id: "vid-1",
-    title: "Documentary Special: The Transformation of CEE Energy Infrastructure",
-    slug: "cee-energy-infrastructure-transformation",
-    youtubeId: "dQw4w9WgXcQ",
-    duration: "28:15",
-    publishedAt: "2026-08-04",
-    category: "Documentary",
-    playlistName: "AiX Investigations",
-    description: "An investigative visual report on offshore gas, solar grid integration, and CEE energy independence.",
-    thumbnailUrl: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "vid-2",
-    title: "Studio Interview: BVB Leadership on Foreign Institutional Flows",
-    slug: "bvb-leadership-foreign-institutional-flows",
-    youtubeId: "dQw4w9WgXcQ",
-    duration: "18:40",
-    publishedAt: "2026-07-30",
-    category: "CEO Interviews",
-    playlistName: "CEO Studio Series",
-    description: "Exclusive studio talk discussing exchange liquidity, pension fund rules, and new tech listings.",
-    thumbnailUrl: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    id: "vid-3",
-    title: "Inside Bucharest's Commercial Hubs: A Visual Architecture Report",
-    slug: "inside-bucharests-commercial-hubs",
-    youtubeId: "dQw4w9WgXcQ",
-    duration: "15:10",
-    publishedAt: "2026-07-25",
-    category: "Investigations",
-    playlistName: "Urban Transformations",
-    description: "On-site video exploration of award-winning mixed-use developments in Northern Bucharest.",
-    thumbnailUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop",
-  },
-];
+import { verifiedVideos } from "@/config/youtube";
+
+export const tvVideos: VideoItem[] = verifiedVideos.map(v => ({
+  id: v.id,
+  title: v.title,
+  slug: v.slug,
+  youtubeId: v.id,
+  duration: v.duration,
+  publishedAt: v.publishedAt,
+  category: "Investigations",
+  playlistName: "AiX Investigations",
+  description: v.description,
+  thumbnailUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop",
+}));
 
 import { bvbCompanies } from "../bvb-data";
 export const companies: Company[] = bvbCompanies;

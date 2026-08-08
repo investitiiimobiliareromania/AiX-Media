@@ -1,39 +1,23 @@
 import { VideoItem, PodcastItem } from '@/types/media';
+import { verifiedVideos } from '@/config/youtube';
 
 export class MediaRepository {
   async getVideos(): Promise<VideoItem[]> {
-    return [
-      {
-        id: 'v1',
-        title: 'Interviu Exclusiv: Strategia Imobiliară 2026',
-        slug: 'strategia-imobiliara-2026',
-        description: 'Discuție televizată despre randamente imobiliare de lux, creditare și dinamica pieței.',
-        provider: 'youtube',
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-        thumbnailUrl: '/tv/thumb-1.jpg',
-        category: 'Real Estate',
-        duration: '18:45',
-        speakerName: 'Cristian Văduva',
-        transcript: 'Transcript complet al emisiunii despre investiții imobiliare...',
-        status: 'Published',
-        createdAt: '2026-07-20T10:00:00Z',
-      },
-      {
-        id: 'v2',
-        title: 'Generali Risk Forum: Asigurarea Activelor Valoroase',
-        slug: 'generali-risk-forum-2026',
-        description: 'Ghid practic pentru optimizarea politicilor de transfer al riscului în companii mari.',
-        provider: 'youtube',
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-        thumbnailUrl: '/tv/thumb-2.jpg',
-        category: 'Asigurări',
-        duration: '24:10',
-        speakerName: 'Cristian Văduva',
-        transcript: 'Ghid practic de analiză de risc corporate...',
-        status: 'Published',
-        createdAt: '2026-07-18T14:00:00Z',
-      },
-    ];
+    return verifiedVideos.map(v => ({
+      id: v.id,
+      title: v.title,
+      slug: v.slug,
+      description: v.description,
+      provider: 'youtube',
+      videoUrl: v.embedUrl,
+      thumbnailUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop",
+      category: v.category,
+      duration: v.duration,
+      speakerName: 'Cristian Văduva',
+      transcript: 'Prezentarea oficială a canalului Cristian Văduva CV despre investiții imobiliare și strategii financiare.',
+      status: 'Published',
+      createdAt: v.publishedAt + "T00:00:00Z",
+    }));
   }
 
   async getPodcasts(): Promise<PodcastItem[]> {
@@ -53,7 +37,7 @@ export class MediaRepository {
           { startTime: '30:00', title: 'Strategii de Refinanțare' },
         ],
         transcript: 'Bun venit la episodul 42 al podcast-ului AiX Media. Astăzi vorbim despre credite...',
-        speakers: ['Cristian Văduva', 'Expert BNR'],
+        speakers: ['Cristian Văduva'],
         tags: ['credite', 'bursa', 'finante'],
         status: 'Published',
         createdAt: '2026-07-22T09:00:00Z',

@@ -35,16 +35,49 @@ const prohibitedPatterns = [
 
 let issues = [];
 
+// Load central YouTube catalog
+const ytConfigPath = path.join(process.cwd(), 'src/config/youtube.ts');
+let verifiedYtIds = [];
+if (fs.existsSync(ytConfigPath)) {
+  const ytContent = fs.readFileSync(ytConfigPath, 'utf8');
+  const matches = ytContent.match(/id:\s*['"]([A-Za-z0-9_-]{11})['"]/g);
+  if (matches) {
+    verifiedYtIds = matches.map(m => m.match(/['"]([A-Za-z0-9_-]{11})['"]/)[1]);
+  }
+}
+
 function searchFile(filePath) {
   try {
-    // Ignore the checker script itself to avoid false positives on pattern definitions
-    if (filePath.includes('content-integrity-check.js')) {
+    // Ignore the checker script and the config file itself
+    if (filePath.includes('content-integrity-check.js') || filePath.includes('youtube.ts')) {
       return;
     }
     const content = fs.readFileSync(filePath, 'utf8');
+    
+    // 1. Prohibited word patterns
     prohibitedPatterns.forEach(pat => {
       if (pat.test(content)) {
         issues.push(`${filePath}: matches prohibited pattern ${pat}`);
+      }
+    });
+
+    // 2. YouTube Video ID authorization check
+    const ytIdPatterns = [
+      /youtube\.com\/embed\/([A-Za-z0-9_-]{11})/g,
+      /youtube-nocookie\.com\/embed\/([A-Za-z0-9_-]{11})/g,
+      /youtu\.be\/([A-Za-z0-9_-]{11})/g,
+      /youtube\.com\/watch\?v=([A-Za-z0-9_-]{11})/g,
+      /youtubeId:\s*['"]([A-Za-z0-9_-]{11})['"]/g,
+    ];
+
+    ytIdPatterns.forEach(pat => {
+      let match;
+      pat.lastIndex = 0;
+      while ((match = pat.exec(content)) !== null) {
+        const id = match[1];
+        if (!verifiedYtIds.includes(id)) {
+          issues.push(`${filePath}: Found unauthorized YouTube Video ID "${id}". All videos must be defined in the central config (src/config/youtube.ts).`);
+        }
       }
     });
   } catch (error) {
@@ -72,7 +105,7 @@ function walk(dir) {
   }
 }
 
-// 1. Walk through the src directory to check for prohibited patterns
+// 1. Walk through the src directory
 const targetDir = path.join(process.cwd(), 'src');
 walk(targetDir);
 
@@ -113,7 +146,6 @@ const marketDataPath = path.join(process.cwd(), 'src/lib/market-data.ts');
 if (fs.existsSync(marketDataPath)) {
   const content = fs.readFileSync(marketDataPath, 'utf8');
   if (/live/i.test(content) && !/status:\s*"live"/i.test(content) && !/isDelayed/i.test(content)) {
-    // Avoid false positives on structural parameters, but flag fake labels
     if (content.includes('label: "Live"') || content.includes('title: "Live"')) {
       issues.push(`Market Data Integrity: Prohibited 'Live' label found in market-data.ts`);
     }
@@ -125,6 +157,6 @@ if (issues.length > 0) {
   issues.forEach(i => console.error(i));
   process.exit(1);
 } else {
-  console.log('No content integrity issues found. BVB company provenance check passed.');
+  console.log('No content integrity issues found. BVB company and YouTube video provenance checks passed.');
   process.exit(0);
 }
