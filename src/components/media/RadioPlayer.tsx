@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { RadioShow } from "@/lib/media/models/media-types";
-import { Play, Pause, Radio, Volume2, VolumeX, Signal, Users, Calendar } from "lucide-react";
+import { Radio, Signal, Calendar } from "lucide-react";
 
 interface RadioPlayerProps {
   currentShow: RadioShow;
@@ -11,8 +11,6 @@ interface RadioPlayerProps {
 }
 
 export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
 
   return (
     <section className="my-12 p-6 md:p-8 rounded-3xl bg-gradient-to-br from-[#0c0a06] via-[#080808] to-[#050505] border border-amber-500/30 shadow-2xl relative overflow-hidden">
@@ -29,9 +27,9 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
           />
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
           
-          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-rose-600 text-white text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-white"></span>
-            ON AIR
+          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-400 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg">
+            <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
+            STANDBY
           </div>
         </div>
 
@@ -39,10 +37,10 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
         <div className="flex-1 space-y-4 text-center lg:text-left">
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
             <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-semibold">
-              AiX Live Business Radio
+              AiX Business Radio
             </span>
             <span className="text-xs font-mono text-neutral-400 flex items-center gap-1">
-              <Signal className="w-3.5 h-3.5 text-emerald-400" /> 320kbps HD Audio
+              <Signal className="w-3.5 h-3.5 text-amber-500/55" /> Audio Stream Coming Soon
             </span>
           </div>
 
@@ -62,28 +60,11 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
           {/* Interactive Player Controls */}
           <div className="pt-3 flex flex-wrap items-center justify-center lg:justify-start gap-4">
             <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-extrabold text-sm transition-all shadow-xl shadow-amber-500/20 flex items-center gap-3 transform active:scale-95"
+              disabled
+              className="px-6 py-3 rounded-full bg-neutral-800 text-neutral-500 font-extrabold text-sm flex items-center gap-3 cursor-not-allowed border border-neutral-700"
             >
-              {isPlaying ? (
-                <>
-                  <Pause className="w-5 h-5 fill-black" />
-                  <span>PAUSE LIVE BROADCAST</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-5 h-5 fill-black ml-0.5" />
-                  <span>LISTEN LIVE RADIO</span>
-                </>
-              )}
-            </button>
-
-            <button
-              onClick={() => setIsMuted(!isMuted)}
-              className="p-3 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-all"
-              aria-label="Toggle mute"
-            >
-              {isMuted ? <VolumeX className="w-5 h-5 text-rose-400" /> : <Volume2 className="w-5 h-5" />}
+              <Radio className="w-5 h-5 text-neutral-500" />
+              <span>STREAMING COMING SOON</span>
             </button>
           </div>
         </div>
@@ -96,7 +77,7 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
             <span className="flex items-center gap-1.5 text-white font-semibold uppercase tracking-wider">
               <Calendar className="w-4 h-4 text-amber-400" /> Today&apos;s Broadcasting Lineup
             </span>
-            <span>Live Stream HD</span>
+            <span>Broadcast Schedule</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

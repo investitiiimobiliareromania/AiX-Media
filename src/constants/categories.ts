@@ -11,7 +11,7 @@ export const categoriesList: CategoryInfo[] = [
     slug: "news",
     label: "Intelligence & News",
     name: "News",
-    description: "Breaking business news, macroeconomics, policy impacts, and real-time market updates.",
+    description: "Breaking business news, macroeconomics, policy impacts, and market updates.",
     href: "/news",
   },
   {

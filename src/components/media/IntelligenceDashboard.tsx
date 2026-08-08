@@ -23,62 +23,65 @@ export function IntelligenceDashboard({
         <div>
           <div className="flex items-center gap-2 text-amber-400 font-mono text-xs uppercase font-semibold tracking-wider">
             <Activity className="w-4 h-4" />
-            Live Intelligence Engine
+            Market Intelligence Monitor
           </div>
           <h2 className="text-xl md:text-2xl font-bold text-white mt-1">{title}</h2>
           <p className="text-xs text-neutral-400 mt-1">{description}</p>
         </div>
 
         <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-neutral-900 px-3 py-1.5 rounded-lg border border-neutral-800">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Periodic Updates
+          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          Data source not connected
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-        {metrics.map((metric, idx) => (
-          <div
-            key={idx}
-            className="p-4 rounded-xl bg-neutral-900/70 border border-neutral-800 hover:border-amber-500/30 transition-all flex flex-col justify-between"
-          >
-            <div className="flex items-center justify-between text-xs text-neutral-400 font-mono">
-              <span>{metric.label}</span>
-              {metric.isPositive !== undefined && (
-                <span
-                  className={`flex items-center gap-0.5 font-bold ${
-                    metric.isPositive ? "text-emerald-400" : "text-rose-400"
-                  }`}
-                >
-                  {metric.isPositive ? (
-                    <TrendingUp className="w-3.5 h-3.5" />
-                  ) : (
-                    <TrendingDown className="w-3.5 h-3.5" />
-                  )}
-                  {metric.change}
-                </span>
-              )}
-            </div>
-
-            <div className="my-3">
-              <div className="text-2xl md:text-3xl font-black text-white font-mono tracking-tight">
-                {metric.value}
+        {metrics.map((metric, idx) => {
+          const isUnavailable = metric.value === "Unavailable";
+          return (
+            <div
+              key={idx}
+              className="p-4 rounded-xl bg-neutral-900/70 border border-neutral-800 hover:border-amber-500/30 transition-all flex flex-col justify-between"
+            >
+              <div className="flex items-center justify-between text-xs text-neutral-400 font-mono">
+                <span>{metric.label}</span>
+                {metric.isPositive !== undefined && metric.change && !isUnavailable && (
+                  <span
+                    className={`flex items-center gap-0.5 font-bold ${
+                      metric.isPositive ? "text-emerald-400" : "text-rose-400"
+                    }`}
+                  >
+                    {metric.isPositive ? (
+                      <TrendingUp className="w-3.5 h-3.5" />
+                    ) : (
+                      <TrendingDown className="w-3.5 h-3.5" />
+                    )}
+                    {metric.change}
+                  </span>
+                )}
               </div>
-            </div>
 
-            <div className="pt-2 border-t border-neutral-800/50 space-y-1.5">
-              <div className="text-[11px] text-neutral-400 font-mono flex items-center gap-1.5">
-                <BarChart3 className="w-3 h-3 text-amber-400" />
-                <span>{metric.subtext}</span>
-              </div>
-              {metric.source && (
-                <div className="pt-0.5">
-                  <SourceBadge source={metric.source} date={metric.date} />
+              <div className="my-3">
+                <div className={`${isUnavailable ? "text-sm font-semibold text-neutral-500" : "text-2xl md:text-3xl font-black text-white"} font-mono tracking-tight`}>
+                  {isUnavailable ? "Market data unavailable" : metric.value}
                 </div>
-              )}
+              </div>
+
+              <div className="pt-2 border-t border-neutral-800/50 space-y-1.5">
+                <div className="text-[11px] text-neutral-400 font-mono flex items-center gap-1.5">
+                  <BarChart3 className="w-3 h-3 text-amber-400" />
+                  <span>{isUnavailable ? "Connection offline" : metric.subtext}</span>
+                </div>
+                {metric.source && !isUnavailable && (
+                  <div className="pt-0.5">
+                    <SourceBadge source={metric.source} date={metric.date} />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

@@ -40,8 +40,8 @@ export function RadioLivePlayer({ streamConfig, currentProgram, nextProgram }: R
         {/* On Air & Program Info */}
         <div className="flex-1 space-y-4">
           <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-black uppercase tracking-widest px-3 py-1 animate-pulse">
-              <Signal className="w-4 h-4" /> ON AIR • LIVE BROADCAST
+            <span className="inline-flex items-center gap-2 bg-neutral-800 text-neutral-400 text-xs font-black uppercase tracking-widest px-3 py-1">
+              <Signal className="w-4 h-4 text-neutral-500" /> STANDBY • STREAM OFFLINE
             </span>
             <span className="text-xs font-mono text-white/40 uppercase tracking-widest">
               {streamConfig.provider.toUpperCase()} • {streamConfig.bitrate} KBPS HQ STEREO
@@ -79,7 +79,7 @@ export function RadioLivePlayer({ streamConfig, currentProgram, nextProgram }: R
               ) : (
                 <>
                   <Play className="w-6 h-6 fill-current ml-1" />
-                  <span className="text-xs font-black uppercase tracking-widest">Ascultă Live</span>
+                  <span className="text-xs font-black uppercase tracking-widest">Ascultă</span>
                 </>
               )}
             </button>

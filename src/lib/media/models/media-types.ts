@@ -40,7 +40,7 @@ export interface RadioShow {
   title: string;
   host: string;
   airTime: string;
-  status: "LIVE" | "UPCOMING" | "REPLAY";
+  status: "LIVE" | "UPCOMING" | "REPLAY" | "SCHEDULED";
   description: string;
   audioStreamUrl: string;
   coverImage: string;

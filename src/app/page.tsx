@@ -64,14 +64,14 @@ export default function HomePage() {
   const events = getEconomicEvents();
 
   const homepageMetrics = [
-    { label: "BVB BET Index", value: "18,420.5", change: "+2.3%", subtext: "Historical liquidity high", isPositive: true },
-    { label: "EUR / RON", value: "4.9765", change: "+0.02%", subtext: "BNR managed float", isPositive: true },
-    { label: "ROBOR 3M", value: "5.58%", change: "-0.05%", subtext: "Interbank rate easing", isPositive: true },
-    { label: "IRCC Benchmark", value: "5.86%", change: "-0.11%", subtext: "Quarterly index drop", isPositive: true },
-    { label: "Prime RE Yield", value: "7.25%", change: "Stable", subtext: "Bucharest office corridor", isPositive: true },
-    { label: "PE Dry Powder", value: "€1.2B", change: "+14%", subtext: "CEE capital allocation", isPositive: true },
-    { label: "CPI Inflation", value: "5.1%", change: "-0.4%", subtext: "Converging to target", isPositive: true },
-    { label: "Business Confidence", value: "108.2 pts", change: "+1.5%", subtext: "Expansionary sentiment", isPositive: true },
+    { label: "BVB BET Index", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "EUR / RON", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "ROBOR 3M", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "IRCC Benchmark", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "Prime RE Yield", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "PE Dry Powder", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "CPI Inflation", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
+    { label: "Business Confidence", value: "Unavailable", change: "", subtext: "Data source offline", isPositive: true },
   ];
 
   return (
@@ -114,11 +114,11 @@ export default function HomePage() {
       {/* 3. AiX Intelligence AI Briefing Box */}
       <AiXIntelligenceBox />
 
-      {/* 4. Market Intelligence Dashboard (Bloomberg Style) */}
+      {/* 4. Market Intelligence Dashboard */}
       <IntelligenceDashboard
         metrics={homepageMetrics.slice(0, 4)}
         title="Romania & CEE Market Intelligence Dashboard"
-        description="Business commentary, live interviews, market updates, and executive podcasts."
+        description="Business commentary, interviews, market updates, and executive podcasts."
       />
 
       {/* 5. Top Editorial Investigations Grid */}

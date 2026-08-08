@@ -94,7 +94,7 @@ export const cmsService = {
     }));
   },
 
-  // Real-time Dashboard Metrics
+  // Dashboard Metrics
   async getDashboardMetrics(): Promise<DashboardMetrics> {
     const articles = await articleService.getArticles();
     const categories = await categoryService.getCategories();

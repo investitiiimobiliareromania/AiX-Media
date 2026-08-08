@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { getAllArticles, getTvVideos, getPodcastEpisodes, getAllCompanies, getMarketItems } from "@/lib/media/service";
+import { getAllArticles, getTvVideos, getPodcastEpisodes, getAllCompanies } from "@/lib/media/service";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { Search, Compass, Building2, Mic, Film, TrendingUp } from "lucide-react";
 
@@ -12,7 +12,6 @@ export default function SearchPage() {
   const videos = getTvVideos();
   const podcasts = getPodcastEpisodes();
   const companies = getAllCompanies();
-  const markets = getMarketItems();
 
   const filteredArticles = query
     ? allArticles.filter(
@@ -32,11 +31,11 @@ export default function SearchPage() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 py-6">
-      {/* FT-Style Search Bar */}
+      {/* AiX Search Bar */}
       <div className="p-8 rounded-3xl bg-[#0a0a0a] border border-neutral-800 space-y-4 shadow-2xl text-center">
         <div className="inline-flex items-center gap-2 text-amber-400 font-mono text-xs uppercase font-bold tracking-wider">
           <Search className="w-4 h-4" />
-          Financial Times Style Intelligence Search
+          AiX Intelligence Search
         </div>
         <h1 className="text-3xl md:text-4xl font-black text-white">Search AiX Terminal & Media Ecosystem</h1>
         <p className="text-xs text-neutral-400 max-w-xl mx-auto">

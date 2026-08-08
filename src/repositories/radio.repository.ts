@@ -7,7 +7,7 @@ export class RadioRepository {
       streamUrl: 'https://stream.aixmedia.ro/radio/8000/live.mp3',
       stationName: 'AiX Financial Radio',
       bitrate: 320,
-      isLive: true,
+      isLive: false,
     };
   }
 
@@ -17,7 +17,7 @@ export class RadioRepository {
         id: 'p1',
         title: 'AiX Market Pulse',
         slug: 'aix-market-pulse',
-        description: 'Transmisiune zilnică cu analize financiare, fluctuații bursiere și oportunități de investiții.',
+        description: 'Analize financiare, fluctuații bursiere și oportunități de investiții.',
         coverImage: '/radio/market-pulse.jpg',
         presenterId: 'pres1',
         presenterName: 'Cristian Văduva',
@@ -29,7 +29,7 @@ export class RadioRepository {
         id: 'p2',
         title: 'Real Estate Executive Briefing',
         slug: 'real-estate-executive-briefing',
-        description: 'Interviuri exclusive cu cei mai mari dezvoltatori imobiliari din Europa de Est.',
+        description: 'Prezentări ale dezvoltatorilor imobiliari din Europa de Est.',
         coverImage: '/radio/real-estate.jpg',
         presenterId: 'pres1',
         presenterName: 'Cristian Văduva',
@@ -74,10 +74,10 @@ export class RadioRepository {
 
   async getSchedule(): Promise<RadioScheduleItem[]> {
     return [
-      { id: 's1', programId: 'p1', programTitle: 'AiX Market Pulse', presenterName: 'Cristian Văduva', startTime: '08:00', endTime: '10:00', dayOfWeek: 1, isLive: true },
+      { id: 's1', programId: 'p1', programTitle: 'AiX Market Pulse', presenterName: 'Cristian Văduva', startTime: '08:00', endTime: '10:00', dayOfWeek: 1, isLive: false },
       { id: 's2', programId: 'p2', programTitle: 'Real Estate Executive Briefing', presenterName: 'Cristian Văduva', startTime: '10:30', endTime: '11:30', dayOfWeek: 1, isLive: false },
-      { id: 's3', programId: 'p3', programTitle: 'Generali Risk Management Hour', presenterName: 'Echipa Generali', startTime: '14:00', endTime: '15:00', dayOfWeek: 1, isLive: true },
-      { id: 's4', programId: 'p1', programTitle: 'AiX Market Pulse', presenterName: 'Cristian Văduva', startTime: '08:00', endTime: '10:00', dayOfWeek: 2, isLive: true },
+      { id: 's3', programId: 'p3', programTitle: 'Generali Risk Management Hour', presenterName: 'Echipa Generali', startTime: '14:00', endTime: '15:00', dayOfWeek: 1, isLive: false },
+      { id: 's4', programId: 'p1', programTitle: 'AiX Market Pulse', presenterName: 'Cristian Văduva', startTime: '08:00', endTime: '10:00', dayOfWeek: 2, isLive: false },
       { id: 's5', programId: 'p2', programTitle: 'Real Estate Executive Briefing', presenterName: 'Cristian Văduva', startTime: '10:30', endTime: '11:30', dayOfWeek: 2, isLive: false },
     ];
   }

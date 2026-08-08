@@ -44,7 +44,7 @@ export const footerNavigation = {
     { label: "About AiX Media", href: "/news" },
     { label: "Editorial Standards", href: "/news" },
     { label: "Executive Briefings", href: "/#newsletter" },
-    { label: "FT Terminal Search", href: "/search" },
+    { label: "AiX Terminal Search", href: "/search" },
     { label: "Contact Us", href: "/contact" },
   ],
 };

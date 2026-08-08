@@ -97,7 +97,7 @@ export const EcosystemFooter: React.FC = () => {
               About AiX Media Network
             </h3>
             <p className="text-neutral-400 leading-relaxed text-xs">
-              Romania&apos;s next-generation business journalism and market intelligence platform. Part of the connected AiX Ecosystem providing real-time data, macro insights, and strategic infrastructure.
+              Romania&apos;s next-generation business journalism and market intelligence platform. Part of the connected AiX Ecosystem providing macro insights and strategic infrastructure.
             </p>
           </div>
         </div>

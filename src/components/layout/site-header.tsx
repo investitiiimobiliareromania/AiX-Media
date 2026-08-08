@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { mainNavigation } from "@/constants/navigation";
-import { getMarketItems } from "@/lib/media/service";
 import { AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 import { Radio, Search, Menu, X, ChevronDown, Layers, ExternalLink } from "lucide-react";
 import { EcosystemMenu } from "@/components/ecosystem/EcosystemMenu";
@@ -14,7 +13,6 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileEcosystemOpen, setMobileEcosystemOpen] = useState(false);
-  const markets = getMarketItems();
 
   // Body scroll lock when mobile menu is open
   useEffect(() => {
@@ -48,17 +46,11 @@ export function SiteHeader() {
       <div className="bg-[#0a0a0a] border-b border-neutral-900 px-3 sm:px-4 py-1.5 text-xs text-neutral-400 no-scrollbar w-full overflow-x-hidden">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-1.5 text-amber-400 font-semibold uppercase text-[10px] shrink-0">
-            <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             <span>AiX Terminal</span>
           </div>
-          <div className="flex items-center gap-4 flex-wrap">
-            {markets.slice(0, 6).map((item) => (
-              <div key={item.symbol} className="flex items-center gap-1.5 text-[11px]">
-                <span className="font-mono text-neutral-400 font-medium">{item.symbol}:</span>
-                <span className="font-mono text-white font-semibold">{item.value}</span>
-                <span className={`font-mono text-[10px] ${item.isPositive ? "text-emerald-400" : "text-rose-400"}`}>${item.changeDaily}</span>
-              </div>
-            ))}
+          <div className="text-[11px] font-mono text-neutral-500">
+            Data source offline • Market data currently unavailable.
           </div>
           <div className="hidden lg:flex items-center gap-3 text-neutral-500 font-mono text-[10px] shrink-0">
             <span>BUCHAREST</span>
