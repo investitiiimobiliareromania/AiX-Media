@@ -2,6 +2,7 @@ import { type Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { PremiumHero } from "@/components/media/PremiumHero";
 import { contactConfig } from "@/config/contact";
+import { AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 import { Mail, Phone, MapPin, ShieldCheck, MessageSquare, Globe, ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -103,6 +104,49 @@ export default function ContactPage() {
           <ContactForm sourceContext="Pagina Oficială de Contact AiX Media" />
         </div>
       </div>
+
+      {/* Ecosystem Access Section */}
+      <section className="pt-10 border-t border-neutral-800 space-y-6">
+        <div>
+          <span className="text-xs uppercase font-mono tracking-widest text-amber-400 font-bold block mb-1">
+            Specialized Platform Access
+          </span>
+          <h2 className="text-2xl font-bold text-white tracking-tight">
+            AiX Ecosystem Direct Access Points
+          </h2>
+          <p className="text-xs text-neutral-400 font-mono mt-1 max-w-2xl">
+            Depending on your objective, access the dedicated specialized platform for intelligence, real estate, capital markets, health, or funding.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {AIX_ECOSYSTEM_NODES.map((node) => (
+            <a
+              key={node.id}
+              href={node.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 rounded-xl bg-neutral-900/60 border border-neutral-800 hover:border-amber-500/40 transition-colors flex flex-col justify-between group"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono text-amber-400 uppercase font-semibold">
+                    {node.categoryLabel}
+                  </span>
+                  <span className="text-xs text-neutral-500 group-hover:text-amber-400 transition-colors">↗</span>
+                </div>
+                <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
+                  {node.name}
+                </h3>
+                <p className="text-xs text-neutral-400 mt-1 line-clamp-2">{node.description}</p>
+              </div>
+              <span className="mt-3 text-[11px] font-mono text-amber-400/90 font-semibold">
+                Access Platform →
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

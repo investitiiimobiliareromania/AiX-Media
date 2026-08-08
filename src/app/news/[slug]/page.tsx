@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getArticleBySlug, getAllArticles } from "@/lib/media/service";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
+import { EcosystemContextLinks } from "@/components/ecosystem/EcosystemContextLinks";
 import { JsonLd } from "@/components/common/json-ld";
 import { siteConfig } from "@/config/site";
 import { Clock, Calendar, ArrowLeft } from "lucide-react";
@@ -155,6 +156,9 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           <p className="text-xs text-neutral-400 mt-1">Specializing in macroeconomic policy, institutional capital allocation, and CEE market intelligence.</p>
         </div>
       </div>
+
+      {/* Contextual Ecosystem Links */}
+      <EcosystemContextLinks category={article.category} />
 
       {/* Related Articles */}
       <div className="pt-8 space-y-6 border-t border-neutral-800">

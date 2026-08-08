@@ -4,12 +4,62 @@ import React from "react";
 import Link from "next/link";
 import { footerNavigation } from "@/constants/navigation";
 import { contactConfig } from "@/config/contact";
+import { AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 import { ArrowRight, ShieldCheck, Globe, Mail, Phone, MessageSquare, MapPin } from "lucide-react";
 
 export function SiteFooter() {
   return (
     <footer className="bg-[#030303] text-neutral-400 border-t border-neutral-800/80 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* AiX Ecosystem Directory Bar */}
+        <div className="mb-12 rounded-xl border border-neutral-800/90 bg-neutral-950/80 p-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-neutral-800 pb-4 mb-6">
+            <div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+                AiX Ecosystem
+              </span>
+              <h3 className="text-sm font-serif font-bold text-white mt-0.5">
+                Connected Intelligence &amp; Services
+              </h3>
+            </div>
+            <a
+              href="https://cristianvaduva.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-semibold text-amber-400 hover:underline inline-flex items-center gap-1"
+            >
+              <span>cristianvaduva.com</span>
+              <span>↗</span>
+            </a>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4">
+            {AIX_ECOSYSTEM_NODES.map((node) => (
+              <a
+                key={node.id}
+                href={node.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${node.name}`}
+                className="group flex flex-col p-2.5 rounded-lg border border-neutral-800/60 bg-neutral-900/50 hover:bg-neutral-900 hover:border-amber-500/40 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">
+                    {node.name}
+                  </span>
+                  <span className="text-[10px] text-neutral-500 group-hover:text-amber-400 transition-colors">
+                    ↗
+                  </span>
+                </div>
+                <span className="text-[10px] text-neutral-500 font-mono mt-1">
+                  {new URL(node.url).hostname}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-900">
           {/* Brand & Personal Contact Info */}
           <div className="lg:col-span-2 space-y-4">
@@ -173,7 +223,7 @@ export function SiteFooter() {
         {/* Bottom Credits & Copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-400 font-mono">
           <div>
-            © {new Date().getFullYear()} AiX Media • {contactConfig.name}. All rights reserved. Analytical integrity &amp; private intelligence.
+            © {new Date().getFullYear()} AiX Media • {contactConfig.name}. All rights reserved. Part of the Cristian Văduva Ecosystem.
           </div>
           <div className="flex items-center gap-6">
             <Link href="/contact" className="hover:text-amber-400">Contact Desk</Link>

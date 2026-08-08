@@ -21,6 +21,7 @@ import { PodcastCard } from "@/components/media/PodcastCard";
 import { VideoCard } from "@/components/media/VideoCard";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { AiXIntelligenceBox } from "@/components/media/AiXIntelligenceBox";
+import { EcosystemGrid } from "@/components/ecosystem/EcosystemGrid";
 import {
   Radio,
   Tv,
@@ -329,6 +330,9 @@ export default function HomePage() {
 
       {/* 14. Newsletter */}
       <NewsletterBox />
+
+      {/* 15. The AiX Ecosystem Section */}
+      <EcosystemGrid />
     </div>
   );
 }

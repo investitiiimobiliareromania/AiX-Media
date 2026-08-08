@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { mainNavigation } from "@/constants/navigation";
 import { getMarketItems } from "@/lib/media/service";
 import { Radio, Tv, Search, Menu, X, TrendingUp } from "lucide-react";
+import { EcosystemMenu } from "@/components/ecosystem/EcosystemMenu";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -97,6 +98,8 @@ export function SiteHeader() {
 
           {/* Right Action Icons & Mobile Toggle */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <EcosystemMenu />
+
             <Link
               href="/search"
               className="p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-amber-500/40 transition-colors"
