@@ -13,7 +13,7 @@ export function MarketStrip({ className }: MarketStripProps) {
     <div className={cn("hidden border-b border-border bg-surface/60 md:block", className)}>
       <Container>
         <div
-          className="flex items-center gap-8 overflow-x-hidden py-2 flex-wrap"
+          className="flex items-center gap-8 py-2 flex-wrap"
           aria-label="Market overview strip"
         >
           {instruments.map((instrument) => {

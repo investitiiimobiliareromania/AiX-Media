@@ -26,14 +26,14 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
 
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded bg-amber-500 text-black text-xs font-mono font-bold uppercase tracking-wider">
+            <span className="px-3 py-1 rounded bg-amber-500 text-black text-xs font-mono font-bold uppercase tracking-wider max-w-full truncate">
               Featured Investigation
             </span>
-            <span className="px-2.5 py-1 rounded bg-black/60 border border-neutral-700 text-amber-300 text-xs font-mono">
+            <span className="px-2.5 py-1 rounded bg-black/60 border border-neutral-700 text-amber-300 text-xs font-mono max-w-full truncate">
               {article.categoryLabel}
             </span>
             {article.breaking && (
-              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-rose-500/20 border border-rose-500/40 text-rose-400 text-xs font-mono animate-pulse">
+              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-rose-500/20 border border-rose-500/40 text-rose-400 text-xs font-mono animate-pulse max-w-full truncate">
                 <Flame className="w-3.5 h-3.5" />
                 Breaking Intelligence
               </span>
@@ -53,7 +53,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
               <div className="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
                 {article.authorName[0]}
               </div>
-              <span className="text-white font-medium">{article.authorName}</span>
+              <span className="text-white font-medium max-w-full truncate">{article.authorName}</span>
             </div>
             <span>•</span>
             <span className="flex items-center gap-1">

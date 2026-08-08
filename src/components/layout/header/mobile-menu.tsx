@@ -19,13 +19,13 @@ export function MobileMenu({ className }: MobileMenuProps) {
       <button
         onClick={() => setOpen(!open)}
         className="p-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white"
-        aria-label="Toggle navigation"
+        aria-label={open ? "Închide meniul" : "Deschide meniul"}
       >
         <Menu className="w-5 h-5" />
       </button>
 
       {open && (
-        <div className="fixed inset-0 top-16 z-50 bg-black/95 p-6 overflow-y-auto space-y-6">
+        <div id="mobile-menu-drawer" className="fixed inset-0 top-16 z-50 bg-black/95 p-6 overflow-y-auto space-y-6">
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase text-amber-400 font-bold tracking-wider">
               Main Verticals

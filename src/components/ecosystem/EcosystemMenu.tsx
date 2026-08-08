@@ -48,8 +48,7 @@ export const EcosystemMenu: React.FC = () => {
   return (
     <div className="relative inline-block text-left" ref={menuRef}>
       {/* Trigger Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
+      <button type="button" onClick={() => { console.log('[AiX Ecosystem] button click'); setIsOpen(!isOpen); }}
         className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs font-semibold uppercase tracking-wider text-neutral-200 hover:text-amber-400 hover:border-amber-500/40 transition-colors cursor-pointer min-h-[36px]"
         aria-expanded={isOpen}
         aria-label="Toggle AiX Ecosystem Navigation"

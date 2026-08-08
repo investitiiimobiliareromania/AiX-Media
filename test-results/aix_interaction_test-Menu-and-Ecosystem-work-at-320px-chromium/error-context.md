@@ -1,0 +1,782 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: aix_interaction_test.spec.js >> Menu and Ecosystem work at 320px
+- Location: scripts/aix_interaction_test.spec.js:6:7
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 60000ms exceeded.
+Call log:
+  - waiting for locator('#mobile-menu-drawer').getByRole('button', { name: /Închide meniul/i })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: AiX Terminal
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: "BET:"
+          - generic [ref=e12]: 18,420.50
+          - generic [ref=e13]: $+2.30%
+        - generic [ref=e14]:
+          - generic [ref=e15]: "BET-TR:"
+          - generic [ref=e16]: 39,850.10
+          - generic [ref=e17]: $+2.45%
+        - generic [ref=e18]:
+          - generic [ref=e19]: "BET-FI:"
+          - generic [ref=e20]: 62,140.00
+          - generic [ref=e21]: $+1.15%
+        - generic [ref=e22]:
+          - generic [ref=e23]: "BET-NG:"
+          - generic [ref=e24]: 1,240.80
+          - generic [ref=e25]: $+0.85%
+        - generic [ref=e26]:
+          - generic [ref=e27]: "EUR/RON:"
+          - generic [ref=e28]: "4.9765"
+          - generic [ref=e29]: $+0.02%
+        - generic [ref=e30]:
+          - generic [ref=e31]: "USD/RON:"
+          - generic [ref=e32]: "4.5830"
+          - generic [ref=e33]: $-0.11%
+    - generic [ref=e34]:
+      - link "A AiX MEDIA" [ref=e35] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e36]: A
+        - generic [ref=e37]: AiX MEDIA
+      - generic [ref=e39]:
+        - link "Search AiX Media Terminal" [ref=e40] [cursor=pointer]:
+          - /url: /search
+        - button "Deschide ecosistemul" [ref=e44]
+        - button "Închide meniul" [expanded] [active] [ref=e49]
+    - complementary [ref=e54]:
+      - button "AiX Ecosystem 9 Platforme" [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e59]: AiX Ecosystem
+          - generic [ref=e60]: 9 Platforme
+      - generic [ref=e63]:
+        - generic [ref=e64]: Secțiuni Principale
+        - generic [ref=e65]:
+          - link "News" [ref=e66] [cursor=pointer]:
+            - /url: /news
+          - link "Markets" [ref=e68] [cursor=pointer]:
+            - /url: /markets
+          - link "Business" [ref=e70] [cursor=pointer]:
+            - /url: /business
+          - link "Real Estate" [ref=e72] [cursor=pointer]:
+            - /url: /real-estate
+          - link "Investments" [ref=e74] [cursor=pointer]:
+            - /url: /investments
+          - link "Finance" [ref=e76] [cursor=pointer]:
+            - /url: /finance
+          - link "Companies" [ref=e78] [cursor=pointer]:
+            - /url: /companies
+          - link "Calendar" [ref=e80] [cursor=pointer]:
+            - /url: /calendar
+          - link "AiX Radio LIVE" [ref=e82] [cursor=pointer]:
+            - /url: /radio
+            - generic [ref=e83]: AiX Radio
+            - generic [ref=e84]: LIVE
+          - link "AiX TV HD" [ref=e85] [cursor=pointer]:
+            - /url: /tv
+            - generic [ref=e86]: AiX TV
+            - generic [ref=e87]: HD
+          - link "Podcasts" [ref=e88] [cursor=pointer]:
+            - /url: /podcasts
+          - link "Academy" [ref=e90] [cursor=pointer]:
+            - /url: /academy
+          - link "Contact" [ref=e92] [cursor=pointer]:
+            - /url: /contact
+      - generic [ref=e94]:
+        - link "Ascultă AiX Radio Live" [ref=e95] [cursor=pointer]:
+          - /url: /radio
+        - link "Cristian Văduva Advisory Network" [ref=e103] [cursor=pointer]:
+          - /url: https://cristianvaduva.com
+  - main [ref=e109]:
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]: Featured Investigation & Newsroom Lead
+          - link "FT Terminal Search" [ref=e117] [cursor=pointer]:
+            - /url: /search
+        - 'link "Romania''s Economic Horizon 2026: Capital Allocation & Macro Realities Featured Investigation Macro Intelligence Breaking Intelligence Romania''s Economic Horizon 2026: Capital Allocation & Macro Realities An executive briefing on Romania''s macro trajectory, fiscal consolidation, and how CEE capital flows are adapting to evolving European monetary policy. C Cristian Văduva • 6 min read" [ref=e122] [cursor=pointer]':
+          - /url: /news/romania-economic-horizon-2026-capital-allocation
+          - generic [ref=e123]:
+            - 'img "Romania''s Economic Horizon 2026: Capital Allocation & Macro Realities" [ref=e124]'
+            - generic [ref=e126]:
+              - generic [ref=e127]:
+                - generic [ref=e128]: Featured Investigation
+                - generic [ref=e129]: Macro Intelligence
+                - generic [ref=e130]: Breaking Intelligence
+              - 'heading "Romania''s Economic Horizon 2026: Capital Allocation & Macro Realities" [level=1] [ref=e133]'
+              - paragraph [ref=e134]: An executive briefing on Romania's macro trajectory, fiscal consolidation, and how CEE capital flows are adapting to evolving European monetary policy.
+              - generic [ref=e135]:
+                - generic [ref=e136]:
+                  - generic [ref=e137]: C
+                  - generic [ref=e138]: Cristian Văduva
+                - generic [ref=e139]: •
+                - generic [ref=e140]: 6 min read
+      - generic [ref=e144]:
+        - generic [ref=e145]: BREAKING
+        - generic [ref=e147]: "[BVB Markets]BVB BET Index breaks 18,420 pts threshold driven by strategic energy & banking institutional inflows."
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]: AiX Intelligence AI Engine
+          - 'heading "AiX Morning Intelligence Briefing: August 5, 2026" [level=2] [ref=e155]'
+          - paragraph [ref=e156]: Automated macro synthesis compiled from central bank filings, BVB exchange feeds, and regional market signals.
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - heading "What Changed Today" [level=3] [ref=e159]
+            - list [ref=e162]:
+              - listitem [ref=e163]:
+                - generic [ref=e164]: •
+                - generic [ref=e165]: BVB BET index posted a 2.3% gain, breaking past 18,420 points driven by energy listings.
+              - listitem [ref=e166]:
+                - generic [ref=e167]: •
+                - generic [ref=e168]: ROBOR 3M dropped to 5.58%, signaling further interbank rate stabilization.
+              - listitem [ref=e169]:
+                - generic [ref=e170]: •
+                - generic [ref=e171]: FDI figures released by BNR show a 14% year-on-year increase in private capital deployment.
+          - generic [ref=e172]:
+            - heading "Why It Matters for Executives" [level=3] [ref=e173]
+            - list [ref=e177]:
+              - listitem [ref=e178]:
+                - generic [ref=e179]: •
+                - generic [ref=e180]: Equities are outperforming CEE regional peers, attracting increased Western European institutional flows.
+              - listitem [ref=e181]:
+                - generic [ref=e182]: •
+                - generic [ref=e183]: Falling interbank rates ease debt service burdens for corporate borrowers and mortgage holders.
+              - listitem [ref=e184]:
+                - generic [ref=e185]: •
+                - generic [ref=e186]: Long-term FDI confidence validates Romania's infrastructure and renewable energy convergence trajectory.
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]:
+            - generic [ref=e190]: Live Intelligence Engine
+            - heading "Romania & CEE Market Intelligence Dashboard" [level=2] [ref=e193]
+            - paragraph [ref=e194]: Real-time macro indicators, capital markets, interest rates, and institutional benchmarks.
+          - generic [ref=e195]: Updated Real-Time
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - generic [ref=e199]:
+              - generic [ref=e200]: BVB BET Index
+              - generic [ref=e201]: +2.3%
+            - generic [ref=e205]: 18,420.5
+            - generic [ref=e207]: Historical liquidity high
+          - generic [ref=e211]:
+            - generic [ref=e212]:
+              - generic [ref=e213]: EUR / RON
+              - generic [ref=e214]: +0.02%
+            - generic [ref=e218]: "4.9765"
+            - generic [ref=e220]: BNR managed float
+          - generic [ref=e224]:
+            - generic [ref=e225]:
+              - generic [ref=e226]: ROBOR 3M
+              - generic [ref=e227]: "-0.05%"
+            - generic [ref=e231]: 5.58%
+            - generic [ref=e233]: Interbank rate easing
+          - generic [ref=e237]:
+            - generic [ref=e238]:
+              - generic [ref=e239]: IRCC Benchmark
+              - generic [ref=e240]: "-0.11%"
+            - generic [ref=e244]: 5.86%
+            - generic [ref=e246]: Quarterly index drop
+      - generic [ref=e250]:
+        - generic [ref=e251]:
+          - heading "Top Editorial Investigations" [level=2] [ref=e252]
+          - link "Explore All Reports" [ref=e257] [cursor=pointer]:
+            - /url: /news
+        - generic [ref=e261]:
+          - link "Why Northern Bucharest Real Estate Continues to Attract Institutional Capital Real Estate Intelligence Why Northern Bucharest Real Estate Continues to Attract Institutional Capital Institutional transaction analysis examining office conversions, mixed-use luxury developments, and prime yields in Bucharest's growth corridor. Elena Popescu 5 min read" [ref=e262] [cursor=pointer]:
+            - /url: /real-estate/northern-bucharest-real-estate-capital-flows
+            - generic [ref=e263]:
+              - img "Why Northern Bucharest Real Estate Continues to Attract Institutional Capital" [ref=e264]
+              - generic [ref=e266]: Real Estate Intelligence
+            - generic [ref=e267]:
+              - generic [ref=e268]:
+                - heading "Why Northern Bucharest Real Estate Continues to Attract Institutional Capital" [level=3] [ref=e269]
+                - paragraph [ref=e270]: Institutional transaction analysis examining office conversions, mixed-use luxury developments, and prime yields in Bucharest's growth corridor.
+              - generic [ref=e271]:
+                - generic [ref=e272]: Elena Popescu
+                - generic [ref=e274]: 5 min read
+          - 'link "BVB Market Liquidity: Institutional Pension Allocation & Equity Expansion Capital Markets BVB Market Liquidity: Institutional Pension Allocation & Equity Expansion How Pillar II pension funds and international institutional buyers are driving liquidity records on the Bucharest Stock Exchange. Alexandru Ionescu 7 min read" [ref=e278] [cursor=pointer]':
+            - /url: /markets/bvb-market-liquidity-pension-allocation
+            - generic [ref=e279]:
+              - 'img "BVB Market Liquidity: Institutional Pension Allocation & Equity Expansion" [ref=e280]'
+              - generic [ref=e282]: Capital Markets
+            - generic [ref=e283]:
+              - generic [ref=e284]:
+                - 'heading "BVB Market Liquidity: Institutional Pension Allocation & Equity Expansion" [level=3] [ref=e285]'
+                - paragraph [ref=e286]: How Pillar II pension funds and international institutional buyers are driving liquidity records on the Bucharest Stock Exchange.
+              - generic [ref=e287]:
+                - generic [ref=e288]: Alexandru Ionescu
+                - generic [ref=e290]: 7 min read
+      - generic [ref=e294]:
+        - generic [ref=e295]:
+          - generic [ref=e296]:
+            - generic [ref=e297]: Institutional Real Estate
+            - heading "The Intelligence Layer Behind Real Estate Decisions" [level=2] [ref=e302]
+          - link "Real Estate Hub" [ref=e303] [cursor=pointer]:
+            - /url: /real-estate
+        - link "Why Northern Bucharest Real Estate Continues to Attract Institutional Capital Real Estate Intelligence Why Northern Bucharest Real Estate Continues to Attract Institutional Capital Institutional transaction analysis examining office conversions, mixed-use luxury developments, and prime yields in Bucharest's growth corridor. Elena Popescu 5 min read" [ref=e308] [cursor=pointer]:
+          - /url: /real-estate/northern-bucharest-real-estate-capital-flows
+          - generic [ref=e309]:
+            - img "Why Northern Bucharest Real Estate Continues to Attract Institutional Capital" [ref=e310]
+            - generic [ref=e312]: Real Estate Intelligence
+          - generic [ref=e313]:
+            - generic [ref=e314]:
+              - heading "Why Northern Bucharest Real Estate Continues to Attract Institutional Capital" [level=3] [ref=e315]
+              - paragraph [ref=e316]: Institutional transaction analysis examining office conversions, mixed-use luxury developments, and prime yields in Bucharest's growth corridor.
+            - generic [ref=e317]:
+              - generic [ref=e318]: Elena Popescu
+              - generic [ref=e320]: 5 min read
+      - generic [ref=e324]:
+        - generic [ref=e325]:
+          - generic [ref=e326]:
+            - img "Markets Morning Briefing" [ref=e327]
+            - generic [ref=e329]: ON AIR • 24/7
+          - generic [ref=e331]:
+            - generic [ref=e332]:
+              - generic [ref=e333]: AiX Live Business Radio
+              - generic [ref=e334]: 320kbps HD Audio
+            - generic [ref=e336]:
+              - heading "Markets Morning Briefing" [level=2] [ref=e337]
+              - paragraph [ref=e338]: Hosted by Cristian Văduva • 07:30 AM - 09:00 AM
+            - paragraph [ref=e339]: Real-time pre-market insights, global currency wrap, macroeconomic signals, and executive commentary before European trading opens.
+            - generic [ref=e340]:
+              - button "LISTEN LIVE RADIO" [ref=e341]
+              - button "Toggle mute" [ref=e345]
+        - generic [ref=e350]:
+          - generic [ref=e351]:
+            - generic [ref=e352]: Today's Broadcasting Lineup
+            - generic [ref=e355]: Live Stream HD
+          - generic [ref=e356]:
+            - generic [ref=e357]:
+              - generic [ref=e358]:
+                - generic [ref=e359]: 07:30 AM - 09:00 AM
+                - generic [ref=e360]: LIVE
+              - generic [ref=e361]: Markets Morning Briefing
+              - generic [ref=e362]: Cristian Văduva
+            - generic [ref=e363]:
+              - generic [ref=e364]:
+                - generic [ref=e365]: 10:30 AM - 11:30 AM
+                - generic [ref=e366]: UPCOMING
+              - generic [ref=e367]: "CEO Talk: CEE Leadership Series"
+              - generic [ref=e368]: Cristian Văduva
+            - generic [ref=e369]:
+              - generic [ref=e370]:
+                - generic [ref=e371]: 12:30 PM - 01:30 PM
+                - generic [ref=e372]: UPCOMING
+              - generic [ref=e373]: The Midday Property & Infrastructure Forum
+              - generic [ref=e374]: Elena Popescu
+            - generic [ref=e375]:
+              - generic [ref=e376]:
+                - generic [ref=e377]: 05:30 PM - 07:00 PM
+                - generic [ref=e378]: REPLAY
+              - generic [ref=e379]: Macro Weekly & Closing Bell Wrap
+              - generic [ref=e380]: Alexandru Ionescu
+      - generic [ref=e381]:
+        - generic [ref=e382]:
+          - generic [ref=e383]:
+            - generic [ref=e384]: Company Profiles & Financials
+            - heading "Romania's Corporate Champions (BVB Listed)" [level=2] [ref=e388]
+          - link "All Profiles" [ref=e389] [cursor=pointer]:
+            - /url: /companies
+        - generic [ref=e393]:
+          - 'link "TLV 28.40 RON Banca Transilvania Cap: €5.8B Div: 6.8%" [ref=e394] [cursor=pointer]':
+            - /url: /companies/banca-transilvania
+            - generic [ref=e395]:
+              - generic [ref=e396]: TLV
+              - generic [ref=e397]: 28.40 RON
+            - heading "Banca Transilvania" [level=3] [ref=e398]
+            - generic [ref=e399]:
+              - generic [ref=e400]: "Cap: €5.8B"
+              - generic [ref=e401]: "Div: 6.8%"
+          - 'link "H2O 128.50 RON Hidroelectrica Cap: €11.4B Div: 8.4%" [ref=e402] [cursor=pointer]':
+            - /url: /companies/hidroelectrica
+            - generic [ref=e403]:
+              - generic [ref=e404]: H2O
+              - generic [ref=e405]: 128.50 RON
+            - heading "Hidroelectrica" [level=3] [ref=e406]
+            - generic [ref=e407]:
+              - generic [ref=e408]: "Cap: €11.4B"
+              - generic [ref=e409]: "Div: 8.4%"
+          - 'link "SNP 0.7420 RON OMV Petrom Cap: €8.2B Div: 9.1%" [ref=e410] [cursor=pointer]':
+            - /url: /companies/omv-petrom
+            - generic [ref=e411]:
+              - generic [ref=e412]: SNP
+              - generic [ref=e413]: 0.7420 RON
+            - heading "OMV Petrom" [level=3] [ref=e414]
+            - generic [ref=e415]:
+              - generic [ref=e416]: "Cap: €8.2B"
+              - generic [ref=e417]: "Div: 9.1%"
+          - 'link "ONE 0.9850 RON One United Properties Cap: €780M Div: 4.5%" [ref=e418] [cursor=pointer]':
+            - /url: /companies/one-united-properties
+            - generic [ref=e419]:
+              - generic [ref=e420]: ONE
+              - generic [ref=e421]: 0.9850 RON
+            - heading "One United Properties" [level=3] [ref=e422]
+            - generic [ref=e423]:
+              - generic [ref=e424]: "Cap: €780M"
+              - generic [ref=e425]: "Div: 4.5%"
+      - generic [ref=e426]:
+        - generic [ref=e427]:
+          - heading "Upcoming Macro & Central Bank Events" [level=3] [ref=e431]
+          - link "Full Calendar →" [ref=e432] [cursor=pointer]:
+            - /url: /calendar
+        - generic [ref=e433]:
+          - generic [ref=e434]:
+            - generic [ref=e435]:
+              - generic [ref=e436]: RO • 2026-08-08
+              - generic [ref=e437]: HIGH
+            - generic [ref=e438]: BNR Monetary Policy Interest Rate Decision
+          - generic [ref=e439]:
+            - generic [ref=e440]:
+              - generic [ref=e441]: RO • 2026-08-12
+              - generic [ref=e442]: HIGH
+            - generic [ref=e443]: Romania CPI Inflation Rate (YoY)
+          - generic [ref=e444]:
+            - generic [ref=e445]:
+              - generic [ref=e446]: EU • 2026-09-10
+              - generic [ref=e447]: HIGH
+            - generic [ref=e448]: ECB Governing Council Interest Rate Meeting
+          - generic [ref=e449]:
+            - generic [ref=e450]:
+              - generic [ref=e451]: RO • 2026-08-25
+              - generic [ref=e452]: MEDIUM
+            - generic [ref=e453]: Banca Transilvania Q2 Financial Release & Dividend ex-Date
+      - generic [ref=e454]:
+        - generic [ref=e455]:
+          - generic [ref=e456]:
+            - generic [ref=e457]: Private Wealth & Equity
+            - heading "Investment Intelligence & Capital Allocation" [level=2] [ref=e461]
+          - link "Investments Hub" [ref=e462] [cursor=pointer]:
+            - /url: /investments
+        - 'link "Venture & Private Equity Trends in CEE: Where Capital is Flowing Investments & Wealth Venture & Private Equity Trends in CEE: Where Capital is Flowing Private capital allocation analysis across fintech, green energy tech, and regional enterprise software scaleups. Cristian Văduva 4 min read" [ref=e467] [cursor=pointer]':
+          - /url: /investments/venture-private-equity-trends-cee
+          - generic [ref=e468]:
+            - 'img "Venture & Private Equity Trends in CEE: Where Capital is Flowing" [ref=e469]'
+            - generic [ref=e471]: Investments & Wealth
+          - generic [ref=e472]:
+            - generic [ref=e473]:
+              - 'heading "Venture & Private Equity Trends in CEE: Where Capital is Flowing" [level=3] [ref=e474]'
+              - paragraph [ref=e475]: Private capital allocation analysis across fintech, green energy tech, and regional enterprise software scaleups.
+            - generic [ref=e476]:
+              - generic [ref=e477]: Cristian Văduva
+              - generic [ref=e479]: 4 min read
+      - generic [ref=e483]:
+        - generic [ref=e484]:
+          - generic [ref=e485]:
+            - generic [ref=e486]: Video Journalism
+            - heading "AiX TV & Studio Investigations" [level=2] [ref=e490]
+          - link "Watch AiX TV" [ref=e491] [cursor=pointer]:
+            - /url: /tv
+        - generic [ref=e495]:
+          - 'link "Documentary Special: The Transformation of CEE Energy Infrastructure Documentary 28:15 Documentary Special: The Transformation of CEE Energy Infrastructure An investigative visual report on offshore gas, solar grid integration, and CEE energy independence." [ref=e496] [cursor=pointer]':
+            - /url: /tv
+            - generic [ref=e497]:
+              - 'img "Documentary Special: The Transformation of CEE Energy Infrastructure" [ref=e498]'
+              - generic [ref=e500]: Documentary
+              - generic [ref=e501]: 28:15
+            - generic [ref=e506]:
+              - 'heading "Documentary Special: The Transformation of CEE Energy Infrastructure" [level=3] [ref=e507]'
+              - paragraph [ref=e508]: An investigative visual report on offshore gas, solar grid integration, and CEE energy independence.
+          - 'link "Studio Interview: BVB Leadership on Foreign Institutional Flows CEO Interviews 18:40 Studio Interview: BVB Leadership on Foreign Institutional Flows Exclusive studio talk discussing exchange liquidity, pension fund rules, and new tech listings." [ref=e509] [cursor=pointer]':
+            - /url: /tv
+            - generic [ref=e510]:
+              - 'img "Studio Interview: BVB Leadership on Foreign Institutional Flows" [ref=e511]'
+              - generic [ref=e513]: CEO Interviews
+              - generic [ref=e514]: 18:40
+            - generic [ref=e519]:
+              - 'heading "Studio Interview: BVB Leadership on Foreign Institutional Flows" [level=3] [ref=e520]'
+              - paragraph [ref=e521]: Exclusive studio talk discussing exchange liquidity, pension fund rules, and new tech listings.
+          - 'link "Inside Bucharest''s Commercial Hubs: A Visual Architecture Report Investigations 15:10 Inside Bucharest''s Commercial Hubs: A Visual Architecture Report On-site video exploration of award-winning mixed-use developments in Northern Bucharest." [ref=e522] [cursor=pointer]':
+            - /url: /tv
+            - generic [ref=e523]:
+              - 'img "Inside Bucharest''s Commercial Hubs: A Visual Architecture Report" [ref=e524]'
+              - generic [ref=e526]: Investigations
+              - generic [ref=e527]: 15:10
+            - generic [ref=e532]:
+              - 'heading "Inside Bucharest''s Commercial Hubs: A Visual Architecture Report" [level=3] [ref=e533]'
+              - paragraph [ref=e534]: On-site video exploration of award-winning mixed-use developments in Northern Bucharest.
+      - generic [ref=e535]:
+        - generic [ref=e536]:
+          - generic [ref=e537]:
+            - generic [ref=e538]: Executive Audio
+            - 'heading "Podcasts: Strategic Dialogues & Masterclasses" [level=2] [ref=e542]'
+          - link "Podcast Catalog" [ref=e543] [cursor=pointer]:
+            - /url: /podcasts
+        - generic [ref=e547]:
+          - 'link "Building Regional Champions: Strategic M&A and Capital Growth The CEO Playbook • EP #84 Building Regional Champions: Strategic M&A and Capital Growth A conversation with leading CEE founders on expanding enterprise software companies across European markets. Guest: Mihai Stoica, Founder & CEO 54 min" [ref=e548] [cursor=pointer]':
+            - /url: /podcast/building-regional-champions-strategic-ma
+            - generic [ref=e549]:
+              - 'img "Building Regional Champions: Strategic M&A and Capital Growth" [ref=e550]'
+              - generic [ref=e552]: "The CEO Playbook • EP #84"
+            - generic [ref=e556]:
+              - generic [ref=e557]:
+                - 'heading "Building Regional Champions: Strategic M&A and Capital Growth" [level=3] [ref=e558]'
+                - paragraph [ref=e559]: A conversation with leading CEE founders on expanding enterprise software companies across European markets.
+              - generic [ref=e560]:
+                - generic [ref=e561]: "Guest: Mihai Stoica, Founder & CEO"
+                - generic [ref=e562]: 54 min
+          - 'link "Institutional Real Estate Allocation & Yield Dynamics in CEE Real Estate Intelligence Podcast • EP #42 Institutional Real Estate Allocation & Yield Dynamics in CEE How international funds structure cap rates, debt financing, and logistics hub investments. Guest: Dan Radu, Managing Partner 48 min" [ref=e566] [cursor=pointer]':
+            - /url: /podcast/institutional-real-estate-allocation-yield-dynamics
+            - generic [ref=e567]:
+              - img "Institutional Real Estate Allocation & Yield Dynamics in CEE" [ref=e568]
+              - generic [ref=e570]: "Real Estate Intelligence Podcast • EP #42"
+            - generic [ref=e574]:
+              - generic [ref=e575]:
+                - heading "Institutional Real Estate Allocation & Yield Dynamics in CEE" [level=3] [ref=e576]
+                - paragraph [ref=e577]: How international funds structure cap rates, debt financing, and logistics hub investments.
+              - generic [ref=e578]:
+                - generic [ref=e579]: "Guest: Dan Radu, Managing Partner"
+                - generic [ref=e580]: 48 min
+          - 'link "Macroeconomic Policy & Inflation Targets: Central Bank Insights Macro Signals • EP #29 Macroeconomic Policy & Inflation Targets: Central Bank Insights Analyzing central bank rate decisions, liquidity buffers, and macroeconomic forecasts for 2026-2027. Guest: Dr. Sorin Moldovan, Macroeconomist 62 min" [ref=e584] [cursor=pointer]':
+            - /url: /podcast/macroeconomic-policy-inflation-targets
+            - generic [ref=e585]:
+              - 'img "Macroeconomic Policy & Inflation Targets: Central Bank Insights" [ref=e586]'
+              - generic [ref=e588]: "Macro Signals • EP #29"
+            - generic [ref=e592]:
+              - generic [ref=e593]:
+                - 'heading "Macroeconomic Policy & Inflation Targets: Central Bank Insights" [level=3] [ref=e594]'
+                - paragraph [ref=e595]: Analyzing central bank rate decisions, liquidity buffers, and macroeconomic forecasts for 2026-2027.
+              - generic [ref=e596]:
+                - generic [ref=e597]: "Guest: Dr. Sorin Moldovan, Macroeconomist"
+                - generic [ref=e598]: 62 min
+      - generic [ref=e602]:
+        - generic [ref=e603]:
+          - generic [ref=e604]: Intelligence Academy
+          - heading "Executive Education & Market Frameworks" [level=3] [ref=e608]
+          - paragraph [ref=e609]: Access masterclasses on commercial real estate yield modeling, BVB stock analysis, and macro policy forecasts.
+        - link "EXPLORE ACADEMY →" [ref=e610] [cursor=pointer]:
+          - /url: /academy
+      - generic [ref=e612]:
+        - generic [ref=e613]:
+          - generic [ref=e614]: AiX Executive Intelligence
+          - heading "Subscribe to the Daily Macro & Capital Briefing" [level=2] [ref=e618]
+          - paragraph [ref=e619]: Delivered every weekday at 07:00 AM before European markets open. Signal, not noise.
+        - generic [ref=e621]:
+          - textbox "executive@company.com" [ref=e622]
+          - button "GET EXECUTIVE BRIEFING" [ref=e623]
+          - generic [ref=e627]: Zero spam • Unsubscribe anytime
+      - generic [ref=e633]:
+        - generic [ref=e634]:
+          - generic [ref=e635]: AiX Ecosystem
+          - heading "The AiX Ecosystem" [level=2] [ref=e636]
+          - paragraph [ref=e637]: One connected ecosystem across intelligence, capital, property, protection, health and business.
+        - generic [ref=e638]:
+          - generic [ref=e639]:
+            - generic [ref=e640]:
+              - generic [ref=e641]:
+                - generic [ref=e642]: Intelligence
+                - generic [ref=e643]: os.cristianvaduva.com
+              - heading "AiX OS" [level=3] [ref=e644]
+              - paragraph [ref=e645]: AI, automation, intelligence and operational infrastructure.
+            - link "Accesează platforma AiX OS — AI, automation, intelligence and operational infrastructure." [ref=e647] [cursor=pointer]:
+              - /url: https://os.cristianvaduva.com
+              - generic [ref=e648]: Accesează
+              - generic [ref=e649]: →
+          - generic [ref=e650]:
+            - generic [ref=e651]:
+              - generic [ref=e652]:
+                - generic [ref=e653]: Intelligence
+                - generic [ref=e654]: cristianvaduva.com
+              - heading "Market Pulse" [level=3] [ref=e655]
+              - paragraph [ref=e656]: Live market intelligence, macroeconomic signals and capital-market analysis.
+            - link "Accesează platforma Market Pulse — Live market intelligence, macroeconomic signals and capital-market analysis." [ref=e658] [cursor=pointer]:
+              - /url: https://cristianvaduva.com/market-pulse
+              - generic [ref=e659]: Accesează
+              - generic [ref=e660]: →
+          - generic [ref=e661]:
+            - generic [ref=e662]:
+              - generic [ref=e663]:
+                - generic [ref=e664]: Real Estate & Capital
+                - generic [ref=e665]: homefind.cristianvaduva.com
+              - heading "Home Find" [level=3] [ref=e666]
+              - paragraph [ref=e667]: Real estate discovery, property intelligence and transaction infrastructure.
+            - link "Accesează platforma Home Find — Real estate discovery, property intelligence and transaction infrastructure." [ref=e669] [cursor=pointer]:
+              - /url: https://homefind.cristianvaduva.com
+              - generic [ref=e670]: Accesează
+              - generic [ref=e671]: →
+          - generic [ref=e672]:
+            - generic [ref=e673]:
+              - generic [ref=e674]:
+                - generic [ref=e675]: Real Estate & Capital
+                - generic [ref=e676]: aixluxury.com
+              - heading "AiXLuxury" [level=3] [ref=e677]
+              - paragraph [ref=e678]: Luxury real estate, private opportunities and UHNW investment intelligence.
+            - link "Accesează platforma AiXLuxury — Luxury real estate, private opportunities and UHNW investment intelligence." [ref=e680] [cursor=pointer]:
+              - /url: https://aixluxury.com
+              - generic [ref=e681]: Accesează
+              - generic [ref=e682]: →
+          - generic [ref=e683]:
+            - generic [ref=e684]:
+              - generic [ref=e685]:
+                - generic [ref=e686]: Real Estate & Capital
+                - generic [ref=e687]: credite.cristianvaduva.com
+              - heading "Credite" [level=3] [ref=e688]
+              - paragraph [ref=e689]: Credit intelligence, financing analysis and structured lending solutions.
+            - link "Accesează platforma Credite — Credit intelligence, financing analysis and structured lending solutions." [ref=e691] [cursor=pointer]:
+              - /url: https://credite.cristianvaduva.com
+              - generic [ref=e692]: Accesează
+              - generic [ref=e693]: →
+          - generic [ref=e694]:
+            - generic [ref=e695]:
+              - generic [ref=e696]:
+                - generic [ref=e697]: Protection & Wellness
+                - generic [ref=e698]: insurance.cristianvaduva.com
+              - heading "Insurance" [level=3] [ref=e699]
+              - paragraph [ref=e700]: Insurance intelligence and strategic asset protection.
+            - link "Accesează platforma Insurance — Insurance intelligence and strategic asset protection." [ref=e702] [cursor=pointer]:
+              - /url: https://insurance.cristianvaduva.com
+              - generic [ref=e703]: Accesează
+              - generic [ref=e704]: →
+          - generic [ref=e705]:
+            - generic [ref=e706]:
+              - generic [ref=e707]:
+                - generic [ref=e708]: Protection & Wellness
+                - generic [ref=e709]: health.cristianvaduva.com
+              - heading "Health" [level=3] [ref=e710]
+              - paragraph [ref=e711]: Digital health intelligence, personalized protocols and wellness technology.
+            - link "Accesează platforma Health — Digital health intelligence, personalized protocols and wellness technology." [ref=e713] [cursor=pointer]:
+              - /url: https://health.cristianvaduva.com
+              - generic [ref=e714]: Accesează
+              - generic [ref=e715]: →
+          - generic [ref=e716]:
+            - generic [ref=e717]:
+              - generic [ref=e718]:
+                - generic [ref=e719]: Business Funding
+                - generic [ref=e720]: subventii.cristianvaduva.com
+              - heading "Subvenții" [level=3] [ref=e721]
+              - paragraph [ref=e722]: Funding, grants, public programmes and business intelligence for Romania.
+            - link "Accesează platforma Subvenții — Funding, grants, public programmes and business intelligence for Romania." [ref=e724] [cursor=pointer]:
+              - /url: https://subventii.cristianvaduva.com
+              - generic [ref=e725]: Accesează
+              - generic [ref=e726]: →
+          - generic [ref=e727]:
+            - generic [ref=e728]:
+              - generic [ref=e729]:
+                - generic [ref=e730]: Personal
+                - generic [ref=e731]: cristianvaduva.com
+              - heading "Cristian Văduva" [level=3] [ref=e732]
+              - paragraph [ref=e733]: Personal brand, advisory, market intelligence and direct access to Cristian Văduva.
+            - link "Accesează platforma Cristian Văduva — Personal brand, advisory, market intelligence and direct access to Cristian Văduva." [ref=e735] [cursor=pointer]:
+              - /url: https://cristianvaduva.com
+              - generic [ref=e736]: Accesează
+              - generic [ref=e737]: →
+  - contentinfo [ref=e738]:
+    - generic [ref=e739]:
+      - generic [ref=e740]:
+        - generic [ref=e741]:
+          - generic [ref=e742]:
+            - text: AiX Ecosystem
+            - heading "Connected Intelligence & Services" [level=3] [ref=e743]
+          - link "cristianvaduva.com ↗" [ref=e744] [cursor=pointer]:
+            - /url: https://cristianvaduva.com
+            - generic [ref=e745]: cristianvaduva.com
+            - generic [ref=e746]: ↗
+        - generic [ref=e747]:
+          - link "Visit AiX OS" [ref=e748] [cursor=pointer]:
+            - /url: https://os.cristianvaduva.com
+            - generic [ref=e749]:
+              - generic [ref=e750]: AiX OS
+              - generic [ref=e751]: ↗
+            - generic [ref=e752]: os.cristianvaduva.com
+          - link "Visit Market Pulse" [ref=e753] [cursor=pointer]:
+            - /url: https://cristianvaduva.com/market-pulse
+            - generic [ref=e754]:
+              - generic [ref=e755]: Market Pulse
+              - generic [ref=e756]: ↗
+            - generic [ref=e757]: cristianvaduva.com
+          - link "Visit Home Find" [ref=e758] [cursor=pointer]:
+            - /url: https://homefind.cristianvaduva.com
+            - generic [ref=e759]:
+              - generic [ref=e760]: Home Find
+              - generic [ref=e761]: ↗
+            - generic [ref=e762]: homefind.cristianvaduva.com
+          - link "Visit AiXLuxury" [ref=e763] [cursor=pointer]:
+            - /url: https://aixluxury.com
+            - generic [ref=e764]:
+              - generic [ref=e765]: AiXLuxury
+              - generic [ref=e766]: ↗
+            - generic [ref=e767]: aixluxury.com
+          - link "Visit Credite" [ref=e768] [cursor=pointer]:
+            - /url: https://credite.cristianvaduva.com
+            - generic [ref=e769]:
+              - generic [ref=e770]: Credite
+              - generic [ref=e771]: ↗
+            - generic [ref=e772]: credite.cristianvaduva.com
+          - link "Visit Insurance" [ref=e773] [cursor=pointer]:
+            - /url: https://insurance.cristianvaduva.com
+            - generic [ref=e774]:
+              - generic [ref=e775]: Insurance
+              - generic [ref=e776]: ↗
+            - generic [ref=e777]: insurance.cristianvaduva.com
+          - link "Visit Health" [ref=e778] [cursor=pointer]:
+            - /url: https://health.cristianvaduva.com
+            - generic [ref=e779]:
+              - generic [ref=e780]: Health
+              - generic [ref=e781]: ↗
+            - generic [ref=e782]: health.cristianvaduva.com
+          - link "Visit Subvenții" [ref=e783] [cursor=pointer]:
+            - /url: https://subventii.cristianvaduva.com
+            - generic [ref=e784]:
+              - generic [ref=e785]: Subvenții
+              - generic [ref=e786]: ↗
+            - generic [ref=e787]: subventii.cristianvaduva.com
+          - link "Visit Cristian Văduva" [ref=e788] [cursor=pointer]:
+            - /url: https://cristianvaduva.com
+            - generic [ref=e789]:
+              - generic [ref=e790]: Cristian Văduva
+              - generic [ref=e791]: ↗
+            - generic [ref=e792]: cristianvaduva.com
+      - generic [ref=e793]:
+        - generic [ref=e794]:
+          - link "A AiX MEDIA Business & Intelligence Network" [ref=e795] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e796]: A
+            - generic [ref=e797]:
+              - generic [ref=e798]: AiX MEDIA
+              - generic [ref=e799]: Business & Intelligence Network
+          - paragraph [ref=e800]: Romania's next-generation business and intelligence media platform founded by Cristian Văduva. Delivering macroeconomic insights, capital markets analysis, and real estate dynamics.
+          - generic [ref=e801]:
+            - generic [ref=e802]: Bucharest, Romania
+            - link "cristianvaduva@duck.com" [ref=e811] [cursor=pointer]:
+              - /url: mailto:cristianvaduva@duck.com
+            - link "+40 767 110 439" [ref=e815] [cursor=pointer]:
+              - /url: tel:+40767110439
+            - 'link "WhatsApp: +43 650 953 6345" [ref=e819] [cursor=pointer]':
+              - /url: https://wa.me/436509536345
+          - generic [ref=e820]:
+            - generic [ref=e821]: Institutional Rigor
+            - generic [ref=e825]: CEE Coverage
+        - generic [ref=e829]:
+          - heading "Media Products" [level=4] [ref=e830]
+          - list [ref=e831]:
+            - listitem [ref=e832]:
+              - link "Breaking Intelligence" [ref=e833] [cursor=pointer]:
+                - /url: /news
+            - listitem [ref=e834]:
+              - link "Market Dashboard" [ref=e835] [cursor=pointer]:
+                - /url: /markets
+            - listitem [ref=e836]:
+              - link "AiX Radio 24/7" [ref=e837] [cursor=pointer]:
+                - /url: /radio
+            - listitem [ref=e838]:
+              - link "AiX TV Broadcasts" [ref=e839] [cursor=pointer]:
+                - /url: /tv
+            - listitem [ref=e840]:
+              - link "Executive Podcasts" [ref=e841] [cursor=pointer]:
+                - /url: /podcasts
+        - generic [ref=e842]:
+          - heading "Editorial Verticals" [level=4] [ref=e843]
+          - list [ref=e844]:
+            - listitem [ref=e845]:
+              - link "Real Estate Analysis" [ref=e846] [cursor=pointer]:
+                - /url: /real-estate
+            - listitem [ref=e847]:
+              - link "Investment & Wealth" [ref=e848] [cursor=pointer]:
+                - /url: /investments
+            - listitem [ref=e849]:
+              - link "Corporate Business" [ref=e850] [cursor=pointer]:
+                - /url: /business
+            - listitem [ref=e851]:
+              - link "Finance & Rates" [ref=e852] [cursor=pointer]:
+                - /url: /finance
+            - listitem [ref=e853]:
+              - link "Company Profiles" [ref=e854] [cursor=pointer]:
+                - /url: /companies
+            - listitem [ref=e855]:
+              - link "Macro Calendar" [ref=e856] [cursor=pointer]:
+                - /url: /calendar
+            - listitem [ref=e857]:
+              - link "Editorial Board" [ref=e858] [cursor=pointer]:
+                - /url: /authors
+            - listitem [ref=e859]:
+              - link "Intelligence Academy" [ref=e860] [cursor=pointer]:
+                - /url: /academy
+            - listitem [ref=e861]:
+              - link "Contact & Desk" [ref=e862] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e863]:
+          - heading "Executive Briefing" [level=4] [ref=e864]
+          - paragraph [ref=e865]: Receive private market intelligence reports directly in your inbox.
+          - generic [ref=e866]:
+            - textbox "executive@company.com" [ref=e867]
+            - button "Subscribe Briefing" [ref=e868] [cursor=pointer]
+      - generic [ref=e872]:
+        - generic [ref=e873]: © 2026 AiX Media • Cristian Văduva. All rights reserved. Part of the Cristian Văduva Ecosystem.
+        - generic [ref=e874]:
+          - link "Contact Desk" [ref=e875] [cursor=pointer]:
+            - /url: /contact
+          - link "Privacy Policy" [ref=e876] [cursor=pointer]:
+            - /url: /privacy
+          - link "Cookie Policy" [ref=e877] [cursor=pointer]:
+            - /url: /cookies
+          - link "Terms of Use" [ref=e878] [cursor=pointer]:
+            - /url: /terms
+          - link "Legal Notice" [ref=e879] [cursor=pointer]:
+            - /url: /legal
+  - button "Open Next.js Dev Tools" [ref=e885] [cursor=pointer]
+  - alert [ref=e889]
+  - generic [ref=e891]:
+    - paragraph [ref=e892]:
+      - text: Utilizăm cookie-uri pentru a îmbunătăți experiența utilizatorului, pentru analytics și pentru funcționalități esențiale.
+      - link "Citește politica de confidențialitate" [ref=e893] [cursor=pointer]:
+        - /url: /privacy
+      - text: .
+    - generic [ref=e894]:
+      - button "Refuză non-esențial" [ref=e895]
+      - button "Acceptă toate" [ref=e896]
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from '@playwright/test';
+  2  | 
+  3  | const viewports = [320, 360, 375, 390, 412, 430];
+  4  | 
+  5  | viewports.forEach((width) => {
+  6  |   test(`Menu and Ecosystem work at ${width}px`, async ({ page }) => {
+  7  |     await page.setViewportSize({ width, height: 800 });
+  8  |     await page.goto('http://localhost:3000');
+  9  |     const menuButton = page.getByRole('button', { name: /Deschide meniul/i });
+  10 |     await expect(menuButton).toBeVisible();
+  11 |     await menuButton.click();
+  12 |     // Drawer should appear
+  13 |     const drawer = page.locator('#mobile-menu-drawer');
+  14 |     await expect(drawer).toBeVisible();
+  15 |     // Close drawer
+> 16 |     await drawer.getByRole('button', { name: /Închide meniul/i }).click();
+     |                                                                   ^ Error: locator.click: Test timeout of 60000ms exceeded.
+  17 |     await expect(drawer).toBeHidden();
+  18 |     // Open ecosystem accordion
+  19 |     const ecoButton = page.getByRole('button', { name: /Deschide ecosistemul/i });
+  20 |     await ecoButton.click();
+  21 |     const ecoAccordion = page.locator('#mobile-ecosystem-accordion');
+  22 |     await expect(ecoAccordion).toBeVisible();
+  23 |     // Close ecosystem
+  24 |     await ecoButton.click();
+  25 |     await expect(ecoAccordion).toBeHidden();
+  26 |   });
+  27 | });
+  28 | 
+```
