@@ -22,6 +22,7 @@ function loadTelegramModule() {
   code = code.replace(/export interface[\s\S]*?\n\}/g, '');
   code = code.replace(/export /g, '');
   code = code.replace(/:\s*TelegramLeadData/g, '');
+  code = code.replace(/:\s*TelegramVisitorData/g, '');
   code = code.replace(/:\s*Promise<boolean>/g, '');
   code = code.replace(/:\s*Promise<Response>/g, '');
   code = code.replace(/:\s*Promise<void>/g, '');
@@ -29,7 +30,7 @@ function loadTelegramModule() {
   code = code.replace(/:\s*string/g, '');
   code = code.replace(/:\s*number/g, '');
   code = code.replace(/:\s*unknown/g, '');
-  code += '\nexports.sendTelegramAlert = sendTelegramAlert;\n';
+  code += '\nexports.sendTelegramAlert = sendTelegramAlert;\nexports.sendTelegramVisitorAlert = sendTelegramVisitorAlert;\n';
 
   const module = { exports: {} };
   const fn = new Function('module', 'exports', 'process', 'console', 'fetch', code);
@@ -82,7 +83,20 @@ async function runTests() {
     assert.ok(payload.text.includes("test@aixmedia.ro &amp; phone"), "Contact should be HTML escaped");
     console.log("✓ Test 2 Passed: Successful Telegram delivery with HTML escaping");
 
-    // 3. Telegram API failure (e.g. 500 error)
+    // 3. Visitor notification test
+    const resultVisitorAlert = await mod2.sendTelegramVisitorAlert({
+      pageUrl: "/tv",
+      device: "Mobile",
+      referrer: "Direct",
+      country: "RO",
+    });
+    assert.strictEqual(resultVisitorAlert, true, "Should return true on visitor alert send");
+    const visitorPayload = JSON.parse(lastFetchOptions.body);
+    assert.ok(visitorPayload.text.includes("AiX Media — New Visitor"), "Message should contain visitor heading");
+    assert.ok(visitorPayload.text.includes("Page:</b> /tv"), "Message should contain page URL");
+    console.log("✓ Test 3 Passed: Visitor notification formatting & delivery");
+
+    // 4. Telegram API failure (e.g. 500 error)
     mockFetchResponse = {
       ok: false,
       status: 500,
@@ -91,13 +105,13 @@ async function runTests() {
 
     const resultApiFailure = await mod2.sendTelegramAlert({ name: "Test User", contact: "test@aixmedia.ro" });
     assert.strictEqual(resultApiFailure, false, "Should return false when Telegram API returns 500");
-    console.log("✓ Test 3 Passed: Telegram API failure handled with retries");
+    console.log("✓ Test 4 Passed: Telegram API failure handled with retries");
 
-    // 4. Malformed Telegram response / Timeout
+    // 5. Malformed Telegram response / Timeout
     mockFetchError = new Error("AbortError");
     const resultNetworkError = await mod2.sendTelegramAlert({ name: "Test User", contact: "test@aixmedia.ro" });
     assert.strictEqual(resultNetworkError, false, "Should return false on network error/timeout");
-    console.log("✓ Test 4 Passed: Malformed / timeout network error handled");
+    console.log("✓ Test 5 Passed: Malformed / timeout network error handled");
 
     console.log("ALL TELEGRAM PIPELINE TESTS PASSED SUCCESSFULLY!");
   } finally {

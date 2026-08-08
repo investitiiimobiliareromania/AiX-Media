@@ -14,6 +14,8 @@ import { AppProviders } from "@/providers/app-providers";
 
 import "./globals.css";
 import CookieConsentBanner from "@/components/common/CookieConsentBanner";
+import { getMarketData } from "@/lib/market-data";
+import { VisitorTracker } from "@/components/layout/VisitorTracker";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -44,8 +46,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-import { getMarketData } from "@/lib/market-data";
-
 export default async function RootLayout({
   children,
 }: {
@@ -62,6 +62,7 @@ export default async function RootLayout({
       <body className="flex min-h-full flex-col">
         <JsonLd data={organizationJsonLd} />
         <AppProviders>
+          <VisitorTracker />
           <SkipLink />
           <NewSiteHeader currencies={marketSnapshot.currencies} />
           <main id="main-content" className="flex-1">
