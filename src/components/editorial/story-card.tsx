@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { Overline, Text } from "@/components/common/typography";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ type StoryCardProps = {
   title: string;
   description?: string;
   meta?: string;
+  imageUrl?: string;
   variant?: "default" | "compact" | "horizontal";
   className?: string;
 };
@@ -19,6 +21,7 @@ export function StoryCard({
   title,
   description,
   meta,
+  imageUrl,
   variant = "default",
   className,
 }: StoryCardProps) {
@@ -30,7 +33,13 @@ export function StoryCard({
           className,
         )}
       >
-        <div className="aspect-[4/3] bg-surface sm:aspect-square" aria-hidden />
+        <div className="relative aspect-[4/3] bg-neutral-950 sm:aspect-square overflow-hidden rounded">
+          {imageUrl ? (
+            <Image src={imageUrl} alt={title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+          ) : (
+            <div className="w-full h-full bg-surface" aria-hidden />
+          )}
+        </div>
         <div className="flex flex-col justify-center gap-3">
           <StoryCardContent
             href={href}
@@ -47,18 +56,23 @@ export function StoryCard({
   return (
     <article
       className={cn(
-        "group flex h-full flex-col border border-border bg-surface/40",
+        "group flex h-full flex-col border border-border bg-surface/40 overflow-hidden",
         variant === "compact" ? "p-4" : "p-6",
         className,
       )}
     >
       <div
         className={cn(
-          "mb-4 bg-surface",
+          "relative mb-4 bg-neutral-950 overflow-hidden rounded",
           variant === "compact" ? "aspect-[16/10]" : "aspect-[16/9]",
         )}
-        aria-hidden
-      />
+      >
+        {imageUrl ? (
+          <Image src={imageUrl} alt={title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+        ) : (
+          <div className="w-full h-full bg-surface" aria-hidden />
+        )}
+      </div>
       <StoryCardContent
         href={href}
         category={category}

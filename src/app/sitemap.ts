@@ -14,6 +14,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const additionalStaticRoutes: MetadataRoute.Sitemap = [
+    "/companies",
+    "/calendar",
+    "/authors",
+    "/search",
+    "/contact",
+  ].map((route) => ({
+    url: `${siteConfig.url}${route}`,
+    lastModified,
+    changeFrequency: "daily",
+    priority: 0.8,
+  }));
+
   const categoryRoutes: MetadataRoute.Sitemap = categoriesList.map((category) => ({
     url: `${siteConfig.url}${category.href}`,
     lastModified,
@@ -21,5 +34,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...categoryRoutes];
+  return [...staticRoutes, ...additionalStaticRoutes, ...categoryRoutes];
 }
