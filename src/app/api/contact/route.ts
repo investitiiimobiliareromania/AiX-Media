@@ -1,11 +1,21 @@
 import { NextResponse } from "next/server";
 import { sendTelegramAlert, type TelegramLeadData } from "@/lib/telegram";
 
-// Simple in-memory rate limiting map for basic spam protection
+// Simple in-memory rate limiting map with periodic cleanup
 const rateLimitMap = new Map<string, { count: number; expiresAt: number }>();
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  
+  // Periodic cleanup if map grows too large
+  if (rateLimitMap.size > 1000) {
+    for (const [key, value] of rateLimitMap.entries()) {
+      if (now > value.expiresAt) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
   const entry = rateLimitMap.get(ip);
 
   if (!entry || now > entry.expiresAt) {
@@ -21,8 +31,37 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+export async function GET() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
+export async function PUT() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
 export async function POST(request: Request) {
   try {
+    const contentLength = parseInt(request.headers.get("content-length") || "0", 10);
+    if (contentLength > 20000) { // 20KB limit
+      return NextResponse.json(
+        { success: false, error: "Dimensiunea solicitării depășește limita." },
+        { status: 413 }
+      );
+    }
+
     const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
     if (isRateLimited(ip)) {
       return NextResponse.json(
@@ -51,14 +90,14 @@ export async function POST(request: Request) {
     }
 
     // Required fields validation
-    if (!name || typeof name !== "string" || name.trim().length < 2) {
+    if (!name || typeof name !== "string" || name.trim().length < 2 || name.trim().length > 100) {
       return NextResponse.json(
         { success: false, error: "Vă rugăm să introduceți un nume valabil." },
         { status: 400 }
       );
     }
 
-    if (!contact || typeof contact !== "string" || contact.trim().length < 3) {
+    if (!contact || typeof contact !== "string" || contact.trim().length < 3 || contact.trim().length > 120) {
       return NextResponse.json(
         { success: false, error: "Vă rugăm să introduceți un număr de telefon sau o adresă de email valabilă." },
         { status: 400 }
@@ -68,7 +107,7 @@ export async function POST(request: Request) {
     // Sanitize input values
     const sanitizedLead: TelegramLeadData = {
       name: name.trim().slice(0, 100),
-      contact: contact.trim().slice(0, 100),
+      contact: contact.trim().slice(0, 120),
       message: typeof message === "string" ? message.trim().slice(0, 1000) : "—",
       source: typeof source === "string" ? source.trim().slice(0, 100) : "AiX Media",
       cta: typeof cta === "string" ? cta.trim().slice(0, 100) : "Inquiry Form",
@@ -88,7 +127,6 @@ export async function POST(request: Request) {
 
     if (!telegramSuccess) {
       console.warn("[Contact API] Telegram notification failed or bot credentials missing.");
-      // If Telegram credentials are missing in local/dev or Telegram fails, return partial failure message if required or log safely
       const hasSecrets = Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
       if (!hasSecrets) {
         return NextResponse.json(

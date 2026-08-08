@@ -106,7 +106,8 @@
   }
 
   html {
-    @apply scroll-smooth font-sans antialiased;
+    scroll-behavior: smooth;
+    @apply font-sans antialiased;
     text-rendering: optimizeLegibility;
   }
 
