@@ -6,17 +6,17 @@ export class MediaRepository {
     return verifiedVideos.map(v => ({
       id: v.id,
       title: v.title,
-      slug: v.slug,
-      description: v.description,
+      slug: v.slug || v.id,
+      description: v.description || v.title,
       provider: 'youtube',
       videoUrl: v.embedUrl,
-      thumbnailUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop",
-      category: v.category,
-      duration: v.duration,
+      thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+      category: v.category || 'Official',
+      duration: v.duration || '0:30',
       speakerName: 'Cristian Văduva',
-      transcript: 'Prezentarea oficială a canalului Cristian Văduva CV despre investiții imobiliare și strategii financiare.',
+      transcript: 'Prezentare oficială Cristian Văduva.',
       status: 'Published',
-      createdAt: v.publishedAt + "T00:00:00Z",
+      createdAt: (v.publishedAt || '2026-08-08') + 'T00:00:00Z',
     }));
   }
 

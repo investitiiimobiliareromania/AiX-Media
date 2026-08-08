@@ -282,14 +282,14 @@ import { verifiedVideos } from "@/config/youtube";
 export const tvVideos: VideoItem[] = verifiedVideos.map(v => ({
   id: v.id,
   title: v.title,
-  slug: v.slug,
+  slug: v.slug || v.id,
   youtubeId: v.id,
-  duration: v.duration,
-  publishedAt: v.publishedAt,
+  duration: v.duration || "0:30",
+  publishedAt: v.publishedAt || "2026-08-08",
   category: "Investigations",
   playlistName: "AiX Investigations",
-  description: v.description,
-  thumbnailUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800&auto=format&fit=crop",
+  description: v.description || v.title,
+  thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
 }));
 
 import { bvbCompanies } from "../bvb-data";
