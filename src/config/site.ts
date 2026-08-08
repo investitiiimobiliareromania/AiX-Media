@@ -4,10 +4,10 @@ export const siteConfig = {
   tagline: "Romania's Next Generation Business & Intelligence Media Platform",
   description:
     "Institutional intelligence, business journalism, real estate dynamics, capital markets analysis, radio and video insights for leaders in Romania and CEE.",
-  url: "https://media.aixluxury.com",
+  url: "https://aixmedia.cristianvaduva.com",
   locale: "ro_RO",
   language: "ro",
-  author: "AiX Media",
+  author: "Cristian Văduva",
   twitterHandle: "@aixmedia",
   categories: [
     "news",

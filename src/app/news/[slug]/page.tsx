@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import { getArticleBySlug, getAllArticles } from "@/lib/media/service";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
-import { Clock, Calendar, ArrowLeft, Share2, ShieldCheck } from "lucide-react";
+import { JsonLd } from "@/components/common/json-ld";
+import { siteConfig } from "@/config/site";
+import { Clock, Calendar, ArrowLeft } from "lucide-react";
 
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -22,7 +24,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   return {
     title: `${article.title} | AiX Media`,
     description: article.excerpt,
-    alternates: { canonical: `/news/${article.slug}` },
+    alternates: { canonical: `${siteConfig.url}/news/${article.slug}` },
     openGraph: {
       title: article.title,
       description: article.excerpt,
@@ -52,8 +54,29 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     .filter((a) => a.id !== article.id)
     .slice(0, 3);
 
+  const newsArticleSchema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.excerpt,
+    image: [article.coverImage],
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      "@type": "Person",
+      name: article.authorName,
+    },
+    publisher: {
+      "@type": "NewsMediaOrganization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    mainEntityOfPage: `${siteConfig.url}/news/${article.slug}`,
+  };
+
   return (
     <article className="max-w-4xl mx-auto space-y-10 py-6">
+      <JsonLd data={newsArticleSchema} />
       {/* Top Nav Back Link */}
       <div className="flex items-center justify-between font-mono text-xs text-neutral-400">
         <Link href="/news" className="flex items-center gap-1.5 hover:text-amber-400 transition-colors">

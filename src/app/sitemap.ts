@@ -34,5 +34,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...additionalStaticRoutes, ...categoryRoutes];
+  const articleRoutes: MetadataRoute.Sitemap = [
+    "/news/romania-economic-horizon-2026-capital-allocation",
+    "/markets/bvb-market-liquidity-pension-allocation",
+    "/business/romanian-enterprise-champions-scaling-regionally",
+    "/real-estate/northern-bucharest-real-estate-capital-flows",
+    "/investments/venture-private-equity-trends-cee",
+    "/finance/mortgage-market-shifts-interest-rate-stabilization",
+    "/companies/banca-transilvania",
+    "/authors/cristian-vaduva",
+    "/video/cee-energy-infrastructure-transformation",
+    "/podcast/macroeconomic-policy-inflation-targets",
+  ].map((route) => ({
+    url: `${siteConfig.url}${route}`,
+    lastModified,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...additionalStaticRoutes, ...categoryRoutes, ...articleRoutes];
 }

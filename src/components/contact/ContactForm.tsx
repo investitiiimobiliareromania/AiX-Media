@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { trackLeadConversion } from "@/lib/analytics";
 
 interface ContactFormProps {
   ctaLabel?: string;
@@ -62,6 +63,7 @@ export function ContactForm({
       const data = await res.json().catch(() => null);
 
       if (res.ok && data?.success) {
+        trackLeadConversion(sourceContext, pathname || "Contact Form");
         setStatus({
           type: "success",
           text: data.message || "Mulțumim. Am primit solicitarea și vom reveni în cel mai scurt timp.",
