@@ -6,7 +6,7 @@ import {
   organizationJsonLd,
 } from "@/components/common/json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { NewSiteHeader } from "@/components/layout/NewSiteHeader";
 import { SkipLink } from "@/components/layout/skip-link";
 import { rootMetadata } from "@/config/metadata";
 import { siteConfig } from "@/config/site";
@@ -59,7 +59,7 @@ export default function RootLayout({
         <JsonLd data={organizationJsonLd} />
         <AppProviders>
           <SkipLink />
-          <SiteHeader />
+          <NewSiteHeader />
           <main id="main-content" className="flex-1">
             {children}
           </main>
