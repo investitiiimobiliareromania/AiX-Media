@@ -32,6 +32,15 @@ export function NewSiteHeader() {
     };
   }, [menuOpen]);
 
+  // Close mobile drawer and reset accordion when route changes
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+    setEcosystemOpen(false);
+    setEcosystemDesktopOpen(false);
+  }
+
   // Escape key closes any open overlay
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -66,6 +75,7 @@ export function NewSiteHeader() {
         <Link
           key={item.href}
           href={item.href}
+          onClick={() => setMenuOpen(false)}
           className={`px-2.5 py-1.5 rounded-md text-sm font-medium flex items-center gap-1 min-h-[36px] ${
             isActive
               ? "text-amber-400 bg-amber-500/10 border border-amber-500/20"
@@ -143,6 +153,10 @@ export function NewSiteHeader() {
                     href={node.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      setEcosystemOpen(false);
+                    }}
                     className="block px-3 py-2.5 rounded bg-neutral-900/80 border border-neutral-800 text-neutral-300 hover:border-amber-500/30 hover:text-white text-sm"
                   >
                     {node.name}
@@ -162,7 +176,7 @@ export function NewSiteHeader() {
       {/* Inner container */}
       <div className="mx-auto flex w-full max-w-[1600px] min-w-0 items-center px-4 md:px-6 h-16">
         {/* Logo */}
-        <Link href="/" className="shrink-0 flex items-center gap-2.5 group">
+        <Link href="/" onClick={() => setMenuOpen(false)} className="shrink-0 flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 via-amber-400 to-amber-600 flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-amber-500/10">
             A
           </div>
