@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "content-check": "node ./src/scripts/content-integrity-check.js"
+    "content-check": "node ./src/scripts/content-integrity-check.js",
+    "test:telegram": "node ./src/scripts/test-telegram-pipeline.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

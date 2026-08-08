@@ -125,32 +125,17 @@ export async function POST(request: Request) {
 
     const telegramSuccess = await sendTelegramAlert(sanitizedLead);
 
-    if (!telegramSuccess) {
-      console.warn("[Contact API] Telegram notification failed or bot credentials missing.");
-      const hasSecrets = Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
-      if (!hasSecrets) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "Sistemul de notificări nu este configurat complet pe server. Vă rugăm să verificați cheile TELEGRAM.",
-          },
-          { status: 503 }
-        );
-      }
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Eroare la transmiterea notificării. Vă rugăm încercați din nou.",
-        },
-        { status: 500 }
-      );
+    if (telegramSuccess) {
+      console.log("[Contact API] Lead accepted + Telegram delivered successfully.");
+    } else {
+      console.warn("[Contact API] Lead accepted + Telegram delivery failed or credentials missing.");
     }
 
     return NextResponse.json(
       {
         success: true,
         message: "Mulțumim. Am primit solicitarea și vom reveni în cel mai scurt timp.",
+        telegramDelivered: telegramSuccess,
       },
       { status: 200 }
     );
