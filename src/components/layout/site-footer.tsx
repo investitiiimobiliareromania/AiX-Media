@@ -3,14 +3,15 @@
 import React from "react";
 import Link from "next/link";
 import { footerNavigation } from "@/constants/navigation";
-import { Radio, Tv, Mail, ArrowRight, ShieldCheck, Globe, Award } from "lucide-react";
+import { contactConfig } from "@/config/contact";
+import { ArrowRight, ShieldCheck, Globe, Mail, Phone, MessageSquare, MapPin } from "lucide-react";
 
 export function SiteFooter() {
   return (
     <footer className="bg-[#030303] text-neutral-400 border-t border-neutral-800/80 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-neutral-900">
-          {/* Brand Info */}
+          {/* Brand & Personal Contact Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 rounded bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center font-bold text-black text-2xl shadow-lg">
@@ -27,8 +28,38 @@ export function SiteFooter() {
             </Link>
 
             <p className="text-sm text-neutral-400 leading-relaxed max-w-md">
-              Romania&apos;s next-generation business and intelligence media platform. Delivering macroeconomic insights, capital markets analysis, real estate dynamics, broadcasting 24/7 on AiX Radio.
+              Romania&apos;s next-generation business and intelligence media platform founded by {contactConfig.name}. Delivering macroeconomic insights, capital markets analysis, and real estate dynamics.
             </p>
+
+            <div className="space-y-2 pt-2 text-xs font-mono text-neutral-300">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span>{contactConfig.location}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <a href={`mailto:${contactConfig.email}`} className="hover:text-amber-400 transition-colors">
+                  {contactConfig.email}
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <a href={`tel:${contactConfig.phone}`} className="hover:text-amber-400 transition-colors">
+                  {contactConfig.phoneDisplay}
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <a
+                  href={contactConfig.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-400 transition-colors"
+                >
+                  WhatsApp: {contactConfig.whatsappDisplay}
+                </a>
+              </div>
+            </div>
 
             <div className="flex items-center gap-4 pt-2 text-xs text-neutral-400 font-mono">
               <span className="flex items-center gap-1.5">
@@ -86,7 +117,7 @@ export function SiteFooter() {
               Executive Briefing
             </h4>
             <p className="text-xs text-neutral-400">
-              Receive private market intelligence reports before markets open.
+              Receive private market intelligence reports directly in your inbox.
             </p>
             <form
               onSubmit={async (e) => {
@@ -142,11 +173,11 @@ export function SiteFooter() {
         {/* Bottom Credits & Copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-400 font-mono">
           <div>
-            © {new Date().getFullYear()} AiX Media Group. All rights reserved. Bloomberg-level analytical integrity.
+            © {new Date().getFullYear()} AiX Media • {contactConfig.name}. All rights reserved. Analytical integrity &amp; private intelligence.
           </div>
           <div className="flex items-center gap-6">
+            <Link href="/contact" className="hover:text-amber-400">Contact Desk</Link>
             <Link href="/news" className="hover:text-amber-400">Privacy Policy</Link>
-            <Link href="/news" className="hover:text-amber-400">Terms of Service</Link>
             <Link href="/news" className="hover:text-amber-400">Editorial Code</Link>
           </div>
         </div>
