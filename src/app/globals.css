@@ -109,6 +109,7 @@
     scroll-behavior: smooth;
     @apply font-sans antialiased;
     text-rendering: optimizeLegibility;
+  overflow-x: hidden;
   }
 
   body {
