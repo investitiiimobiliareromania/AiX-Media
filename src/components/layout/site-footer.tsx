@@ -227,8 +227,10 @@ export function SiteFooter() {
           </div>
           <div className="flex items-center gap-6">
             <Link href="/contact" className="hover:text-amber-400">Contact Desk</Link>
-            <Link href="/news" className="hover:text-amber-400">Privacy Policy</Link>
-            <Link href="/news" className="hover:text-amber-400">Editorial Code</Link>
+            <Link href="/privacy" className="hover:text-amber-400">Privacy Policy</Link>
+            <Link href="/cookies" className="hover:text-amber-400">Cookie Policy</Link>
+            <Link href="/terms" className="hover:text-amber-400">Terms of Use</Link>
+            <Link href="/legal" className="hover:text-amber-400">Legal Notice</Link>
           </div>
         </div>
       </div>

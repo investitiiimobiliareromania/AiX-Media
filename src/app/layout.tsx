@@ -13,6 +13,7 @@ import { siteConfig } from "@/config/site";
 import { AppProviders } from "@/providers/app-providers";
 
 import "./globals.css";
+import CookieConsentBanner from "@/components/common/CookieConsentBanner";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -64,6 +65,7 @@ export default function RootLayout({
           </main>
           <SiteFooter />
         </AppProviders>
+        <CookieConsentBanner />
       </body>
     </html>
   );

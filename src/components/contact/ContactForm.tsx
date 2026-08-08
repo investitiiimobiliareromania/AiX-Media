@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/analytics";
@@ -26,12 +27,18 @@ export function ContactForm({
 
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [gdprConsent, setGdprConsent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (loading) return;
 
     setStatus(null);
+
+    if (!gdprConsent) {
+      setStatus({ type: "error", text: "Trebuie să acceptați politica de confidențialitate." });
+      return;
+    }
 
     if (!name.trim() || name.trim().length < 2) {
       setStatus({ type: "error", text: "Vă rugăm să introduceți un nume valabil." });
@@ -71,6 +78,7 @@ export function ContactForm({
         setName("");
         setContact("");
         setMessage("");
+        setGdprConsent(false);
       } else {
         setStatus({
           type: "error",
@@ -150,6 +158,19 @@ export function ContactForm({
                 placeholder="07xx xxx xxx sau email@company.com"
                 className="w-full px-4 py-2.5 rounded-lg bg-neutral-950 border border-neutral-800 text-white text-xs placeholder:text-neutral-600 focus:border-amber-400 focus:outline-none transition-colors font-mono"
               />
+              {/* GDPR Consent Checkbox */}
+              <div className="flex items-center mt-2">
+                <input
+                  type="checkbox"
+                  id="gdpr-consent"
+                  checked={gdprConsent}
+                  onChange={(e) => setGdprConsent(e.target.checked)}
+                  className="w-4 h-4 text-amber-400 bg-neutral-800 border border-neutral-600 rounded focus:ring-amber-400"
+                />
+                <label htmlFor="gdpr-consent" className="ml-2 text-xs text-neutral-300">
+                  Sunt de acord cu <Link href="/privacy" className="text-amber-400 hover:underline">Politica de confidențialitate</Link>
+                </label>
+              </div>
             </div>
           </div>
 
