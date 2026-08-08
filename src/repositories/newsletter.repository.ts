@@ -47,9 +47,9 @@ export class NewsletterRepository {
       // Trigger Telegram notification for newsletter signups
       sendTelegramAlert({
         name: 'Newsletter Subscriber',
-        phone: 'N/A',
-        email: data.email,
-        service: 'Newsletter Subscription',
+        contact: data.email,
+        source: data.source || 'website',
+        cta: 'Newsletter Subscription',
         message: `Sursă: ${data.source || 'website'}`,
         timestamp: now
       }).catch((err) => console.warn('Newsletter Telegram alert warning:', err));

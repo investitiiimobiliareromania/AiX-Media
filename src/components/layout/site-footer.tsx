@@ -88,15 +88,49 @@ export function SiteFooter() {
             <p className="text-xs text-neutral-400">
               Receive private market intelligence reports before markets open.
             </p>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-2">
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const target = e.target as HTMLFormElement;
+                const emailInput = target.elements.namedItem("email") as HTMLInputElement;
+                if (!emailInput || !emailInput.value) return;
+                const value = emailInput.value;
+
+                try {
+                  const res = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      name: "Executive Subscriber",
+                      contact: value,
+                      message: "Abonat din Footer Executive Briefing",
+                      source: "AiX Media Footer",
+                      cta: "Executive Briefing Subscription",
+                      pageUrl: window.location.href,
+                    }),
+                  });
+                  if (res.ok) {
+                    alert("Mulțumim. Abonarea la Executive Briefing a fost confirmată.");
+                    emailInput.value = "";
+                  } else {
+                    alert("A apărut o eroare la abonare.");
+                  }
+                } catch {
+                  alert("Eroare de conexiune.");
+                }
+              }}
+              className="space-y-2"
+            >
               <input
                 type="email"
+                name="email"
+                required
                 placeholder="executive@company.com"
                 className="w-full px-3 py-2 text-xs bg-neutral-900 border border-neutral-800 rounded focus:border-amber-400 focus:outline-none text-white"
               />
               <button
                 type="submit"
-                className="w-full py-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs rounded transition-colors flex items-center justify-center gap-1.5"
+                className="w-full py-2 bg-amber-500 hover:bg-amber-400 text-black font-semibold text-xs rounded transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>Subscribe Briefing</span>
                 <ArrowRight className="w-3 h-3" />

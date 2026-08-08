@@ -9,18 +9,40 @@ import { Input } from "@/components/ui/input";
 export function NewsletterForm() {
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const form = event.currentTarget;
+    const emailInput = form.elements.namedItem("email") as HTMLInputElement;
+    if (!emailInput?.value) return;
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Executive Subscriber",
+          contact: emailInput.value,
+          message: "Abonat din Homepage Newsletter Form",
+          source: "AiX Media Homepage",
+          cta: "Homepage Newsletter Form",
+          pageUrl: typeof window !== "undefined" ? window.location.href : "N/A",
+        }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      }
+    } catch {
+      // ignore
+    }
   }
 
   if (submitted) {
     return (
       <p
         role="status"
-        className="border border-border bg-background px-4 py-3 text-center text-sm text-muted-foreground"
+        className="border border-border bg-background px-4 py-3 text-center text-sm text-emerald-400 font-mono"
       >
-        Subscription received. Email delivery connects in a later phase.
+        Mulțumim. Abonarea la Executive Briefing a fost înregistrată.
       </p>
     );
   }

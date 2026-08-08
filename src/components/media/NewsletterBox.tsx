@@ -17,10 +17,29 @@ export function NewsletterBox({
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubscribed(true);
+    if (!email) return;
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Executive Subscriber",
+          contact: email,
+          message: "Abonat la Daily Macro & Capital Briefing",
+          source: "AiX Media Newsletter Section",
+          cta: headline,
+          pageUrl: typeof window !== "undefined" ? window.location.href : "N/A",
+        }),
+      });
+
+      if (res.ok) {
+        setSubscribed(true);
+      }
+    } catch {
+      // ignore
     }
   };
 

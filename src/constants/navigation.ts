@@ -18,6 +18,7 @@ export const mainNavigation: NavItem[] = [
   { label: "AiX TV", href: "/tv", category: "tv", isBadge: "HD" },
   { label: "Podcasts", href: "/podcasts", category: "podcasts" },
   { label: "Academy", href: "/academy", category: "academy" },
+  { label: "Contact", href: "/contact", category: "contact" },
 ];
 
 export const footerNavigation = {
@@ -37,11 +38,13 @@ export const footerNavigation = {
     { label: "Macro Calendar", href: "/calendar" },
     { label: "Editorial Board", href: "/authors" },
     { label: "Intelligence Academy", href: "/academy" },
+    { label: "Contact & Desk", href: "/contact" },
   ],
   company: [
     { label: "About AiX Media", href: "/news" },
     { label: "Editorial Standards", href: "/news" },
     { label: "Executive Briefings", href: "/#newsletter" },
     { label: "FT Terminal Search", href: "/search" },
+    { label: "Contact Us", href: "/contact" },
   ],
 };

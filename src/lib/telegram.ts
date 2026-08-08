@@ -1,17 +1,16 @@
 export interface TelegramLeadData {
   name: string;
-  phone: string;
-  email?: string;
-  service: string;
+  contact: string;
   message?: string;
+  source?: string;
+  cta?: string;
   pageUrl?: string;
   timestamp?: string;
-  submissionId?: string;
 }
 
 const MAX_RETRIES = 2;
 const INITIAL_BACKOFF_MS = 800;
-const TIMEOUT_MS = 15000; // increased timeout for our hosting latency
+const TIMEOUT_MS = 15000;
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -31,33 +30,43 @@ async function fetchWithTimeout(
   }
 }
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
 function buildTelegramMessage(lead: TelegramLeadData): string {
-  const name = lead.name || "N/A";
-  const phone = lead.phone || "N/A";
-  const email = lead.email || "N/A";
-  const service = lead.service || "N/A";
-  const message = lead.message || "—";
-  const pageUrl = lead.pageUrl || "N/A";
-  const time = lead.timestamp || new Date().toLocaleString("ro-RO", {
-    timeZone: "Europe/Bucharest",
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
+  const name = escapeHtml(lead.name || "N/A");
+  const contact = escapeHtml(lead.contact || "N/A");
+  const message = escapeHtml(lead.message || "—");
+  const source = escapeHtml(lead.source || "AiX Media");
+  const cta = escapeHtml(lead.cta || "General Contact");
+  const pageUrl = escapeHtml(lead.pageUrl || "N/A");
+  const time = escapeHtml(
+    lead.timestamp ||
+      new Date().toLocaleString("ro-RO", {
+        timeZone: "Europe/Bucharest",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      })
+  );
 
   return [
-    `🧠 Cristian Văduva Premium Lead`,
+    `<b>AiX MEDIA — NEW CONTACT INQUIRY</b>`,
     `─────────────────────`,
-    `👤 Nume: ${name}`,
-    `📞 Telefon: ${phone}`,
-    `📧 Email: ${email}`,
-    `💼 Serviciu: ${service}`,
-    `💬 Mesaj: ${message}`,
-    `📍 URL Pagină: ${pageUrl}`,
-    `🕒 Data/Oră: ${time}`,
+    `👤 <b>Name:</b> ${name}`,
+    `📞 <b>Contact:</b> ${contact}`,
+    `💬 <b>Message / Context:</b> ${message}`,
+    `🌐 <b>Source:</b> ${source}`,
+    `🎯 <b>CTA / Type:</b> ${cta}`,
+    `📍 <b>Page:</b> ${pageUrl}`,
+    `🕒 <b>Time:</b> ${time}`,
   ].join("\n");
 }
 
