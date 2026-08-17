@@ -29,7 +29,7 @@ const prohibitedPatterns = [
 
 let issues = [];
 
-// Load central YouTube catalog
+// 1. Central YouTube video validation
 const ytConfigPath = path.join(process.cwd(), 'src/config/youtube.ts');
 let verifiedYtIds = [];
 if (fs.existsSync(ytConfigPath)) {
@@ -42,20 +42,19 @@ if (fs.existsSync(ytConfigPath)) {
 
 function searchFile(filePath) {
   try {
-    // Ignore the checker script and the config file itself
     if (filePath.includes('content-integrity-check.js') || filePath.includes('youtube.ts')) {
       return;
     }
     const content = fs.readFileSync(filePath, 'utf8');
     
-    // 1. Prohibited word patterns
+    // Prohibited word patterns
     prohibitedPatterns.forEach(pat => {
       if (pat.test(content)) {
         issues.push(`${filePath}: matches prohibited pattern ${pat}`);
       }
     });
 
-    // 2. YouTube Video ID authorization check
+    // YouTube Video ID authorization check
     const ytIdPatterns = [
       /youtube\.com\/embed\/([A-Za-z0-9_-]{11})/g,
       /youtube-nocookie\.com\/embed\/([A-Za-z0-9_-]{11})/g,
@@ -99,16 +98,14 @@ function walk(dir) {
   }
 }
 
-// 1. Walk through the src directory
+// Walk through the src directory
 const targetDir = path.join(process.cwd(), 'src');
 walk(targetDir);
 
-// 2. Verify BVB Companies dataset for provenance metadata
+// 2. Numeric Claim & Provenance Scanner for BVB Dataset
 const bvbDataPath = path.join(process.cwd(), 'src/lib/bvb-data.ts');
 if (fs.existsSync(bvbDataPath)) {
   const fileContent = fs.readFileSync(bvbDataPath, 'utf8');
-  
-  // Verify BVB Companies have source, sourceUrl, reportedAt, retrievedAt, and isin
   const entries = fileContent.split('id: "comp-');
   for (let i = 1; i < entries.length; i++) {
     const entry = entries[i];
@@ -116,41 +113,51 @@ if (fs.existsSync(bvbDataPath)) {
     const ticker = tickerMatch ? tickerMatch[1] : `Entry #${i}`;
     
     if (!entry.includes('source:')) {
-      issues.push(`BVB Data Integrity: ${ticker} is missing 'source' metadata.`);
+      issues.push(`Numeric Claim Provenance: ${ticker} is missing 'source' provenance metadata.`);
     }
     if (!entry.includes('sourceUrl:')) {
-      issues.push(`BVB Data Integrity: ${ticker} is missing 'sourceUrl' metadata.`);
+      issues.push(`Numeric Claim Provenance: ${ticker} is missing 'sourceUrl' provenance metadata.`);
     }
     if (!entry.includes('reportedAt:')) {
-      issues.push(`BVB Data Integrity: ${ticker} is missing 'reportedAt' metadata.`);
+      issues.push(`Numeric Claim Provenance: ${ticker} is missing 'reportedAt' timestamp.`);
     }
     if (!entry.includes('retrievedAt:')) {
-      issues.push(`BVB Data Integrity: ${ticker} is missing 'retrievedAt' metadata.`);
+      issues.push(`Numeric Claim Provenance: ${ticker} is missing 'retrievedAt' timestamp.`);
     }
     if (!entry.includes('isin:')) {
-      issues.push(`BVB Data Integrity: ${ticker} is missing 'isin' metadata.`);
+      issues.push(`Numeric Claim Provenance: ${ticker} is missing 'isin' code.`);
+    }
+    if (!entry.includes('reportedPeriod:')) {
+      issues.push(`Numeric Claim Provenance: ${ticker} is missing 'reportedPeriod' definition.`);
     }
   }
 } else {
-  issues.push(`BVB Data Integrity: bvb-data.ts was not found at ${bvbDataPath}`);
+  issues.push(`Provenance Failure: bvb-data.ts not found.`);
 }
 
-// 3. Verify that there are no "Live" or "Real-Time" claims in market-data.ts
+// 3. Numeric Claim & Provenance Scanner for Real Estate Dataset
+const reDataPath = path.join(process.cwd(), 'src/lib/real-estate-data.ts');
+if (fs.existsSync(reDataPath)) {
+  const reContent = fs.readFileSync(reDataPath, 'utf8');
+  if (!reContent.includes('source:') || !reContent.includes('sourceUrl:') || !reContent.includes('referencePeriod:')) {
+    issues.push(`Numeric Claim Provenance: Real estate dataset missing provenance attributes.`);
+  }
+}
+
+// 4. Numeric Claim & Provenance Scanner for Market Data Dataset
 const marketDataPath = path.join(process.cwd(), 'src/lib/market-data.ts');
 if (fs.existsSync(marketDataPath)) {
-  const content = fs.readFileSync(marketDataPath, 'utf8');
-  if (/live/i.test(content) && !/status:\s*"live"/i.test(content) && !/isDelayed/i.test(content)) {
-    if (content.includes('label: "Live"') || content.includes('title: "Live"')) {
-      issues.push(`Market Data Integrity: Prohibited 'Live' label found in market-data.ts`);
-    }
+  const mContent = fs.readFileSync(marketDataPath, 'utf8');
+  if (!mContent.includes('source:') || !mContent.includes('BNR_XML_URL') || !mContent.includes('BNR_FINANCIAL_INFO_URL')) {
+    issues.push(`Numeric Claim Provenance: Market data dataset missing official BNR provenance URLs.`);
   }
 }
 
 if (issues.length > 0) {
-  console.error('Content integrity issues found:');
-  issues.forEach(i => console.error(i));
+  console.error('Content integrity & numeric claim provenance issues found:');
+  issues.forEach(i => console.error(` ✗ ${i}`));
   process.exit(1);
 } else {
-  console.log('No content integrity issues found. BVB company and YouTube video provenance checks passed.');
+  console.log('✓ All numeric claim provenance, BVB company datasets, and YouTube video authorizations verified.');
   process.exit(0);
 }
