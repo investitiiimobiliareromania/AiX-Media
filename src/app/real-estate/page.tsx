@@ -4,8 +4,8 @@ import { PremiumHero } from "@/components/media/PremiumHero";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
-import { getRealEstateMetrics, regionalTransactionsData } from "@/lib/real-estate-data";
-import { MapPin, BarChart3 } from "lucide-react";
+import { getRealEstateMetrics } from "@/lib/real-estate-data";
+import { BarChart3 } from "lucide-react";
 import { SourceBadge } from "@/components/common/SourceBadge";
 
 export const metadata: Metadata = {
@@ -79,36 +79,6 @@ export default async function RealEstatePage() {
         </div>
       </section>
 
-      {/* Regional Cadastral Breakdown */}
-      <section className="p-6 md:p-8 rounded-3xl bg-white border border-neutral-200 shadow-xs space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-100 pb-4">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
-              <MapPin className="w-4 h-4" />
-              Profil Regional
-            </div>
-            <h3 className="text-xl font-bold text-neutral-950 mt-1">
-              Top Județe după Volumul Tranzacțiilor Imobiliare
-            </h3>
-          </div>
-          <span className="text-xs font-mono text-neutral-500">
-            Sursă: Raport Lunar ANCPI • Iunie 2026
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 font-mono">
-          {regionalTransactionsData.map((reg) => (
-            <div key={reg.county} className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 text-center">
-              <div className="text-xs text-neutral-600 font-medium">{reg.county}</div>
-              <div className="text-xl font-black text-neutral-950 mt-1">
-                {reg.transactions.toLocaleString()}
-              </div>
-              <div className="text-[10px] text-neutral-400 mt-0.5">tranzacții</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Articles Grid */}
       <div id="articles">
         <EditorialGrid
@@ -124,7 +94,7 @@ export default async function RealEstatePage() {
       {/* Newsletter Box */}
       <NewsletterBox
         overline="AiX Real Estate Brief"
-        headline="Sinteza Lunară Imobiliară & Cadastrală"
+        headline="Sinteza Lunară Imobiliară &amp; Cadastrală"
         description="Primiți direct pe email rapoartele ANCPI și analizele din sectorul construcțiilor."
       />
     </div>

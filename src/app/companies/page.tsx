@@ -30,13 +30,13 @@ export default function CompaniesPage() {
       <PremiumHero
         eyebrow="Inteligență Corporativă BVB"
         headline="Profiluri Instituționale &amp; Rapoarte Financiare"
-        description="Date oficiale de raportare anuală și semestrială pentru principalele companii listate la Bursa de Valori București."
+        description="Date oficiale de raportare anuală auditată pentru principalele societăți comerciale listate la Bursa de Valori București."
         ctaLabel="Explorează Profilurile"
         ctaHref="#catalog"
         marketSignals={[
-          { label: "Banca Transilvania (TLV)", value: "28.50 RON", change: "BVB TLV", isPositive: true },
-          { label: "Hidroelectrica (H2O)", value: "124.00 RON", change: "BVB H2O", isPositive: true },
-          { label: "OMV Petrom (SNP)", value: "0.745 RON", change: "BVB SNP", isPositive: true },
+          { label: "Banca Transilvania", value: "TLV (BVB)", change: "ROTLVAACNOR1", isPositive: true },
+          { label: "Hidroelectrica", value: "H2O (BVB)", change: "RO4609590897", isPositive: true },
+          { label: "OMV Petrom", value: "SNP (BVB)", change: "ROSNPPACNOR9", isPositive: true },
         ]}
       />
 
