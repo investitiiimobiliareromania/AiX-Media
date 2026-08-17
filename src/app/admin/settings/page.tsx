@@ -35,7 +35,7 @@ export default function SettingsPage() {
           <h2 className="text-xl font-heading font-bold mb-6 border-b border-border pb-2">Integrare Bază de Date (Supabase)</h2>
           <div className="bg-muted/30 p-6 border border-border">
             <p className="text-sm text-muted-foreground mb-4 leading-relaxed font-medium">
-              Conexiunea cu Supabase nu este încă inițializată. Datele curente rulează din mock-urile sistemului. Configurați variabilele de mediu pentru a activa persistența.
+              Conexiunea cu Supabase nu este încă inițializată. Datele curente rulează din dataset-ul verificat al sistemului. Configurați variabilele de mediu pentru a activa persistența.
             </p>
             <button className="bg-foreground text-background px-6 py-3 font-bold text-xs uppercase tracking-widest hover:bg-foreground/90 transition-colors" disabled>
               Conectează Supabase

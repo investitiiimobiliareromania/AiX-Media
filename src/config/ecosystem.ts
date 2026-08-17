@@ -32,7 +32,7 @@ export const AIX_ECOSYSTEM_NODES: EcosystemNode[] = [
     url: "https://cristianvaduva.com/market-pulse",
     category: "INTELLIGENCE",
     categoryLabel: "Intelligence",
-    description: "Live market intelligence, macroeconomic signals and capital-market analysis.",
+    description: "Analize macroeconomice, cotații oficiale BNR și sinteze din piața de capital.",
     isExternal: true,
   },
   {
