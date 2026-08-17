@@ -26,7 +26,7 @@ export default function CompaniesPage() {
     : allCompanies;
 
   return (
-    <div className="space-y-8 pb-16 pt-4">
+    <div className="space-y-8 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="Inteligență Corporativă BVB"
         headline="Profiluri Instituționale &amp; Rapoarte Financiare"
@@ -41,13 +41,13 @@ export default function CompaniesPage() {
       />
 
       <section id="catalog" className="space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-neutral-200 pb-4 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-[#262932] pb-4 gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">
               <Building2 className="w-4 h-4" />
               Catalog Companii Listate ({filteredCompanies.length})
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-neutral-950 mt-1">
+            <h2 className="font-serif text-xl sm:text-2xl font-bold text-white mt-1">
               Societăți Verificate &amp; Raportări Financiare
             </h2>
           </div>
@@ -59,7 +59,7 @@ export default function CompaniesPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Caută după nume, simbol (TLV), ISIN sau sector..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs placeholder:text-neutral-400 focus:border-amber-600 focus:outline-none transition-colors shadow-xs"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#171920] border border-[#262932] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs"
             />
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
           </div>
@@ -73,46 +73,46 @@ export default function CompaniesPage() {
                 <Link
                   key={comp.id}
                   href={`/companies/${comp.slug}`}
-                  className="p-6 rounded-2xl bg-white border border-neutral-200 hover:border-amber-600/40 transition-all hover:shadow-md space-y-4 block shadow-xs"
+                  className="p-6 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 hover:bg-[#171920] transition-all space-y-4 block shadow-lg group"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-neutral-200 bg-neutral-50 shrink-0">
+                      <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0">
                         <Image src={comp.logo} alt={comp.name} fill className="object-cover" />
                       </div>
                       <div>
-                        <h3 className="text-sm md:text-base font-bold text-neutral-950 leading-snug">
+                        <h3 className="font-serif text-base font-bold text-white group-hover:text-amber-400 transition-colors leading-snug">
                           {comp.name}
                         </h3>
-                        <span className="text-xs font-mono text-neutral-600 font-semibold">
-                          Simbol: <strong className="text-neutral-950">{comp.symbol}</strong> • {bvbComp.isin || "BVB"}
+                        <span className="text-xs font-mono text-neutral-400 font-semibold">
+                          Simbol: <strong className="text-amber-400">{comp.symbol}</strong> • {bvbComp.isin || "BVB"}
                         </span>
                       </div>
                     </div>
 
                     <div className="text-right font-mono shrink-0">
-                      <div className="text-xs font-semibold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800">
+                      <div className="text-xs font-semibold px-2 py-0.5 rounded bg-[#1f222b] border border-[#262932] text-neutral-300">
                         Piața Reglementată
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-xs text-neutral-600 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-neutral-300 leading-relaxed font-serif line-clamp-2">
                     {comp.description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-neutral-100 font-mono text-[11px]">
+                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#262932] font-mono text-[11px]">
                     <div>
-                      <span className="text-neutral-500 block text-[10px]">Venituri Raportate</span>
-                      <span className="text-neutral-950 font-bold">{comp.revenue}</span>
+                      <span className="text-neutral-400 block text-[10px]">Venituri Raportate</span>
+                      <span className="text-white font-bold">{comp.revenue}</span>
                     </div>
                     <div>
-                      <span className="text-neutral-500 block text-[10px]">Profit Net</span>
-                      <span className="text-neutral-950 font-bold">{comp.netIncome}</span>
+                      <span className="text-neutral-400 block text-[10px]">Profit Net</span>
+                      <span className="text-white font-bold">{comp.netIncome}</span>
                     </div>
                     <div>
-                      <span className="text-neutral-500 block text-[10px]">Sursă Date</span>
-                      <span className="text-amber-800 font-semibold flex items-center gap-0.5">
+                      <span className="text-neutral-400 block text-[10px]">Sursă Date</span>
+                      <span className="text-amber-400 font-semibold flex items-center gap-0.5">
                         BVB Issuer <ExternalLink className="w-2.5 h-2.5" />
                       </span>
                     </div>
@@ -122,7 +122,7 @@ export default function CompaniesPage() {
             })}
           </div>
         ) : (
-          <div className="py-12 text-center text-neutral-500 font-mono text-sm border border-dashed border-neutral-300 rounded-2xl bg-neutral-50">
+          <div className="py-12 text-center text-neutral-400 font-mono text-sm border border-dashed border-[#262932] rounded-2xl bg-[#111317]">
             Nu a fost găsită nicio companie conform criteriilor de căutare.
           </div>
         )}
@@ -133,3 +133,4 @@ export default function CompaniesPage() {
     </div>
   );
 }
+

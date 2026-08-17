@@ -17,7 +17,7 @@ export default function PodcastsPage() {
   const podcasts = getPodcastEpisodes();
 
   return (
-    <div className="space-y-8 pb-16 pt-4">
+    <div className="space-y-8 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="AiX Audio &amp; Podcast"
         headline="Dialoguri Economice &amp; Masterclasses Audio"
@@ -31,9 +31,9 @@ export default function PodcastsPage() {
       />
 
       <section id="episodes" className="space-y-6">
-        <div className="border-b border-neutral-200 pb-3">
-          <h2 className="text-2xl font-black text-neutral-950 tracking-tight flex items-center gap-2">
-            <Mic className="w-5 h-5 text-amber-700" />
+        <div className="border-b border-[#262932] pb-3">
+          <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <Mic className="w-5 h-5 text-amber-500" />
             Catalog Episoade Audio
           </h2>
         </div>
@@ -50,3 +50,4 @@ export default function PodcastsPage() {
     </div>
   );
 }
+

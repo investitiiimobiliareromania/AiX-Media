@@ -37,7 +37,7 @@ const courses = [
 
 export default function AcademyPage() {
   return (
-    <div className="space-y-8 pb-16 pt-4">
+    <div className="space-y-8 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="Educație &amp; Metodologie Economică"
         headline="Ghiduri Practice &amp; Modele de Analiză"
@@ -47,9 +47,9 @@ export default function AcademyPage() {
       />
 
       <section id="courses" className="space-y-6">
-        <div className="border-b border-neutral-200 pb-3">
-          <h2 className="text-2xl font-black text-neutral-950 tracking-tight flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-amber-700" />
+        <div className="border-b border-[#262932] pb-3">
+          <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <GraduationCap className="w-5 h-5 text-amber-500" />
             Module Educaționale &amp; Ghiduri Practice
           </h2>
         </div>
@@ -58,22 +58,22 @@ export default function AcademyPage() {
           {courses.map((course, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-neutral-50 border border-neutral-200 hover:border-neutral-300 transition-all flex flex-col justify-between space-y-4 shadow-xs"
+              className="p-6 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-xl group"
             >
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-amber-800 font-bold">{course.category}</span>
-                  <span className="px-2 py-0.5 rounded bg-white text-neutral-700 border border-neutral-200">
+                  <span className="text-amber-400 font-bold">{course.category}</span>
+                  <span className="px-2 py-0.5 rounded-md bg-[#171920] text-neutral-300 border border-[#262932]">
                     {course.level}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-neutral-950 leading-snug">{course.title}</h3>
-                <p className="text-xs text-neutral-600 leading-relaxed">{course.description}</p>
+                <h3 className="font-serif text-lg font-bold text-white group-hover:text-amber-400 transition-colors leading-snug">{course.title}</h3>
+                <p className="text-xs text-neutral-300 leading-relaxed font-serif">{course.description}</p>
               </div>
 
-              <div className="pt-4 border-t border-neutral-200 flex items-center justify-between text-xs font-mono">
-                <span className="text-neutral-500">{course.duration}</span>
-                <span className="text-neutral-950 font-bold flex items-center gap-1 hover:underline cursor-pointer">
+              <div className="pt-4 border-t border-[#262932] flex items-center justify-between text-xs font-mono">
+                <span className="text-neutral-400">{course.duration}</span>
+                <span className="text-white font-bold flex items-center gap-1 group-hover:text-amber-400 transition-colors cursor-pointer">
                   <span>Accesează</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
@@ -88,3 +88,4 @@ export default function AcademyPage() {
     </div>
   );
 }
+

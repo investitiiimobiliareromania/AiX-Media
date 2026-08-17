@@ -25,25 +25,25 @@ const CookieConsentBanner: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 bg-neutral-900 text-neutral-300 p-4 md:p-6 shadow-lg border-t border-neutral-800/80">
+    <div className="fixed inset-x-0 bottom-0 z-50 bg-[#111317]/95 backdrop-blur-md text-neutral-300 p-4 md:p-6 shadow-2xl border-t border-[#262932]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm md:text-base">
+        <p className="text-xs sm:text-sm font-serif text-neutral-300 leading-relaxed">
           Utilizăm cookie-uri pentru a îmbunătăți experiența utilizatorului, pentru analytics și pentru funcționalități esențiale.{' '}
-          <a href="/privacy" className="underline text-amber-400 hover:text-amber-300">
+          <a href="/privacy" className="underline text-amber-400 hover:text-amber-300 transition-colors">
             Citește politica de confidențialitate
           </a>
           .
         </p>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={handleReject}
-            className="px-4 py-2 text-sm bg-neutral-800 hover:bg-neutral-700 text-neutral-300 rounded"
+            className="px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider bg-[#171920] hover:bg-[#1f222b] text-neutral-300 rounded-xl border border-[#262932] transition-colors cursor-pointer min-h-[44px]"
           >
             Refuză non-esențial
           </button>
           <button
             onClick={handleAccept}
-            className="px-4 py-2 text-sm bg-amber-500 hover:bg-amber-400 text-black rounded"
+            className="px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider bg-white hover:bg-neutral-200 text-neutral-950 rounded-xl transition-colors cursor-pointer min-h-[44px]"
           >
             Acceptă toate
           </button>
@@ -54,3 +54,4 @@ const CookieConsentBanner: React.FC = () => {
 };
 
 export default CookieConsentBanner;
+

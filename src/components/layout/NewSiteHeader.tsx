@@ -120,17 +120,17 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
 
   /** Render Desktop Navigation Links */
   const renderDesktopNavLinks = () => (
-    <nav className="hidden lg:flex items-center gap-1 xl:gap-2 ml-6" aria-label="Main Navigation">
+    <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 ml-6" aria-label="Main Navigation">
       {mainNavigation.map((item) => {
         const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
         return (
           <Link
             key={item.href}
             href={item.href}
-            className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all min-h-[36px] flex items-center ${
               isActive
-                ? "text-neutral-950 font-bold bg-neutral-100 border border-neutral-300"
-                : "text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50"
+                ? "text-white font-bold bg-[#171920] border border-[#262932] shadow-xs text-amber-400"
+                : "text-neutral-400 hover:text-white hover:bg-[#111317]"
             }`}
           >
             {item.label}
@@ -149,7 +149,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       <>
         <div
           data-testid="mobile-overlay"
-          className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
           style={{ zIndex: 99998 }}
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
@@ -157,28 +157,28 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
         <aside
           id="mobile-menu-drawer"
           data-testid="mobile-drawer"
-          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-white border-l border-neutral-200 overflow-y-auto flex flex-col p-6 shadow-2xl"
+          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[#111317] border-l border-[#262932] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
           style={{ zIndex: 99999, height: "100dvh" }}
           aria-label="Mobile Navigation"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-neutral-200">
+          <div className="flex items-center justify-between pb-4 border-b border-[#262932]">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-600" />
-              <span className="font-bold text-neutral-900 text-sm font-mono uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span className="font-bold text-neutral-200 text-xs font-mono uppercase tracking-widest">
                 AiX Navigation
               </span>
             </div>
             <button
               type="button"
               aria-label="Close navigation"
-              className="p-2 rounded-lg text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1f222b] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
               onClick={() => setMenuOpen(false)}
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <nav className="py-6 space-y-1.5 flex-1">
+          <nav className="py-6 space-y-2 flex-1">
             {mainNavigation.map((item) => {
               const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
               return (
@@ -186,32 +186,33 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold transition-colors min-h-[44px] ${
+                  className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider transition-colors min-h-[48px] ${
                     isActive
-                      ? "bg-amber-50 text-amber-900 border border-amber-200 font-bold"
-                      : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950"
+                      ? "bg-[#1f222b] text-amber-400 border border-amber-500/30 font-bold"
+                      : "text-neutral-300 hover:bg-[#171920] hover:text-white"
                   }`}
                 >
                   <span>{item.label}</span>
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="pt-4 border-t border-neutral-200">
+          <div className="pt-4 border-t border-[#262932]">
             <button
               type="button"
               onClick={() => {
                 setMenuOpen(false);
                 setEcosystemMobileOpen(true);
               }}
-              className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-neutral-100 border border-neutral-200 text-neutral-900 font-semibold text-sm hover:bg-neutral-200 min-h-[44px]"
+              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-[#171920] border border-[#262932] text-neutral-200 font-semibold text-xs font-mono uppercase tracking-wider hover:bg-[#1f222b] hover:text-white min-h-[48px] transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-amber-600" />
+                <Globe className="w-4 h-4 text-amber-500" />
                 Explore AiX Ecosystem
               </span>
-              <ExternalLink className="w-4 h-4 text-neutral-500" />
+              <ExternalLink className="w-4 h-4 text-neutral-400" />
             </button>
           </div>
         </aside>
@@ -223,28 +224,28 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       <>
         <div
           data-testid="ecosystem-overlay"
-          className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
           style={{ zIndex: 99998 }}
           onClick={() => setEcosystemMobileOpen(false)}
           aria-hidden="true"
         />
         <aside
           id="mobile-ecosystem-drawer"
-          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-white border-l border-neutral-200 overflow-y-auto flex flex-col p-6 shadow-2xl"
+          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[#111317] border-l border-[#262932] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
           style={{ zIndex: 99999, height: "100dvh" }}
           aria-label="AiX Ecosystem Navigation"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-neutral-200">
+          <div className="flex items-center justify-between pb-4 border-b border-[#262932]">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-600" />
-              <span className="font-bold text-neutral-900 text-sm font-mono uppercase tracking-wider">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <span className="font-bold text-neutral-200 text-xs font-mono uppercase tracking-widest">
                 AiX Ecosystem
               </span>
             </div>
             <button
               type="button"
               aria-label="Close ecosystem menu"
-              className="p-2 rounded-lg text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1f222b] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
               onClick={() => setEcosystemMobileOpen(false)}
             >
               <X className="w-5 h-5" />
@@ -252,8 +253,8 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
           </div>
 
           <div className="py-6 space-y-3 flex-1">
-            <p className="text-xs text-neutral-500 mb-4">
-              Integrated platforms, research verticals, and media networks across the AiX group.
+            <p className="text-xs text-neutral-400 mb-4 leading-relaxed font-serif">
+              Rețeaua de servicii de consultanță, platforme de date imobiliare și publicații economice din ecosistemul AiX Media.
             </p>
             {AIX_ECOSYSTEM_NODES.map((node) => (
               <a
@@ -262,15 +263,15 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setEcosystemMobileOpen(false)}
-                className="block p-3.5 rounded-xl border border-neutral-200 hover:border-amber-500 hover:bg-amber-50/50 transition-colors group"
+                className="block p-3.5 rounded-xl border border-[#262932] bg-[#171920] hover:border-amber-500/50 hover:bg-[#1f222b] transition-all group min-h-[48px]"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-sm text-neutral-900 group-hover:text-amber-900">
+                  <span className="font-bold text-sm text-neutral-100 group-hover:text-amber-400 transition-colors">
                     {node.name}
                   </span>
-                  <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-amber-700" />
+                  <ExternalLink className="w-3.5 h-3.5 text-neutral-500 group-hover:text-amber-400 transition-colors" />
                 </div>
-                <p className="text-xs text-neutral-600 mt-1 line-clamp-2">{node.description}</p>
+                <p className="text-xs text-neutral-400 mt-1 line-clamp-2">{node.description}</p>
               </a>
             ))}
           </div>
@@ -289,16 +290,16 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-neutral-200 text-neutral-900 transition-transform duration-300 ease-in-out ${
+      className={`sticky top-0 z-40 w-full bg-[#090a0d]/95 backdrop-blur-md border-b border-[#262932] text-neutral-100 transition-transform duration-300 ease-in-out ${
         headerVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       {/* Official BNR Sub-Header Ticker */}
-      <div className="bg-neutral-50 border-b border-neutral-200 px-4 py-1.5 text-xs text-neutral-600 w-full overflow-x-auto">
+      <div className="bg-[#0c0d12] border-b border-[#1c1e26] px-4 py-1.5 text-xs text-neutral-400 w-full overflow-x-auto">
         <div className="mx-auto flex items-center justify-between gap-4 max-w-[1600px] w-full">
-          <div className="flex items-center gap-2 text-neutral-900 font-semibold uppercase text-[10px] tracking-wider shrink-0">
-            <span className="inline-block w-2 h-2 rounded-full bg-amber-600" />
-            <span>Curs Oficial BNR</span>
+          <div className="flex items-center gap-2 text-neutral-300 font-semibold uppercase text-[10px] tracking-wider shrink-0">
+            <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <span className="font-mono text-amber-500">Curs Oficial BNR</span>
           </div>
 
           <div className="flex items-center gap-6 overflow-x-auto font-mono text-[11px]">
@@ -308,22 +309,22 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                   .filter((c) => c.value !== null)
                   .map((c) => (
                     <div key={c.symbol} className="flex items-center gap-1.5 shrink-0">
-                      <span className="text-neutral-500 font-medium">{c.symbol}</span>
-                      <span className="text-neutral-900 font-bold">{c.value?.toFixed(4)}</span>
+                      <span className="text-neutral-400 font-medium">{c.symbol}</span>
+                      <span className="text-white font-bold">{c.value?.toFixed(4)}</span>
                     </div>
                   ))}
-                <span className="text-[10px] text-neutral-500 shrink-0">
+                <span className="text-[10px] text-neutral-400 shrink-0">
                   Sursă: BNR {bnrDate ? `• ${bnrDate}` : ""}
                 </span>
               </>
             ) : (
-              <span className="text-neutral-500 font-mono text-xs">
+              <span className="text-neutral-400 font-mono text-xs">
                 Sursă: BNR • Date de referință în curs de actualizare
               </span>
             )}
           </div>
 
-          <div className="hidden lg:flex items-center gap-3 text-neutral-500 font-mono text-[9px] uppercase tracking-wider shrink-0">
+          <div className="hidden lg:flex items-center gap-3 text-neutral-400 font-mono text-[9px] uppercase tracking-wider shrink-0">
             <span>București</span>
             <span>•</span>
             <span>London</span>
@@ -344,14 +345,14 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
           }}
           className="shrink-0 flex items-center gap-2.5 group"
         >
-          <div className="w-8 h-8 rounded-lg bg-neutral-900 flex items-center justify-center font-black text-amber-400 text-lg shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center font-black text-amber-400 text-lg shadow-sm group-hover:border-amber-500/40 transition-colors">
             A
           </div>
           <div className="flex flex-col">
-            <span className="font-black text-lg tracking-tight text-neutral-950 uppercase">
-              AiX <span className="text-amber-600 font-medium">MEDIA</span>
+            <span className="font-black text-lg tracking-tight text-white uppercase">
+              AiX <span className="text-amber-500 font-medium">MEDIA</span>
             </span>
-            <span className="text-[9px] uppercase tracking-widest text-neutral-500 -mt-0.5 font-mono hidden sm:block">
+            <span className="text-[9px] uppercase tracking-widest text-neutral-400 -mt-0.5 font-mono hidden sm:block">
               Financial &amp; Real Estate Intelligence
             </span>
           </div>
@@ -368,10 +369,10 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             aria-label="Open AiX Ecosystem"
             aria-expanded={ecosystemDesktopOpen}
             aria-controls="desktop-ecosystem-panel"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 border border-neutral-200 text-neutral-800 hover:text-neutral-950 hover:bg-neutral-200 text-xs font-semibold font-mono uppercase tracking-wider transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#171920] border border-[#262932] text-neutral-300 hover:text-white hover:border-amber-500/40 hover:bg-[#1f222b] text-xs font-semibold font-mono uppercase tracking-wider transition-all cursor-pointer"
             onClick={() => setEcosystemDesktopOpen((prev) => !prev)}
           >
-            <Globe className="w-3.5 h-3.5 text-amber-600" />
+            <Globe className="w-3.5 h-3.5 text-amber-500" />
             <span>AiX Ecosystem</span>
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform ${ecosystemDesktopOpen ? "rotate-180" : ""}`}
@@ -385,7 +386,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             type="button"
             aria-label="Open AiX Ecosystem"
             aria-expanded={ecosystemMobileOpen}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center px-2.5 py-1 rounded-md text-xs font-mono font-bold uppercase tracking-wider bg-neutral-100 text-neutral-800 border border-neutral-200"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-[#171920] text-neutral-200 border border-[#262932] active:bg-[#1f222b] transition-colors"
             onClick={() => {
               setMenuOpen(false);
               setEcosystemMobileOpen((prev) => !prev);
@@ -399,13 +400,13 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu-drawer"
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center p-2 rounded-md text-neutral-800 hover:bg-neutral-100"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center p-2 rounded-lg text-neutral-300 hover:text-white hover:bg-[#171920] active:bg-[#1f222b] transition-colors"
             onClick={() => {
               setEcosystemMobileOpen(false);
               setMenuOpen((prev) => !prev);
             }}
           >
-            {menuOpen ? <X className="w-6 h-6 text-neutral-950" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -414,9 +415,9 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       {ecosystemDesktopOpen && (
         <div
           id="desktop-ecosystem-panel"
-          className="absolute top-full right-4 xl:right-12 mt-1 w-80 bg-white border border-neutral-200 shadow-xl rounded-xl p-4 z-[9999]"
+          className="absolute top-full right-4 xl:right-12 mt-1 w-80 bg-[#111317] border border-[#262932] shadow-2xl rounded-xl p-4 z-[9999] text-neutral-100"
         >
-          <div className="text-xs font-mono uppercase tracking-wider text-neutral-500 font-bold mb-2">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-amber-500 font-bold mb-2">
             AiX Ecosystem Platforms
           </div>
           <div className="space-y-1.5">
@@ -427,13 +428,13 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setEcosystemDesktopOpen(false)}
-                className="block p-2.5 rounded-lg hover:bg-neutral-50 border border-transparent hover:border-neutral-200 transition-colors"
+                className="block p-2.5 rounded-lg hover:bg-[#171920] border border-transparent hover:border-[#262932] transition-all group"
               >
-                <div className="flex items-center justify-between text-xs font-bold text-neutral-900">
+                <div className="flex items-center justify-between text-xs font-bold text-neutral-200 group-hover:text-amber-400">
                   <span>{node.name}</span>
-                  <ExternalLink className="w-3 h-3 text-neutral-400" />
+                  <ExternalLink className="w-3 h-3 text-neutral-500 group-hover:text-amber-400" />
                 </div>
-                <p className="text-[11px] text-neutral-500 mt-0.5 line-clamp-1">{node.description}</p>
+                <p className="text-[11px] text-neutral-400 mt-0.5 line-clamp-1">{node.description}</p>
               </a>
             ))}
           </div>
@@ -445,3 +446,4 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
     </header>
   );
 }
+

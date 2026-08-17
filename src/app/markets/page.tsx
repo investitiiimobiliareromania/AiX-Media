@@ -88,7 +88,7 @@ export default async function MarketsPage() {
   ];
 
   return (
-    <div className="space-y-8 pb-16 pt-4">
+    <div className="space-y-8 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="Date Financiare Oficiale"
         headline="Cotații Oficiale BNR &amp; Indicatori Monetari"
@@ -101,26 +101,26 @@ export default async function MarketsPage() {
       />
 
       {/* Market Instruments Table */}
-      <section id="instruments" className="p-6 md:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 space-y-4 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-200 pb-4 gap-2">
+      <section id="instruments" className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl text-neutral-100">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#262932] pb-4 gap-2">
           <div>
-            <div className="text-xs font-mono uppercase text-amber-700 font-bold tracking-wider flex items-center gap-1.5">
+            <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Activity className="w-4 h-4" />
               Tablou Oficial Instrumente &amp; Valute
             </div>
-            <h2 className="text-xl md:text-2xl font-black text-neutral-950 mt-1">
+            <h2 className="font-serif text-xl md:text-2xl font-bold text-white mt-1">
               Valute, Dobânzi &amp; Indici de Referință
             </h2>
           </div>
-          <span className="text-xs font-mono text-neutral-700 bg-white px-3 py-1.5 rounded-lg border border-neutral-200 shadow-xs">
+          <span className="text-xs font-mono text-neutral-300 bg-[#171920] px-3 py-1.5 rounded-lg border border-[#262932] shadow-xs">
             Feed Oficial BNR Conectat
           </span>
         </div>
 
-        <div className="overflow-x-auto bg-white rounded-2xl border border-neutral-200 shadow-xs">
-          <table className="w-full text-left border-collapse text-xs font-mono text-neutral-700">
+        <div className="overflow-x-auto bg-[#171920] rounded-xl border border-[#262932] shadow-xs">
+          <table className="w-full text-left border-collapse text-xs font-mono text-neutral-300">
             <thead>
-              <tr className="border-b border-neutral-200 text-neutral-500 bg-neutral-50">
+              <tr className="border-b border-[#262932] text-neutral-400 bg-[#111317]">
                 <th className="py-3 px-4 font-bold">Instrument</th>
                 <th className="py-3 px-4 font-bold">Denumire</th>
                 <th className="py-3 px-4 font-bold">Sursă</th>
@@ -129,44 +129,44 @@ export default async function MarketsPage() {
                 <th className="py-3 px-4 font-bold">Statut</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100">
+            <tbody className="divide-y divide-[#262932]">
               {instrumentsList.map((inst) => {
                 const isAvail = inst.value !== null;
                 return (
-                  <tr key={inst.symbol} className="hover:bg-neutral-50/60">
-                    <td className="py-3.5 px-4 font-bold text-neutral-950">{inst.symbol}</td>
-                    <td className="py-3.5 px-4 text-neutral-600">{inst.name || "—"}</td>
+                  <tr key={inst.symbol} className="hover:bg-[#1f222b] transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-white">{inst.symbol}</td>
+                    <td className="py-3.5 px-4 text-neutral-300">{inst.name || "—"}</td>
                     <td className="py-3.5 px-4">
                       {inst.sourceUrl ? (
                         <a
                           href={inst.sourceUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:text-amber-700 text-neutral-900 underline inline-flex items-center gap-1 font-semibold"
+                          className="hover:text-amber-400 text-neutral-200 underline inline-flex items-center gap-1 font-semibold transition-colors"
                         >
                           {inst.source}
-                          <ExternalLink className="w-3 h-3 text-neutral-400" />
+                          <ExternalLink className="w-3 h-3 text-neutral-500" />
                         </a>
                       ) : (
                         inst.source
                       )}
                     </td>
-                    <td className="py-3.5 px-4 text-right font-bold text-neutral-950">
+                    <td className="py-3.5 px-4 text-right font-bold text-white font-mono">
                       {isAvail
                         ? `${inst.value?.toFixed(inst.unit === "RON" ? 4 : 2)}${
                             inst.unit === "%" ? "%" : inst.unit === "RON" ? " RON" : ""
                           }`
                         : "Indisponibil"}
                     </td>
-                    <td className="py-3.5 px-4 text-neutral-500">
+                    <td className="py-3.5 px-4 text-neutral-400 font-mono">
                       {isAvail && inst.publishedAt ? inst.publishedAt : inst.referencePeriod || "N/A"}
                     </td>
                     <td className="py-3.5 px-4">
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${
                           isAvail
-                            ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                            : "bg-neutral-100 text-neutral-500 border border-neutral-200"
+                            ? "bg-emerald-950/40 text-emerald-400 border border-emerald-500/30"
+                            : "bg-[#1f222b] text-neutral-500 border border-[#262932]"
                         }`}
                       >
                         {isAvail ? "Oficial" : "Indisponibil"}
@@ -204,3 +204,4 @@ export default async function MarketsPage() {
     </div>
   );
 }
+

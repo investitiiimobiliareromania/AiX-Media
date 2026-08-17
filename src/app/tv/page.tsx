@@ -19,7 +19,7 @@ export default function TvPage() {
   const latestVideos = verifiedVideos.filter((v) => v.id !== featuredId);
 
   return (
-    <div className="space-y-10 pb-16 pt-4">
+    <div className="space-y-10 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="Jurnalism Video &amp; Documentare"
         headline="Analize Video &amp; Prezentări Oficiale"
@@ -34,29 +34,29 @@ export default function TvPage() {
 
       {/* Featured Video Broadcast Player */}
       {featuredVideo && (
-        <section id="featured-broadcast" className="p-6 md:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 space-y-6 shadow-xs">
-          <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
-            <div className="flex items-center gap-2 text-amber-700 font-mono text-xs uppercase font-bold tracking-wider">
+        <section id="featured-broadcast" className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-6 shadow-xl">
+          <div className="flex items-center justify-between border-b border-[#262932] pb-4">
+            <div className="flex items-center gap-2 text-amber-500 font-mono text-xs uppercase font-bold tracking-widest">
               <Tv className="w-4 h-4" />
               Prezentare Video Recomandată
             </div>
-            <span className="text-xs font-mono text-neutral-600 bg-white px-3 py-1 rounded-lg border border-neutral-200 shadow-xs">
+            <span className="text-xs font-mono text-neutral-300 bg-[#171920] px-3 py-1 rounded-lg border border-[#262932] shadow-xs">
               Rezoluție HD
             </span>
           </div>
 
           <YouTubeEmbed videoId={featuredVideo.id} title={featuredVideo.title} lazy={false} />
 
-          <div className="space-y-2">
-            <div className="flex items-center gap-3 text-xs font-mono text-neutral-500">
-              <span className="px-2.5 py-0.5 rounded bg-neutral-100 text-neutral-800 border border-neutral-200 font-semibold">
+          <div className="space-y-2.5">
+            <div className="flex items-center gap-3 text-xs font-mono text-neutral-400">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#171920] text-amber-400 border border-[#262932] font-semibold text-[10px] uppercase tracking-wider">
                 {featuredVideo.category || "Oficial"}
               </span>
               <span>Canal Oficial Cristian Văduva</span>
             </div>
-            <h2 className="text-2xl font-bold text-neutral-950 leading-tight">{featuredVideo.title}</h2>
+            <h2 className="font-serif text-2xl lg:text-3xl font-bold text-white leading-tight">{featuredVideo.title}</h2>
             {featuredVideo.description && (
-              <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">{featuredVideo.description}</p>
+              <p className="text-sm text-neutral-300 leading-relaxed max-w-3xl font-serif">{featuredVideo.description}</p>
             )}
           </div>
         </section>
@@ -64,13 +64,13 @@ export default function TvPage() {
 
       {/* Latest Videos Catalog */}
       <section className="space-y-6">
-        <div className="border-b border-neutral-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="border-b border-[#262932] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h2 className="text-2xl font-bold text-neutral-950 tracking-tight flex items-center gap-2">
-              <Film className="w-5 h-5 text-amber-700" />
+            <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+              <Film className="w-5 h-5 text-amber-500" />
               Prezentări &amp; Analize Video Recente
             </h2>
-            <p className="text-xs text-neutral-500 font-mono mt-1">
+            <p className="text-xs text-neutral-400 font-mono mt-1">
               Catalog media verificat din canalul oficial Cristian Văduva
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function TvPage() {
             href={youtubeChannelUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs font-mono text-neutral-900 hover:text-amber-700 transition-colors uppercase font-bold bg-white px-3.5 py-2 rounded-lg border border-neutral-200 shadow-xs shrink-0"
+            className="flex items-center gap-1.5 text-xs font-mono text-neutral-200 hover:text-amber-400 transition-colors uppercase font-bold bg-[#171920] hover:bg-[#1f222b] px-3.5 py-2 rounded-xl border border-[#262932] shadow-xs shrink-0"
           >
             Canalul YouTube
             <ExternalLink className="w-3.5 h-3.5" />
@@ -87,13 +87,13 @@ export default function TvPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {latestVideos.map((vid) => (
-            <div key={vid.id} className="bg-white border border-neutral-200 rounded-2xl p-4 space-y-3 flex flex-col justify-between shadow-xs">
+            <div key={vid.id} className="bg-[#111317] border border-[#262932] rounded-2xl p-4 space-y-3 flex flex-col justify-between shadow-lg group hover:border-amber-500/40 transition-all">
               <YouTubeEmbed videoId={vid.id} title={vid.title} />
-              <div className="space-y-1 pt-1">
-                <span className="text-[10px] font-mono text-amber-800 font-semibold px-2 py-0.5 rounded bg-amber-50 border border-amber-200 inline-block">
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[10px] font-mono text-amber-400 font-semibold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 inline-block uppercase tracking-wider">
                   {vid.category || "Video Oficial"}
                 </span>
-                <h3 className="text-sm font-bold text-neutral-950 leading-snug line-clamp-2">{vid.title}</h3>
+                <h3 className="font-serif text-sm font-bold text-white leading-snug line-clamp-2 group-hover:text-amber-400 transition-colors">{vid.title}</h3>
               </div>
             </div>
           ))}
@@ -102,10 +102,10 @@ export default function TvPage() {
 
       {/* Shorts Section */}
       <section className="space-y-6">
-        <div className="border-b border-neutral-200 pb-4 flex items-center justify-between">
+        <div className="border-b border-[#262932] pb-4 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-neutral-950 tracking-tight flex items-center gap-2">
-              <Video className="w-5 h-5 text-amber-700" />
+            <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+              <Video className="w-5 h-5 text-amber-500" />
               Clipuri Video Scurte (Shorts)
             </h2>
           </div>
@@ -113,7 +113,7 @@ export default function TvPage() {
             href={youtubeChannelUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs font-mono text-neutral-900 hover:text-amber-700 transition-colors uppercase font-bold"
+            className="flex items-center gap-1.5 text-xs font-mono text-neutral-300 hover:text-amber-400 transition-colors uppercase font-bold"
           >
             Vezi toate clipurile &rarr;
           </a>
@@ -121,10 +121,10 @@ export default function TvPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {verifiedShorts.map((short) => (
-            <div key={short.id} className="bg-white border border-neutral-200 rounded-2xl p-3 space-y-3 flex flex-col justify-between shadow-xs">
+            <div key={short.id} className="bg-[#111317] border border-[#262932] rounded-2xl p-3 space-y-3 flex flex-col justify-between shadow-lg">
               <YouTubeEmbed videoId={short.id} title={short.title} isShort={true} />
               <div className="pt-1 text-center">
-                <h3 className="text-xs font-medium text-neutral-800 leading-snug line-clamp-2">{short.title}</h3>
+                <h3 className="text-xs font-serif font-medium text-neutral-300 leading-snug line-clamp-2">{short.title}</h3>
               </div>
             </div>
           ))}
@@ -136,3 +136,4 @@ export default function TvPage() {
     </div>
   );
 }
+

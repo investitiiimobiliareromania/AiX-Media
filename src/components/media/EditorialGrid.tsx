@@ -25,9 +25,9 @@ export function EditorialGrid({
   return (
     <section className="my-8 space-y-6">
       {(title || description) && (
-        <div className="border-b border-neutral-200 pb-4">
-          <h2 className="text-xl md:text-2xl font-black text-neutral-950 tracking-tight">{title}</h2>
-          {description && <p className="text-xs text-neutral-600 mt-1">{description}</p>}
+        <div className="border-b border-[#262932] pb-4">
+          <h2 className="font-serif text-xl md:text-2xl font-bold text-white tracking-tight">{title}</h2>
+          {description && <p className="text-xs text-neutral-400 mt-1 font-serif leading-relaxed">{description}</p>}
         </div>
       )}
 
@@ -39,3 +39,4 @@ export function EditorialGrid({
     </section>
   );
 }
+

@@ -13,30 +13,30 @@ interface IntelligenceDashboardProps {
 export function IntelligenceDashboard({
   metrics,
   title = "Tablou de Bord & Indicatori Macroeconomici",
-  description = "Indicatori oficiali de referință preluați din rapoartele instituționale.",
+  description = "Indicatori oficiali de referință preluați din rapoartele instituționale BNR și ANCPI.",
 }: IntelligenceDashboardProps) {
   const hasAvailableData = metrics.some((m) => m.value !== "Unavailable" && m.value !== null);
 
   return (
-    <section className="my-8 p-6 md:p-8 rounded-2xl bg-neutral-50 border border-neutral-200 relative overflow-hidden shadow-xs">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200 mb-6">
+    <section className="my-8 p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] relative overflow-hidden shadow-xl text-neutral-100">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#262932] mb-6">
         <div>
-          <div className="flex items-center gap-2 text-amber-700 font-mono text-xs uppercase font-bold tracking-wider">
-            <Activity className="w-4 h-4 text-amber-600" />
-            Monitorizare Date Oficiale
+          <div className="flex items-center gap-2 text-amber-500 font-mono text-xs uppercase font-bold tracking-widest">
+            <Activity className="w-4 h-4 text-amber-500" />
+            Terminal Date Instituționale
           </div>
-          <h2 className="text-xl md:text-2xl font-black text-neutral-950 mt-1">{title}</h2>
-          <p className="text-xs text-neutral-600 mt-1">{description}</p>
+          <h2 className="font-serif text-xl md:text-2xl font-bold text-white mt-1">{title}</h2>
+          <p className="text-xs text-neutral-400 mt-1 font-serif leading-relaxed">{description}</p>
         </div>
 
         {hasAvailableData ? (
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
-            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+          <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 px-3 py-1.5 rounded-lg border border-emerald-500/30">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             Date Oficiale Verificate
           </div>
         ) : (
-          <div className="flex items-center gap-2 text-xs font-mono text-neutral-600 bg-neutral-100 px-3 py-1.5 rounded-lg border border-neutral-200">
-            <span className="w-2 h-2 rounded-full bg-neutral-400"></span>
+          <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-[#171920] px-3 py-1.5 rounded-lg border border-[#262932]">
+            <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
             Sursă în curs de actualizare
           </div>
         )}
@@ -50,14 +50,14 @@ export function IntelligenceDashboard({
           return (
             <div
               key={idx}
-              className="p-4 rounded-xl bg-white border border-neutral-200 hover:border-neutral-300 transition-all flex flex-col justify-between shadow-xs"
+              className="p-5 rounded-xl bg-[#171920] border border-[#262932] hover:border-amber-500/40 transition-all flex flex-col justify-between shadow-xs group"
             >
-              <div className="flex items-center justify-between text-xs text-neutral-600 font-mono">
-                <span className="font-medium text-neutral-700">{metric.label}</span>
+              <div className="flex items-center justify-between text-xs text-neutral-400 font-mono">
+                <span className="font-medium text-neutral-300">{metric.label}</span>
                 {metric.isPositive !== undefined && metric.change && !isUnavailable && (
                   <span
                     className={`flex items-center gap-0.5 font-bold ${
-                      metric.isPositive ? "text-emerald-700" : "text-rose-700"
+                      metric.isPositive ? "text-emerald-400" : "text-rose-400"
                     }`}
                   >
                     {metric.isPositive ? (
@@ -74,17 +74,17 @@ export function IntelligenceDashboard({
                 <div
                   className={`${
                     isUnavailable
-                      ? "text-sm font-semibold text-neutral-400"
-                      : "text-2xl md:text-3xl font-black text-neutral-950"
+                      ? "text-sm font-semibold text-neutral-500"
+                      : "text-2xl md:text-3xl font-bold text-white group-hover:text-amber-400 transition-colors"
                   } font-mono tracking-tight`}
                 >
                   {displayValue}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-neutral-100 space-y-1.5">
-                <div className="text-[11px] text-neutral-500 font-mono flex items-center gap-1.5">
-                  <BarChart3 className="w-3 h-3 text-amber-600" />
+              <div className="pt-2.5 border-t border-[#262932] space-y-2">
+                <div className="text-[11px] text-neutral-400 font-mono flex items-center gap-1.5">
+                  <BarChart3 className="w-3 h-3 text-amber-500" />
                   <span>{isUnavailable ? "Sursă de date neconectată" : metric.subtext}</span>
                 </div>
                 {metric.source && (
@@ -105,3 +105,4 @@ export function IntelligenceDashboard({
     </section>
   );
 }
+

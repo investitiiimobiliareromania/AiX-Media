@@ -124,18 +124,18 @@ export default async function HomePage() {
     <div className="space-y-12 pb-16 pt-4">
       {/* 1. Hero Editorial Section */}
       <section className="pt-2">
-        <div className="flex items-center justify-between mb-4 border-b border-neutral-200 pb-3">
-          <div className="flex items-center gap-2 text-neutral-900 font-mono text-xs uppercase font-bold tracking-wider">
-            <Flame className="w-4 h-4 text-amber-600" />
+        <div className="flex items-center justify-between mb-4 border-b border-[#262932] pb-3">
+          <div className="flex items-center gap-2 text-white font-mono text-xs uppercase font-bold tracking-widest">
+            <Flame className="w-4 h-4 text-amber-500" />
             Investigație &amp; Raport Instituțional Principal
           </div>
-          <div className="flex items-center gap-4 text-xs text-neutral-500 font-mono">
-            <Link href="/search" className="flex items-center gap-1 text-neutral-700 hover:text-amber-700">
+          <div className="flex items-center gap-4 text-xs text-neutral-400 font-mono">
+            <Link href="/search" className="flex items-center gap-1 text-neutral-300 hover:text-amber-400 transition-colors">
               <Search className="w-3.5 h-3.5" />
               <span>Căutare Rapoarte</span>
             </Link>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline">Surse Oficiale Verificate</span>
+            <span className="hidden sm:inline text-neutral-500">Surse Oficiale Verificate</span>
           </div>
         </div>
 
@@ -143,16 +143,16 @@ export default async function HomePage() {
       </section>
 
       {/* 2. Institutional Flash Banner */}
-      <section className="bg-neutral-50 border border-neutral-200 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-xs">
-        <div className="flex items-center gap-2 text-neutral-900 font-mono text-xs font-bold uppercase tracking-wider shrink-0 bg-white px-2.5 py-1 rounded border border-neutral-200 shadow-xs">
-          <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
-          ACTUALITATE
+      <section className="bg-[#111317] border border-[#262932] rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-md">
+        <div className="flex items-center gap-2 text-neutral-200 font-mono text-xs font-bold uppercase tracking-wider shrink-0 bg-[#171920] px-3 py-1 rounded-lg border border-[#262932] shadow-xs">
+          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          <span className="text-amber-400">ACTUALITATE</span>
         </div>
-        <div className="text-xs text-neutral-700 font-mono flex-1">
-          <span className="text-neutral-900 font-bold mr-1.5">[Statistici ANCPI]</span>
+        <div className="text-xs text-neutral-300 font-mono flex-1 leading-relaxed">
+          <span className="text-white font-bold mr-1.5">[Statistici ANCPI]</span>
           Peste 51.000 de imobile tranzacționate la nivel național în ultima lună raportată oficial.
         </div>
-        <Link href="/real-estate" className="text-xs text-neutral-900 hover:text-amber-700 font-mono font-bold shrink-0 underline">
+        <Link href="/real-estate" className="text-xs text-neutral-300 hover:text-amber-400 font-mono font-bold shrink-0 underline transition-colors">
           Vezi datele detaliate →
         </Link>
       </section>
@@ -169,12 +169,12 @@ export default async function HomePage() {
 
       {/* 5. Top Editorial Investigations Grid */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
-          <h2 className="text-2xl font-black text-neutral-950 tracking-tight flex items-center gap-2">
-            <Layers className="w-5 h-5 text-amber-700" />
+        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
+          <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <Layers className="w-5 h-5 text-amber-500" />
             Rapoarte &amp; Analize Economice
           </h2>
-          <Link href="/news" className="text-xs font-mono text-neutral-900 hover:text-amber-700 font-bold flex items-center gap-1">
+          <Link href="/news" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
             <span>Toate Rapoartele</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -189,17 +189,17 @@ export default async function HomePage() {
 
       {/* 6. Real Estate Intelligence Section */}
       <section className="space-y-6 pt-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-200 pb-3 gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#262932] pb-3 gap-2">
           <div>
-            <div className="text-xs font-mono uppercase text-amber-700 font-bold tracking-wider flex items-center gap-1.5">
+            <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Building2 className="w-4 h-4" />
               Statistici &amp; Tranzacții Imobiliare
             </div>
-            <h2 className="text-2xl font-black text-neutral-950 tracking-tight mt-0.5">
+            <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
               Dinamica Tranzacțiilor și Autorizațiilor de Construire
             </h2>
           </div>
-          <Link href="/real-estate" className="text-xs font-mono text-neutral-900 hover:text-amber-700 font-bold flex items-center gap-1 shrink-0">
+          <Link href="/real-estate" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 shrink-0 transition-colors">
             <span>Hub Imobiliar</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -208,14 +208,14 @@ export default async function HomePage() {
         {/* Real Estate Verified Data Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {realEstateMetrics.slice(0, 3).map((metric) => (
-            <div key={metric.id} className="p-5 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-2 shadow-xs">
-              <div className="text-xs text-neutral-500 font-mono">{metric.label}</div>
-              <div className="text-3xl font-black text-neutral-950 font-mono">
-                {metric.value} <span className="text-xs font-normal text-neutral-500">{metric.unit}</span>
+            <div key={metric.id} className="p-5 rounded-2xl bg-[#111317] border border-[#262932] space-y-2 shadow-lg group hover:border-amber-500/40 transition-all">
+              <div className="text-xs text-neutral-400 font-mono">{metric.label}</div>
+              <div className="text-3xl font-bold text-white font-mono group-hover:text-amber-400 transition-colors">
+                {metric.value} <span className="text-xs font-normal text-neutral-500 font-mono">{metric.unit}</span>
               </div>
-              <p className="text-xs text-neutral-600">{metric.subtext}</p>
-              <div className="pt-2 border-t border-neutral-200/60 text-[11px] font-mono text-neutral-500">
-                Sursă: <span className="text-neutral-900 font-semibold">{metric.source}</span> • {metric.referencePeriod}
+              <p className="text-xs text-neutral-300 font-serif leading-relaxed">{metric.subtext}</p>
+              <div className="pt-2 border-t border-[#262932] text-[11px] font-mono text-neutral-400">
+                Sursă: <span className="text-neutral-200 font-semibold">{metric.source}</span> • {metric.referencePeriod}
               </div>
             </div>
           ))}
@@ -233,17 +233,17 @@ export default async function HomePage() {
 
       {/* 8. Corporate Champions (BVB Listed) */}
       <section className="space-y-6 pt-4">
-        <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
           <div>
-            <div className="text-xs font-mono uppercase text-amber-700 font-bold tracking-wider flex items-center gap-1.5">
+            <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Briefcase className="w-4 h-4" />
               Companii Listate la BVB
             </div>
-            <h2 className="text-2xl font-black text-neutral-950 tracking-tight mt-0.5">
+            <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
               Profiluri Verificate &amp; Raportări Financiare Oficiale
             </h2>
           </div>
-          <Link href="/companies" className="text-xs font-mono text-neutral-900 hover:text-amber-700 font-bold flex items-center gap-1">
+          <Link href="/companies" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
             <span>Toate Companiile</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -254,19 +254,19 @@ export default async function HomePage() {
             <Link
               key={comp.id}
               href={`/companies/${comp.slug}`}
-              className="p-5 rounded-2xl bg-white border border-neutral-200 hover:border-neutral-300 transition-all block space-y-3 shadow-xs hover:shadow-sm"
+              className="p-5 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 hover:bg-[#171920] transition-all block space-y-3 shadow-lg"
             >
               <div className="flex items-center justify-between">
-                <span className="text-neutral-950 font-mono text-xs font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200">
+                <span className="text-amber-400 font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#171920] border border-[#262932]">
                   {comp.symbol}
                 </span>
-                <span className="text-neutral-500 font-mono text-xs">{comp.isin}</span>
+                <span className="text-neutral-400 font-mono text-xs">{comp.isin}</span>
               </div>
-              <h3 className="text-sm font-bold text-neutral-950 truncate">{comp.name}</h3>
-              <p className="text-xs text-neutral-600 line-clamp-2">{comp.description}</p>
-              <div className="text-[11px] text-neutral-500 font-mono flex items-center justify-between pt-2 border-t border-neutral-100">
-                <span>Venituri: <strong className="text-neutral-900">{comp.revenue}</strong></span>
-                <span>Profit: <strong className="text-neutral-900">{comp.netIncome}</strong></span>
+              <h3 className="font-serif text-base font-bold text-white truncate">{comp.name}</h3>
+              <p className="text-xs text-neutral-300 line-clamp-2 font-serif">{comp.description}</p>
+              <div className="text-[11px] text-neutral-400 font-mono flex items-center justify-between pt-2.5 border-t border-[#262932]">
+                <span>Venituri: <strong className="text-white">{comp.revenue}</strong></span>
+                <span>Profit: <strong className="text-white">{comp.netIncome}</strong></span>
               </div>
             </Link>
           ))}
@@ -274,25 +274,25 @@ export default async function HomePage() {
       </section>
 
       {/* 9. Economic Calendar */}
-      <section className="p-6 md:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 space-y-4 shadow-xs">
-        <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+      <section className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl text-neutral-100">
+        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
           <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-amber-700" />
-            <h3 className="text-xl font-bold text-neutral-950">Calendar Macroeconomic &amp; Decizii Oficiale</h3>
+            <Calendar className="w-5 h-5 text-amber-500" />
+            <h3 className="font-serif text-xl font-bold text-white">Calendar Macroeconomic &amp; Decizii Oficiale</h3>
           </div>
-          <Link href="/calendar" className="text-xs font-mono text-neutral-900 hover:text-amber-700 font-bold underline">
+          <Link href="/calendar" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold underline transition-colors">
             Calendar complet →
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 font-mono text-xs">
           {events.map((ev) => (
-            <div key={ev.id} className="p-4 rounded-xl bg-white border border-neutral-200 space-y-1.5 shadow-xs">
+            <div key={ev.id} className="p-4 rounded-xl bg-[#171920] border border-[#262932] space-y-1.5 shadow-xs">
               <div className="flex items-center justify-between text-[10px]">
-                <span className="text-amber-800 font-bold">{ev.country} • {ev.date}</span>
-                <span className="px-1.5 py-0.5 rounded bg-neutral-100 text-neutral-700 border border-neutral-200 font-semibold">{ev.importance}</span>
+                <span className="text-amber-400 font-bold">{ev.country} • {ev.date}</span>
+                <span className="px-1.5 py-0.5 rounded bg-[#1f222b] text-neutral-300 border border-[#262932] font-semibold">{ev.importance}</span>
               </div>
-              <div className="text-neutral-950 font-bold truncate">{ev.title}</div>
+              <div className="text-white font-serif font-bold text-sm truncate">{ev.title}</div>
             </div>
           ))}
         </div>
@@ -303,17 +303,17 @@ export default async function HomePage() {
 
       {/* 11. Podcasts */}
       <section className="space-y-6 pt-4">
-        <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
           <div>
-            <div className="text-xs font-mono uppercase text-amber-700 font-bold tracking-wider flex items-center gap-1.5">
+            <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Mic className="w-4 h-4" />
               AiX Audio &amp; Podcast
             </div>
-            <h2 className="text-2xl font-black text-neutral-950 tracking-tight mt-0.5">
+            <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
               Episoade &amp; Dialoguri Economice
             </h2>
           </div>
-          <Link href="/podcasts" className="text-xs font-mono text-neutral-900 hover:text-amber-700 font-bold flex items-center gap-1">
+          <Link href="/podcasts" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
             <span>Catalog Podcast</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -327,20 +327,20 @@ export default async function HomePage() {
       </section>
 
       {/* 12. Academy Spotlight */}
-      <section className="p-8 rounded-3xl bg-neutral-50 border border-neutral-200 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-        <div className="space-y-2 flex-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-200 text-xs font-mono font-bold">
-            <GraduationCap className="w-4 h-4 text-amber-700" />
+      <section className="p-8 rounded-2xl bg-[#111317] border border-[#262932] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl text-neutral-100">
+        <div className="space-y-2.5 flex-1">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
+            <GraduationCap className="w-4 h-4 text-amber-500" />
             Intelligence Academy
           </div>
-          <h3 className="text-2xl font-black text-neutral-950">Ghiduri &amp; Modele de Analiză Imobiliară</h3>
-          <p className="text-xs text-neutral-600 max-w-2xl leading-relaxed">
+          <h3 className="font-serif text-2xl lg:text-3xl font-bold text-white">Ghiduri &amp; Modele de Analiză Imobiliară</h3>
+          <p className="text-xs sm:text-sm text-neutral-300 max-w-2xl leading-relaxed font-serif">
             Metodologii structurate pentru calculul randamentelor investiționale, analiza tranzacțiilor cadastrale și interpretarea indicatorilor macroeconomici.
           </p>
         </div>
         <Link
           href="/academy"
-          className="px-6 py-3 rounded-lg bg-neutral-950 hover:bg-neutral-800 text-white font-bold text-xs font-mono transition-all shrink-0 cursor-pointer"
+          className="px-6 py-3.5 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center"
         >
           EXPLOREAZĂ ACADEMIA →
         </Link>
@@ -357,3 +357,4 @@ export default async function HomePage() {
     </div>
   );
 }
+

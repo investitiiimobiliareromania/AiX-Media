@@ -20,7 +20,7 @@ export default async function RealEstatePage() {
   const metrics = await getRealEstateMetrics();
 
   return (
-    <div className="space-y-10 pb-16 pt-4">
+    <div className="space-y-10 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="Statistici Imobiliare Oficiale"
         headline="Date Verificate din Cadastru și Construcții"
@@ -38,15 +38,15 @@ export default async function RealEstatePage() {
 
       {/* Official Statistics Section */}
       <section id="statistics" className="space-y-6">
-        <div className="border-b border-neutral-200 pb-4">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
+        <div className="border-b border-[#262932] pb-4">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">
             <BarChart3 className="w-4 h-4" />
             Indicatori Statistici Imobiliari
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-neutral-950 tracking-tight mt-1">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">
             Date Oficiale ANCPI, INS și BNR
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-600 mt-1">
+          <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-serif">
             Fiecare cifră este asociată cu sursa instituțională emitentă și perioada de referință.
           </p>
         </div>
@@ -55,18 +55,18 @@ export default async function RealEstatePage() {
           {metrics.map((metric) => (
             <div
               key={metric.id}
-              className="p-6 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-4 shadow-xs flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl flex flex-col justify-between group hover:border-amber-500/40 transition-all"
             >
               <div>
-                <div className="text-xs text-neutral-500 font-mono font-medium">{metric.label}</div>
-                <div className="text-3xl font-black text-neutral-950 font-mono mt-2">
+                <div className="text-xs text-neutral-400 font-mono font-medium">{metric.label}</div>
+                <div className="text-3xl font-bold text-white font-mono mt-2 group-hover:text-amber-400 transition-colors">
                   {metric.value}{" "}
-                  {metric.unit && <span className="text-xs font-normal text-neutral-500">{metric.unit}</span>}
+                  {metric.unit && <span className="text-xs font-normal text-neutral-500 font-mono">{metric.unit}</span>}
                 </div>
-                <p className="text-xs text-neutral-600 mt-2 leading-relaxed">{metric.subtext}</p>
+                <p className="text-xs text-neutral-300 mt-2 leading-relaxed font-serif">{metric.subtext}</p>
               </div>
 
-              <div className="pt-3 border-t border-neutral-200/80">
+              <div className="pt-3 border-t border-[#262932]">
                 <SourceBadge
                   source={metric.source}
                   sourceUrl={metric.sourceUrl}
@@ -100,3 +100,4 @@ export default async function RealEstatePage() {
     </div>
   );
 }
+

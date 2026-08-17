@@ -38,7 +38,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = rootMetadata;
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#090a0d",
   width: "device-width",
   initialScale: 1,
 };
@@ -53,10 +53,10 @@ export default async function RootLayout({
   return (
     <html
       lang={siteConfig.language}
-      className={`${inter.variable} ${playfairDisplay.variable} ${jetbrainsMono.variable} h-full bg-white text-neutral-900`}
+      className={`${inter.variable} ${playfairDisplay.variable} ${jetbrainsMono.variable} h-full bg-[#090a0d] text-neutral-100 dark`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col bg-white text-neutral-900 antialiased">
+      <body className="flex min-h-full flex-col bg-[#090a0d] text-neutral-100 antialiased selection:bg-amber-900/50 selection:text-amber-100">
         <JsonLd data={organizationJsonLd} />
         <AppProviders>
           <VisitorTracker />

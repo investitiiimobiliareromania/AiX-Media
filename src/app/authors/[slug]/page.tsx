@@ -38,30 +38,30 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
   const authorArticles = getAllArticles().slice(0, 3);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 py-6 pb-16">
-      <div className="flex items-center justify-between font-mono text-xs text-neutral-500">
-        <Link href="/authors" className="flex items-center gap-1.5 hover:text-neutral-950 transition-colors font-semibold">
+    <div className="max-w-4xl mx-auto space-y-8 py-6 pb-16 text-neutral-100">
+      <div className="flex items-center justify-between font-mono text-xs text-neutral-400">
+        <Link href="/authors" className="flex items-center gap-1.5 text-neutral-300 hover:text-amber-400 transition-colors font-semibold">
           <ArrowLeft className="w-4 h-4" />
           Înapoi la Redacție
         </Link>
-        <span className="px-2.5 py-1 rounded bg-neutral-100 text-neutral-800 border border-neutral-200 uppercase font-semibold">
+        <span className="px-2.5 py-1 rounded-md bg-[#171920] text-amber-400 border border-[#262932] uppercase font-semibold text-[10px] tracking-wider">
           Redacție Verificată
         </span>
       </div>
 
       {/* Author Bio Banner */}
-      <div className="p-8 rounded-3xl bg-neutral-50 border border-neutral-200 flex flex-col md:flex-row items-center gap-6 shadow-xs">
-        <div className="relative w-24 h-24 rounded-full overflow-hidden border border-neutral-300 bg-white shrink-0 shadow-xs">
+      <div className="p-8 rounded-2xl bg-[#111317] border border-[#262932] flex flex-col md:flex-row items-center gap-6 shadow-xl">
+        <div className="relative w-24 h-24 rounded-full overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0 shadow-md">
           <Image src={author.avatar} alt={author.name} fill className="object-cover" />
         </div>
         <div className="space-y-2 text-center md:text-left flex-1">
-          <h1 className="text-3xl font-black text-neutral-950">{author.name}</h1>
-          <p className="text-xs font-mono text-amber-800 font-bold">{author.role}</p>
-          <p className="text-sm text-neutral-600 leading-relaxed">{author.bio}</p>
+          <h1 className="font-serif text-3xl font-bold text-white">{author.name}</h1>
+          <p className="text-xs font-mono text-amber-400 font-bold">{author.role}</p>
+          <p className="text-sm text-neutral-300 leading-relaxed font-serif">{author.bio}</p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-2 font-mono text-[11px]">
             {author.expertise.map((exp, i) => (
-              <span key={i} className="px-2.5 py-0.5 rounded bg-white text-neutral-700 border border-neutral-200">
+              <span key={i} className="px-2.5 py-0.5 rounded-md bg-[#171920] text-neutral-300 border border-[#262932]">
                 {exp}
               </span>
             ))}
@@ -71,8 +71,8 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
 
       {/* Latest Articles by Author */}
       <section className="space-y-4">
-        <h2 className="text-xl font-bold text-neutral-950 flex items-center gap-2 border-b border-neutral-200 pb-3">
-          <BookOpen className="w-5 h-5 text-amber-700" />
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+          <BookOpen className="w-5 h-5 text-amber-500" />
           Rapoarte &amp; Analize Publicate
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -87,3 +87,4 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
     </div>
   );
 }
+

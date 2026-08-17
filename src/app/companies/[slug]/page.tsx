@@ -47,57 +47,57 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 py-6">
-      <div className="flex items-center justify-between font-mono text-xs text-neutral-500">
-        <Link href="/companies" className="flex items-center gap-1.5 hover:text-neutral-950 transition-colors font-semibold">
+    <div className="max-w-5xl mx-auto space-y-8 py-6 text-neutral-100">
+      <div className="flex items-center justify-between font-mono text-xs text-neutral-400">
+        <Link href="/companies" className="flex items-center gap-1.5 text-neutral-300 hover:text-amber-400 transition-colors font-semibold">
           <ArrowLeft className="w-4 h-4" />
           Înapoi la Catalogul Companiilor
         </Link>
-        <span className="px-2.5 py-1 rounded bg-neutral-100 text-neutral-800 border border-neutral-200 uppercase font-semibold">
+        <span className="px-2.5 py-1 rounded-md bg-[#171920] text-amber-400 border border-[#262932] uppercase font-semibold text-[10px] tracking-wider">
           {company.sector}
         </span>
       </div>
 
       {/* Header Info Banner */}
-      <div className="p-8 rounded-3xl bg-neutral-50 border border-neutral-200 space-y-6 shadow-xs relative overflow-hidden">
+      <div className="p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-6 shadow-xl relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-            <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-neutral-200 bg-white shrink-0 shadow-xs">
+            <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0 shadow-md">
               <Image src={company.logo} alt={company.name} fill className="object-cover" />
             </div>
             <div>
-              <h1 className="text-2xl md:text-3xl font-black text-neutral-950">{company.name}</h1>
-              <p className="text-xs font-mono text-neutral-600 mt-1">
-                Simbol BVB: <strong className="text-neutral-950">{company.symbol}</strong> • ISIN:{" "}
-                <span className="text-neutral-900 font-medium">{company.isin}</span>
+              <h1 className="font-serif text-2xl md:text-3xl font-bold text-white">{company.name}</h1>
+              <p className="text-xs font-mono text-neutral-400 mt-1">
+                Simbol BVB: <strong className="text-amber-400">{company.symbol}</strong> • ISIN:{" "}
+                <span className="text-neutral-200 font-medium">{company.isin}</span>
               </p>
             </div>
           </div>
 
-          <div className="text-center md:text-right font-mono bg-white p-4 rounded-xl border border-neutral-200 shrink-0 shadow-xs">
-            <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Cotație Raportată</div>
-            <div className="text-xl font-bold text-neutral-950 mt-0.5">{company.stockPrice}</div>
-            <div className="text-[9px] text-neutral-500 mt-1">Data referință: {company.asOf}</div>
+          <div className="text-center md:text-right font-mono bg-[#171920] p-4 rounded-xl border border-[#262932] shrink-0 shadow-xs">
+            <div className="text-[10px] text-neutral-400 uppercase tracking-wider">Cotație Raportată</div>
+            <div className="text-xl font-bold text-white mt-0.5">{company.stockPrice}</div>
+            <div className="text-[9px] text-neutral-400 mt-1">Data referință: {company.asOf}</div>
           </div>
         </div>
 
-        <p className="text-sm text-neutral-700 leading-relaxed border-t border-neutral-200 pt-4 relative z-10">
+        <p className="text-sm text-neutral-300 leading-relaxed border-t border-[#262932] pt-4 relative z-10 font-serif">
           {company.description}
         </p>
 
         {/* Legal Identity Details */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-neutral-200 font-mono text-xs text-neutral-600">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#262932] font-mono text-xs text-neutral-400">
           <div>
-            <span className="text-neutral-500 block text-[10px] uppercase tracking-wider">Sediu Social</span>
-            <span className="text-neutral-950 font-medium">{company.headquarters}</span>
+            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Sediu Social</span>
+            <span className="text-white font-medium">{company.headquarters}</span>
           </div>
           <div>
-            <span className="text-neutral-500 block text-[10px] uppercase tracking-wider">Cod Fiscal (CUI)</span>
-            <span className="text-neutral-950 font-medium">{company.cui}</span>
+            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Cod Fiscal (CUI)</span>
+            <span className="text-white font-medium">{company.cui}</span>
           </div>
           <div>
-            <span className="text-neutral-500 block text-[10px] uppercase tracking-wider">Nr. Înregistrare</span>
-            <span className="text-neutral-950 font-medium">{company.registrationNumber}</span>
+            <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Nr. Înregistrare</span>
+            <span className="text-white font-medium">{company.registrationNumber}</span>
           </div>
         </div>
       </div>
@@ -105,35 +105,35 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
       {/* Grid: Market Data vs Financial Reporting */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Market Data Panel */}
-        <div className="p-6 md:p-8 rounded-2xl bg-white border border-neutral-200 space-y-4 shadow-xs">
-          <h2 className="text-lg font-bold text-neutral-950 flex items-center gap-2 border-b border-neutral-100 pb-3">
-            <TrendingUp className="w-5 h-5 text-amber-700" />
+        <div className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
+          <h2 className="font-serif text-lg font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+            <TrendingUp className="w-5 h-5 text-amber-500" />
             Date de Piață Raportate
           </h2>
-          <div className="divide-y divide-neutral-100 font-mono text-xs space-y-3">
+          <div className="divide-y divide-[#262932] font-mono text-xs space-y-3">
             <div className="flex justify-between py-1">
-              <span className="text-neutral-600">Segment Bursier BVB</span>
-              <span className="text-neutral-950 font-bold">{company.market} ({company.categoryName})</span>
+              <span className="text-neutral-400">Segment Bursier BVB</span>
+              <span className="text-white font-bold">{company.market} ({company.categoryName})</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Număr Acțiuni Emise</span>
-              <span className="text-neutral-950 font-bold">{company.sharesOutstanding?.toLocaleString() || "Indisponibil"}</span>
+              <span className="text-neutral-400">Număr Acțiuni Emise</span>
+              <span className="text-white font-bold">{company.sharesOutstanding?.toLocaleString() || "Indisponibil"}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Capital Social</span>
-              <span className="text-neutral-950 font-bold">{formatCurrency(company.shareCapital)}</span>
+              <span className="text-neutral-400">Capital Social</span>
+              <span className="text-white font-bold">{formatCurrency(company.shareCapital)}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Capitalizare Bursieră</span>
-              <span className="text-neutral-950 font-bold">{company.marketCap}</span>
+              <span className="text-neutral-400">Capitalizare Bursieră</span>
+              <span className="text-white font-bold">{company.marketCap}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Raport P/E</span>
-              <span className="text-neutral-950 font-bold">{company.peRatio}</span>
+              <span className="text-neutral-400">Raport P/E</span>
+              <span className="text-white font-bold">{company.peRatio}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600 font-medium">Randament Dividend</span>
-              <span className="text-amber-800 font-bold">{company.dividendYield}</span>
+              <span className="text-neutral-400 font-medium">Randament Dividend</span>
+              <span className="text-amber-400 font-bold">{company.dividendYield}</span>
             </div>
           </div>
           <div className="pt-2">
@@ -142,37 +142,37 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
         </div>
 
         {/* Financial Teardown Panel */}
-        <div className="p-6 md:p-8 rounded-2xl bg-white border border-neutral-200 space-y-4 shadow-xs">
-          <h2 className="text-lg font-bold text-neutral-950 flex items-center gap-2 border-b border-neutral-100 pb-3">
-            <Landmark className="w-5 h-5 text-amber-700" />
+        <div className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
+          <h2 className="font-serif text-lg font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+            <Landmark className="w-5 h-5 text-amber-500" />
             Situații Financiare Oficiale
           </h2>
-          <div className="divide-y divide-neutral-100 font-mono text-xs space-y-3">
-            <div className="flex justify-between py-1 text-amber-900 font-semibold">
+          <div className="divide-y divide-[#262932] font-mono text-xs space-y-3">
+            <div className="flex justify-between py-1 text-amber-400 font-semibold">
               <span>Perioadă Raportare</span>
               <span>{company.reportedPeriod}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Cifră de Afaceri / Venituri</span>
-              <span className="text-neutral-950 font-bold">{formatCurrency(company.revenueValue)}</span>
+              <span className="text-neutral-400">Cifră de Afaceri / Venituri</span>
+              <span className="text-white font-bold">{formatCurrency(company.revenueValue)}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">EBITDA</span>
-              <span className="text-neutral-950 font-bold">{formatCurrency(company.ebitda)}</span>
+              <span className="text-neutral-400">EBITDA</span>
+              <span className="text-white font-bold">{formatCurrency(company.ebitda)}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Profit Net</span>
-              <span className={`font-bold ${company.netProfit && company.netProfit > 0 ? "text-emerald-800" : "text-neutral-950"}`}>
+              <span className="text-neutral-400">Profit Net</span>
+              <span className={`font-bold ${company.netProfit && company.netProfit > 0 ? "text-emerald-400" : "text-white"}`}>
                 {formatCurrency(company.netProfit)}
               </span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Total Active</span>
-              <span className="text-neutral-950 font-bold">{formatCurrency(company.totalAssets)}</span>
+              <span className="text-neutral-400">Total Active</span>
+              <span className="text-white font-bold">{formatCurrency(company.totalAssets)}</span>
             </div>
             <div className="flex justify-between py-2">
-              <span className="text-neutral-600">Datorii Totale</span>
-              <span className="text-neutral-950 font-bold">{formatCurrency(company.totalDebt)}</span>
+              <span className="text-neutral-400">Datorii Totale</span>
+              <span className="text-white font-bold">{formatCurrency(company.totalDebt)}</span>
             </div>
           </div>
           <div className="pt-2">
@@ -187,26 +187,26 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
       </div>
 
       {/* Corporate Events Area */}
-      <section className="p-6 md:p-8 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-4">
-        <h2 className="text-xl font-bold text-neutral-950 flex items-center gap-2 border-b border-neutral-200 pb-3">
-          <FileText className="w-5 h-5 text-amber-700" />
+      <section className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4">
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+          <FileText className="w-5 h-5 text-amber-500" />
           Evenimente Corporative &amp; Rapoarte Curente
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {company.corporateEvents.map((evt, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-white border border-neutral-200 space-y-2 flex flex-col justify-between shadow-xs">
+            <div key={idx} className="p-4 rounded-xl bg-[#171920] border border-[#262932] space-y-2 flex flex-col justify-between shadow-xs">
               <div>
-                <span className="text-[10px] font-mono text-neutral-500 block uppercase tracking-wider">Data: {evt.date}</span>
-                <h3 className="text-xs font-bold text-neutral-950 font-mono mt-1 leading-normal">{evt.title}</h3>
+                <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">Data: {evt.date}</span>
+                <h3 className="text-xs font-bold text-white font-mono mt-1 leading-normal">{evt.title}</h3>
               </div>
-              <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-[9px] font-mono text-neutral-500">
+              <div className="pt-3 border-t border-[#262932] flex items-center justify-between text-[9px] font-mono text-neutral-400">
                 <span>Sursă: {evt.source}</span>
                 {company.sourceUrl && (
                   <a
                     href={company.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-amber-700 text-neutral-900 underline flex items-center gap-0.5"
+                    className="hover:text-amber-400 text-neutral-200 underline flex items-center gap-0.5"
                   >
                     BVB Issuer Page
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -219,16 +219,16 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
       </section>
 
       {/* Strategic Timeline */}
-      <section className="p-6 md:p-8 rounded-2xl bg-white border border-neutral-200 space-y-4 shadow-xs">
-        <h2 className="text-xl font-bold text-neutral-950 flex items-center gap-2 border-b border-neutral-100 pb-3">
-          <Calendar className="w-5 h-5 text-amber-700" />
+      <section className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+          <Calendar className="w-5 h-5 text-amber-500" />
           Istoric &amp; Repere Strategice
         </h2>
         <div className="space-y-3 font-mono text-xs">
           {company.timeline.map((item, idx) => (
-            <div key={idx} className="flex gap-4 p-3 rounded-lg bg-neutral-50 border border-neutral-200">
-              <span className="text-amber-800 font-bold w-14 shrink-0">{item.year}</span>
-              <span className="text-neutral-700">{item.event}</span>
+            <div key={idx} className="flex gap-4 p-3.5 rounded-xl bg-[#171920] border border-[#262932]">
+              <span className="text-amber-400 font-bold w-14 shrink-0">{item.year}</span>
+              <span className="text-neutral-300 font-serif">{item.event}</span>
             </div>
           ))}
         </div>
@@ -238,7 +238,7 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
 
       {/* Coverage News */}
       <section className="space-y-4">
-        <h2 className="text-xl font-bold text-neutral-950">Rapoarte &amp; Analize Asociate</h2>
+        <h2 className="font-serif text-xl font-bold text-white">Rapoarte &amp; Analize Asociate</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {relatedArticles.map((art) => (
             <ArticleCard key={art.id} article={art} />
@@ -250,3 +250,4 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
     </div>
   );
 }
+
