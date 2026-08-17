@@ -17,7 +17,7 @@ export function DataDisclaimer({ type = "general", className = "" }: DataDisclai
           Transparență Instituțională &amp; Clauză de Declinare a Responsabilității
         </p>
         <p className="text-neutral-700">
-          Informațiile economice și de piață sunt furnizate exclusiv în scop informativ. Ratele de referință și indicatorii statistici sunt publicați conform calendarelor oficiale ale instituțiilor emitente (BNR, ANCPI, INS, BVB) și pot suferi revizuiri când sursele oficiale publică date actualizate. Cotațiile de piață nu sunt în timp real decât dacă sunt identificate explicit ca atare și susținute de un flux direct autorizat.
+          Datele economice, financiare și statistice sunt furnizate exclusiv în scop informativ și provin, acolo unde este disponibil, din surse oficiale. Indicatorii pot fi actualizați, revizuiți sau publicați cu întârziere de către instituțiile emitente. Ratele de referință BNR nu reprezintă cotații de piață în timp real. Informațiile nu constituie recomandări de investiții, consultanță financiară sau ofertă de tranzacționare.
         </p>
         {type === "market" && (
           <p className="text-[11px] text-neutral-500 font-mono pt-1">
