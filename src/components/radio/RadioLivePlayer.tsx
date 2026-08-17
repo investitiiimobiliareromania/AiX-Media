@@ -37,7 +37,7 @@ export function RadioLivePlayer({ streamConfig, currentProgram, nextProgram }: R
       <audio ref={audioRef} src={streamConfig.streamUrl} preload="none" />
 
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-        {/* On Air & Program Info */}
+        {/* Broadcast & Program Info */}
         <div className="flex-1 space-y-4">
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-2 bg-neutral-800 text-neutral-400 text-xs font-black uppercase tracking-widest px-3 py-1">

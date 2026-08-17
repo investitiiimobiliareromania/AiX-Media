@@ -10,6 +10,7 @@ const prohibitedPatterns = [
   /Dan\s+Radu/i,
   /Romania's\s+Bloomberg/i,
   /24\/7\s+Live/i,
+  /ON\s+AIR/i,
   /Updated\s+Real-Time/i,
   /Live\s+market\s+data/i,
   /Live\s+BVB/i,
@@ -38,6 +39,11 @@ if (fs.existsSync(ytConfigPath)) {
   if (matches) {
     verifiedYtIds = matches.map(m => m.match(/['"]([A-Za-z0-9_-]{11})['"]/)[1]);
   }
+}
+
+// Ensure featured video PzPo7wbtUB4 exists
+if (!verifiedYtIds.includes('PzPo7wbtUB4')) {
+  issues.push("YouTube Video Integrity: Featured video ID 'PzPo7wbtUB4' is missing from src/config/youtube.ts");
 }
 
 function searchFile(filePath) {
@@ -102,7 +108,18 @@ function walk(dir) {
 const targetDir = path.join(process.cwd(), 'src');
 walk(targetDir);
 
-// 2. Numeric Claim & Provenance Scanner for BVB Dataset
+// 2. Verify Centralized Data Provenance Registry
+const provPath = path.join(process.cwd(), 'src/lib/data-provenance.ts');
+if (!fs.existsSync(provPath)) {
+  issues.push("Provenance Registry Failure: src/lib/data-provenance.ts does not exist.");
+} else {
+  const provContent = fs.readFileSync(provPath, 'utf8');
+  if (!provContent.includes('bnr-eur-ron') || !provContent.includes('ancpi-national-transactions')) {
+    issues.push("Provenance Registry Failure: Core metrics missing from data-provenance.ts.");
+  }
+}
+
+// 3. Numeric Claim & Provenance Scanner for BVB Dataset
 const bvbDataPath = path.join(process.cwd(), 'src/lib/bvb-data.ts');
 if (fs.existsSync(bvbDataPath)) {
   const fileContent = fs.readFileSync(bvbDataPath, 'utf8');
@@ -135,7 +152,7 @@ if (fs.existsSync(bvbDataPath)) {
   issues.push(`Provenance Failure: bvb-data.ts not found.`);
 }
 
-// 3. Numeric Claim & Provenance Scanner for Real Estate Dataset
+// 4. Numeric Claim & Provenance Scanner for Real Estate Dataset
 const reDataPath = path.join(process.cwd(), 'src/lib/real-estate-data.ts');
 if (fs.existsSync(reDataPath)) {
   const reContent = fs.readFileSync(reDataPath, 'utf8');
@@ -144,7 +161,7 @@ if (fs.existsSync(reDataPath)) {
   }
 }
 
-// 4. Numeric Claim & Provenance Scanner for Market Data Dataset
+// 5. Numeric Claim & Provenance Scanner for Market Data Dataset
 const marketDataPath = path.join(process.cwd(), 'src/lib/market-data.ts');
 if (fs.existsSync(marketDataPath)) {
   const mContent = fs.readFileSync(marketDataPath, 'utf8');
@@ -158,6 +175,6 @@ if (issues.length > 0) {
   issues.forEach(i => console.error(` ✗ ${i}`));
   process.exit(1);
 } else {
-  console.log('✓ All numeric claim provenance, BVB company datasets, and YouTube video authorizations verified.');
+  console.log('✓ All numeric claim provenance, central data-provenance manifest, and YouTube authorizations verified.');
   process.exit(0);
 }
