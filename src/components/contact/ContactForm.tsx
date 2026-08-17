@@ -96,17 +96,17 @@ export function ContactForm({
   }
 
   return (
-    <div className={`rounded-2xl bg-neutral-900/80 border border-neutral-800 p-6 md:p-8 shadow-xl ${className}`}>
+    <div className={`rounded-3xl bg-neutral-50 border border-neutral-200 p-6 md:p-8 shadow-xs ${className}`}>
       {status?.type === "success" ? (
-        <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-center space-y-3">
-          <CheckCircle2 className="w-10 h-10 mx-auto text-emerald-400" />
-          <h4 className="text-lg font-bold text-white">Solicitare Înregistrată</h4>
-          <p className="text-xs font-mono text-neutral-300 max-w-md mx-auto leading-relaxed">
+        <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center space-y-3">
+          <CheckCircle2 className="w-10 h-10 mx-auto text-emerald-600" />
+          <h4 className="text-lg font-bold text-neutral-950">Solicitare Înregistrată</h4>
+          <p className="text-xs font-mono text-neutral-600 max-w-md mx-auto leading-relaxed">
             {status.text}
           </p>
           <button
             onClick={() => setStatus(null)}
-            className="mt-4 px-4 py-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-mono font-semibold transition-colors"
+            className="mt-4 px-4 py-2 rounded-lg bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-mono font-semibold transition-colors"
           >
             Trimite o nouă solicitare
           </button>
@@ -125,50 +125,49 @@ export function ContactForm({
           </div>
 
           {status?.type === "error" && (
-            <div className="p-3.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-mono flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
               <span>{status.text}</span>
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-neutral-300">
-                Nume complet <span className="text-amber-400">*</span>
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-700">
+                Nume complet <span className="text-amber-700">*</span>
               </label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="ex. Alexandru Popescu"
-                className="w-full px-4 py-2.5 rounded-lg bg-neutral-950 border border-neutral-800 text-white text-xs placeholder:text-neutral-600 focus:border-amber-400 focus:outline-none transition-colors font-mono"
+                placeholder="ex. Nume Prenume"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs placeholder:text-neutral-400 focus:border-amber-600 focus:outline-none transition-colors font-mono shadow-xs"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-neutral-300">
-                Telefon sau Email <span className="text-amber-400">*</span>
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-700">
+                Telefon sau Email <span className="text-amber-700">*</span>
               </label>
               <input
                 type="text"
                 required
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
-                placeholder="07xx xxx xxx sau email@company.com"
-                className="w-full px-4 py-2.5 rounded-lg bg-neutral-950 border border-neutral-800 text-white text-xs placeholder:text-neutral-600 focus:border-amber-400 focus:outline-none transition-colors font-mono"
+                placeholder="07xx xxx xxx sau email@domeniu.ro"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs placeholder:text-neutral-400 focus:border-amber-600 focus:outline-none transition-colors font-mono shadow-xs"
               />
-              {/* GDPR Consent Checkbox */}
               <div className="flex items-center mt-2">
                 <input
                   type="checkbox"
                   id="gdpr-consent"
                   checked={gdprConsent}
                   onChange={(e) => setGdprConsent(e.target.checked)}
-                  className="w-4 h-4 text-amber-400 bg-neutral-800 border border-neutral-600 rounded focus:ring-amber-400"
+                  className="w-4 h-4 text-amber-700 bg-white border border-neutral-300 rounded focus:ring-amber-600"
                 />
-                <label htmlFor="gdpr-consent" className="ml-2 text-xs text-neutral-300">
-                  Sunt de acord cu <Link href="/privacy" className="text-amber-400 hover:underline">Politica de confidențialitate</Link>
+                <label htmlFor="gdpr-consent" className="ml-2 text-xs text-neutral-600">
+                  Sunt de acord cu <Link href="/privacy" className="text-neutral-900 underline font-medium">Politica de confidențialitate</Link>
                 </label>
               </div>
             </div>
@@ -176,7 +175,7 @@ export function ContactForm({
 
           {!compact && (
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-neutral-300">
+              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-700">
                 Mesaj / Detalii solicitare (opțional)
               </label>
               <textarea
@@ -184,7 +183,7 @@ export function ContactForm({
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Descrieți scurt proiectul sau întrebarea dvs..."
-                className="w-full px-4 py-2.5 rounded-lg bg-neutral-950 border border-neutral-800 text-white text-xs placeholder:text-neutral-600 focus:border-amber-400 focus:outline-none transition-colors font-mono resize-none"
+                className="w-full px-4 py-2.5 rounded-xl bg-white border border-neutral-300 text-neutral-900 text-xs placeholder:text-neutral-400 focus:border-amber-600 focus:outline-none transition-colors font-mono resize-none shadow-xs"
               />
             </div>
           )}
@@ -192,7 +191,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 disabled:opacity-50 text-black font-extrabold text-xs font-mono uppercase tracking-wider transition-all shadow-lg shadow-amber-500/10 flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-3 px-6 rounded-xl bg-neutral-950 hover:bg-neutral-800 disabled:opacity-50 text-white font-bold text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
           >
             {loading ? (
               <>

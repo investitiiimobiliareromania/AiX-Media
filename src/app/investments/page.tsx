@@ -1,64 +1,44 @@
 import { type Metadata } from "next";
-import { categoryConfigs } from "@/config/category-configs";
 import { getAllArticles } from "@/lib/media/service";
 import { PremiumHero } from "@/components/media/PremiumHero";
-import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
-
-const slug = "investments";
-const config = categoryConfigs[slug];
+import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 
 export const metadata: Metadata = {
-  title: `${config.title} | AiX Media`,
-  description: config.description,
-  keywords: [
-    "investments Romania",
-    "private equity CEE",
-    "venture capital Bucharest",
-    "family office wealth",
-    "alternative investments",
-  ],
-  alternates: { canonical: `/${slug}` },
+  title: "Investiții & Capital Privat | AiX Media",
+  description:
+    "Strategii de alocare a capitalului, private equity, venture capital și dinamica investițiilor instituționale în România și CEE.",
+  alternates: { canonical: "/investments" },
 };
 
 export default function InvestmentsPage() {
   const articles = getAllArticles("investments");
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-16 pt-4">
       <PremiumHero
-        eyebrow={config.eyebrow}
-        headline={config.headline}
-        description={config.description}
-        ctaLabel={config.ctaLabel}
+        eyebrow="Capital Privat &amp; Alocare"
+        headline="Strategii Investiționale &amp; Fonduri Private"
+        description="Analiza fluxurilor de capital, a randamentelor ajustate la risc și a investițiilor instituționale în România."
+        ctaLabel="Explorează Rapoartele"
         ctaHref="#articles"
-        secondaryCtaLabel="View Market Signals"
-        secondaryCtaHref="#dashboard"
-        marketSignals={config.marketSignals}
+        marketSignals={[
+          { label: "Active Private", value: "Rapoarte CEE", change: "Oficial", isPositive: true },
+          { label: "Fonduri Pensii Pilon II", value: "Alocări BVB", change: "Reglementat", isPositive: true },
+        ]}
       />
-
-      <div id="dashboard">
-        <IntelligenceDashboard
-          metrics={config.intelligenceMetrics}
-          title={config.dashboardTitle}
-          description={config.dashboardDescription}
-        />
-      </div>
 
       <div id="articles">
         <EditorialGrid
           articles={articles}
-          title="Private Equity & Wealth Intelligence"
-          description="Capital allocation strategies, fund teardowns, and high-net-worth market insights."
+          title="Rapoarte Privind Investițiile &amp; Fondurile Private"
+          description="Sinteze privind capitalul instituțional, titlurile de stat și structurile de alocare a activelor."
         />
       </div>
 
-      <NewsletterBox
-        overline={config.newsletterOverline}
-        headline={config.newsletterHeadline}
-        description={config.newsletterDescription}
-      />
+      <DataDisclaimer type="general" />
+      <NewsletterBox />
     </div>
   );
 }

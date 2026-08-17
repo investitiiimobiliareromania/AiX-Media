@@ -1,63 +1,131 @@
 import { type Metadata } from "next";
-import { categoryConfigs } from "@/config/category-configs";
 import { getAllArticles } from "@/lib/media/service";
 import { PremiumHero } from "@/components/media/PremiumHero";
-import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
-
-const slug = "real-estate";
-const config = categoryConfigs[slug];
+import { DataDisclaimer } from "@/components/common/DataDisclaimer";
+import { getRealEstateMetrics, regionalTransactionsData } from "@/lib/real-estate-data";
+import { MapPin, BarChart3 } from "lucide-react";
+import { SourceBadge } from "@/components/common/SourceBadge";
 
 export const metadata: Metadata = {
-  title: `${config.title} | AiX Media`,
-  description: config.description,
-  keywords: [
-    "real estate Romania",
-    "property market intelligence",
-    "commercial real estate Bucharest",
-    "real estate investment CEE",
-    "property yield analysis",
-  ],
-  alternates: { canonical: `/${slug}` },
+  title: "Real Estate Intelligence | AiX Media",
+  description:
+    "Statistici oficiale privind tranzacțiile imobiliare ANCPI, autorizațiile de construire INS și dinamica creditării ipotecare BNR.",
+  alternates: { canonical: "/real-estate" },
 };
 
-export default function RealEstatePage() {
+export default async function RealEstatePage() {
   const articles = getAllArticles("real-estate");
+  const metrics = await getRealEstateMetrics();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10 pb-16 pt-4">
       <PremiumHero
-        eyebrow={config.eyebrow}
-        headline={config.headline}
-        description={config.description}
-        ctaLabel={config.ctaLabel}
+        eyebrow="Statistici Imobiliare Oficiale"
+        headline="Date Verificate din Cadastru și Construcții"
+        description="Analiză bazată exclusiv pe raportările oficiale publicate de Agenția Națională de Cadastru și Publicitate Imobiliară (ANCPI), INS și BNR."
+        ctaLabel="Explorează Rapoartele"
         ctaHref="#articles"
-        secondaryCtaLabel="View Market Signals"
-        secondaryCtaHref="#dashboard"
-        marketSignals={config.marketSignals}
+        secondaryCtaLabel="Vezi Tabloul Statistic"
+        secondaryCtaHref="#statistics"
+        marketSignals={[
+          { label: "Tranzacții Naționale (Iunie)", value: "51,808", change: "Date ANCPI", isPositive: true },
+          { label: "Tranzacții București (Iunie)", value: "10,420", change: "Date ANCPI", isPositive: true },
+          { label: "Autorizații Rezidențiale (Mai)", value: "3,124", change: "Date INS", isPositive: true },
+        ]}
       />
 
-      <div id="dashboard">
-        <IntelligenceDashboard
-          metrics={config.intelligenceMetrics}
-          title={config.dashboardTitle}
-          description={config.dashboardDescription}
-        />
-      </div>
+      {/* Official Statistics Section */}
+      <section id="statistics" className="space-y-6">
+        <div className="border-b border-neutral-200 pb-4">
+          <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
+            <BarChart3 className="w-4 h-4" />
+            Indicatori Statistici Imobiliari
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-neutral-950 tracking-tight mt-1">
+            Date Oficiale ANCPI, INS și BNR
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-600 mt-1">
+            Fiecare cifră este asociată cu sursa instituțională emitentă și perioada de referință.
+          </p>
+        </div>
 
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {metrics.map((metric) => (
+            <div
+              key={metric.id}
+              className="p-6 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-4 shadow-xs flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-xs text-neutral-500 font-mono font-medium">{metric.label}</div>
+                <div className="text-3xl font-black text-neutral-950 font-mono mt-2">
+                  {metric.value}{" "}
+                  {metric.unit && <span className="text-xs font-normal text-neutral-500">{metric.unit}</span>}
+                </div>
+                <p className="text-xs text-neutral-600 mt-2 leading-relaxed">{metric.subtext}</p>
+              </div>
+
+              <div className="pt-3 border-t border-neutral-200/80">
+                <SourceBadge
+                  source={metric.source}
+                  sourceUrl={metric.sourceUrl}
+                  referencePeriod={metric.referencePeriod}
+                  fetchedAt={metric.fetchedAt}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Regional Cadastral Breakdown */}
+      <section className="p-6 md:p-8 rounded-3xl bg-white border border-neutral-200 shadow-xs space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-100 pb-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
+              <MapPin className="w-4 h-4" />
+              Profil Regional
+            </div>
+            <h3 className="text-xl font-bold text-neutral-950 mt-1">
+              Top Județe după Volumul Tranzacțiilor Imobiliare
+            </h3>
+          </div>
+          <span className="text-xs font-mono text-neutral-500">
+            Sursă: Raport Lunar ANCPI • Iunie 2026
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 font-mono">
+          {regionalTransactionsData.map((reg) => (
+            <div key={reg.county} className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 text-center">
+              <div className="text-xs text-neutral-600 font-medium">{reg.county}</div>
+              <div className="text-xl font-black text-neutral-950 mt-1">
+                {reg.transactions.toLocaleString()}
+              </div>
+              <div className="text-[10px] text-neutral-400 mt-0.5">tranzacții</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Articles Grid */}
       <div id="articles">
         <EditorialGrid
           articles={articles}
-          title="Real Estate Intelligence Reports"
-          description="Institutional market analysis, transaction teardowns, and urban growth corridors."
+          title="Rapoarte și Analize Imobiliare"
+          description="Investigații privind piața rezidențială, spațiile comerciale și autorizațiile de construire."
         />
       </div>
 
+      {/* Data Disclaimer */}
+      <DataDisclaimer type="real-estate" />
+
+      {/* Newsletter Box */}
       <NewsletterBox
-        overline={config.newsletterOverline}
-        headline={config.newsletterHeadline}
-        description={config.newsletterDescription}
+        overline="AiX Real Estate Brief"
+        headline="Sinteza Lunară Imobiliară & Cadastrală"
+        description="Primiți direct pe email rapoartele ANCPI și analizele din sectorul construcțiilor."
       />
     </div>
   );

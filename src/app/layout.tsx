@@ -38,10 +38,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = rootMetadata;
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
@@ -56,16 +53,16 @@ export default async function RootLayout({
   return (
     <html
       lang={siteConfig.language}
-      className={`dark ${inter.variable} ${playfairDisplay.variable} ${jetbrainsMono.variable} h-full`}
+      className={`${inter.variable} ${playfairDisplay.variable} ${jetbrainsMono.variable} h-full bg-white text-neutral-900`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col bg-white text-neutral-900 antialiased">
         <JsonLd data={organizationJsonLd} />
         <AppProviders>
           <VisitorTracker />
           <SkipLink />
           <NewSiteHeader currencies={marketSnapshot.currencies} />
-          <main id="main-content" className="flex-1">
+          <main id="main-content" className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-6">
             {children}
           </main>
           <SiteFooter />

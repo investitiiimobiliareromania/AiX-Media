@@ -1,50 +1,44 @@
 import { type Metadata } from "next";
-import { categoryConfigs } from "@/config/category-configs";
 import { getAllArticles } from "@/lib/media/service";
 import { PremiumHero } from "@/components/media/PremiumHero";
-import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
-
-const slug = "business";
-const config = categoryConfigs[slug];
+import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 
 export const metadata: Metadata = {
-  title: `${config.title} | AiX Media`,
-  description: config.description,
-  alternates: { canonical: `/${slug}` },
+  title: "Business & Analiză Corporativă | AiX Media",
+  description:
+    "Analize strategice, dinamica marilor companii, tranzacții M&A și expansiunea regională a campionilor economici din România.",
+  alternates: { canonical: "/business" },
 };
 
 export default function BusinessPage() {
   const articles = getAllArticles("business");
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-16 pt-4">
       <PremiumHero
-        eyebrow={config.eyebrow}
-        headline={config.headline}
-        description={config.description}
-        ctaLabel={config.ctaLabel}
-        marketSignals={config.marketSignals}
+        eyebrow="Inteligență Corporativă"
+        headline="Strategii de Business &amp; Companii Românești"
+        description="Analiza mișcărilor corporative majore, investițiilor strategice și structurilor de guvernanță din mediul de afaceri."
+        ctaLabel="Explorează Rapoartele"
+        ctaHref="#articles"
+        marketSignals={[
+          { label: "Tranzacții M&A", value: "Rapoarte BVB", change: "Oficial", isPositive: true },
+          { label: "Companii Monitorizate", value: "Top BVB", change: "Piața Principală", isPositive: true },
+        ]}
       />
 
-      <IntelligenceDashboard
-        metrics={config.intelligenceMetrics}
-        title={config.dashboardTitle}
-        description={config.dashboardDescription}
-      />
+      <div id="articles">
+        <EditorialGrid
+          articles={articles}
+          title="Rapoarte &amp; Analize de Business"
+          description="Investigații și sinteze privind mediul antreprenorial și liderii de piață."
+        />
+      </div>
 
-      <EditorialGrid
-        articles={articles}
-        title="Enterprise & Strategy Intelligence"
-        description="Corporate expansion, founder interviews, M&A teardowns, and regional scaleup playbooks."
-      />
-
-      <NewsletterBox
-        overline={config.newsletterOverline}
-        headline={config.newsletterHeadline}
-        description={config.newsletterDescription}
-      />
+      <DataDisclaimer type="general" />
+      <NewsletterBox />
     </div>
   );
 }

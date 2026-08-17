@@ -60,7 +60,7 @@ export async function forgotPasswordAction(formData: FormData) {
 
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(validated.data.email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/admin/reset-password`,
+    redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'https://aixmedia.cristianvaduva.com'}/admin/reset-password`,
   });
 
   if (error) {

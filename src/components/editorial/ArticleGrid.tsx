@@ -1,6 +1,5 @@
 import React from "react";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
-import { ArticleCard } from "@/components/media/ArticleCard";
 import { Article } from "@/lib/media/models/article";
 
 interface LegacyArticle {

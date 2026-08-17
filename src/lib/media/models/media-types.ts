@@ -44,7 +44,7 @@ export interface RadioShow {
   description: string;
   audioStreamUrl: string;
   coverImage: string;
-  category: "Markets Morning" | "CEO Talk" | "Founders" | "Macro Weekly" | "Property Intelligence" | "Investment Brief";
+  category: string;
 }
 
 export interface VideoItem {
@@ -54,7 +54,7 @@ export interface VideoItem {
   youtubeId: string;
   duration: string;
   publishedAt: string;
-  category: "Documentary" | "Investigations" | "CEO Interviews" | "Studio" | "Short Clips";
+  category: string;
   playlistName?: string;
   description: string;
   thumbnailUrl: string;
@@ -80,6 +80,9 @@ export interface Company {
   id: string;
   slug: string;
   symbol: string;
+  isin?: string;
+  cui?: string;
+  registrationNumber?: string;
   name: string;
   sector: string;
   logo: string;
@@ -94,6 +97,8 @@ export interface Company {
   netIncome: string;
   peRatio: string;
   dividendYield: string;
+  source?: string;
+  sourceUrl?: string;
   timeline: { year: string; event: string }[];
 }
 

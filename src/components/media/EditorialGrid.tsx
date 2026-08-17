@@ -11,8 +11,8 @@ interface EditorialGridProps {
 
 export function EditorialGrid({
   articles,
-  title = "Latest Intelligence Reports",
-  description = "In-depth investigative reports, market analysis, and macroeconomic teardowns.",
+  title = "Rapoarte și Analize Recente",
+  description = "Rapoarte economice, analize imobiliare și sinteze de piață din surse oficiale verificate.",
   columns = 3,
 }: EditorialGridProps) {
   const gridClass =
@@ -23,11 +23,11 @@ export function EditorialGrid({
       : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
 
   return (
-    <section className="my-10 space-y-6">
+    <section className="my-8 space-y-6">
       {(title || description) && (
-        <div className="border-b border-neutral-800 pb-4">
-          <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">{title}</h2>
-          {description && <p className="text-xs text-neutral-400 mt-1">{description}</p>}
+        <div className="border-b border-neutral-200 pb-4">
+          <h2 className="text-xl md:text-2xl font-black text-neutral-950 tracking-tight">{title}</h2>
+          {description && <p className="text-xs text-neutral-600 mt-1">{description}</p>}
         </div>
       )}
 

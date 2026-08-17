@@ -6,72 +6,72 @@ import { AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 import { Mail, Phone, MapPin, ShieldCheck, MessageSquare, Globe, ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact & Editorial Desk | AiX Media",
+  title: "Contact & Redacția Editorială | AiX Media",
   description:
-    "Direct contact channels for AiX Media, executive intelligence briefings, media inquiries, and private consultations.",
+    "Canale oficiale de comunicare directă cu redacția AiX Media și Cristian Văduva.",
   alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
   return (
-    <div className="space-y-12 pb-16">
+    <div className="space-y-10 pb-16 pt-4">
       <PremiumHero
-        eyebrow="AiX Media Intelligence Desk"
-        headline="Contact & Direct Consultation Desk"
-        description="Direct communication line for editorial intelligence, media inquiries, strategic partnerships, and private advisory."
-        ctaLabel="Send Direct Inquiry"
+        eyebrow="Redacție &amp; Consultanță"
+        headline="Canale de Comunicare Directă"
+        description="Punct de contact pentru solicitări de informații, propuneri de analize economice și cooperare instituțională."
+        ctaLabel="Transmite un Mesaj"
         ctaHref="#form"
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" id="form">
         {/* Left Column: Direct Contact Identity */}
         <div className="space-y-6">
-          <div className="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-4">
+          <div className="p-6 md:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 space-y-4 shadow-xs">
             <div>
-              <div className="text-xs uppercase font-mono tracking-widest text-amber-400 font-bold">
-                Founder &amp; Principal Strategist
+              <div className="text-xs uppercase font-mono tracking-widest text-amber-700 font-bold">
+                Fondator &amp; Realizator
               </div>
-              <h3 className="text-xl font-black text-white mt-1">{contactConfig.name}</h3>
-              <p className="text-xs text-neutral-400 font-mono mt-0.5">
-                Business &amp; Market Intelligence Operations
+              <h3 className="text-xl font-black text-neutral-950 mt-1">{contactConfig.name}</h3>
+              <p className="text-xs text-neutral-600 font-mono mt-0.5">
+                AiX Media Intelligence Network
               </p>
             </div>
 
-            <div className="space-y-3 pt-2 text-xs font-mono text-neutral-300 border-t border-neutral-800">
+            <div className="space-y-3 pt-2 text-xs font-mono text-neutral-700 border-t border-neutral-200">
               <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+                <MapPin className="w-4 h-4 text-amber-700 shrink-0" />
                 <span>{contactConfig.location}</span>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-amber-400 shrink-0" />
-                <a href={`mailto:${contactConfig.email}`} className="hover:text-amber-400 transition-colors">
+                <Mail className="w-4 h-4 text-amber-700 shrink-0" />
+                <a href={`mailto:${contactConfig.email}`} className="hover:text-neutral-950 transition-colors font-medium">
                   {contactConfig.email}
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-                <a href={`tel:${contactConfig.phone}`} className="hover:text-amber-400 transition-colors">
+                <Phone className="w-4 h-4 text-amber-700 shrink-0" />
+                <a href={`tel:${contactConfig.phone}`} className="hover:text-neutral-950 transition-colors font-medium">
                   {contactConfig.phoneDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+                <MessageSquare className="w-4 h-4 text-emerald-700 shrink-0" />
                 <a
                   href={contactConfig.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-emerald-400 transition-colors"
+                  className="hover:text-emerald-800 transition-colors font-medium"
                 >
                   WhatsApp: {contactConfig.whatsappDisplay}
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-sky-400 shrink-0" />
+                <Globe className="w-4 h-4 text-neutral-600 shrink-0" />
                 <a
                   href={contactConfig.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-sky-400 transition-colors flex items-center gap-1"
+                  className="hover:text-neutral-950 transition-colors flex items-center gap-1 underline font-medium"
                 >
                   <span>cristianvaduva.com</span>
                   <ExternalLink className="w-3 h-3" />
@@ -80,14 +80,14 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-[#0e0c07] to-[#050505] border border-amber-500/30 space-y-3">
-            <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4" />
-              Confidential Direct Channel
+          <div className="p-6 rounded-2xl bg-white border border-neutral-200 space-y-3 shadow-xs">
+            <div className="flex items-center gap-2 text-neutral-900 font-mono text-xs font-bold uppercase tracking-wider">
+              <ShieldCheck className="w-4 h-4 text-amber-700" />
+              Canal Oficial Confidențial
             </div>
-            <h4 className="text-sm font-bold text-white">Investigative &amp; Market Intelligence Tips</h4>
-            <p className="text-xs text-neutral-400 leading-relaxed font-mono">
-              Direct and confidential communication regarding corporate governance, capital allocation, and market insights.
+            <h4 className="text-sm font-bold text-neutral-950">Informații &amp; Sugestii de Analiză</h4>
+            <p className="text-xs text-neutral-600 leading-relaxed font-mono">
+              Comunicare directă privind guvernanța corporativă, rapoartele financiare și datele imobiliare.
             </p>
           </div>
         </div>
@@ -95,9 +95,9 @@ export default function ContactPage() {
         {/* Right Column: Contact Form */}
         <div className="lg:col-span-2">
           <div className="mb-4">
-            <h2 className="text-xl font-bold text-white tracking-tight">Transmite un Mesaj Direct</h2>
-            <p className="text-xs text-neutral-400 font-mono mt-1">
-              Selectați sau specificați tipul solicitării pentru a fi procesată direct în rețeaua AiX Media.
+            <h2 className="text-xl font-bold text-neutral-950 tracking-tight">Transmite un Mesaj Direct</h2>
+            <p className="text-xs text-neutral-600 font-mono mt-1">
+              Completați formularul de mai jos pentru a lua legătura cu redacția AiX Media.
             </p>
           </div>
 
@@ -106,16 +106,16 @@ export default function ContactPage() {
       </div>
 
       {/* Ecosystem Access Section */}
-      <section className="pt-10 border-t border-neutral-800 space-y-6">
+      <section className="pt-8 border-t border-neutral-200 space-y-6">
         <div>
-          <span className="text-xs uppercase font-mono tracking-widest text-amber-400 font-bold block mb-1">
-            Specialized Platform Access
+          <span className="text-xs uppercase font-mono tracking-widest text-amber-700 font-bold block mb-1">
+            Rețeaua AiX Ecosystem
           </span>
-          <h2 className="text-2xl font-bold text-white tracking-tight">
-            AiX Ecosystem Direct Access Points
+          <h2 className="text-2xl font-black text-neutral-950 tracking-tight">
+            Puncte de Acces Specializate
           </h2>
-          <p className="text-xs text-neutral-400 font-mono mt-1 max-w-2xl">
-            Depending on your objective, access the dedicated specialized platform for intelligence, real estate, capital markets, health, or funding.
+          <p className="text-xs text-neutral-600 font-mono mt-1 max-w-2xl">
+            Accesați platformele specializate din cadrul grupului pentru consultanță imobiliară, patrimoniu și piețe de capital.
           </p>
         </div>
 
@@ -123,30 +123,30 @@ export default function ContactPage() {
           {AIX_ECOSYSTEM_NODES.map((node) => (
             <div
               key={node.id}
-              className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 hover:border-amber-500/40 transition-colors flex flex-col justify-between group min-w-0"
+              className="p-5 rounded-2xl bg-white border border-neutral-200 hover:border-neutral-300 transition-colors flex flex-col justify-between group shadow-xs min-w-0"
             >
               <div>
                 <div className="flex items-center justify-between mb-2 gap-1">
-                  <span className="text-[10px] font-mono text-amber-400 uppercase font-semibold truncate">
+                  <span className="text-[10px] font-mono text-amber-700 uppercase font-bold truncate">
                     {node.categoryLabel}
                   </span>
-                  <span className="text-[10px] text-neutral-500 font-mono shrink-0">
+                  <span className="text-[10px] text-neutral-400 font-mono shrink-0">
                     {new URL(node.url).hostname}
                   </span>
                 </div>
-                <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
+                <h3 className="text-sm font-bold text-neutral-950 group-hover:text-amber-800 transition-colors">
                   {node.name}
                 </h3>
-                <p className="text-xs text-neutral-400 mt-1 line-clamp-2">{node.description}</p>
+                <p className="text-xs text-neutral-600 mt-1 line-clamp-2">{node.description}</p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-neutral-800/80">
+              <div className="mt-4 pt-3 border-t border-neutral-100">
                 <a
                   href={node.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Accesează ${node.name}`}
-                  className="inline-flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-xs font-mono font-semibold transition-all cursor-pointer w-full min-h-[36px]"
+                  className="inline-flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-neutral-100 text-neutral-900 hover:bg-neutral-900 hover:text-white text-xs font-mono font-semibold transition-all cursor-pointer w-full min-h-[36px]"
                 >
                   <span>Accesează</span>
                   <span>→</span>
