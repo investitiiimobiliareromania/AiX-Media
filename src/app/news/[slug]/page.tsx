@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/common/json-ld";
 import { SourceBadge } from "@/components/common/SourceBadge";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { siteConfig } from "@/config/site";
+import { cleanText } from "@/lib/sanitizer";
 import { Clock, Calendar, ArrowLeft } from "lucide-react";
 
 interface ArticlePageProps {
@@ -142,7 +143,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
       {/* Article Content */}
       <div className="prose prose-neutral max-w-none text-neutral-800 leading-relaxed space-y-6 text-sm sm:text-base">
-        <div className="whitespace-pre-line">{article.content}</div>
+        <div className="whitespace-pre-line">{cleanText(article.content)}</div>
       </div>
 
       {/* Source Provenance */}

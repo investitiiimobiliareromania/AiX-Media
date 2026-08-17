@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { FileText, ChevronDown, ChevronUp } from 'lucide-react';
+import { cleanText } from '@/lib/sanitizer';
 
 interface TranscriptViewProps {
   transcript?: string;
@@ -26,9 +27,10 @@ export function TranscriptView({ transcript }: TranscriptViewProps) {
 
       {isOpen && (
         <div className="p-6 border-t border-border bg-background text-sm text-foreground/80 font-mono leading-relaxed whitespace-pre-line">
-          {transcript}
+          {cleanText(transcript)}
         </div>
       )}
     </div>
   );
 }
+

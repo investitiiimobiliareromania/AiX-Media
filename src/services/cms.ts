@@ -2,6 +2,7 @@ import { Article, Category, DashboardMetrics } from '@/types/cms';
 import { articleService } from './article.service';
 import { categoryService } from './category.service';
 import { createArticleSchema } from '@/lib/validations/article.schema';
+import { cleanText } from '@/lib/sanitizer';
 
 export const cmsService = {
   // Articles
@@ -9,11 +10,11 @@ export const cmsService = {
     const articles = await articleService.getArticles();
     return articles.map(a => ({
       id: a.id,
-      title: a.title,
+      title: cleanText(a.title),
       slug: a.slug,
       categoryId: a.category_id || '',
-      excerpt: a.excerpt,
-      content: a.content,
+      excerpt: cleanText(a.excerpt),
+      content: cleanText(a.content),
       author: a.author_id || 'Cristian Văduva',
       tags: [],
       status: a.status === 'published' ? 'Published' : a.status === 'review' ? 'Review' : a.status === 'scheduled' ? 'Scheduled' : a.status === 'archived' ? 'Archived' : 'Draft',
@@ -28,11 +29,11 @@ export const cmsService = {
       const a = await articleService.getArticleById(id);
       return {
         id: a.id,
-        title: a.title,
+        title: cleanText(a.title),
         slug: a.slug,
         categoryId: a.category_id || '',
-        excerpt: a.excerpt,
-        content: a.content,
+        excerpt: cleanText(a.excerpt),
+        content: cleanText(a.content),
         author: a.author_id || 'Cristian Văduva',
         tags: [],
         status: a.status === 'published' ? 'Published' : a.status === 'review' ? 'Review' : a.status === 'scheduled' ? 'Scheduled' : a.status === 'archived' ? 'Archived' : 'Draft',
