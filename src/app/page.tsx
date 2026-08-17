@@ -15,13 +15,12 @@ import { ArticleCard } from "@/components/media/ArticleCard";
 import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 import { RadioPlayer } from "@/components/media/RadioPlayer";
 import { PodcastCard } from "@/components/media/PodcastCard";
-import { VideoCard } from "@/components/media/VideoCard";
+import { HomepageVideoSection } from "@/components/media/HomepageVideoSection";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { AiXIntelligenceBox } from "@/components/media/AiXIntelligenceBox";
 import { EcosystemGrid } from "@/components/ecosystem/EcosystemGrid";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import {
-  Tv,
   Mic,
   GraduationCap,
   Building2,
@@ -300,29 +299,7 @@ export default async function HomePage() {
       </section>
 
       {/* 10. AiX TV & Video Section */}
-      <section className="space-y-6 pt-4">
-        <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
-          <div>
-            <div className="text-xs font-mono uppercase text-amber-700 font-bold tracking-wider flex items-center gap-1.5">
-              <Tv className="w-4 h-4" />
-              Canal Video Oficial
-            </div>
-            <h2 className="text-2xl font-black text-neutral-950 tracking-tight mt-0.5">
-              Analize Video Cristian Văduva
-            </h2>
-          </div>
-          <Link href="/tv" className="text-xs font-mono text-neutral-900 hover:text-amber-700 font-bold flex items-center gap-1">
-            <span>Toate Analizele Video</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.slice(0, 3).map((vid) => (
-            <VideoCard key={vid.id} video={vid} />
-          ))}
-        </div>
-      </section>
+      <HomepageVideoSection videos={videos} />
 
       {/* 11. Podcasts */}
       <section className="space-y-6 pt-4">
