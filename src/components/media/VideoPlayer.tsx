@@ -12,7 +12,7 @@ interface VideoPlayerProps {
 export function VideoPlayer({ provider, videoUrl, title }: VideoPlayerProps) {
   if (provider === 'self_hosted') {
     return (
-      <div className="w-full aspect-video bg-black border border-border overflow-hidden">
+      <div className="w-full aspect-video bg-[var(--surface-elevated)] border border-border overflow-hidden">
         <video 
           controls 
           className="w-full h-full object-contain"
@@ -26,12 +26,12 @@ export function VideoPlayer({ provider, videoUrl, title }: VideoPlayerProps) {
   }
 
   return (
-    <div className="w-full aspect-video bg-black border border-border overflow-hidden">
+    <div className="w-full aspect-video bg-[var(--surface-elevated)] border border-border overflow-hidden">
       <iframe
         src={videoUrl}
         title={title}
         className="w-full h-full border-0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; bg-[var(--surface-elevated)] text-neutral-900; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
     </div>

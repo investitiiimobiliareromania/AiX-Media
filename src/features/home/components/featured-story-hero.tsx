@@ -14,7 +14,7 @@ export function FeaturedStoryHero() {
   return (
     <section className="py-8" aria-labelledby="featured-story-title">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 rounded-2xl bg-neutral-900/60 border border-neutral-800">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8 rounded-2xl bg-[var(--surface-elevated)]/60 border border-neutral-800">
           <div className="lg:col-span-2 space-y-4">
             <span className="text-xs font-mono uppercase text-amber-400 font-semibold tracking-wider">
               {featuredBrief.eyebrow}

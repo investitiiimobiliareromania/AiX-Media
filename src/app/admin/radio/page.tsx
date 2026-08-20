@@ -5,6 +5,7 @@ import { radioService } from "@/services/radio.service";
 import { RadioProgram, RadioScheduleItem, StreamConfig, AudioTrack, StreamProviderType } from "@/types/radio";
 import { DataTable } from "@/components/admin/DataTable";
 import { Radio, Plus, Settings, Volume2, Calendar, Music } from "lucide-react";
+import { RadioLivePlayer } from "@/components/radio/RadioLivePlayer";
 
 export default function AdminRadioPage() {
   const [activeTab, setActiveTab] = useState<'programs' | 'schedule' | 'audio' | 'stream'>('programs');
@@ -192,6 +193,13 @@ export default function AdminRadioPage() {
               Salvează Configurația
             </button>
           </div>
+          {/* Live Radio Player Preview */}
+          {programs[0] && (
+            <RadioLivePlayer
+              streamConfig={streamConfig}
+              currentProgram={programs[0]}
+            />
+          )}
         </div>
       )}
     </div>

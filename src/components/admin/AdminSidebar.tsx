@@ -47,8 +47,8 @@ export function AdminSidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-none transition-colors text-sm font-bold uppercase tracking-wider ${
                 isActive 
-                  ? 'bg-white text-black' 
-                  : 'text-white/60 hover:text-white hover:bg-white/5'
+                  ? 'bg-[var(--surface-elevated)] text-[var(--foreground)]' 
+                  : 'text-white/60 hover:text-white hover:bg-[var(--surface-elevated)]/5'
               }`}
             >
               <item.icon className="w-4 h-4" />
@@ -62,7 +62,7 @@ export function AdminSidebar() {
         <form action={logoutAction}>
           <button 
             type="submit" 
-            className="flex items-center gap-3 px-4 py-3 w-full text-left text-sm font-bold uppercase tracking-wider text-white/60 hover:text-white hover:bg-white/5 transition-colors"
+            className="flex items-center gap-3 px-4 py-3 w-full text-left text-sm font-bold uppercase tracking-wider text-white/60 hover:text-white hover:bg-[var(--surface-elevated)]/5 transition-colors"
           >
             <LogOut className="w-4 h-4" />
             Deconectare

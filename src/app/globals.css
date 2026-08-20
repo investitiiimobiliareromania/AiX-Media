@@ -3,7 +3,6 @@
 @import "shadcn/tailwind.css";
 @import "../styles/tokens.css";
 
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -60,48 +59,58 @@
 
 :root {
   color-scheme: dark;
-
-  /* Dark Editorial Luxury Interface */
+  /* Premium Dark Tokens */
   --background: #090a0d;
-  --foreground: #f8fafc;
+  --foreground: #F5F5F5;
+  --foreground-secondary: #B8BBC2;
+  --foreground-muted: #7F838C;
   --surface: #111317;
-  --surface-elevated: #171920;
-  --surface-highlight: #1f222b;
-  --gold: #d97706;
-  --gold-muted: #b45309;
-  --gold-bright: #f59e0b;
+  --surface-editorial: #171920;
+  --surface-elevated: #1f222b;
 
-  --card: #111317;
-  --card-foreground: #f8fafc;
-  --popover: #111317;
-  --popover-foreground: #f8fafc;
-  --primary: #f8fafc;
-  --primary-foreground: #090a0d;
-  --secondary: #171920;
-  --secondary-foreground: #f8fafc;
-  --muted: #171920;
-  --muted-foreground: #94a3b8;
-  --accent: #1f222b;
-  --accent-foreground: #f8fafc;
-  --destructive: #ef4444;
   --border: #262932;
-  --border-subtle: #1c1e26;
-  --input: #171920;
-  --ring: rgba(217, 119, 6, 0.4);
-  --chart-1: #d97706;
-  --chart-2: #38bdf8;
-  --chart-3: #10b981;
-  --chart-4: #f59e0b;
-  --chart-5: #a855f7;
+  --border-strong: #343844;
+
+  --accent-bronze: #A66A1F;
+  --accent-gold: #B7791F;
+
+  --success: #177245;
+  --danger: #B42318;
+  --info: #315E9B;
+
+  /* Map legacy tokens to dark palette */
+  --gold: var(--accent-bronze);
+  --gold-muted: var(--accent-gold);
+  --gold-bright: var(--accent-gold);
+  --border-subtle: var(--border);
+  --input: var(--surface);
+  --card: var(--surface-editorial);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+  --primary: var(--foreground);
+  --primary-foreground: var(--foreground);
+  --secondary: var(--surface);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--surface-elevated);
+  --muted-foreground: var(--foreground-muted);
+  --accent: var(--surface-elevated);
+  --accent-foreground: var(--foreground);
+  --destructive: var(--danger);
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--accent-bronze);
+  --sidebar-primary-foreground: var(--foreground);
+  --sidebar-accent: var(--surface);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: rgba(166, 106, 31, 0.2);
+  --chart-1: var(--accent-bronze);
+  --chart-2: var(--accent-gold);
+  --chart-3: var(--success);
+  --chart-4: var(--info);
+  --chart-5: var(--danger);
   --radius: 0.5rem;
-  --sidebar: #090a0d;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #d97706;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #171920;
-  --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: #262932;
-  --sidebar-ring: rgba(217, 119, 6, 0.4);
 }
 
 @layer base {
@@ -111,11 +120,11 @@
 
   html {
     scroll-behavior: smooth;
-    @apply font-sans antialiased bg-[#090a0d] text-neutral-100;
+    @apply font-sans antialiased bg-[var(--background)] text-[var(--foreground)];
   }
 
   body {
-    @apply min-h-full bg-[#090a0d] text-neutral-100 selection:bg-amber-900/50 selection:text-amber-100;
+    @apply min-h-full bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--accent-bronze)]/20 selection:text-[var(--foreground)];
   }
 }
 

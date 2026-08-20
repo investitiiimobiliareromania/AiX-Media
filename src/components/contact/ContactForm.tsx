@@ -96,7 +96,7 @@ export function ContactForm({
   }
 
   return (
-    <div className={`rounded-2xl bg-[#111317] border border-[#262932] p-6 md:p-8 shadow-xl ${className}`}>
+    <div className={`rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] p-6 md:p-8 shadow-xl ${className}`}>
       {status?.type === "success" ? (
         <div className="p-6 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-center space-y-3">
           <CheckCircle2 className="w-10 h-10 mx-auto text-emerald-400" />
@@ -106,7 +106,7 @@ export function ContactForm({
           </p>
           <button
             onClick={() => setStatus(null)}
-            className="mt-4 px-5 py-2.5 rounded-xl bg-[#171920] hover:bg-[#1f222b] text-white text-xs font-mono font-semibold transition-colors border border-[#262932]"
+            className="mt-4 px-5 py-2.5 rounded-xl bg-[var(--surface-elevated)] hover:bg-[var(--surface-elevated)] text-white text-xs font-mono font-semibold transition-colors border border-[var(--border)]"
           >
             Trimite o nouă solicitare
           </button>
@@ -142,7 +142,7 @@ export function ContactForm({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="ex. Nume Prenume"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#171920] border border-[#262932] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors font-mono shadow-xs"
+                className="w-full px-4 py-2.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors font-mono shadow-xs"
               />
             </div>
 
@@ -156,7 +156,7 @@ export function ContactForm({
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 placeholder="07xx xxx xxx sau email@domeniu.ro"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#171920] border border-[#262932] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors font-mono shadow-xs"
+                className="w-full px-4 py-2.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors font-mono shadow-xs"
               />
               <div className="flex items-center mt-2">
                 <input
@@ -164,7 +164,7 @@ export function ContactForm({
                   id="gdpr-consent"
                   checked={gdprConsent}
                   onChange={(e) => setGdprConsent(e.target.checked)}
-                  className="w-4 h-4 text-amber-600 bg-[#171920] border border-[#262932] rounded focus:ring-amber-500"
+                  className="w-4 h-4 text-amber-600 bg-[var(--surface-elevated)] border border-[var(--border)] rounded focus:ring-amber-500"
                 />
                 <label htmlFor="gdpr-consent" className="ml-2 text-xs text-neutral-400">
                   Sunt de acord cu <Link href="/privacy" className="text-amber-400 hover:underline font-medium">Politica de confidențialitate</Link>
@@ -183,7 +183,7 @@ export function ContactForm({
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Descrieți scurt proiectul sau întrebarea dvs..."
-                className="w-full px-4 py-2.5 rounded-xl bg-[#171920] border border-[#262932] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors font-mono resize-none shadow-xs"
+                className="w-full px-4 py-2.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors font-mono resize-none shadow-xs"
               />
             </div>
           )}
@@ -191,7 +191,7 @@ export function ContactForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 px-6 rounded-xl bg-white hover:bg-neutral-200 disabled:opacity-50 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md min-h-[44px]"
+            className="w-full py-3.5 px-6 rounded-xl bg-[var(--surface-elevated)] hover:bg-neutral-200 disabled:opacity-50 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md min-h-[44px]"
           >
             {loading ? (
               <>

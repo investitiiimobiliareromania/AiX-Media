@@ -44,14 +44,14 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
           <ArrowLeft className="w-4 h-4" />
           Înapoi la Redacție
         </Link>
-        <span className="px-2.5 py-1 rounded-md bg-[#171920] text-amber-400 border border-[#262932] uppercase font-semibold text-[10px] tracking-wider">
+        <span className="px-2.5 py-1 rounded-md bg-[var(--surface-elevated)] text-amber-400 border border-[var(--border)] uppercase font-semibold text-[10px] tracking-wider">
           Redacție Verificată
         </span>
       </div>
 
       {/* Author Bio Banner */}
-      <div className="p-8 rounded-2xl bg-[#111317] border border-[#262932] flex flex-col md:flex-row items-center gap-6 shadow-xl">
-        <div className="relative w-24 h-24 rounded-full overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0 shadow-md">
+      <div className="p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] flex flex-col md:flex-row items-center gap-6 shadow-xl">
+        <div className="relative w-24 h-24 rounded-full overflow-hidden border border-[var(--border)] bg-[var(--surface-elevated)] shrink-0 shadow-md">
           <Image src={author.avatar} alt={author.name} fill className="object-cover" />
         </div>
         <div className="space-y-2 text-center md:text-left flex-1">
@@ -61,7 +61,7 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
 
           <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-2 font-mono text-[11px]">
             {author.expertise.map((exp, i) => (
-              <span key={i} className="px-2.5 py-0.5 rounded-md bg-[#171920] text-neutral-300 border border-[#262932]">
+              <span key={i} className="px-2.5 py-0.5 rounded-md bg-[var(--surface-elevated)] text-neutral-300 border border-[var(--border)]">
                 {exp}
               </span>
             ))}
@@ -71,7 +71,7 @@ export default async function AuthorDetailPage({ params }: AuthorDetailPageProps
 
       {/* Latest Articles by Author */}
       <section className="space-y-4">
-        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
           <BookOpen className="w-5 h-5 text-amber-500" />
           Rapoarte &amp; Analize Publicate
         </h2>

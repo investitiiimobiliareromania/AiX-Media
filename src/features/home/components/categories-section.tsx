@@ -22,7 +22,7 @@ export function CategoriesSection() {
             <Link
               key={category.slug}
               href={category.href}
-              className="group flex flex-col justify-between p-6 rounded-xl bg-neutral-900/60 border border-neutral-800 hover:border-amber-500/40 transition-all hover:bg-neutral-900"
+              className="group flex flex-col justify-between p-6 rounded-xl bg-[var(--surface-elevated)]/60 border border-neutral-800 hover:border-amber-500/40 transition-all hover:bg-[var(--surface-elevated)]"
             >
               <div className="space-y-3">
                 <span className="font-mono text-xs text-amber-400">

@@ -24,7 +24,7 @@ export function LatestNewsGrid() {
             <Link
               key={cat.slug}
               href={cat.href}
-              className="p-5 rounded-xl bg-neutral-900/60 border border-neutral-800 hover:border-amber-500/40 transition-colors block space-y-2"
+              className="p-5 rounded-xl bg-[var(--surface-elevated)]/60 border border-neutral-800 hover:border-amber-500/40 transition-colors block space-y-2"
             >
               <span className="text-amber-400 font-mono text-xs font-semibold uppercase">
                 {cat.name}

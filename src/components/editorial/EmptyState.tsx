@@ -10,7 +10,7 @@ interface EmptyStateProps {
 export function EmptyState({ category, headline, description }: EmptyStateProps) {
   return (
     <div className="my-10 p-8 rounded-3xl bg-neutral-50 border border-neutral-200 text-center max-w-2xl mx-auto space-y-3 shadow-xs">
-      <div className="w-12 h-12 rounded-2xl bg-white text-amber-700 flex items-center justify-center mx-auto mb-2 border border-neutral-200 shadow-xs">
+      <div className="w-12 h-12 rounded-2xl bg-[var(--surface-elevated)] text-amber-700 flex items-center justify-center mx-auto mb-2 border border-neutral-200 shadow-xs">
         <Compass className="w-6 h-6" />
       </div>
       <span className="text-xs font-mono uppercase text-amber-800 font-bold tracking-wider">

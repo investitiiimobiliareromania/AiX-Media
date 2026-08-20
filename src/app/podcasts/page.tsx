@@ -31,7 +31,7 @@ export default function PodcastsPage() {
       />
 
       <section id="episodes" className="space-y-6">
-        <div className="border-b border-[#262932] pb-3">
+        <div className="border-b border-[var(--border)] pb-3">
           <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
             <Mic className="w-5 h-5 text-amber-500" />
             Catalog Episoade Audio

@@ -61,7 +61,7 @@ export function ProgramSchedule({ schedule }: ProgramScheduleProps) {
 
               <div>
                 {item.isLive ? (
-                  <span className="inline-flex items-center gap-1.5 bg-neutral-900 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded">
+                  <span className="inline-flex items-center gap-1.5 bg-[var(--surface-elevated)] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded">
                     <Signal className="w-3 h-3" /> Emisie Programată
                   </span>
                 ) : (

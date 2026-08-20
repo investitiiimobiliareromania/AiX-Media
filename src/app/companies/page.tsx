@@ -41,7 +41,7 @@ export default function CompaniesPage() {
       />
 
       <section id="catalog" className="space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-[#262932] pb-4 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-[var(--border)] pb-4 gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">
               <Building2 className="w-4 h-4" />
@@ -59,7 +59,7 @@ export default function CompaniesPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Caută după nume, simbol (TLV), ISIN sau sector..."
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[#171920] border border-[#262932] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs"
             />
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
           </div>
@@ -73,11 +73,11 @@ export default function CompaniesPage() {
                 <Link
                   key={comp.id}
                   href={`/companies/${comp.slug}`}
-                  className="p-6 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 hover:bg-[#171920] transition-all space-y-4 block shadow-lg group"
+                  className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] transition-all space-y-4 block shadow-lg group"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0">
+                      <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--surface-elevated)] shrink-0">
                         <Image src={comp.logo} alt={comp.name} fill className="object-cover" />
                       </div>
                       <div>
@@ -91,7 +91,7 @@ export default function CompaniesPage() {
                     </div>
 
                     <div className="text-right font-mono shrink-0">
-                      <div className="text-xs font-semibold px-2 py-0.5 rounded bg-[#1f222b] border border-[#262932] text-neutral-300">
+                      <div className="text-xs font-semibold px-2 py-0.5 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-300">
                         Piața Reglementată
                       </div>
                     </div>
@@ -101,7 +101,7 @@ export default function CompaniesPage() {
                     {comp.description}
                   </p>
 
-                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#262932] font-mono text-[11px]">
+                  <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[var(--border)] font-mono text-[11px]">
                     <div>
                       <span className="text-neutral-400 block text-[10px]">Venituri Raportate</span>
                       <span className="text-white font-bold">{comp.revenue}</span>
@@ -122,7 +122,7 @@ export default function CompaniesPage() {
             })}
           </div>
         ) : (
-          <div className="py-12 text-center text-neutral-400 font-mono text-sm border border-dashed border-[#262932] rounded-2xl bg-[#111317]">
+          <div className="py-12 text-center text-neutral-400 font-mono text-sm border border-dashed border-[var(--border)] rounded-2xl bg-[var(--surface-elevated)]">
             Nu a fost găsită nicio companie conform criteriilor de căutare.
           </div>
         )}

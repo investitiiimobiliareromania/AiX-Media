@@ -35,7 +35,7 @@ export default function SearchPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-10 py-6 pb-16 text-neutral-100">
       {/* Search Header */}
-      <div className="p-8 md:p-12 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl text-center">
+      <div className="p-8 md:p-12 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl text-center">
         <div className="inline-flex items-center gap-2 text-amber-400 font-mono text-xs uppercase font-bold tracking-widest">
           <Search className="w-4 h-4" />
           Căutare Inteligență Economică
@@ -54,7 +54,7 @@ export default function SearchPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Căutare (ex: 'BVB', 'Imobiliare', 'Banca Transilvania', 'BNR', 'ROBOR')..."
-              className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-[#171920] border border-[#262932] text-white text-sm placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs font-mono"
+              className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-white text-sm placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs font-mono"
             />
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
           </div>
@@ -64,7 +64,7 @@ export default function SearchPage() {
       {/* Companies Results */}
       {filteredCompanies.length > 0 && (
         <section className="space-y-4">
-          <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+          <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
             <Building2 className="w-5 h-5 text-amber-500" />
             Companii Listate ({filteredCompanies.length})
           </h2>
@@ -73,10 +73,10 @@ export default function SearchPage() {
               <Link
                 key={comp.id}
                 href={`/companies/${comp.slug}`}
-                className="p-4 rounded-xl bg-[#111317] border border-[#262932] hover:border-amber-500/40 hover:bg-[#171920] transition-all block space-y-2 shadow-xs group"
+                className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/40 hover:bg-[var(--surface-elevated)] transition-all block space-y-2 shadow-xs group"
               >
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-amber-400 font-bold px-1.5 py-0.5 rounded bg-[#171920] border border-[#262932]">
+                  <span className="text-amber-400 font-bold px-1.5 py-0.5 rounded bg-[var(--surface-elevated)] border border-[var(--border)]">
                     {comp.symbol}
                   </span>
                   <span className="text-neutral-400">{comp.isin}</span>
@@ -91,7 +91,7 @@ export default function SearchPage() {
 
       {/* Articles Results */}
       <section className="space-y-4">
-        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
           <Compass className="w-5 h-5 text-amber-500" />
           Rapoarte &amp; Articole Verificate ({filteredArticles.length})
         </h2>

@@ -2,9 +2,71 @@ import { ArticleRepository, ArticleRow } from '@/repositories/article.repository
 import { createArticleSchema, updateArticleSchema, CreateArticleInput, UpdateArticleInput } from '@/lib/validations/article.schema';
 import { ValidationError, NotFoundError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
+import { articles as fallbackArticles } from '@/lib/media/mock-db';
+import { Article } from '@/lib/media/models/article';
 
 export class ArticleService {
   constructor(private readonly repo = new ArticleRepository()) {}
+
+  async getPublishedArticles(): Promise<Article[]> {
+    try {
+      const rows = await this.repo.findAll({ status: 'published', limit: 50 });
+      if (rows && rows.length > 0) {
+        return rows.map((row) => ({
+          id: row.id,
+          title: row.title,
+          slug: row.slug,
+          category: (row.category_id as Article['category']) || 'news',
+          categoryLabel: 'Știri & Analize',
+          authorId: row.author_id || 'aix-editorial',
+          authorName: 'AiX Media Editorial Desk',
+          authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+          authorRole: 'Redacția Economică',
+          excerpt: row.excerpt,
+          content: row.content,
+          coverImage: row.cover_image_url || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
+          publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
+          readTime: row.read_time || '4 min read',
+          views: row.view_count || 100,
+          featured: true,
+          trending: true,
+        }));
+      }
+    } catch (err) {
+      logger.error('Failed to fetch published articles from Supabase, falling back to local dataset', err);
+    }
+    return fallbackArticles;
+  }
+
+  async getPublishedArticleBySlug(slug: string): Promise<Article | undefined> {
+    try {
+      const row = await this.repo.findBySlug(slug);
+      if (row) {
+        return {
+          id: row.id,
+          title: row.title,
+          slug: row.slug,
+          category: (row.category_id as Article['category']) || 'news',
+          categoryLabel: 'Știri & Analize',
+          authorId: row.author_id || 'aix-editorial',
+          authorName: 'AiX Media Editorial Desk',
+          authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+          authorRole: 'Redacția Economică',
+          excerpt: row.excerpt,
+          content: row.content,
+          coverImage: row.cover_image_url || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
+          publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
+          readTime: row.read_time || '4 min read',
+          views: row.view_count || 100,
+          featured: true,
+          trending: true,
+        };
+      }
+    } catch (err) {
+      logger.error(`Failed to fetch article by slug '${slug}' from Supabase, checking fallback`, err);
+    }
+    return fallbackArticles.find((art) => art.slug === slug);
+  }
 
   async getArticleById(id: string): Promise<ArticleRow> {
     const article = await this.repo.findById(id);
@@ -92,3 +154,4 @@ export class ArticleService {
 }
 
 export const articleService = new ArticleService();
+

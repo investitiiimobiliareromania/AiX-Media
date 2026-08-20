@@ -1,9 +1,11 @@
 import { type Metadata } from "next";
-import { getAllArticles } from "@/lib/media/service";
+import { articleService } from "@/services/article.service";
 import { PremiumHero } from "@/components/media/PremiumHero";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Știri & Analize Macroeconomice | AiX Media",
@@ -12,8 +14,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/news" },
 };
 
-export default function NewsPage() {
-  const articles = getAllArticles();
+export default async function NewsPage() {
+  const articles = await articleService.getPublishedArticles();
 
   return (
     <div className="space-y-8 pb-16 pt-4">
@@ -43,3 +45,4 @@ export default function NewsPage() {
     </div>
   );
 }
+

@@ -16,14 +16,14 @@ export function MobileMenu({ className }: MobileMenuProps) {
     <div className={className}>
       <button
         onClick={() => setOpen(!open)}
-        className="p-2 rounded-lg bg-white border border-neutral-200 text-neutral-700 hover:text-neutral-950 shadow-xs"
+        className="p-2 rounded-lg bg-[var(--surface-elevated)] border border-neutral-200 text-neutral-700 hover:text-neutral-950 shadow-xs"
         aria-label={open ? "Închide meniul" : "Deschide meniul"}
       >
         {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
       {open && (
-        <div id="mobile-menu-drawer" className="fixed inset-0 top-16 z-50 bg-white/95 backdrop-blur-md p-6 overflow-y-auto space-y-6">
+        <div id="mobile-menu-drawer" className="fixed inset-0 top-16 z-50 bg-[var(--surface-elevated)]/95 backdrop-blur-md p-6 overflow-y-auto space-y-6">
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase text-amber-700 font-bold tracking-wider">
               Secțiuni Principale

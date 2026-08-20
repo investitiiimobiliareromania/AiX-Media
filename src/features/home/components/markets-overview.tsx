@@ -54,7 +54,7 @@ export async function MarketsOverview() {
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {groups.map((group) => (
-            <div key={group.title} className="bg-white p-6 space-y-4 rounded-2xl border border-neutral-200 shadow-xs">
+            <div key={group.title} className="bg-[var(--surface-elevated)] p-6 space-y-4 rounded-2xl border border-neutral-200 shadow-xs">
               {/* Group header */}
               <div className="border-b border-neutral-100 pb-3">
                 <h3 className="text-xs font-bold tracking-[0.16em] text-amber-800 uppercase font-mono">

@@ -37,9 +37,9 @@ export function YouTubeEmbed({ videoId, title, isShort = false }: YouTubeEmbedPr
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             unoptimized
           />
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+          <div className="absolute inset-0 bg-[var(--surface-elevated)]/40 group-hover:bg-[var(--surface-elevated)]/20 transition-colors" />
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-14 h-14 rounded-full bg-amber-500 text-black flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 rounded-full bg-amber-500 text-[var(--foreground)] flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
               <Play className="w-6 h-6 fill-black ml-1" />
             </div>
           </div>

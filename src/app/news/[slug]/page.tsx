@@ -2,7 +2,7 @@ import { type Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getArticleBySlug, getAllArticles } from "@/lib/media/service";
+import { articleService } from "@/services/article.service";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { EcosystemContextLinks } from "@/components/ecosystem/EcosystemContextLinks";
@@ -13,13 +13,15 @@ import { siteConfig } from "@/config/site";
 import { cleanText } from "@/lib/sanitizer";
 import { Clock, Calendar, ArrowLeft } from "lucide-react";
 
+export const revalidate = 300;
+
 interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await articleService.getPublishedArticleBySlug(slug);
 
   if (!article) {
     return { title: "Articol Negăsit | AiX Media" };
@@ -48,13 +50,14 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
 export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await articleService.getPublishedArticleBySlug(slug);
 
   if (!article) {
     notFound();
   }
 
-  const related = getAllArticles()
+  const allArticles = await articleService.getPublishedArticles();
+  const related = allArticles
     .filter((a) => a.id !== article.id)
     .slice(0, 3);
 
@@ -98,7 +101,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           <ArrowLeft className="w-4 h-4" />
           Înapoi la Fluxul de Știri
         </Link>
-        <span className="px-2.5 py-1 rounded-md bg-[#171920] text-amber-400 border border-[#262932] uppercase font-semibold text-[10px] tracking-wider">
+        <span className="px-2.5 py-1 rounded-md bg-[var(--surface-elevated)] text-amber-400 border border-[var(--border)] uppercase font-semibold text-[10px] tracking-wider">
           {article.categoryLabel}
         </span>
       </div>
@@ -112,9 +115,9 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           {article.excerpt}
         </p>
 
-        <div className="pt-4 border-t border-b border-[#262932] py-3.5 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-neutral-400">
+        <div className="pt-4 border-t border-b border-[var(--border)] py-3.5 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-neutral-400">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#171920] text-amber-400 flex items-center justify-center font-bold text-xs border border-[#262932]">
+            <div className="w-8 h-8 rounded-full bg-[var(--surface-elevated)] text-amber-400 flex items-center justify-center font-bold text-xs border border-[var(--border)]">
               A
             </div>
             <div>
@@ -137,7 +140,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       </div>
 
       {/* Main Cover Image */}
-      <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-[#262932] shadow-2xl bg-[#0c0d12]">
+      <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-[var(--border)] shadow-2xl bg-[var(--surface-elevated)]">
         <Image src={article.coverImage} alt={article.title} fill priority className="object-cover" />
       </div>
 
@@ -147,7 +150,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       </div>
 
       {/* Source Provenance */}
-      <div className="p-4 rounded-2xl bg-[#111317] border border-[#262932]">
+      <div className="p-4 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)]">
         <SourceBadge
           source={article.category === "real-estate" ? "ANCPI / INS" : "BNR / Comunicat Oficial"}
           referencePeriod="2026"
@@ -156,8 +159,8 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       </div>
 
       {/* Author Box */}
-      <div className="p-6 rounded-2xl bg-[#111317] border border-[#262932] flex items-center gap-4 shadow-lg">
-        <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center font-bold text-base shrink-0 shadow-xs">
+      <div className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] flex items-center gap-4 shadow-lg">
+        <div className="w-12 h-12 rounded-xl bg-[var(--surface-elevated)] border border-neutral-800 text-amber-400 flex items-center justify-center font-bold text-base shrink-0 shadow-xs">
           A
         </div>
         <div>
@@ -175,7 +178,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       <DataDisclaimer type="general" />
 
       {/* Related Articles */}
-      <div className="pt-8 space-y-6 border-t border-[#262932]">
+      <div className="pt-8 space-y-6 border-t border-[var(--border)]">
         <h3 className="font-serif text-xl font-bold text-white">Rapoarte &amp; Analize Similare</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {related.map((rel) => (

@@ -124,7 +124,7 @@ export default async function HomePage() {
     <div className="space-y-12 pb-16 pt-4">
       {/* 1. Hero Editorial Section */}
       <section className="pt-2">
-        <div className="flex items-center justify-between mb-4 border-b border-[#262932] pb-3">
+        <div className="flex items-center justify-between mb-4 border-b border-[var(--border)] pb-3">
           <div className="flex items-center gap-2 text-white font-mono text-xs uppercase font-bold tracking-widest">
             <Flame className="w-4 h-4 text-amber-500" />
             Investigație &amp; Raport Instituțional Principal
@@ -143,8 +143,8 @@ export default async function HomePage() {
       </section>
 
       {/* 2. Institutional Flash Banner */}
-      <section className="bg-[#111317] border border-[#262932] rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-md">
-        <div className="flex items-center gap-2 text-neutral-200 font-mono text-xs font-bold uppercase tracking-wider shrink-0 bg-[#171920] px-3 py-1 rounded-lg border border-[#262932] shadow-xs">
+      <section className="bg-[var(--surface-elevated)] border border-[var(--border)] rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 shadow-md">
+        <div className="flex items-center gap-2 text-neutral-200 font-mono text-xs font-bold uppercase tracking-wider shrink-0 bg-[var(--surface-elevated)] px-3 py-1 rounded-lg border border-[var(--border)] shadow-xs">
           <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
           <span className="text-amber-400">ACTUALITATE</span>
         </div>
@@ -169,7 +169,7 @@ export default async function HomePage() {
 
       {/* 5. Top Editorial Investigations Grid */}
       <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
+        <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
             <Layers className="w-5 h-5 text-amber-500" />
             Rapoarte &amp; Analize Economice
@@ -189,7 +189,7 @@ export default async function HomePage() {
 
       {/* 6. Real Estate Intelligence Section */}
       <section className="space-y-6 pt-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#262932] pb-3 gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border)] pb-3 gap-2">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Building2 className="w-4 h-4" />
@@ -208,13 +208,13 @@ export default async function HomePage() {
         {/* Real Estate Verified Data Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {realEstateMetrics.slice(0, 3).map((metric) => (
-            <div key={metric.id} className="p-5 rounded-2xl bg-[#111317] border border-[#262932] space-y-2 shadow-lg group hover:border-amber-500/40 transition-all">
+            <div key={metric.id} className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-2 shadow-lg group hover:border-amber-500/40 transition-all">
               <div className="text-xs text-neutral-400 font-mono">{metric.label}</div>
               <div className="text-3xl font-bold text-white font-mono group-hover:text-amber-400 transition-colors">
                 {metric.value} <span className="text-xs font-normal text-neutral-500 font-mono">{metric.unit}</span>
               </div>
               <p className="text-xs text-neutral-300 font-serif leading-relaxed">{metric.subtext}</p>
-              <div className="pt-2 border-t border-[#262932] text-[11px] font-mono text-neutral-400">
+              <div className="pt-2 border-t border-[var(--border)] text-[11px] font-mono text-neutral-400">
                 Sursă: <span className="text-neutral-200 font-semibold">{metric.source}</span> • {metric.referencePeriod}
               </div>
             </div>
@@ -233,7 +233,7 @@ export default async function HomePage() {
 
       {/* 8. Corporate Champions (BVB Listed) */}
       <section className="space-y-6 pt-4">
-        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
+        <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Briefcase className="w-4 h-4" />
@@ -254,17 +254,17 @@ export default async function HomePage() {
             <Link
               key={comp.id}
               href={`/companies/${comp.slug}`}
-              className="p-5 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 hover:bg-[#171920] transition-all block space-y-3 shadow-lg"
+              className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] transition-all block space-y-3 shadow-lg"
             >
               <div className="flex items-center justify-between">
-                <span className="text-amber-400 font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#171920] border border-[#262932]">
+                <span className="text-amber-400 font-mono text-xs font-bold px-2 py-0.5 rounded bg-[var(--surface-elevated)] border border-[var(--border)]">
                   {comp.symbol}
                 </span>
                 <span className="text-neutral-400 font-mono text-xs">{comp.isin}</span>
               </div>
               <h3 className="font-serif text-base font-bold text-white truncate">{comp.name}</h3>
               <p className="text-xs text-neutral-300 line-clamp-2 font-serif">{comp.description}</p>
-              <div className="text-[11px] text-neutral-400 font-mono flex items-center justify-between pt-2.5 border-t border-[#262932]">
+              <div className="text-[11px] text-neutral-400 font-mono flex items-center justify-between pt-2.5 border-t border-[var(--border)]">
                 <span>Venituri: <strong className="text-white">{comp.revenue}</strong></span>
                 <span>Profit: <strong className="text-white">{comp.netIncome}</strong></span>
               </div>
@@ -274,8 +274,8 @@ export default async function HomePage() {
       </section>
 
       {/* 9. Economic Calendar */}
-      <section className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl text-neutral-100">
-        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
+      <section className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl text-neutral-100">
+        <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <div className="flex items-center gap-2">
             <Calendar className="w-5 h-5 text-amber-500" />
             <h3 className="font-serif text-xl font-bold text-white">Calendar Macroeconomic &amp; Decizii Oficiale</h3>
@@ -287,10 +287,10 @@ export default async function HomePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 font-mono text-xs">
           {events.map((ev) => (
-            <div key={ev.id} className="p-4 rounded-xl bg-[#171920] border border-[#262932] space-y-1.5 shadow-xs">
+            <div key={ev.id} className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-1.5 shadow-xs">
               <div className="flex items-center justify-between text-[10px]">
                 <span className="text-amber-400 font-bold">{ev.country} • {ev.date}</span>
-                <span className="px-1.5 py-0.5 rounded bg-[#1f222b] text-neutral-300 border border-[#262932] font-semibold">{ev.importance}</span>
+                <span className="px-1.5 py-0.5 rounded bg-[var(--surface-elevated)] text-neutral-300 border border-[var(--border)] font-semibold">{ev.importance}</span>
               </div>
               <div className="text-white font-serif font-bold text-sm truncate">{ev.title}</div>
             </div>
@@ -303,7 +303,7 @@ export default async function HomePage() {
 
       {/* 11. Podcasts */}
       <section className="space-y-6 pt-4">
-        <div className="flex items-center justify-between border-b border-[#262932] pb-3">
+        <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Mic className="w-4 h-4" />
@@ -327,7 +327,7 @@ export default async function HomePage() {
       </section>
 
       {/* 12. Academy Spotlight */}
-      <section className="p-8 rounded-2xl bg-[#111317] border border-[#262932] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl text-neutral-100">
+      <section className="p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl text-neutral-100">
         <div className="space-y-2.5 flex-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
             <GraduationCap className="w-4 h-4 text-amber-500" />
@@ -340,7 +340,7 @@ export default async function HomePage() {
         </div>
         <Link
           href="/academy"
-          className="px-6 py-3.5 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center"
+          className="px-6 py-3.5 rounded-xl bg-[var(--surface-elevated)] hover:bg-neutral-200 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center"
         >
           EXPLOREAZĂ ACADEMIA →
         </Link>

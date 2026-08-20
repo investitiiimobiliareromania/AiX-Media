@@ -12,22 +12,22 @@ export function PodcastCard({ episode }: PodcastCardProps) {
   return (
     <Link
       href={`/podcast/${episode.slug}`}
-      className="group flex flex-col p-5 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 transition-all hover:bg-[#171920] shadow-lg hover:shadow-2xl"
+      className="group flex flex-col p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-lg hover:shadow-2xl"
     >
-      <div className="relative w-full h-44 rounded-xl overflow-hidden mb-4 bg-[#0c0d12]">
+      <div className="relative w-full h-44 rounded-xl overflow-hidden mb-4 bg-[var(--surface-elevated)]">
         <Image
           src={episode.coverImage}
           alt={episode.title}
           fill
           className="object-cover group-hover:scale-103 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+        <div className="absolute inset-0 bg-[var(--surface-elevated)]/20 group-hover:bg-transparent transition-colors" />
 
-        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#111317]/90 border border-[#262932] text-amber-400 text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs">
+        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[var(--surface-elevated)]/90 border border-[var(--border)] text-amber-400 text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs">
           {episode.showName} • EP #{episode.episodeNumber}
         </div>
 
-        <div className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-black/80 text-amber-400 border border-amber-500/30 flex items-center justify-center shadow-md group-hover:bg-amber-500 group-hover:text-black transition-all">
+        <div className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-[var(--surface-elevated)]/80 text-amber-400 border border-amber-500/30 flex items-center justify-center shadow-md group-hover:bg-amber-500 group-hover:text-[var(--foreground)] transition-all">
           <Play className="w-4 h-4 fill-current ml-0.5" />
         </div>
       </div>
@@ -42,7 +42,7 @@ export function PodcastCard({ episode }: PodcastCardProps) {
           </p>
         </div>
 
-        <div className="pt-3 border-t border-[#262932] flex items-center justify-between text-xs text-neutral-400 font-mono">
+        <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs text-neutral-400 font-mono">
           <span className="text-neutral-300 font-medium truncate max-w-[180px]">
             {episode.host}
           </span>

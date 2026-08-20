@@ -44,7 +44,7 @@ export function NewsletterBox({
   };
 
   return (
-    <section id="newsletter" className="my-10 p-8 md:p-10 rounded-2xl bg-[#111317] border border-[#262932] text-center md:text-left shadow-xl text-neutral-100">
+    <section id="newsletter" className="my-10 p-8 md:p-10 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] text-center md:text-left shadow-xl text-neutral-100">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="space-y-3 flex-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
@@ -74,11 +74,11 @@ export function NewsletterBox({
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="adresa.ta@email.com"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-[#171920] border border-[#262932] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs"
+                className="w-full px-4 py-3 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-white text-xs placeholder:text-neutral-500 focus:border-amber-500 focus:outline-none transition-colors shadow-xs"
               />
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-white hover:bg-neutral-200 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px]"
+                className="w-full py-3 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-editorial)] text-[var(--foreground)] font-bold text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer min-h-[44px]"
               >
                 <span>ABONEAZĂ-TE LA SINTEZĂ</span>
                 <ArrowRight className="w-4 h-4" />

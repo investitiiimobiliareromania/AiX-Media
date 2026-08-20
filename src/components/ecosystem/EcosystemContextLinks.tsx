@@ -10,8 +10,8 @@ export const EcosystemContextLinks: React.FC<EcosystemContextLinksProps> = ({ ca
   const nodes = getContextualEcosystem(category);
 
   return (
-    <div className="my-8 rounded-2xl border border-[#262932] bg-[#111317] p-5 sm:p-6 shadow-xl text-neutral-100">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#262932]">
+    <div className="my-8 rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-5 sm:p-6 shadow-xl text-neutral-100">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-[var(--border)]">
         <div>
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
             Ecosistemul AiX
@@ -33,7 +33,7 @@ export const EcosystemContextLinks: React.FC<EcosystemContextLinksProps> = ({ ca
         {nodes.map((node) => (
           <div
             key={node.id}
-            className="group flex flex-col justify-between rounded-xl border border-[#262932] bg-[#171920] p-4 transition-all hover:border-amber-500/50 hover:bg-[#1f222b] shadow-xs min-w-0"
+            className="group flex flex-col justify-between rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 transition-all hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] shadow-xs min-w-0"
           >
             <div>
               <div className="flex items-center justify-between mb-1 gap-1">
@@ -52,7 +52,7 @@ export const EcosystemContextLinks: React.FC<EcosystemContextLinksProps> = ({ ca
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Accesează ${node.name}`}
-              className="inline-flex items-center justify-between px-3 py-1.5 rounded-lg bg-[#111317] text-neutral-200 hover:bg-white hover:text-neutral-950 font-semibold font-mono text-xs transition-colors cursor-pointer min-h-[32px] border border-[#262932]"
+              className="inline-flex items-center justify-between px-3 py-1.5 rounded-lg bg-[var(--surface-elevated)] text-neutral-200 hover:bg-[var(--surface-elevated)] hover:text-neutral-950 font-semibold font-mono text-xs transition-colors cursor-pointer min-h-[32px] border border-[var(--border)]"
             >
               <span>Accesează</span>
               <span>→</span>

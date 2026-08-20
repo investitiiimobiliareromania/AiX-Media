@@ -49,7 +49,7 @@ export const EcosystemMenu: React.FC = () => {
     <div className="relative inline-block text-left" ref={menuRef}>
       {/* Trigger Button */}
       <button type="button" onClick={() => { console.log('[AiX Ecosystem] button click'); setIsOpen(!isOpen); }}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs font-semibold uppercase tracking-wider text-neutral-200 hover:text-amber-400 hover:border-amber-500/40 transition-colors cursor-pointer min-h-[36px]"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--surface-elevated)]/90 border border-neutral-800 text-xs font-semibold uppercase tracking-wider text-neutral-200 hover:text-amber-400 hover:border-amber-500/40 transition-colors cursor-pointer min-h-[36px]"
         aria-expanded={isOpen}
         aria-label="Toggle AiX Ecosystem Navigation"
       >
@@ -67,7 +67,7 @@ export const EcosystemMenu: React.FC = () => {
         <>
           {/* Mobile Overlay Backdrop */}
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 sm:hidden"
+            className="fixed inset-0 bg-[var(--surface-elevated)]/80 backdrop-blur-sm z-40 sm:hidden"
             onClick={() => setIsOpen(false)}
             aria-hidden="true"
           />
@@ -90,7 +90,7 @@ export const EcosystemMenu: React.FC = () => {
                 </span>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 rounded-md bg-neutral-900 text-neutral-400 hover:text-white sm:hidden"
+                  className="p-1 rounded-md bg-[var(--surface-elevated)] text-neutral-400 hover:text-white sm:hidden"
                   aria-label="Close Ecosystem Menu"
                 >
                   <X className="w-5 h-5" />
@@ -109,7 +109,7 @@ export const EcosystemMenu: React.FC = () => {
                     {catGroup.items.map((item) => (
                       <div
                         key={item.id}
-                        className="group flex items-center justify-between p-3 rounded-lg bg-neutral-900/60 border border-neutral-800/80 hover:border-amber-500/40 hover:bg-neutral-900 transition-colors gap-3 min-w-0"
+                        className="group flex items-center justify-between p-3 rounded-lg bg-[var(--surface-elevated)]/60 border border-neutral-800/80 hover:border-amber-500/40 hover:bg-[var(--surface-elevated)] transition-colors gap-3 min-w-0"
                       >
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ export const EcosystemMenu: React.FC = () => {
                           rel="noopener noreferrer"
                           onClick={() => setIsOpen(false)}
                           aria-label={`Accesează ${item.name}`}
-                          className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-black text-[11px] font-mono font-semibold transition-all cursor-pointer min-h-[32px]"
+                          className="shrink-0 inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-[var(--foreground)] text-[11px] font-mono font-semibold transition-all cursor-pointer min-h-[32px]"
                         >
                           <span>Accesează</span>
                           <span>→</span>

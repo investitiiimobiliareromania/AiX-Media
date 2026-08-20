@@ -67,7 +67,7 @@ export default function ForgotPasswordPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-white text-black py-4 font-bold text-xs uppercase tracking-widest hover:bg-white/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full bg-[var(--surface-elevated)] text-[var(--foreground)] py-4 font-bold text-xs uppercase tracking-widest hover:bg-[var(--surface-elevated)]/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? 'Se trimite...' : 'Trimite Link-ul de Resetare'}
           </button>

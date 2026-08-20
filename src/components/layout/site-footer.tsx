@@ -37,12 +37,12 @@ export function SiteFooter() {
   };
 
   return (
-    <footer className="bg-[#090a0d] text-neutral-400 border-t border-[#262932] pt-16 pb-12 mt-16 w-full">
+    <footer className="bg-[var(--surface)] text-[var(--foreground-muted)] border-t border-[var(--border)] pt-16 pb-12 mt-16 w-full">
       <div className="max-w-[1600px] mx-auto px-4 md:px-6">
         
         {/* AiX Ecosystem Directory Bar */}
-        <div className="mb-12 rounded-2xl border border-[#262932] bg-[#111317] p-6 shadow-xs">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#262932] pb-4 mb-6">
+        <div className="mb-12 rounded-2xl border-[var(--border)] bg-[var(--surface-editorial)] p-6 shadow-xs">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[var(--border)] pb-4 mb-6">
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
                 AiX Ecosystem
@@ -70,7 +70,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Accesează ${node.name}`}
-                className="group flex flex-col p-2.5 rounded-xl border border-[#262932] bg-[#171920] hover:bg-[#1f222b] hover:border-amber-500/50 transition-all shadow-xs"
+                className="group flex flex-col p-2.5 rounded-xl border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-editorial)] hover:border-[var(--accent-bronze)]/50 transition-all shadow-xs"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-neutral-200 group-hover:text-amber-400 transition-colors truncate">
@@ -89,11 +89,11 @@ export function SiteFooter() {
         </div>
 
         {/* Main Footer Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#262932]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[var(--border)]">
           {/* Brand & Personal Contact Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center font-black text-amber-400 text-lg shadow-xs group-hover:border-amber-500/40 transition-colors">
+              <div className="w-8 h-8 rounded-lg bg-[var(--surface-elevated)] border border-neutral-800 flex items-center justify-center font-black text-amber-400 text-lg shadow-xs group-hover:border-amber-500/40 transition-colors">
                 A
               </div>
               <div className="flex flex-col">
@@ -210,12 +210,9 @@ export function SiteFooter() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="adresa@email.com"
-                  className="w-full px-3.5 py-2.5 text-xs bg-[#171920] border border-[#262932] rounded-xl focus:border-amber-500 focus:outline-none text-white placeholder:text-neutral-500 shadow-xs"
+                  className="w-full px-3.5 py-2.5 text-xs bg-[var(--surface-editorial)] border border-[var(--border)] rounded-xl focus:border-amber-500 focus:outline-none text-[var(--foreground)] placeholder:text-neutral-500 shadow-xs"
                 />
-                <button
-                  type="submit"
-                  className="w-full py-2.5 bg-neutral-100 hover:bg-white text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
-                >
+                <button className="w-full py-2.5 bg-[var(--surface-editorial)] hover:bg-[var(--surface)] text-[var(--foreground)] font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]">
                   <span>Abonează-te</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>

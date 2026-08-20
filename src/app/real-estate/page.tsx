@@ -38,7 +38,7 @@ export default async function RealEstatePage() {
 
       {/* Official Statistics Section */}
       <section id="statistics" className="space-y-6">
-        <div className="border-b border-[#262932] pb-4">
+        <div className="border-b border-[var(--border)] pb-4">
           <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-500 uppercase tracking-widest">
             <BarChart3 className="w-4 h-4" />
             Indicatori Statistici Imobiliari
@@ -55,7 +55,7 @@ export default async function RealEstatePage() {
           {metrics.map((metric) => (
             <div
               key={metric.id}
-              className="p-6 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl flex flex-col justify-between group hover:border-amber-500/40 transition-all"
+              className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl flex flex-col justify-between group hover:border-amber-500/40 transition-all"
             >
               <div>
                 <div className="text-xs text-neutral-400 font-mono font-medium">{metric.label}</div>
@@ -66,7 +66,7 @@ export default async function RealEstatePage() {
                 <p className="text-xs text-neutral-300 mt-2 leading-relaxed font-serif">{metric.subtext}</p>
               </div>
 
-              <div className="pt-3 border-t border-[#262932]">
+              <div className="pt-3 border-t border-[var(--border)]">
                 <SourceBadge
                   source={metric.source}
                   sourceUrl={metric.sourceUrl}

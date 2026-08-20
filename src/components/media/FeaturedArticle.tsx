@@ -12,10 +12,10 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
   return (
     <Link
       href={`/${article.category}/${article.slug}`}
-      className="group block w-full rounded-2xl overflow-hidden bg-[#111317] border border-[#262932] hover:border-amber-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl"
+      className="group block w-full rounded-2xl overflow-hidden bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-        <div className="relative min-h-[280px] sm:min-h-[360px] lg:col-span-7 overflow-hidden bg-[#0c0d12]">
+        <div className="relative min-h-[280px] sm:min-h-[360px] lg:col-span-7 overflow-hidden bg-[var(--surface-elevated)]">
           <Image
             src={article.coverImage}
             alt={article.title}
@@ -23,16 +23,16 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             priority
             className="object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111317] via-transparent to-transparent lg:hidden opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F7F7F5] via-transparent to-transparent lg:hidden opacity-80" />
         </div>
 
-        <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[#111317]">
+        <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[var(--surface-elevated)]">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono font-bold uppercase tracking-wider">
                 Investigație Principală
               </span>
-              <span className="px-2.5 py-1 rounded-md bg-[#171920] border border-[#262932] text-neutral-300 text-[10px] font-mono font-semibold">
+              <span className="px-2.5 py-1 rounded-md bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-300 text-[10px] font-mono font-semibold">
                 {article.categoryLabel}
               </span>
               {article.breaking && (
@@ -52,9 +52,9 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             </p>
           </div>
 
-          <div className="pt-6 mt-6 border-t border-[#262932] flex items-center justify-between text-xs text-neutral-400 font-mono">
+          <div className="pt-6 mt-6 border-t border-[var(--border)] flex items-center justify-between text-xs text-neutral-400 font-mono">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-[#1f222b] border border-[#262932] text-amber-400 flex items-center justify-center font-bold text-[10px]">
+              <div className="w-6 h-6 rounded-full bg-[var(--surface-elevated)] border border-[var(--border)] text-amber-400 flex items-center justify-center font-bold text-[10px]">
                 A
               </div>
               <span className="text-neutral-200 font-semibold truncate max-w-[160px]">

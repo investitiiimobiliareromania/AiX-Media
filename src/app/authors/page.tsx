@@ -28,7 +28,7 @@ export default function AuthorsPage() {
       />
 
       <section id="team" className="space-y-6">
-        <div className="border-b border-[#262932] pb-3">
+        <div className="border-b border-[var(--border)] pb-3">
           <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
             <Users className="w-5 h-5 text-amber-500" />
             Redacția &amp; Realizatori
@@ -40,10 +40,10 @@ export default function AuthorsPage() {
             <Link
               key={author.id}
               href={`/authors/${author.slug}`}
-              className="p-6 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 hover:bg-[#171920] transition-all space-y-4 shadow-xl block group"
+              className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] transition-all space-y-4 shadow-xl block group"
             >
               <div className="flex items-center gap-4">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0 shadow-md">
+                <div className="relative w-16 h-16 rounded-full overflow-hidden border border-[var(--border)] bg-[var(--surface-elevated)] shrink-0 shadow-md">
                   <Image src={author.avatar} alt={author.name} fill className="object-cover" />
                 </div>
                 <div>
@@ -55,9 +55,9 @@ export default function AuthorsPage() {
               <p className="text-xs text-neutral-300 leading-relaxed font-serif">{author.bio}</p>
 
               {author.expertise && author.expertise.length > 0 && (
-                <div className="pt-3 border-t border-[#262932] flex flex-wrap gap-1.5 font-mono text-[10px]">
+                <div className="pt-3 border-t border-[var(--border)] flex flex-wrap gap-1.5 font-mono text-[10px]">
                   {author.expertise.map((exp, i) => (
-                    <span key={i} className="px-2.5 py-0.5 rounded-md bg-[#171920] text-neutral-300 border border-[#262932]">
+                    <span key={i} className="px-2.5 py-0.5 rounded-md bg-[var(--surface-elevated)] text-neutral-300 border border-[var(--border)]">
                       {exp}
                     </span>
                   ))}

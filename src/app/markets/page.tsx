@@ -101,8 +101,8 @@ export default async function MarketsPage() {
       />
 
       {/* Market Instruments Table */}
-      <section id="instruments" className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl text-neutral-100">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#262932] pb-4 gap-2">
+      <section id="instruments" className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl text-neutral-100">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border)] pb-4 gap-2">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Activity className="w-4 h-4" />
@@ -112,15 +112,15 @@ export default async function MarketsPage() {
               Valute, Dobânzi &amp; Indici de Referință
             </h2>
           </div>
-          <span className="text-xs font-mono text-neutral-300 bg-[#171920] px-3 py-1.5 rounded-lg border border-[#262932] shadow-xs">
+          <span className="text-xs font-mono text-neutral-300 bg-[var(--surface-elevated)] px-3 py-1.5 rounded-lg border border-[var(--border)] shadow-xs">
             Feed Oficial BNR Conectat
           </span>
         </div>
 
-        <div className="overflow-x-auto bg-[#171920] rounded-xl border border-[#262932] shadow-xs">
+        <div className="overflow-x-auto bg-[var(--surface-elevated)] rounded-xl border border-[var(--border)] shadow-xs">
           <table className="w-full text-left border-collapse text-xs font-mono text-neutral-300">
             <thead>
-              <tr className="border-b border-[#262932] text-neutral-400 bg-[#111317]">
+              <tr className="border-b border-[var(--border)] text-neutral-400 bg-[var(--surface-elevated)]">
                 <th className="py-3 px-4 font-bold">Instrument</th>
                 <th className="py-3 px-4 font-bold">Denumire</th>
                 <th className="py-3 px-4 font-bold">Sursă</th>
@@ -129,11 +129,11 @@ export default async function MarketsPage() {
                 <th className="py-3 px-4 font-bold">Statut</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#262932]">
+            <tbody className="divide-y divide-[#E5E5E0]">
               {instrumentsList.map((inst) => {
                 const isAvail = inst.value !== null;
                 return (
-                  <tr key={inst.symbol} className="hover:bg-[#1f222b] transition-colors">
+                  <tr key={inst.symbol} className="hover:bg-[var(--surface-elevated)] transition-colors">
                     <td className="py-3.5 px-4 font-bold text-white">{inst.symbol}</td>
                     <td className="py-3.5 px-4 text-neutral-300">{inst.name || "—"}</td>
                     <td className="py-3.5 px-4">
@@ -166,7 +166,7 @@ export default async function MarketsPage() {
                         className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${
                           isAvail
                             ? "bg-emerald-950/40 text-emerald-400 border border-emerald-500/30"
-                            : "bg-[#1f222b] text-neutral-500 border border-[#262932]"
+                            : "bg-[var(--surface-elevated)] text-neutral-500 border border-[var(--border)]"
                         }`}
                       >
                         {isAvail ? "Oficial" : "Indisponibil"}

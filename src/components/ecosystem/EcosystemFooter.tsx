@@ -33,7 +33,7 @@ export const EcosystemFooter: React.FC = () => {
             {AIX_ECOSYSTEM_NODES.map((node) => (
               <div
                 key={node.id}
-                className="group flex flex-col justify-between p-3.5 rounded-lg border border-neutral-800/70 bg-neutral-900/50 hover:bg-neutral-900 hover:border-amber-500/40 transition-colors min-w-0"
+                className="group flex flex-col justify-between p-3.5 rounded-lg border border-neutral-800/70 bg-[var(--surface-elevated)]/50 hover:bg-[var(--surface-elevated)] hover:border-amber-500/40 transition-colors min-w-0"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-1">
@@ -54,7 +54,7 @@ export const EcosystemFooter: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Accesează ${node.name}`}
-                  className="inline-flex items-center justify-between px-3 py-1.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-black font-semibold font-mono text-[11px] transition-all cursor-pointer min-h-[30px]"
+                  className="inline-flex items-center justify-between px-3 py-1.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-[var(--foreground)] font-semibold font-mono text-[11px] transition-all cursor-pointer min-h-[30px]"
                 >
                   <span>Accesează</span>
                   <span>→</span>

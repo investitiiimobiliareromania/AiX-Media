@@ -12,17 +12,17 @@ interface RadioPlayerProps {
 
 export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
   return (
-    <section className="my-10 p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] relative overflow-hidden shadow-xl text-neutral-100">
+    <section className="my-10 p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] relative overflow-hidden shadow-xl text-neutral-100">
       <div className="flex flex-col lg:flex-row items-center gap-8 relative z-10">
         {/* Cover Art */}
-        <div className="relative w-44 h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden shrink-0 border border-[#262932] shadow-xl group bg-[#0c0d12]">
+        <div className="relative w-44 h-44 md:w-52 md:h-52 rounded-2xl overflow-hidden shrink-0 border border-[var(--border)] shadow-xl group bg-[var(--surface-elevated)]">
           <Image
             src={currentShow.coverImage}
             alt={currentShow.title}
             fill
             className="object-cover group-hover:scale-103 transition-transform duration-500"
           />
-          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#111317]/90 text-amber-400 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs border border-[#262932]">
+          <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[var(--surface-elevated)]/90 text-amber-400 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs border border-[var(--border)]">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
             PROGRAMAT
           </div>
@@ -55,7 +55,7 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
           <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
             <button
               disabled
-              className="px-5 py-2.5 rounded-xl bg-[#171920] text-neutral-400 font-semibold text-xs font-mono flex items-center gap-2 cursor-not-allowed border border-[#262932]"
+              className="px-5 py-2.5 rounded-xl bg-[var(--surface-elevated)] text-neutral-400 font-semibold text-xs font-mono flex items-center gap-2 cursor-not-allowed border border-[var(--border)]"
             >
               <Radio className="w-4 h-4 text-neutral-500" />
               <span>FLUX AUDIO ÎN PREGĂTIRE</span>
@@ -66,7 +66,7 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
 
       {/* Shows Schedule */}
       {allShows.length > 0 && (
-        <div className="mt-8 pt-6 border-t border-[#262932]">
+        <div className="mt-8 pt-6 border-t border-[var(--border)]">
           <div className="flex items-center justify-between text-xs font-mono text-neutral-400 mb-4">
             <span className="flex items-center gap-1.5 text-white font-bold uppercase tracking-wider">
               <Calendar className="w-4 h-4 text-amber-500" /> Program Emisiuni Economice
@@ -78,11 +78,11 @@ export function RadioPlayer({ currentShow, allShows = [] }: RadioPlayerProps) {
             {allShows.map((show) => (
               <div
                 key={show.id}
-                className="p-4 rounded-xl border border-[#262932] bg-[#171920] shadow-xs"
+                className="p-4 rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] shadow-xs"
               >
                 <div className="flex items-center justify-between text-[11px] font-mono mb-1.5">
                   <span className="text-amber-400 font-bold">{show.airTime}</span>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-semibold bg-[#1f222b] text-neutral-300 border border-[#262932]">
+                  <span className="px-2 py-0.5 rounded text-[9px] font-semibold bg-[var(--surface-elevated)] text-neutral-300 border border-[var(--border)]">
                     {show.status}
                   </span>
                 </div>

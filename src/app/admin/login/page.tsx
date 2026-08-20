@@ -80,7 +80,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-white text-black py-4 font-bold text-xs uppercase tracking-widest hover:bg-white/90 transition-colors flex items-center justify-center gap-2 mt-8 disabled:opacity-50"
+            className="w-full bg-[var(--surface-elevated)] text-[var(--foreground)] py-4 font-bold text-xs uppercase tracking-widest hover:bg-[var(--surface-elevated)]/90 transition-colors flex items-center justify-center gap-2 mt-8 disabled:opacity-50"
           >
             {loading ? 'Se autentifică...' : 'Autentificare'}
             <ArrowRight className="w-4 h-4" />

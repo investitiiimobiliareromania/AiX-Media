@@ -8,7 +8,7 @@ interface EcosystemCardProps {
 
 export const EcosystemCard: React.FC<EcosystemCardProps> = ({ node }) => {
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-[#262932] bg-[#111317] p-5 sm:p-6 transition-all duration-200 hover:border-amber-500/50 hover:bg-[#171920] shadow-lg min-w-0">
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-5 sm:p-6 transition-all duration-200 hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] shadow-lg min-w-0">
       <div>
         <div className="flex items-center justify-between mb-3 gap-2">
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500 truncate">
@@ -28,13 +28,13 @@ export const EcosystemCard: React.FC<EcosystemCardProps> = ({ node }) => {
         </p>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-[#262932] flex items-center justify-between gap-3 text-xs">
+      <div className="mt-6 pt-4 border-t border-[var(--border)] flex items-center justify-between gap-3 text-xs">
         <a
           href={node.url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Accesează platforma ${node.name} — ${node.description}`}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#171920] group-hover:bg-white text-neutral-200 group-hover:text-neutral-950 font-semibold font-mono text-xs transition-all cursor-pointer min-h-[40px] border border-[#262932] group-hover:border-white"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--surface-elevated)] group-hover:bg-[var(--surface-elevated)] text-neutral-200 group-hover:text-neutral-950 font-semibold font-mono text-xs transition-all cursor-pointer min-h-[40px] border border-[var(--border)] group-hover:border-white"
         >
           <span>Accesează platforma</span>
           <ExternalLink className="w-3.5 h-3.5" />

@@ -14,16 +14,16 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
     return (
       <Link
         href={`/${article.category}/${article.slug}`}
-        className="group flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 transition-all hover:bg-[#171920] shadow-sm"
+        className="group flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-sm"
       >
-        <div className="relative w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-[#0c0d12]">
+        <div className="relative w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-[var(--surface-elevated)]">
           <Image
             src={article.coverImage}
             alt={article.title}
             fill
             className="object-cover group-hover:scale-103 transition-transform duration-500"
           />
-          <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#111317]/90 text-amber-400 border border-[#262932] shadow-xs">
+          <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[var(--surface-elevated)]/90 text-amber-400 border border-[var(--border)] shadow-xs">
             {article.categoryLabel}
           </span>
         </div>
@@ -53,7 +53,7 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
     return (
       <Link
         href={`/${article.category}/${article.slug}`}
-        className="group block p-3.5 rounded-xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 transition-all hover:bg-[#171920] shadow-xs"
+        className="group block p-3.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-xs"
       >
         <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-1.5">
           <span className="text-amber-500 uppercase font-bold">{article.categoryLabel}</span>
@@ -69,21 +69,21 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
   return (
     <Link
       href={`/${article.category}/${article.slug}`}
-      className="group flex flex-col rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/50 transition-all overflow-hidden shadow-lg hover:shadow-2xl"
+      className="group flex flex-col rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all overflow-hidden shadow-lg hover:shadow-2xl"
     >
-      <div className="relative w-full h-48 bg-[#0c0d12] overflow-hidden">
+      <div className="relative w-full h-48 bg-[var(--surface-elevated)] overflow-hidden">
         <Image
           src={article.coverImage}
           alt={article.title}
           fill
           className="object-cover group-hover:scale-103 transition-transform duration-500"
         />
-        <span className="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-[#111317]/90 text-amber-400 border border-[#262932] shadow-xs">
+        <span className="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-[var(--surface-elevated)]/90 text-amber-400 border border-[var(--border)] shadow-xs">
           {article.categoryLabel}
         </span>
       </div>
 
-      <div className="p-5 flex flex-col justify-between flex-1 space-y-4 bg-[#111317]">
+      <div className="p-5 flex flex-col justify-between flex-1 space-y-4 bg-[var(--surface-elevated)]">
         <div>
           <h3 className="font-serif text-lg font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-snug">
             {article.title}
@@ -93,7 +93,7 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
           </p>
         </div>
 
-        <div className="pt-3 border-t border-[#262932] flex items-center justify-between text-xs text-neutral-400 font-mono">
+        <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs text-neutral-400 font-mono">
           <div className="flex items-center gap-2">
             <span className="text-neutral-300 font-semibold">{article.authorName}</span>
           </div>

@@ -129,8 +129,8 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             href={item.href}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all min-h-[36px] flex items-center ${
               isActive
-                ? "text-white font-bold bg-[#171920] border border-[#262932] shadow-xs text-amber-400"
-                : "text-neutral-400 hover:text-white hover:bg-[#111317]"
+                ? "text-white font-bold bg-[var(--surface-elevated)] border border-[var(--border)] shadow-xs text-amber-400"
+                : "text-neutral-400 hover:text-white hover:bg-[var(--surface-elevated)]"
             }`}
           >
             {item.label}
@@ -149,7 +149,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       <>
         <div
           data-testid="mobile-overlay"
-          className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-[var(--surface-elevated)]/70 backdrop-blur-xs transition-opacity"
           style={{ zIndex: 99998 }}
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
@@ -157,11 +157,11 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
         <aside
           id="mobile-menu-drawer"
           data-testid="mobile-drawer"
-          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[#111317] border-l border-[#262932] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
+          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[var(--surface-elevated)] border-l border-[var(--border)] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
           style={{ zIndex: 99999, height: "100dvh" }}
           aria-label="Mobile Navigation"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-[#262932]">
+          <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span className="font-bold text-neutral-200 text-xs font-mono uppercase tracking-widest">
@@ -171,7 +171,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             <button
               type="button"
               aria-label="Close navigation"
-              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1f222b] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
+              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[var(--surface-elevated)] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
               onClick={() => setMenuOpen(false)}
             >
               <X className="w-5 h-5" />
@@ -188,8 +188,8 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                   onClick={() => setMenuOpen(false)}
                   className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider transition-colors min-h-[48px] ${
                     isActive
-                      ? "bg-[#1f222b] text-amber-400 border border-amber-500/30 font-bold"
-                      : "text-neutral-300 hover:bg-[#171920] hover:text-white"
+                      ? "bg-[var(--surface-elevated)] text-amber-400 border border-amber-500/30 font-bold"
+                      : "text-neutral-300 hover:bg-[var(--surface-elevated)] hover:text-white"
                   }`}
                 >
                   <span>{item.label}</span>
@@ -199,14 +199,14 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             })}
           </nav>
 
-          <div className="pt-4 border-t border-[#262932]">
+          <div className="pt-4 border-t border-[var(--border)]">
             <button
               type="button"
               onClick={() => {
                 setMenuOpen(false);
                 setEcosystemMobileOpen(true);
               }}
-              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-[#171920] border border-[#262932] text-neutral-200 font-semibold text-xs font-mono uppercase tracking-wider hover:bg-[#1f222b] hover:text-white min-h-[48px] transition-colors cursor-pointer"
+              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-200 font-semibold text-xs font-mono uppercase tracking-wider hover:bg-[var(--surface-elevated)] hover:text-white min-h-[48px] transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-2">
                 <Globe className="w-4 h-4 text-amber-500" />
@@ -224,18 +224,18 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       <>
         <div
           data-testid="ecosystem-overlay"
-          className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-[var(--surface-elevated)]/70 backdrop-blur-xs transition-opacity"
           style={{ zIndex: 99998 }}
           onClick={() => setEcosystemMobileOpen(false)}
           aria-hidden="true"
         />
         <aside
           id="mobile-ecosystem-drawer"
-          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[#111317] border-l border-[#262932] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
+          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[var(--surface-elevated)] border-l border-[var(--border)] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
           style={{ zIndex: 99999, height: "100dvh" }}
           aria-label="AiX Ecosystem Navigation"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-[#262932]">
+          <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span className="font-bold text-neutral-200 text-xs font-mono uppercase tracking-widest">
@@ -245,7 +245,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             <button
               type="button"
               aria-label="Close ecosystem menu"
-              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[#1f222b] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
+              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[var(--surface-elevated)] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
               onClick={() => setEcosystemMobileOpen(false)}
             >
               <X className="w-5 h-5" />
@@ -263,7 +263,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setEcosystemMobileOpen(false)}
-                className="block p-3.5 rounded-xl border border-[#262932] bg-[#171920] hover:border-amber-500/50 hover:bg-[#1f222b] transition-all group min-h-[48px]"
+                className="block p-3.5 rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] transition-all group min-h-[48px]"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-sm text-neutral-100 group-hover:text-amber-400 transition-colors">
@@ -290,12 +290,10 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full bg-[#090a0d]/95 backdrop-blur-md border-b border-[#262932] text-neutral-100 transition-transform duration-300 ease-in-out ${
-        headerVisible ? "translate-y-0" : "-translate-y-full"
-      }`}
+      className={`sticky top-0 z-40 w-full bg-[var(--surface-elevated)]/95 backdrop-blur-md border-b border-[var(--border)] text-[var(--foreground)] transition-transform duration-300 ease-in-out ${headerVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       {/* Official BNR Sub-Header Ticker */}
-      <div className="bg-[#0c0d12] border-b border-[#1c1e26] px-4 py-1.5 text-xs text-neutral-400 w-full overflow-x-auto">
+      <div className="bg-[var(--surface-elevated)] border-b border-[var(--border)] px-4 py-1.5 text-xs text-[var(--foreground-muted)] w-full overflow-x-auto">
         <div className="mx-auto flex items-center justify-between gap-4 max-w-[1600px] w-full">
           <div className="flex items-center gap-2 text-neutral-300 font-semibold uppercase text-[10px] tracking-wider shrink-0">
             <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
@@ -345,7 +343,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
           }}
           className="shrink-0 flex items-center gap-2.5 group"
         >
-          <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center font-black text-amber-400 text-lg shadow-sm group-hover:border-amber-500/40 transition-colors">
+          <div className="w-8 h-8 rounded-lg bg-[var(--surface-elevated)] border border-neutral-800 flex items-center justify-center font-black text-amber-400 text-lg shadow-sm group-hover:border-amber-500/40 transition-colors">
             A
           </div>
           <div className="flex flex-col">
@@ -369,7 +367,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             aria-label="Open AiX Ecosystem"
             aria-expanded={ecosystemDesktopOpen}
             aria-controls="desktop-ecosystem-panel"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#171920] border border-[#262932] text-neutral-300 hover:text-white hover:border-amber-500/40 hover:bg-[#1f222b] text-xs font-semibold font-mono uppercase tracking-wider transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-300 hover:text-white hover:border-amber-500/40 hover:bg-[var(--surface-elevated)] text-xs font-semibold font-mono uppercase tracking-wider transition-all cursor-pointer"
             onClick={() => setEcosystemDesktopOpen((prev) => !prev)}
           >
             <Globe className="w-3.5 h-3.5 text-amber-500" />
@@ -386,7 +384,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             type="button"
             aria-label="Open AiX Ecosystem"
             aria-expanded={ecosystemMobileOpen}
-            className="flex min-h-[48px] min-w-[48px] items-center justify-center px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-[#171920] text-neutral-200 border border-[#262932] active:bg-[#1f222b] transition-colors"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-[var(--surface-elevated)] text-neutral-200 border border-[var(--border)] active:bg-[var(--surface-elevated)] transition-colors"
             onClick={() => {
               setMenuOpen(false);
               setEcosystemMobileOpen((prev) => !prev);
@@ -400,7 +398,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu-drawer"
-            className="flex min-h-[48px] min-w-[48px] items-center justify-center p-2 rounded-lg text-neutral-300 hover:text-white hover:bg-[#171920] active:bg-[#1f222b] transition-colors"
+            className="flex min-h-[48px] min-w-[48px] items-center justify-center p-2 rounded-lg text-neutral-300 hover:text-white hover:bg-[var(--surface-elevated)] active:bg-[var(--surface-elevated)] transition-colors"
             onClick={() => {
               setEcosystemMobileOpen(false);
               setMenuOpen((prev) => !prev);
@@ -415,7 +413,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       {ecosystemDesktopOpen && (
         <div
           id="desktop-ecosystem-panel"
-          className="absolute top-full right-4 xl:right-12 mt-1 w-80 bg-[#111317] border border-[#262932] shadow-2xl rounded-xl p-4 z-[9999] text-neutral-100"
+          className="absolute top-full right-4 xl:right-12 mt-1 w-80 bg-[var(--surface-elevated)] border border-[var(--border)] shadow-2xl rounded-xl p-4 z-[9999] text-neutral-100"
         >
           <div className="text-[10px] font-mono uppercase tracking-widest text-amber-500 font-bold mb-2">
             AiX Ecosystem Platforms
@@ -428,7 +426,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setEcosystemDesktopOpen(false)}
-                className="block p-2.5 rounded-lg hover:bg-[#171920] border border-transparent hover:border-[#262932] transition-all group"
+                className="block p-2.5 rounded-lg hover:bg-[var(--surface-elevated)] border border-transparent hover:border-[var(--border)] transition-all group"
               >
                 <div className="flex items-center justify-between text-xs font-bold text-neutral-200 group-hover:text-amber-400">
                   <span>{node.name}</span>

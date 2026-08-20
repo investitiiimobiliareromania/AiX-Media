@@ -56,7 +56,7 @@ export function AudioPlayer({ audioUrl, title }: AudioPlayerProps) {
           
           <button
             onClick={togglePlay}
-            className="bg-white text-black p-4 font-bold hover:bg-white/90 transition-all flex items-center justify-center gap-2"
+            className="bg-[var(--surface)] text-[var(--foreground)] p-4 font-bold hover:bg-[var(--surface-editorial)] transition-all flex items-center justify-center gap-2"
           >
             {isPlaying ? <Pause className="w-6 h-6 fill-current" /> : <Play className="w-6 h-6 fill-current ml-1" />}
           </button>

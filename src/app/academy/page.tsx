@@ -47,7 +47,7 @@ export default function AcademyPage() {
       />
 
       <section id="courses" className="space-y-6">
-        <div className="border-b border-[#262932] pb-3">
+        <div className="border-b border-[var(--border)] pb-3">
           <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-amber-500" />
             Module Educaționale &amp; Ghiduri Practice
@@ -58,12 +58,12 @@ export default function AcademyPage() {
           {courses.map((course, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-xl group"
+              className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-xl group"
             >
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between text-[11px] font-mono">
                   <span className="text-amber-400 font-bold">{course.category}</span>
-                  <span className="px-2 py-0.5 rounded-md bg-[#171920] text-neutral-300 border border-[#262932]">
+                  <span className="px-2 py-0.5 rounded-md bg-[var(--surface-elevated)] text-neutral-300 border border-[var(--border)]">
                     {course.level}
                   </span>
                 </div>
@@ -71,7 +71,7 @@ export default function AcademyPage() {
                 <p className="text-xs text-neutral-300 leading-relaxed font-serif">{course.description}</p>
               </div>
 
-              <div className="pt-4 border-t border-[#262932] flex items-center justify-between text-xs font-mono">
+              <div className="pt-4 border-t border-[var(--border)] flex items-center justify-between text-xs font-mono">
                 <span className="text-neutral-400">{course.duration}</span>
                 <span className="text-white font-bold flex items-center gap-1 group-hover:text-amber-400 transition-colors cursor-pointer">
                   <span>Accesează</span>

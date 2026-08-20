@@ -10,16 +10,16 @@ export const metadata = {
 export default function LegalPage() {
   return (
     <section className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-neutral-100 space-y-6">
-      <h1 className="font-serif text-3xl font-bold text-white border-b border-[#262932] pb-4">Aviz Legal</h1>
+      <h1 className="font-serif text-3xl font-bold text-white border-b border-[var(--border)] pb-4">Aviz Legal</h1>
       
-      <div className="bg-[#111317] border border-[#262932] rounded-2xl p-6 my-6 font-mono text-xs text-neutral-300 space-y-2.5 shadow-lg">
+      <div className="bg-[var(--surface-elevated)] border border-[var(--border)] rounded-2xl p-6 my-6 font-mono text-xs text-neutral-300 space-y-2.5 shadow-lg">
         <p className="text-amber-400 font-bold uppercase tracking-wider text-[10px]">Identificare Operator</p>
         <p><strong>Titular Platformă:</strong> <span className="text-white">{contactConfig.name}</span></p>
         <p><strong>Adresă Web Oficială:</strong> <a href={siteConfig.url} target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">{siteConfig.url}</a></p>
         <p><strong>Locație:</strong> <span className="text-white">{contactConfig.location}</span></p>
         <p><strong>Email Contact:</strong> <a href={`mailto:${contactConfig.email}`} className="text-amber-400 hover:underline">{contactConfig.email}</a></p>
         <p><strong>Telefon Contact:</strong> <a href={`tel:${contactConfig.phone}`} className="text-amber-400 hover:underline">{contactConfig.phoneDisplay}</a></p>
-        <p className="text-[10px] text-neutral-400 pt-2 border-t border-[#262932]">
+        <p className="text-[10px] text-neutral-400 pt-2 border-t border-[var(--border)]">
           * Mențiune: AiX Media este o platformă digitală de analiză și conținut editorial operată de Cristian Văduva.
         </p>
       </div>

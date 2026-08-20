@@ -9,7 +9,7 @@ interface DataDisclaimerProps {
 export function DataDisclaimer({ type = "general", className = "" }: DataDisclaimerProps) {
   return (
     <div
-      className={`p-5 rounded-2xl bg-[#111317] border border-[#262932] text-neutral-400 text-xs leading-relaxed flex items-start gap-3 shadow-sm ${className}`}
+      className={`p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-400 text-xs leading-relaxed flex items-start gap-3 shadow-sm ${className}`}
     >
       <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
       <div className="space-y-1.5 font-serif">

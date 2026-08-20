@@ -53,16 +53,16 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
           <ArrowLeft className="w-4 h-4" />
           Înapoi la Catalogul Companiilor
         </Link>
-        <span className="px-2.5 py-1 rounded-md bg-[#171920] text-amber-400 border border-[#262932] uppercase font-semibold text-[10px] tracking-wider">
+        <span className="px-2.5 py-1 rounded-md bg-[var(--surface-elevated)] text-amber-400 border border-[var(--border)] uppercase font-semibold text-[10px] tracking-wider">
           {company.sector}
         </span>
       </div>
 
       {/* Header Info Banner */}
-      <div className="p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-6 shadow-xl relative overflow-hidden">
+      <div className="p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-6 shadow-xl relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
-            <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-[#262932] bg-[#0c0d12] shrink-0 shadow-md">
+            <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-[var(--border)] bg-[var(--surface-elevated)] shrink-0 shadow-md">
               <Image src={company.logo} alt={company.name} fill className="object-cover" />
             </div>
             <div>
@@ -74,19 +74,19 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
             </div>
           </div>
 
-          <div className="text-center md:text-right font-mono bg-[#171920] p-4 rounded-xl border border-[#262932] shrink-0 shadow-xs">
+          <div className="text-center md:text-right font-mono bg-[var(--surface-elevated)] p-4 rounded-xl border border-[var(--border)] shrink-0 shadow-xs">
             <div className="text-[10px] text-neutral-400 uppercase tracking-wider">Cotație Raportată</div>
             <div className="text-xl font-bold text-white mt-0.5">{company.stockPrice}</div>
             <div className="text-[9px] text-neutral-400 mt-1">Data referință: {company.asOf}</div>
           </div>
         </div>
 
-        <p className="text-sm text-neutral-300 leading-relaxed border-t border-[#262932] pt-4 relative z-10 font-serif">
+        <p className="text-sm text-neutral-300 leading-relaxed border-t border-[var(--border)] pt-4 relative z-10 font-serif">
           {company.description}
         </p>
 
         {/* Legal Identity Details */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#262932] font-mono text-xs text-neutral-400">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[var(--border)] font-mono text-xs text-neutral-400">
           <div>
             <span className="text-neutral-400 block text-[10px] uppercase tracking-wider">Sediu Social</span>
             <span className="text-white font-medium">{company.headquarters}</span>
@@ -105,12 +105,12 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
       {/* Grid: Market Data vs Financial Reporting */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Market Data Panel */}
-        <div className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
-          <h2 className="font-serif text-lg font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+        <div className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl">
+          <h2 className="font-serif text-lg font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
             <TrendingUp className="w-5 h-5 text-amber-500" />
             Date de Piață Raportate
           </h2>
-          <div className="divide-y divide-[#262932] font-mono text-xs space-y-3">
+          <div className="divide-y divide-[#E5E5E0] font-mono text-xs space-y-3">
             <div className="flex justify-between py-1">
               <span className="text-neutral-400">Segment Bursier BVB</span>
               <span className="text-white font-bold">{company.market} ({company.categoryName})</span>
@@ -142,12 +142,12 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
         </div>
 
         {/* Financial Teardown Panel */}
-        <div className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
-          <h2 className="font-serif text-lg font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+        <div className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl">
+          <h2 className="font-serif text-lg font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
             <Landmark className="w-5 h-5 text-amber-500" />
             Situații Financiare Oficiale
           </h2>
-          <div className="divide-y divide-[#262932] font-mono text-xs space-y-3">
+          <div className="divide-y divide-[#E5E5E0] font-mono text-xs space-y-3">
             <div className="flex justify-between py-1 text-amber-400 font-semibold">
               <span>Perioadă Raportare</span>
               <span>{company.reportedPeriod}</span>
@@ -187,19 +187,19 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
       </div>
 
       {/* Corporate Events Area */}
-      <section className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4">
-        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+      <section className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4">
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
           <FileText className="w-5 h-5 text-amber-500" />
           Evenimente Corporative &amp; Rapoarte Curente
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {company.corporateEvents.map((evt, idx) => (
-            <div key={idx} className="p-4 rounded-xl bg-[#171920] border border-[#262932] space-y-2 flex flex-col justify-between shadow-xs">
+            <div key={idx} className="p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-2 flex flex-col justify-between shadow-xs">
               <div>
                 <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">Data: {evt.date}</span>
                 <h3 className="text-xs font-bold text-white font-mono mt-1 leading-normal">{evt.title}</h3>
               </div>
-              <div className="pt-3 border-t border-[#262932] flex items-center justify-between text-[9px] font-mono text-neutral-400">
+              <div className="pt-3 border-t border-[var(--border)] flex items-center justify-between text-[9px] font-mono text-neutral-400">
                 <span>Sursă: {evt.source}</span>
                 {company.sourceUrl && (
                   <a
@@ -219,14 +219,14 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
       </section>
 
       {/* Strategic Timeline */}
-      <section className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
-        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[#262932] pb-3">
+      <section className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl">
+        <h2 className="font-serif text-xl font-bold text-white flex items-center gap-2 border-b border-[var(--border)] pb-3">
           <Calendar className="w-5 h-5 text-amber-500" />
           Istoric &amp; Repere Strategice
         </h2>
         <div className="space-y-3 font-mono text-xs">
           {company.timeline.map((item, idx) => (
-            <div key={idx} className="flex gap-4 p-3.5 rounded-xl bg-[#171920] border border-[#262932]">
+            <div key={idx} className="flex gap-4 p-3.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)]">
               <span className="text-amber-400 font-bold w-14 shrink-0">{item.year}</span>
               <span className="text-neutral-300 font-serif">{item.event}</span>
             </div>

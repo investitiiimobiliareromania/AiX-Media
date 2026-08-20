@@ -6,7 +6,7 @@ export function AiXIntelligenceBox() {
   const briefing = getLatestBriefing();
 
   return (
-    <section className="my-8 p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] shadow-xl relative overflow-hidden text-neutral-100">
+    <section className="my-8 p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] shadow-xl relative overflow-hidden text-neutral-100">
       <div className="flex flex-col lg:flex-row items-start justify-between gap-8 relative z-10">
         {/* Left Header */}
         <div className="space-y-3 lg:w-1/3">
@@ -25,8 +25,8 @@ export function AiXIntelligenceBox() {
         {/* Right Synthesis Columns */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           {/* Evenimente Cheie */}
-          <div className="p-5 rounded-xl bg-[#171920] border border-[#262932] space-y-3 shadow-xs">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5 border-b border-[#262932] pb-2.5">
+          <div className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-3 shadow-xs">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5 border-b border-[var(--border)] pb-2.5">
               <Zap className="w-4 h-4 text-amber-500" />
               Evoluții Instituționale
             </h3>
@@ -41,8 +41,8 @@ export function AiXIntelligenceBox() {
           </div>
 
           {/* Impact Decizional */}
-          <div className="p-5 rounded-xl bg-[#171920] border border-[#262932] space-y-3 shadow-xs">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5 border-b border-[#262932] pb-2.5">
+          <div className="p-5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-3 shadow-xs">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5 border-b border-[var(--border)] pb-2.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               Relevanță &amp; Context Decizional
             </h3>

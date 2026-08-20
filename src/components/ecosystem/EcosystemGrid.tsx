@@ -4,7 +4,7 @@ import { EcosystemCard } from "./EcosystemCard";
 
 export const EcosystemGrid: React.FC = () => {
   return (
-    <section className="border-t border-[#262932] bg-[#090a0d] py-14 text-neutral-100 rounded-2xl mt-12">
+    <section className="border-t border-[var(--border)] bg-[var(--surface-elevated)] py-14 text-neutral-100 rounded-2xl mt-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center max-w-3xl mx-auto space-y-2">
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500 block">

@@ -25,7 +25,7 @@ const CookieConsentBanner: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 bg-[#111317]/95 backdrop-blur-md text-neutral-300 p-4 md:p-6 shadow-2xl border-t border-[#262932]">
+    <div className="fixed inset-x-0 bottom-0 z-50 bg-[var(--surface-elevated)]/95 backdrop-blur-md text-neutral-300 p-4 md:p-6 shadow-2xl border-t border-[var(--border)]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs sm:text-sm font-serif text-neutral-300 leading-relaxed">
           Utilizăm cookie-uri pentru a îmbunătăți experiența utilizatorului, pentru analytics și pentru funcționalități esențiale.{' '}
@@ -37,13 +37,13 @@ const CookieConsentBanner: React.FC = () => {
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={handleReject}
-            className="px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider bg-[#171920] hover:bg-[#1f222b] text-neutral-300 rounded-xl border border-[#262932] transition-colors cursor-pointer min-h-[44px]"
+            className="px-4 py-2.5 text-xs font-mono font-semibold uppercase tracking-wider bg-[var(--surface-elevated)] hover:bg-[var(--surface-elevated)] text-neutral-300 rounded-xl border border-[var(--border)] transition-colors cursor-pointer min-h-[44px]"
           >
             Refuză non-esențial
           </button>
           <button
             onClick={handleAccept}
-            className="px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider bg-white hover:bg-neutral-200 text-neutral-950 rounded-xl transition-colors cursor-pointer min-h-[44px]"
+            className="px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider bg-[var(--surface-elevated)] hover:bg-[var(--surface)] text-neutral-950 rounded-xl transition-colors cursor-pointer min-h-[44px]"
           >
             Acceptă toate
           </button>

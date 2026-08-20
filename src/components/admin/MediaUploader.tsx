@@ -46,7 +46,7 @@ export function MediaUploader({ value, onChange, label = 'Imagine Copertă' }: M
             <button
               type="button"
               onClick={() => onChange('')}
-              className="absolute top-2 right-2 bg-black text-white p-2 hover:bg-red-600 transition-colors"
+              className="absolute top-2 right-2 bg-[var(--surface-elevated)] text-white p-2 hover:bg-red-600 transition-colors"
               title="Șterge imaginea"
             >
               <X className="w-4 h-4" />

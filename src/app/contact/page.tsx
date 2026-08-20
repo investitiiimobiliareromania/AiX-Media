@@ -26,7 +26,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" id="form">
         {/* Left Column: Direct Contact Identity */}
         <div className="space-y-6">
-          <div className="p-6 md:p-8 rounded-2xl bg-[#111317] border border-[#262932] space-y-4 shadow-xl">
+          <div className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl">
             <div>
               <div className="text-xs uppercase font-mono tracking-widest text-amber-500 font-bold">
                 Fondator &amp; Realizator
@@ -37,7 +37,7 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <div className="space-y-3 pt-2 text-xs font-mono text-neutral-300 border-t border-[#262932]">
+            <div className="space-y-3 pt-2 text-xs font-mono text-neutral-300 border-t border-[var(--border)]">
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-amber-500 shrink-0" />
                 <span>{contactConfig.location}</span>
@@ -80,7 +80,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#111317] border border-[#262932] space-y-3 shadow-lg">
+          <div className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-3 shadow-lg">
             <div className="flex items-center gap-2 text-white font-mono text-xs font-bold uppercase tracking-wider">
               <ShieldCheck className="w-4 h-4 text-amber-500" />
               Canal Oficial Confidențial
@@ -106,7 +106,7 @@ export default function ContactPage() {
       </div>
 
       {/* Ecosystem Access Section */}
-      <section className="pt-8 border-t border-[#262932] space-y-6">
+      <section className="pt-8 border-t border-[var(--border)] space-y-6">
         <div>
           <span className="text-xs uppercase font-mono tracking-widest text-amber-500 font-bold block mb-1">
             Rețeaua AiX Ecosystem
@@ -123,7 +123,7 @@ export default function ContactPage() {
           {AIX_ECOSYSTEM_NODES.map((node) => (
             <div
               key={node.id}
-              className="p-5 rounded-2xl bg-[#111317] border border-[#262932] hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-lg min-w-0"
+              className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-lg min-w-0"
             >
               <div>
                 <div className="flex items-center justify-between mb-2 gap-1">
@@ -140,13 +140,13 @@ export default function ContactPage() {
                 <p className="text-xs text-neutral-400 mt-1 font-serif line-clamp-2">{node.description}</p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#262932]">
+              <div className="mt-4 pt-3 border-t border-[var(--border)]">
                 <a
                   href={node.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Accesează ${node.name}`}
-                  className="inline-flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-[#171920] text-neutral-200 hover:bg-amber-500 hover:text-neutral-950 text-xs font-mono font-semibold transition-all cursor-pointer w-full min-h-[36px] border border-[#262932]"
+                  className="inline-flex items-center justify-between px-3.5 py-1.5 rounded-lg bg-[var(--surface-elevated)] text-neutral-200 hover:bg-amber-500 hover:text-neutral-950 text-xs font-mono font-semibold transition-all cursor-pointer w-full min-h-[36px] border border-[var(--border)]"
                 >
                   <span>Accesează</span>
                   <span>→</span>

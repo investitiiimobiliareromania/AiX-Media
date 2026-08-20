@@ -41,7 +41,7 @@ export default function LanguageSwitcher() {
   return (
     <button
       onClick={toggleLocale}
-      className="px-3 py-1 text-sm rounded bg-gray-200 hover:bg-gray-300 transition"
+      className="px-3 py-1 text-sm rounded bg-[var(--surface)] hover:bg-[var(--surface-editorial)] transition"
     >
       {current === "en" ? "RO" : "EN"}
     </button>
