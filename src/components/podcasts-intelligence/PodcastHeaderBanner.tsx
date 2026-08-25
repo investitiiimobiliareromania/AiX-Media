@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Mic, Search, Filter, ExternalLink, Play, Radio, Zap } from 'lucide-react';
+import { Mic, Search, Filter, ExternalLink, Radio } from 'lucide-react';
 
 interface PodcastHeaderBannerProps {
   totalEpisodes: number;

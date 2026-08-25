@@ -30,6 +30,8 @@ export interface MacroIndicatorItem {
   lastUpdated: string;
   source: string;
   period: string;
+  economyMeaning: string;
+  impactSummary: string;
 }
 
 export interface CentralBankRateItem {
@@ -110,12 +112,84 @@ export const bvbMovers: MarketMoverItem[] = [
 ];
 
 export const romaniaMacroIndicators: MacroIndicatorItem[] = [
-  { id: 'macro-cpi', label: 'Rata Inflației (IPC)', currentValue: '4.80%', previousValue: '4.90%', change: '-0.10%', trend: 'down', lastUpdated: 'Iulie 2026', source: 'INS', period: 'Anual' },
-  { id: 'macro-gdp', label: 'Creștere PIB Real', currentValue: '+2.10%', previousValue: '+1.80%', change: '+0.30%', trend: 'up', lastUpdated: 'T1 2026', source: 'INS', period: 'Trimestrial' },
-  { id: 'macro-unemp', label: 'Rata Șomajului (BIM)', currentValue: '5.20%', previousValue: '5.30%', change: '-0.10%', trend: 'down', lastUpdated: 'Iunie 2026', source: 'INS', period: 'Lunar' },
-  { id: 'macro-bnr', label: 'Dobândă Politică Monetară', currentValue: '6.50%', previousValue: '6.75%', change: '-0.25%', trend: 'down', lastUpdated: 'Iulie 2026', source: 'BNR', period: 'Sedință CA' },
-  { id: 'macro-def', label: 'Deficit Bugetar', currentValue: '6.80% PIB', previousValue: '6.60% PIB', change: '+0.20%', trend: 'up', lastUpdated: 'T2 2026', source: 'Ministerul Finanțelor', period: 'Anualizat' },
-  { id: 'macro-debt', label: 'Datorie Publică', currentValue: '52.40% PIB', previousValue: '51.80% PIB', change: '+0.60%', trend: 'up', lastUpdated: 'T1 2026', source: 'Ministerul Finanțelor', period: 'Trimestrial' },
+  {
+    id: 'macro-cpi',
+    label: 'Rata Inflației (IPC)',
+    currentValue: '4.80%',
+    previousValue: '4.90%',
+    change: '-0.10%',
+    trend: 'down',
+    lastUpdated: 'Iulie 2026',
+    source: 'INS',
+    period: 'Anual',
+    economyMeaning: 'Dezinflația continuă reduce presiunea pe costurile de trai și stabilizează puterea de cumpărare a populației.',
+    impactSummary: 'Permite relaxarea treptată a politicii monetare BNR, reducerea ratelor la creditele bancare și reluarea cererii pe segmentul rezidențial.',
+  },
+  {
+    id: 'macro-gdp',
+    label: 'Creștere PIB Real',
+    currentValue: '+2.10%',
+    previousValue: '+1.80%',
+    change: '+0.30%',
+    trend: 'up',
+    lastUpdated: 'T1 2026',
+    source: 'INS',
+    period: 'Trimestrial',
+    economyMeaning: 'Creșterea economică este susținută în principal de marile investiții publice în infrastructură (PNRR) și consumul privat.',
+    impactSummary: 'Generează venituri în creștere pentru companiile de construcții, logistică și retail; stimulează apetitul de risc al investitorilor la BVB.',
+  },
+  {
+    id: 'macro-unemp',
+    label: 'Rata Șomajului (BIM)',
+    currentValue: '5.20%',
+    previousValue: '5.30%',
+    change: '-0.10%',
+    trend: 'down',
+    lastUpdated: 'Iunie 2026',
+    source: 'INS',
+    period: 'Lunar',
+    economyMeaning: 'Piața forței de muncă rămâne tensionată în centrele universitare și industriale, cu deficit structural de personal calificat.',
+    impactSummary: 'Menține creșterea salariilor reale peste rata inflației, susținând solvabilitatea debitorilor ipotecari și încasările marilor retaileri.',
+  },
+  {
+    id: 'macro-bnr',
+    label: 'Dobândă Politică Monetară',
+    currentValue: '6.50%',
+    previousValue: '6.75%',
+    change: '-0.25%',
+    trend: 'down',
+    lastUpdated: 'Iulie 2026',
+    source: 'BNR',
+    period: 'Sedință CA',
+    economyMeaning: 'Semnalizează începutul ciclului de relaxare monetară al BNR pe fondul temperării dinamicii prețurilor de consum.',
+    impactSummary: 'Reduce treptat costurile de finanțare pentru companii și ratele dobânzilor la noile credite ipotecare și de consum legate de IRCC/ROBOR.',
+  },
+  {
+    id: 'macro-def',
+    label: 'Deficit Bugetar',
+    currentValue: '6.80% PIB',
+    previousValue: '6.60% PIB',
+    change: '+0.20%',
+    trend: 'up',
+    lastUpdated: 'T2 2026',
+    source: 'Ministerul Finanțelor',
+    period: 'Anualizat',
+    economyMeaning: 'Necesită emisiuni susținute de titluri de stat pe piețele internă și internațională pentru finanțarea cheltuielilor statului.',
+    impactSummary: 'Menține randamentele obligațiunilor suverane la niveluri atractive pentru investitori, dar impune prudență fiscală pentru companii.',
+  },
+  {
+    id: 'macro-debt',
+    label: 'Datorie Publică',
+    currentValue: '52.40% PIB',
+    previousValue: '51.80% PIB',
+    change: '+0.60%',
+    trend: 'up',
+    lastUpdated: 'T1 2026',
+    source: 'Ministerul Finanțelor',
+    period: 'Trimestrial',
+    economyMeaning: 'Gradul de îndatorare al României rămâne sub media Uniunii Europene, dar necesită o gestionare riguroasă a costurilor de refinanțare.',
+    impactSummary: 'Asigură lichiditate ridicată pe piața secundară a titlurilor de stat Fidelis și Tezaur tranzacționate la bursa locală.',
+  },
 ];
 
 export const centralBankRates: CentralBankRateItem[] = [

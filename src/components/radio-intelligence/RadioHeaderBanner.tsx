@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Radio, Search, Filter, Volume2, Globe, ShieldCheck, Zap } from 'lucide-react';
+import { Search, Filter, Zap } from 'lucide-react';
 
 interface RadioHeaderBannerProps {
   totalStations: number;

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Mic, Award, CheckCircle2, Radio } from 'lucide-react';
+import { Award, CheckCircle2 } from 'lucide-react';
 
 interface PodcastIntelligenceModuleProps {
   totalEpisodes: number;

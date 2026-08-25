@@ -18,7 +18,6 @@ import {
   ChevronRight,
   Sparkles,
   PieChart,
-  Users,
   CheckCircle2,
   Info,
   Workflow,

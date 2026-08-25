@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Play, Video, ExternalLink } from 'lucide-react';
 import { YouTubeVideo } from '@/config/youtube';
 
@@ -31,10 +32,12 @@ export function YouTubeShortsSection({ shorts }: YouTubeShortsSectionProps) {
             className="group relative block rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 hover:border-rose-500/60 transition-all shadow-xl aspect-[9/16]"
           >
             {/* YouTube Thumbnail */}
-            <img
+            <Image
               src={`https://img.youtube.com/vi/${short.id}/hqdefault.jpg`}
               alt={short.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
 
             {/* Gradient Overlay */}

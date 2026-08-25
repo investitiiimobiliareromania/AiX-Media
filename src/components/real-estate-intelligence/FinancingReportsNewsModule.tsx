@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Percent, ShieldAlert, FileText, Newspaper } from 'lucide-react';
+import { Percent, FileText, Newspaper } from 'lucide-react';
 import { realEstateReports, RealEstateReportItem } from '@/lib/real-estate-intelligence-service';
 import { Article } from '@/lib/media/models/article';
 import { ArticleCard } from '@/components/media/ArticleCard';

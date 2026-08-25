@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Play, Calendar, Clock, ArrowRight, Mic, Headphones } from 'lucide-react';
+import { Calendar, ArrowRight, Mic, Headphones } from 'lucide-react';
 import { PodcastEpisode } from '@/lib/media/models/media-types';
 import { SafeImage } from '@/components/common/SafeImage';
 

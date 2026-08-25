@@ -52,21 +52,21 @@ export function RealEstateHeaderBanner({
           </div>
 
           {/* Quick Summary Grid Badges */}
-          <div className="grid grid-cols-2 gap-3 shrink-0 lg:w-80 font-mono text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 shrink-0 lg:w-96 font-mono text-xs">
             <div className="p-3.5 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-1">
               <div className="text-[10px] text-neutral-400 uppercase flex items-center gap-1">
                 <Home className="w-3 h-3 text-amber-400" />
                 <span>Preț Mediu BUC</span>
               </div>
-              <div className="text-xl font-bold text-white">1,780 €/mp</div>
+              <div className="text-lg font-bold text-white">1,780 €/mp</div>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-1">
               <div className="text-[10px] text-neutral-400 uppercase flex items-center gap-1">
                 <TrendingUp className="w-3 h-3 text-emerald-400" />
-                <span>Randament Mediu</span>
+                <span>Proiecte Active</span>
               </div>
-              <div className="text-xl font-bold text-emerald-400">6.8% Gross</div>
+              <div className="text-lg font-bold text-emerald-400">{totalProjects} Majore</div>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-1">
@@ -74,15 +74,15 @@ export function RealEstateHeaderBanner({
                 <Building className="w-3 h-3 text-sky-400" />
                 <span>Dezvoltatori</span>
               </div>
-              <div className="text-xl font-bold text-white">{totalDevelopers} Lideri</div>
+              <div className="text-lg font-bold text-white">{totalDevelopers} Lideri</div>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-1">
               <div className="text-[10px] text-neutral-400 uppercase flex items-center gap-1">
                 <Layers className="w-3 h-3 text-purple-400" />
-                <span>Cartiere Monitorizate</span>
+                <span>Analize &amp; Știri</span>
               </div>
-              <div className="text-xl font-bold text-white">{totalNeighborhoods} Zone</div>
+              <div className="text-lg font-bold text-white">{totalNews + totalNeighborhoods} Dosare</div>
             </div>
           </div>
         </div>

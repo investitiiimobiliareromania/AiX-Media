@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Award, DollarSign, Percent, Users, TrendingUp } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { BvbCompanyProfile } from '@/lib/bvb-data';
 
 interface CompanyRankingsModuleProps {

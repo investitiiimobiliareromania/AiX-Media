@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Landmark, Percent, Calendar } from 'lucide-react';
+import { Landmark, Percent } from 'lucide-react';
 import { centralBankRates, romaniaBondYields, CentralBankRateItem, BondYieldItem } from '@/lib/markets-intelligence-service';
 
 export function CentralBanksBondYieldsModule() {

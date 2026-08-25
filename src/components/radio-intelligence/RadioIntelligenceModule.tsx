@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Radio, Award, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Award, CheckCircle2 } from 'lucide-react';
 
 interface RadioIntelligenceModuleProps {
   totalStations: number;

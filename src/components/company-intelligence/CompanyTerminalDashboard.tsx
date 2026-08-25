@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Search, Filter, ArrowUpDown, Building2, TrendingUp, Users, DollarSign, ShieldCheck } from 'lucide-react';
+import { Search, Building2 } from 'lucide-react';
 import { BvbCompanyProfile } from '@/lib/bvb-data';
 
 interface CompanyTerminalDashboardProps {
