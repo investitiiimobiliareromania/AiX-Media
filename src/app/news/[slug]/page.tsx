@@ -88,10 +88,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     content: fullContent,
   };
 
-  const allArticles = await articleService.getPublishedArticles();
-  const related = allArticles
-    .filter((a) => a.id !== article.id)
-    .slice(0, 3);
+  const related = await articleService.getRelatedIntelligenceArticles(article, 3);
 
   const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
 

@@ -6,6 +6,7 @@ import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
+import { JsonLd, createVideoObjectJsonLd } from '@/components/common/json-ld';
 import { ArrowLeft, ExternalLink, Video, Building2, Activity, TrendingUp, Compass } from 'lucide-react';
 
 interface VideoPageProps {
@@ -34,6 +35,20 @@ export async function generateMetadata({ params }: VideoPageProps): Promise<Meta
         "x-default": canonicalUrl,
       },
     },
+    openGraph: {
+      title: `${video.title} | YouTube Channel | AiX Media`,
+      description: video.description || `Urmărește ${video.title} pe canalul oficial YouTube AiX Media.`,
+      url: canonicalUrl,
+      type: "video.other",
+      images: [
+        {
+          url: `https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`,
+          width: 1280,
+          height: 720,
+          alt: video.title,
+        },
+      ],
+    },
   };
 }
 
@@ -51,8 +66,17 @@ export default async function VideoDetailPage({ params }: VideoPageProps) {
     .filter((v) => v.id !== video.id)
     .slice(0, 3);
 
+  const videoObjectSchema = createVideoObjectJsonLd({
+    id: video.id,
+    title: video.title,
+    description: video.description || `Prezentare video oficială: ${video.title}`,
+    slug: video.slug,
+  });
+
   return (
     <article className="max-w-5xl mx-auto space-y-8 py-6 text-neutral-100 px-4 sm:px-6">
+      <JsonLd data={videoObjectSchema} />
+
       {/* Breadcrumbs Navigation */}
       <Breadcrumbs
         items={[

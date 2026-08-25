@@ -124,6 +124,57 @@ export class ArticleService {
     return fallbackArticles.find((art) => art.slug === slug);
   }
 
+  async getRelatedIntelligenceArticles(
+    currentArticle: { id: string; slug: string; category: string; title: string; excerpt?: string; content?: string },
+    limit = 3
+  ): Promise<Article[]> {
+    const allArticles = await this.getPublishedArticles(200);
+    const candidates = allArticles.filter(
+      (a) => a.id !== currentArticle.id && a.slug !== currentArticle.slug
+    );
+
+    const companyKeywords = [
+      'banca transilvania', 'tlv', 'omv petrom', 'snp', 'hidroelectrica', 'h2o',
+      'one united properties', 'one', 'romgaz', 'sng', 'bursa de valori bucuresti', 'bvb',
+      'nuclearelectrica', 'snn', 'ancpi', 'bnr', 'ins', 'robor', 'ircc', 'dacia', 'dedeman', 'uipath'
+    ];
+
+    const currentText = `${currentArticle.title} ${currentArticle.excerpt || ''} ${currentArticle.content || ''}`.toLowerCase();
+
+    const scored = candidates.map((cand) => {
+      let score = 0;
+      const candText = `${cand.title} ${cand.excerpt} ${cand.content}`.toLowerCase();
+
+      // 1. Shared Category
+      if (cand.category === currentArticle.category) {
+        score += 30;
+      }
+
+      // 2. Shared Company Entity Mentions
+      for (const kw of companyKeywords) {
+        if (currentText.includes(kw) && candText.includes(kw)) {
+          score += 50;
+        }
+      }
+
+      // 3. Keyword Overlap
+      const currentWords = currentText
+        .split(/\W+/)
+        .filter((w) => w.length > 4 && !['despre', 'pentru', 'conform', 'acest', 'aceste', 'luna', 'anul', 'datele'].includes(w));
+
+      for (const w of currentWords) {
+        if (candText.includes(w)) {
+          score += 5;
+        }
+      }
+
+      return { article: cand, score };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, limit).map((s) => s.article);
+  }
+
   async getArticleById(id: string): Promise<ArticleRow> {
     const article = await this.repo.findById(id);
     if (!article) {

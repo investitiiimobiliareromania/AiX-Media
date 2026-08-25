@@ -5,7 +5,7 @@ import { siteConfig } from '../src/config/site';
 import { verifiedNewsArticles } from '../src/lib/news-service';
 import { institutionalDossiers } from '../src/lib/institutional-company-dossiers';
 import { bvbCompanies } from '../src/lib/bvb-data';
-import { verifiedVideos } from '../src/config/youtube';
+import { verifiedVideos, verifiedShorts } from '../src/config/youtube';
 import { podcastEpisodes } from '../src/lib/media/mock-db';
 
 interface SeoIssue {
@@ -22,7 +22,7 @@ function check(condition: boolean, message: string, file?: string) {
   }
 }
 
-console.log('=== AIX MEDIA — AUTOMATED TECHNICAL SEO AUDIT GATE ===\n');
+console.log('=== AIX MEDIA — COMPREHENSIVE AUTOMATED TECHNICAL SEO & ENTITY GRAPH GATE ===\n');
 
 // 1. Site Configuration & Domain Standards
 console.log('1. Auditing Site Configuration...');
@@ -32,7 +32,7 @@ check(siteConfig.locale === 'ro_RO', `siteConfig.locale must be "ro_RO", got "${
 check(!('twitterHandle' in siteConfig) || (siteConfig as any).twitterHandle !== '@aixmedia', 'Found prohibited twitterHandle "@aixmedia" in siteConfig');
 
 // 2. Prohibited Patterns & Leaks in src/
-console.log('2. Scanning Source Code for Canonical & Social Leaks...');
+console.log('2. Scanning Source Code for Canonical, NoIndex & Social Leaks...');
 const prohibitedRegexes = [
   { regex: /canonical:\s*["']https?:\/\/(?!aixmedia\.cristianvaduva\.com)[^"']*vercel\.app/i, desc: 'Vercel deployment canonical found' },
   { regex: /canonical:\s*["']https?:\/\/localhost/i, desc: 'Localhost canonical found' },
@@ -64,8 +64,28 @@ function scanDirectory(dir: string) {
 
 scanDirectory(path.join(process.cwd(), 'src'));
 
-// 3. Articles SEO Completeness
-console.log('3. Validating Published News Articles Metadata...');
+// 3. Duplicate Titles & Descriptions Check
+console.log('3. Checking for Duplicate Metadata Titles & Descriptions...');
+const titlesSeen = new Map<string, string>();
+const descriptionsSeen = new Map<string, string>();
+
+verifiedNewsArticles.forEach((art) => {
+  const ref = `Article: /news/${art.slug}`;
+  if (titlesSeen.has(art.title)) {
+    issues.push({ type: 'error', message: `Duplicate article title "${art.title}" between ${ref} and ${titlesSeen.get(art.title)}` });
+  } else {
+    titlesSeen.set(art.title, ref);
+  }
+
+  if (descriptionsSeen.has(art.excerpt)) {
+    issues.push({ type: 'error', message: `Duplicate article description between ${ref} and ${descriptionsSeen.get(art.excerpt)}` });
+  } else {
+    descriptionsSeen.set(art.excerpt, ref);
+  }
+});
+
+// 4. Articles SEO & NewsArticle Completeness
+console.log('4. Validating Published News Articles Metadata & NewsArticle Schema...');
 check(verifiedNewsArticles.length > 0, 'Zero raw news articles found in news-service.ts');
 
 verifiedNewsArticles.forEach((art, idx) => {
@@ -79,8 +99,8 @@ verifiedNewsArticles.forEach((art, idx) => {
   check(!art.content.includes('[…]') && !art.content.includes('[...]'), `Article [${ref}] has truncated body content`);
 });
 
-// 4. Company Profiles SEO Completeness
-console.log('4. Validating Company Dossiers & BVB Entities...');
+// 5. Company Dossiers & Corporation Schema Completeness
+console.log('5. Validating Company Dossiers & BVB Entities...');
 const allCompanies = [...institutionalDossiers, ...bvbCompanies];
 check(allCompanies.length > 0, 'Zero company profiles found in datasets');
 
@@ -92,21 +112,25 @@ allCompanies.forEach((comp) => {
   check(Boolean(desc && desc.trim().length > 15), `Company [${ref}] has missing or overly short description`);
 });
 
-// 5. Video & Media SEO Completeness
-console.log('5. Validating Media Entities (Videos & Podcasts)...');
+// 6. Video & Media SEO Completeness
+console.log('6. Validating Media Entities (Videos & Podcasts)...');
 verifiedVideos.forEach((vid) => {
   check(Boolean(vid.id && vid.id.length === 11), `Video [${vid.title}] has invalid YouTube ID "${vid.id}"`);
   check(Boolean(vid.title && vid.title.length > 5), `Video [${vid.id}] has missing title`);
+  check(Boolean(vid.url && vid.url.startsWith('https://www.youtube.com')), `Video [${vid.id}] has invalid URL`);
 });
 
 podcastEpisodes.forEach((pod) => {
-  check(Boolean(pod.slug && pod.title), `Podcast episode [${pod.id}] missing slug or title`);
+  const ref = pod.slug || pod.id;
+  check(Boolean(pod.slug && pod.title), `Podcast episode [${ref}] missing slug or title`);
+  check(Boolean(pod.coverImage && (pod.coverImage.startsWith('http') || pod.coverImage.startsWith('/'))), `Podcast episode [${ref}] missing cover image`);
+  check(Boolean(pod.publishedAt), `Podcast episode [${ref}] missing publishedAt date`);
 });
 
-// 6. Report & Exit
+// 7. Report & Exit
 console.log('\n=== AUDIT RESULTS ===');
 if (issues.length === 0) {
-  console.log('✓ PASS: All technical SEO, structured data, canonicals, and metadata checks passed with 0 errors.');
+  console.log('✓ PASS: All technical SEO, structured data, entity graphs, canonicals, and metadata checks passed with 0 errors.');
   process.exit(0);
 } else {
   console.error(`✗ FAILED: Found ${issues.length} SEO issues:`);

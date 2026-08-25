@@ -1,5 +1,6 @@
 import { type Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { JsonLd, createPodcastSeriesJsonLd } from "@/components/common/json-ld";
 
 export const metadata: Metadata = {
   title: "Podcasturi Economice & Emisiuni Audio | AiX Media",
@@ -28,5 +29,15 @@ export default function PodcastsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  const podcastSeriesSchema = createPodcastSeriesJsonLd(
+    "AiX Media Podcasts",
+    "Episoade de analiză macroeconomică, investiții imobiliare, piețe de capital și dialoguri de business."
+  );
+
+  return (
+    <>
+      <JsonLd data={podcastSeriesSchema} />
+      {children}
+    </>
+  );
 }

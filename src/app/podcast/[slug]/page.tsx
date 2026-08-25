@@ -7,6 +7,7 @@ import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { SafeImage } from '@/components/common/SafeImage';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
+import { JsonLd, createPodcastEpisodeJsonLd } from '@/components/common/json-ld';
 import { Play, ArrowLeft, ExternalLink, Headphones, Calendar, Clock, Building2, Activity, TrendingUp } from 'lucide-react';
 
 interface PodcastDetailPageProps {
@@ -33,6 +34,20 @@ export async function generateMetadata({ params }: PodcastDetailPageProps): Prom
         "x-default": canonicalUrl,
       },
     },
+    openGraph: {
+      title: `${episode.title} | ${episode.showName} | AiX Media Podcasts`,
+      description: episode.description,
+      url: canonicalUrl,
+      type: "music.song",
+      images: [
+        {
+          url: episode.coverImage,
+          width: 800,
+          height: 800,
+          alt: episode.title,
+        },
+      ],
+    },
   };
 }
 
@@ -49,8 +64,20 @@ export default async function PodcastDetailPage({ params }: PodcastDetailPagePro
 
   const related = allEpisodes.filter((e) => e.id !== episode.id).slice(0, 3);
 
+  const podcastEpisodeSchema = createPodcastEpisodeJsonLd({
+    title: episode.title,
+    description: episode.description,
+    slug: episode.slug,
+    publishedAt: episode.publishedAt,
+    duration: episode.duration,
+    coverImage: episode.coverImage,
+    showName: episode.showName,
+  });
+
   return (
     <article className="max-w-4xl mx-auto space-y-8 py-6 text-neutral-100 px-4 sm:px-6">
+      <JsonLd data={podcastEpisodeSchema} />
+
       {/* Breadcrumbs Navigation */}
       <Breadcrumbs
         items={[
