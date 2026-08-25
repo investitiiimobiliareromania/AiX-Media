@@ -6,6 +6,7 @@ import { PodcastCard } from '@/components/media/PodcastCard';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { SafeImage } from '@/components/common/SafeImage';
+import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { Play, ArrowLeft, ExternalLink, Headphones, Calendar, Clock, Building2, Activity, TrendingUp } from 'lucide-react';
 
 interface PodcastDetailPageProps {
@@ -20,10 +21,18 @@ export async function generateMetadata({ params }: PodcastDetailPageProps): Prom
     return { title: 'Episod Podcast Negăsit | AiX Media' };
   }
 
+  const canonicalUrl = `https://aixmedia.cristianvaduva.com/podcast/${episode.slug}`;
+
   return {
     title: `${episode.title} | ${episode.showName} | AiX Media Podcasts`,
     description: episode.description,
-    alternates: { canonical: `https://aixmedia.cristianvaduva.com/podcast/${episode.slug}` },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ro-RO": canonicalUrl,
+        "x-default": canonicalUrl,
+      },
+    },
   };
 }
 
@@ -42,6 +51,15 @@ export default async function PodcastDetailPage({ params }: PodcastDetailPagePro
 
   return (
     <article className="max-w-4xl mx-auto space-y-8 py-6 text-neutral-100 px-4 sm:px-6">
+      {/* Breadcrumbs Navigation */}
+      <Breadcrumbs
+        items={[
+          { label: "Podcasturi", href: "/podcasts" },
+          { label: episode.showName, href: "/podcasts" },
+          { label: episode.title },
+        ]}
+      />
+
       {/* Top Nav Back Link */}
       <div className="flex items-center justify-between font-mono text-xs text-neutral-400 border-b border-neutral-800 pb-4">
         <Link
@@ -60,7 +78,7 @@ export default async function PodcastDetailPage({ params }: PodcastDetailPagePro
       <div className="p-6 md:p-8 rounded-3xl bg-neutral-900 border border-neutral-800 space-y-6 shadow-2xl relative overflow-hidden">
         <div className="flex flex-col md:flex-row gap-6 items-center">
           <div className="relative w-48 h-48 rounded-2xl overflow-hidden shrink-0 border border-neutral-800 shadow-xl bg-neutral-950">
-            <SafeImage src={episode.coverImage} slug={episode.slug} alt={episode.title} fill priority className="object-cover" />
+            <SafeImage src={episode.coverImage} slug={episode.slug} alt={`Copertă podcast: ${episode.title}`} fill priority className="object-cover" />
           </div>
 
           <div className="space-y-4 text-center md:text-left flex-1">
@@ -174,4 +192,3 @@ export default async function PodcastDetailPage({ params }: PodcastDetailPagePro
     </article>
   );
 }
-

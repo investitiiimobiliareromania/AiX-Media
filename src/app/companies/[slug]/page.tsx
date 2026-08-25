@@ -5,6 +5,8 @@ import { bvbCompanies } from "@/lib/bvb-data";
 import { articleService } from "@/services/article.service";
 import { siteConfig } from "@/config/site";
 import { JsonLd } from "@/components/common/json-ld";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { ContextualInternalLinks } from "@/components/common/ContextualInternalLinks";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { InstitutionalCompanyProfileView } from "@/components/business-intelligence/InstitutionalCompanyProfileView";
@@ -94,8 +96,16 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
   const fallbackNews = companyNews.length > 0 ? companyNews : allArticles.slice(0, 3);
 
   return (
-    <div className="space-y-10 py-6 text-neutral-100">
+    <div className="space-y-8 py-6 text-neutral-100 max-w-7xl mx-auto px-4 sm:px-6">
       <JsonLd data={companySchema} />
+
+      {/* Breadcrumbs Navigation */}
+      <Breadcrumbs
+        items={[
+          { label: "Companii Listate la BVB", href: "/companies" },
+          { label: name },
+        ]}
+      />
 
       {dossier ? (
         <InstitutionalCompanyProfileView dossier={dossier} relatedArticles={fallbackNews} />
@@ -107,6 +117,13 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
           </p>
         </div>
       )}
+
+      {/* Contextual Internal Linking */}
+      <ContextualInternalLinks
+        currentText={`${name} ${ticker} ${dossier?.executiveSummary || fallbackComp?.description || ""}`}
+        category="companies"
+        currentSlug={slug}
+      />
 
       <DataDisclaimer type="market" />
       <NewsletterBox />

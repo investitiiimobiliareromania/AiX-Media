@@ -5,6 +5,7 @@ import { verifiedVideos, verifiedShorts, youtubeChannelUrl, YouTubeVideo } from 
 import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
+import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { ArrowLeft, ExternalLink, Video, Building2, Activity, TrendingUp, Compass } from 'lucide-react';
 
 interface VideoPageProps {
@@ -21,10 +22,18 @@ export async function generateMetadata({ params }: VideoPageProps): Promise<Meta
     return { title: 'Video Negăsit | YouTube Channel | AiX Media' };
   }
 
+  const canonicalUrl = `https://aixmedia.cristianvaduva.com/video/${video.slug || video.id}`;
+
   return {
     title: `${video.title} | YouTube Channel | AiX Media`,
     description: video.description || `Urmărește ${video.title} pe canalul oficial YouTube AiX Media.`,
-    alternates: { canonical: `https://aixmedia.cristianvaduva.com/video/${video.slug || video.id}` },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ro-RO": canonicalUrl,
+        "x-default": canonicalUrl,
+      },
+    },
   };
 }
 
@@ -44,6 +53,15 @@ export default async function VideoDetailPage({ params }: VideoPageProps) {
 
   return (
     <article className="max-w-5xl mx-auto space-y-8 py-6 text-neutral-100 px-4 sm:px-6">
+      {/* Breadcrumbs Navigation */}
+      <Breadcrumbs
+        items={[
+          { label: "Canal Video / TV", href: "/tv" },
+          { label: video.category || "Video", href: "/tv" },
+          { label: video.title },
+        ]}
+      />
+
       {/* Top Nav Back Link */}
       <div className="flex items-center justify-between font-mono text-xs text-neutral-400 border-b border-neutral-800 pb-4">
         <Link
@@ -144,7 +162,7 @@ export default async function VideoDetailPage({ params }: VideoPageProps) {
               <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-neutral-800 bg-neutral-950">
                 <img
                   src={`https://img.youtube.com/vi/${rel.id}/hqdefault.jpg`}
-                  alt={rel.title}
+                  alt={`Cadru video: ${rel.title}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

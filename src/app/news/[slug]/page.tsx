@@ -7,6 +7,8 @@ import { ArticleCard } from "@/components/media/ArticleCard";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { EcosystemContextLinks } from "@/components/ecosystem/EcosystemContextLinks";
 import { JsonLd } from "@/components/common/json-ld";
+import { Breadcrumbs } from "@/components/common/Breadcrumbs";
+import { ContextualInternalLinks } from "@/components/common/ContextualInternalLinks";
 import { SourceBadge } from "@/components/common/SourceBadge";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { siteConfig } from "@/config/site";
@@ -58,7 +60,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
           url: article.coverImage,
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: `Analiză AiX Media: ${article.title}`,
         },
       ],
     },
@@ -130,6 +132,15 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     <article className="max-w-4xl mx-auto space-y-8 py-6 text-neutral-100">
       <JsonLd data={newsArticleSchema} />
       
+      {/* Breadcrumbs Navigation */}
+      <Breadcrumbs
+        items={[
+          { label: "Știri & Rapoarte", href: "/news" },
+          { label: article.categoryLabel || "Analiză", href: `/news` },
+          { label: article.title },
+        ]}
+      />
+
       {/* Top Nav Back Link */}
       <div className="flex items-center justify-between font-mono text-xs text-neutral-400">
         <Link href="/news" className="flex items-center gap-1.5 text-neutral-300 hover:text-amber-400 transition-colors font-semibold">
@@ -176,7 +187,14 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
       {/* Main Cover Image */}
       <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-[var(--border)] shadow-2xl bg-[var(--surface-elevated)]">
-        <Image src={article.coverImage} alt={article.title} fill priority className="object-cover" />
+        <Image
+          src={article.coverImage}
+          alt={`Ilustrație editorială: ${article.title}`}
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 900px"
+          className="object-cover"
+        />
       </div>
 
       {/* Article Content - Full Body Rendering */}
@@ -216,6 +234,13 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
         />
       </div>
 
+      {/* Contextual Internal Linking */}
+      <ContextualInternalLinks
+        currentText={`${article.title} ${article.excerpt} ${article.content}`}
+        category={article.category}
+        currentSlug={article.slug}
+      />
+
       {/* Article Executive Intelligence Panel */}
       <ArticleIntelligencePanel article={article} relatedArticles={related} />
 
@@ -252,4 +277,3 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     </article>
   );
 }
-

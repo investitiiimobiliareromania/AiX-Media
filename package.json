@@ -12,6 +12,7 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
     "content-check": "node ./src/scripts/content-integrity-check.js",
+    "seo-check": "tsx ./scripts/seo-check.ts",
     "test:telegram": "node ./src/scripts/test-telegram-pipeline.js"
   },
   "dependencies": {
