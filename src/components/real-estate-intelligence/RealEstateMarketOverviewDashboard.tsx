@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart3 } from 'lucide-react';
+import { BarChart3, Calculator, TrendingUp } from 'lucide-react';
 import { SourceBadge } from '@/components/common/SourceBadge';
 
 export function RealEstateMarketOverviewDashboard() {
@@ -86,6 +86,44 @@ export function RealEstateMarketOverviewDashboard() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Yield Methodology & Affordability Framework Box */}
+      <div className="p-6 rounded-3xl bg-neutral-900 border border-neutral-800 space-y-4 shadow-xl">
+        <div className="flex items-center gap-2 border-b border-neutral-800 pb-3">
+          <Calculator className="w-5 h-5 text-amber-400" />
+          <h3 className="font-serif text-lg font-bold text-white">
+            Metodologie de Calcul: Randament Investițional (Gross Rental Yield) &amp; Accesibilitate
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+          <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-2">
+            <div className="text-amber-400 font-bold uppercase flex items-center gap-1.5 text-[11px]">
+              <TrendingUp className="w-3.5 h-3.5" />
+              <span>Formula Gross Rental Yield</span>
+            </div>
+            <div className="p-2.5 rounded-xl bg-neutral-900 text-white font-bold text-xs">
+              Randament Brut (%) = (Chirie Lunară × 12 / Valoare Achiziție Imobil) × 100
+            </div>
+            <p className="text-neutral-300 font-serif text-[11px] leading-relaxed">
+              În București, randamentul brut mediu variază între 6.2% și 7.4% în funcție de cartier, proximitatea de metrou și anul finalizării construcției.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-2">
+            <div className="text-emerald-400 font-bold uppercase flex items-center gap-1.5 text-[11px]">
+              <Calculator className="w-3.5 h-3.5" />
+              <span>Indicele de Accesibilitate (Price-to-Income)</span>
+            </div>
+            <div className="p-2.5 rounded-xl bg-neutral-900 text-white font-bold text-xs">
+              Accesibilitate = Preț Apartament 2 Camere (55 mp) / Salariu Net Mediu Anual
+            </div>
+            <p className="text-neutral-300 font-serif text-[11px] leading-relaxed">
+              Raportul mediu în București este de ~6.5 ani de salarii medii nete (INS), plasând Capitala printre cele mai accesibile piețe rezidențiale din Uniunea Europeană comparativ cu Praga sau Varșovia.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

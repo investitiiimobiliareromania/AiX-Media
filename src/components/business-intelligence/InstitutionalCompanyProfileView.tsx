@@ -412,7 +412,79 @@ export function InstitutionalCompanyProfileView({
         </div>
       </section>
 
-      {/* 7. CONNECTED REAL COMPANY NEWS */}
+      {/* 7. INSTITUTIONAL RESEARCH VIEW & INVESTOR CATALYSTS */}
+      <section className="p-6 md:p-8 rounded-3xl bg-neutral-900 border border-neutral-800 space-y-6 shadow-2xl">
+        <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5 text-amber-400" />
+            <h2 className="font-serif text-2xl font-bold text-white">
+              Institutional Research View &amp; Catalysts
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-neutral-400">Analiză Calitativă &amp; Risc</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 font-serif text-xs">
+          {/* Growth Drivers */}
+          <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-2">
+            <h3 className="font-mono text-[11px] font-bold text-emerald-400 uppercase tracking-wider">
+              Growth Drivers
+            </h3>
+            <ul className="space-y-1.5 text-neutral-300">
+              {dossier.opportunities.map((opp, idx) => (
+                <li key={idx} className="flex items-start gap-1.5 leading-snug">
+                  <span className="text-emerald-400 font-bold">•</span>
+                  <span>{opp}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Key Risks */}
+          <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-2">
+            <h3 className="font-mono text-[11px] font-bold text-rose-400 uppercase tracking-wider">
+              Key Risks &amp; Regulatory
+            </h3>
+            <ul className="space-y-1.5 text-neutral-300">
+              {dossier.risks.map((r, idx) => (
+                <li key={idx} className="flex items-start gap-1.5 leading-snug">
+                  <span className="text-rose-400 font-bold">•</span>
+                  <span>{r}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Capital Allocation & M&A */}
+          <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-2">
+            <h3 className="font-mono text-[11px] font-bold text-sky-400 uppercase tracking-wider">
+              Capital Allocation &amp; M&amp;A
+            </h3>
+            <p className="text-neutral-300 leading-relaxed">
+              {dossier.maHistory.length > 0
+                ? `${dossier.maHistory.length} tranzacții strategice înregistrate în istoric. Alocare concentrată pe consolidarea cotei de piață și eficiență de scară.`
+                : 'Alocare prudentă de capital către investiții organice în active productive și distribuție sustenabilă de dividende.'}
+            </p>
+          </div>
+
+          {/* What Investors Should Watch */}
+          <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-2">
+            <h3 className="font-mono text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+              What Investors Should Watch
+            </h3>
+            <p className="text-neutral-300 leading-relaxed">
+              Rezultatele financiare trimestriale auditate IFRS, politica de dividend aprobată în AGA și adaptarea la cerințele de tranziție energetică/fiscală.
+            </p>
+          </div>
+        </div>
+
+        {/* Regulatory Disclosure Box */}
+        <div className="p-3.5 rounded-xl bg-neutral-950/60 border border-neutral-800 text-[11px] font-mono text-neutral-400">
+          <strong className="text-white">Notă de cercetare:</strong> Dosarul este generat pe baza rapoartelor anuale auditate, a comunicatelor oficiale emise către Bursa de Valori București (BVB) și a informațiilor publice verificate. Conținutul are caracter exclusiv informativ și nu constituie consultanță de investiții sau recomandare financiară.
+        </div>
+      </section>
+
+      {/* 8. CONNECTED REAL COMPANY NEWS */}
       {relatedArticles.length > 0 && (
         <section className="space-y-4 pt-4 border-t border-neutral-800">
           <h2 className="font-serif text-2xl font-bold text-white">Latest Intelligence &amp; Rapoarte ({dossier.name})</h2>
