@@ -19,6 +19,37 @@ export const organizationJsonLd = {
   name: siteConfig.name,
   url: siteConfig.url,
   description: siteConfig.description,
-  sameAs: [],
-  logo: `${siteConfig.url}/icon`,
+  sameAs: [
+    "https://www.youtube.com/@CristianVaduvaCV",
+  ],
+  logo: {
+    "@type": "ImageObject",
+    url: `${siteConfig.url}/icon`,
+    width: 512,
+    height: 512,
+  },
+  publishingPrinciples: `${siteConfig.url}/legal`,
+  correctionsPolicy: `${siteConfig.url}/legal`,
+} as const;
+
+export const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  description: siteConfig.description,
+  inLanguage: "ro-RO",
+  publisher: {
+    "@type": "NewsMediaOrganization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 } as const;

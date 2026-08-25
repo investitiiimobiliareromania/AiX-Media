@@ -26,6 +26,10 @@ const prohibitedPatterns = [
   /fake\s+expert/i,
   /fake\s+journalist/i,
   /localhost:3000/i,
+  /twitter\.com\/aixmedia/i,
+  /x\.com\/aixmedia/i,
+  /["']@aixmedia["']/i,
+  /twitterHandle:\s*["']@aixmedia["']/i,
 ];
 
 let issues = [];

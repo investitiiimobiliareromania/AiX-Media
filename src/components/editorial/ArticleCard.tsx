@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Clock, User } from "lucide-react";
+import { SafeImage } from "@/components/common/SafeImage";
 
 import { Overline } from "@/components/common/typography";
 import { cn } from "@/lib/utils";
@@ -56,7 +56,6 @@ export function ArticleCard({
 }: ArticleCardProps) {
   const resolvedVariant = isLarge ? "featured" : variant;
   const gradient = (categorySlug && categoryGradients[categorySlug]) ?? fallbackGradient;
-  const pattern = (categorySlug && placeholderPatterns[categorySlug]) ?? fallbackPattern;
 
   const titleId = `article-title-${title.replace(/\s+/g, "-").toLowerCase()}`;
 
@@ -77,24 +76,16 @@ export function ArticleCard({
           resolvedVariant === "compact" ? "aspect-[16/10]" : ""
         )}
       >
-        {imageUrl ? (
-          <Image
-  src={imageUrl}
-  alt={title}
-  width={resolvedVariant === "featured" ? 800 : 400}
-  height={resolvedVariant === "featured" ? 450 : 300}
-  priority={resolvedVariant === "featured"}
-  className="object-cover transition-transform duration-500 group-hover:scale-105"
-  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-  loading={resolvedVariant === "featured" ? "eager" : "lazy"}
-/>
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{ backgroundImage: pattern }}
-            aria-hidden="true"
-          />
-        )}
+        <SafeImage
+          src={imageUrl}
+          slug={title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}
+          alt={title}
+          fill
+          priority={resolvedVariant === "featured"}
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          loading={resolvedVariant === "featured" ? "eager" : "lazy"}
+        />
         <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-surface/80 to-transparent" />
       </div>
 

@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
                 type="email"
                 name="email"
                 required
-                placeholder="editor@aixmedia.ro"
+                placeholder="editor@cristianvaduva.com"
                 className="w-full bg-transparent border-b border-white/20 pl-8 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-white transition-colors"
               />
             </div>

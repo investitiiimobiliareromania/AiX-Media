@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-
 import { siteConfig } from "@/config/site";
 
 export function createMetadata(overrides: Metadata = {}): Metadata {
-  const title = overrides.title ?? siteConfig.name;
+  const defaultTitle = "AiX Media — Știri și Informații despre Business, Piețe, Imobiliare și Finanțe";
+  const title = overrides.title ?? defaultTitle;
   const description =
     (typeof overrides.description === "string"
       ? overrides.description
@@ -12,7 +12,7 @@ export function createMetadata(overrides: Metadata = {}): Metadata {
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
-      default: siteConfig.name,
+      default: defaultTitle,
       template: `%s | ${siteConfig.name}`,
     },
     description,
@@ -35,9 +35,7 @@ export function createMetadata(overrides: Metadata = {}): Metadata {
     },
     twitter: {
       card: "summary_large_image",
-      site: siteConfig.twitterHandle,
-      creator: siteConfig.twitterHandle,
-      title: typeof title === "string" ? title : siteConfig.name,
+      title: typeof title === "string" ? title : defaultTitle,
       description,
     },
     robots: {
@@ -53,6 +51,10 @@ export function createMetadata(overrides: Metadata = {}): Metadata {
     },
     alternates: {
       canonical: siteConfig.url,
+      languages: {
+        "ro-RO": siteConfig.url,
+        "x-default": siteConfig.url,
+      },
     },
     ...overrides,
   };

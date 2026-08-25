@@ -1,40 +1,66 @@
-import { type Metadata } from "next";
-import { articleService } from "@/services/article.service";
-import { PremiumHero } from "@/components/media/PremiumHero";
-import { EditorialGrid } from "@/components/media/EditorialGrid";
-import { NewsletterBox } from "@/components/media/NewsletterBox";
-import { DataDisclaimer } from "@/components/common/DataDisclaimer";
+'use client';
 
-export const revalidate = 300;
+import React, { useState, useEffect } from 'react';
+import { articleService } from '@/services/article.service';
+import { Article } from '@/lib/media/models/article';
+import { NewsTerminalHeaderBanner } from '@/components/news-intelligence/NewsTerminalHeaderBanner';
+import { NewsTerminalFeaturedHero } from '@/components/news-intelligence/NewsTerminalFeaturedHero';
+import { EditorialGrid } from '@/components/media/EditorialGrid';
+import { NewsletterBox } from '@/components/media/NewsletterBox';
+import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 
-export const metadata: Metadata = {
-  title: "Știri & Analize Macroeconomice | AiX Media",
-  description:
-    "Flux editorial de știri economice, decizii de politică monetară BNR, date statistice INS și rapoarte de piață verificate.",
-  alternates: { canonical: "/news" },
-};
+export default function NewsPage() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
-export default async function NewsPage() {
-  const articles = await articleService.getPublishedArticles();
+  useEffect(() => {
+    async function loadArticles() {
+      const data = await articleService.getPublishedArticles();
+      setArticles(data);
+    }
+    loadArticles();
+  }, []);
+
+  const filteredArticles = articles.filter((art) => {
+    const textMatch =
+      !searchQuery ||
+      art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      art.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      art.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const categoryMatch =
+      selectedCategory === 'all' || art.category === selectedCategory;
+
+    return textMatch && categoryMatch;
+  });
+
+  const featured = filteredArticles[0] || articles[0];
+  const spotlight = filteredArticles.slice(1, 4);
 
   return (
-    <div className="space-y-8 pb-16 pt-4">
-      <PremiumHero
-        eyebrow="Flux Editorial Oficial"
-        headline="Analiză Macroeconomică &amp; Decizii Instituționale"
-        description="Rapoarte structurate pe baza comunicatelor oficiale ale BNR, Guvernului României, INS și instituțiilor europene."
-        ctaLabel="Explorează Rapoartele"
-        ctaHref="#articles"
-        marketSignals={[
-          { label: "Rată BNR", value: "6.50%", change: "Decizie BNR", isPositive: true },
-          { label: "ROBOR 3M", value: "5.58%", change: "Interbancar", isPositive: true },
-          { label: "IRCC T3", value: "5.86%", change: "Oficial", isPositive: true },
-        ]}
+    <div className="space-y-12 pb-20 pt-4 text-neutral-100 max-w-7xl mx-auto px-4 sm:px-6">
+      {/* 1. NEWS TERMINAL HEADER BANNER */}
+      <NewsTerminalHeaderBanner
+        totalArticles={articles.length}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
       />
 
+      {/* 2. FEATURED EDITORIAL STORIES HERO */}
+      {featured && (
+        <NewsTerminalFeaturedHero
+          featuredArticle={featured}
+          spotlightArticles={spotlight}
+        />
+      )}
+
+      {/* 3. COMPLETE EDITORIAL NEWS GRID */}
       <div id="articles">
         <EditorialGrid
-          articles={articles}
+          articles={filteredArticles}
           title="Flux de Știri &amp; Rapoarte Verificate"
           description="Toate investigațiile economice, analizele de politică monetară și dinamica pieței imobiliare."
         />

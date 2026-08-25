@@ -58,9 +58,9 @@ export const categoriesList: CategoryInfo[] = [
   },
   {
     slug: "tv",
-    label: "AiX Video Journalism",
-    name: "AiX TV",
-    description: "In-depth video interviews, documentary investigations, and market analysis broadcasts.",
+    label: "YouTube Channel",
+    name: "YouTube Channel",
+    description: "AiX Media on YouTube: video talks, deal analysis, luxury asset management, and shorts.",
     href: "/tv",
   },
   {

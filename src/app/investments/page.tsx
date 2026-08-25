@@ -5,11 +5,28 @@ import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 
+import { siteConfig } from "@/config/site";
+
 export const metadata: Metadata = {
   title: "Investiții & Capital Privat | AiX Media",
   description:
     "Strategii de alocare a capitalului, private equity, venture capital și dinamica investițiilor instituționale în România și CEE.",
-  alternates: { canonical: "/investments" },
+  alternates: {
+    canonical: `${siteConfig.url}/investments`,
+    languages: {
+      "ro-RO": `${siteConfig.url}/investments`,
+      "x-default": `${siteConfig.url}/investments`,
+    },
+  },
+  openGraph: {
+    title: "Investiții & Capital Privat | AiX Media",
+    description:
+      "Strategii de alocare a capitalului, private equity, venture capital și dinamica investițiilor instituționale în România și CEE.",
+    url: `${siteConfig.url}/investments`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
 };
 
 export default function InvestmentsPage() {

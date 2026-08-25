@@ -1,6 +1,6 @@
 import { Database } from '@/types/database.types';
 import { CreateArticleInput, UpdateArticleInput } from '@/lib/validations/article.schema';
-import { createClient } from '@/lib/supabase/client';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export type ArticleRow = Database['public']['Tables']['articles']['Row'];
 export type ArticleInsert = Database['public']['Tables']['articles']['Insert'];
@@ -8,7 +8,7 @@ export type ArticleUpdate = Database['public']['Tables']['articles']['Update'];
 
 export class ArticleRepository {
   private get supabase() {
-    return createClient();
+    return createAdminClient();
   }
 
   async findById(id: string): Promise<ArticleRow | null> {
@@ -45,10 +45,15 @@ export class ArticleRepository {
 
   async findAll(filter?: { status?: string; categoryId?: string; limit?: number; offset?: number }): Promise<ArticleRow[]> {
     try {
-      let query = this.supabase.from('articles').select('*').order('updated_at', { ascending: false });
+      let query = this.supabase
+        .from('articles')
+        .select('*')
+        .neq('slug', 'test-slug-12345')
+        .not('slug', 'ilike', 'test-%')
+        .order('publish_date', { ascending: false });
 
       if (filter?.status && filter.status !== 'All') {
-        query = query.eq('status', filter.status.toLowerCase());
+        query = query.eq('status', filter.status.toLowerCase() as ArticleRow['status']);
       }
       if (filter?.categoryId) {
         query = query.eq('category_id', filter.categoryId);

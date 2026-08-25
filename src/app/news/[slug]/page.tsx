@@ -13,6 +13,9 @@ import { siteConfig } from "@/config/site";
 import { cleanText } from "@/lib/sanitizer";
 import { Clock, Calendar, ArrowLeft } from "lucide-react";
 
+import { ensureFullArticleContent } from "@/lib/article-full-text-enhancer";
+import { ArticleIntelligencePanel } from "@/components/news-intelligence/ArticleIntelligencePanel";
+
 export const revalidate = 300;
 
 interface ArticlePageProps {
@@ -27,17 +30,37 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     return { title: "Articol Negăsit | AiX Media" };
   }
 
+  const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
+
   return {
     title: `${article.title} | AiX Media`,
     description: article.excerpt,
-    alternates: { canonical: `${siteConfig.url}/news/${article.slug}` },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        "ro-RO": canonicalUrl,
+        "x-default": canonicalUrl,
+      },
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
       type: "article",
+      url: canonicalUrl,
+      siteName: siteConfig.name,
+      locale: siteConfig.locale,
       publishedTime: article.publishedAt,
+      modifiedTime: article.publishedAt,
+      section: article.categoryLabel || article.category,
       authors: [article.authorName],
-      images: [article.coverImage],
+      images: [
+        {
+          url: article.coverImage,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -50,20 +73,25 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
 export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = await articleService.getPublishedArticleBySlug(slug);
+  const rawArticle = await articleService.getPublishedArticleBySlug(slug);
 
-  if (!article) {
+  if (!rawArticle) {
     notFound();
   }
+
+  // Ensure full untruncated content
+  const fullContent = await ensureFullArticleContent(rawArticle);
+  const article = {
+    ...rawArticle,
+    content: fullContent,
+  };
 
   const allArticles = await articleService.getPublishedArticles();
   const related = allArticles
     .filter((a) => a.id !== article.id)
     .slice(0, 3);
 
-  const isEditorialDesk =
-    article.authorName === "AiX Media Editorial Desk" ||
-    article.authorName.toLowerCase().includes("editorial desk");
+  const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
 
   const newsArticleSchema = {
     "@context": "https://schema.org",
@@ -73,22 +101,29 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     image: [article.coverImage],
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
-    author: isEditorialDesk
-      ? {
-          "@type": "Organization",
-          name: "AiX Media Editorial Desk",
-          url: siteConfig.url,
-        }
-      : {
-          "@type": "Person",
-          name: article.authorName,
-        },
+    inLanguage: "ro-RO",
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    author: {
+      "@type": "Organization",
+      name: "AiX Media Editorial Desk",
+      url: siteConfig.url,
+    },
     publisher: {
       "@type": "NewsMediaOrganization",
       name: siteConfig.name,
       url: siteConfig.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/icon`,
+        width: 512,
+        height: 512,
+      },
     },
-    mainEntityOfPage: `${siteConfig.url}/news/${article.slug}`,
+    articleSection: article.categoryLabel || article.category,
   };
 
   return (
@@ -144,9 +179,32 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
         <Image src={article.coverImage} alt={article.title} fill priority className="object-cover" />
       </div>
 
-      {/* Article Content */}
+      {/* Article Content - Full Body Rendering */}
       <div className="prose prose-invert max-w-none text-neutral-200 font-serif leading-relaxed space-y-6 text-base sm:text-lg">
-        <div className="whitespace-pre-line leading-[1.8]">{cleanText(article.content)}</div>
+        {article.content.includes('<p>') || article.content.includes('<h3') ? (
+          <div
+            className="space-y-6 leading-[1.85]"
+            dangerouslySetInnerHTML={{
+              __html: article.content
+                .replace(/\[\s*…\s*\]/g, '')
+                .replace(/\[\s*\.\.\.\s*\]/g, '')
+                .replace(/&#8230;/g, ''),
+            }}
+          />
+        ) : (
+          <div className="space-y-6 leading-[1.85]">
+            {article.content
+              .replace(/\[\s*…\s*\]/g, '')
+              .replace(/\[\s*\.\.\.\s*\]/g, '')
+              .replace(/&#8230;/g, '')
+              .split(/\n\n+/)
+              .map((para, idx) => (
+                <p key={idx} className="leading-[1.85] font-serif text-neutral-200 text-base sm:text-lg">
+                  {cleanText(para.trim())}
+                </p>
+              ))}
+          </div>
+        )}
       </div>
 
       {/* Source Provenance */}
@@ -157,6 +215,9 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
           publishedAt={article.publishedAt}
         />
       </div>
+
+      {/* Article Executive Intelligence Panel */}
+      <ArticleIntelligencePanel article={article} relatedArticles={related} />
 
       {/* Author Box */}
       <div className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] flex items-center gap-4 shadow-lg">

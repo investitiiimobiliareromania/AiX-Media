@@ -1,3 +1,5 @@
+import { siteConfig } from "@/config/site";
+
 export interface NewsArticleSEOInput {
   title: string;
   description: string;
@@ -22,9 +24,9 @@ export function estimateReadTime(content: string, wpm = 200): string {
  * Generates Schema.org NewsArticle JSON-LD structured data
  */
 export function generateNewsArticleSchema(input: NewsArticleSEOInput) {
-  const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://cristianvaduva.com';
+  const domain = siteConfig.url;
   const url = `${domain}/news/${input.slug}`;
-  const defaultImage = `${domain}/og-image.jpg`;
+  const defaultImage = `${domain}/opengraph-image`;
 
   return {
     '@context': 'https://schema.org',
@@ -33,25 +35,30 @@ export function generateNewsArticleSchema(input: NewsArticleSEOInput) {
       '@type': 'WebPage',
       '@id': url,
     },
+    url,
     headline: input.title,
     description: input.description,
-    image: input.coverImageUrl || defaultImage,
+    image: [input.coverImageUrl || defaultImage],
     datePublished: input.publishDate || new Date().toISOString(),
     dateModified: input.modifiedDate || input.publishDate || new Date().toISOString(),
+    inLanguage: 'ro-RO',
     author: {
-      '@type': 'Person',
-      name: input.authorName || 'Cristian Văduva',
+      '@type': 'Organization',
+      name: 'AiX Media Editorial Desk',
       url: domain,
     },
     publisher: {
-      '@type': 'Organization',
+      '@type': 'NewsMediaOrganization',
       name: 'AiX Media',
+      url: domain,
       logo: {
         '@type': 'ImageObject',
-        url: `${domain}/logo.png`,
+        url: `${domain}/icon`,
+        width: 512,
+        height: 512,
       },
     },
-    articleSection: input.categoryName || 'Market Pulse',
+    articleSection: input.categoryName || 'Știri Economice',
   };
 }
 
@@ -65,7 +72,7 @@ export interface VideoSEOInput {
 }
 
 export function generateVideoObjectSchema(input: VideoSEOInput) {
-  const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://cristianvaduva.com';
+  const domain = siteConfig.url;
   return {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
@@ -74,7 +81,8 @@ export function generateVideoObjectSchema(input: VideoSEOInput) {
     thumbnailUrl: [input.thumbnailUrl],
     uploadDate: input.uploadDate || new Date().toISOString(),
     contentUrl: `${domain}/video/${input.slug}`,
-    embedUrl: `${domain}/video/${input.slug}`,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${input.slug}`,
+    inLanguage: 'ro-RO',
   };
 }
 
@@ -88,7 +96,7 @@ export interface PodcastSEOInput {
 }
 
 export function generatePodcastEpisodeSchema(input: PodcastSEOInput) {
-  const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://cristianvaduva.com';
+  const domain = siteConfig.url;
   return {
     '@context': 'https://schema.org',
     '@type': 'PodcastEpisode',
@@ -101,31 +109,37 @@ export function generatePodcastEpisodeSchema(input: PodcastSEOInput) {
       contentUrl: input.audioUrl,
     },
     url: `${domain}/podcast/${input.slug}`,
+    inLanguage: 'ro-RO',
   };
 }
 
 export function generateOrganizationSchema() {
-  const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://cristianvaduva.com';
+  const domain = siteConfig.url;
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'AiX Media Network',
+    '@type': 'NewsMediaOrganization',
+    name: 'AiX Media',
     url: domain,
-    logo: `${domain}/logo.png`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${domain}/icon`,
+      width: 512,
+      height: 512,
+    },
     sameAs: [
-      'https://linkedin.com/in/cristianvaduva',
-      'https://twitter.com/aixmedia',
+      'https://www.youtube.com/@CristianVaduvaCV',
     ],
   };
 }
 
 export function generateWebSiteSchema() {
-  const domain = process.env.NEXT_PUBLIC_APP_URL || 'https://cristianvaduva.com';
+  const domain = siteConfig.url;
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'AiX Media',
     url: domain,
+    inLanguage: 'ro-RO',
     potentialAction: {
       '@type': 'SearchAction',
       target: {

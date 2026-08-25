@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Database } from '@/types/database.types';
 import { articleService } from "@/services/article.service";
 import { cleanText } from "./sanitizer";
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { Database } from "@/types/database.types";
+// Database import removed as unused
 
 export interface RSSFeedConfig {
   name: string;
@@ -77,27 +79,48 @@ function generateSlug(title: string): string {
   return cleanSlug || `stire-aix-${Date.now()}`;
 }
 
-function extractImage(itemXml: string): string | null {
-  // 1. Check media:content or media:thumbnail
+export function extractImage(itemXml: string): string | null {
+  const tryValid = (url: string | undefined) => (url && isValidImageUrl(url) ? url : null);
+
+  // 1. media:content or media:thumbnail
   const mediaMatch = itemXml.match(/<media:(?:content|thumbnail)[^>]*url=["']([^"']+)["']/i);
   if (mediaMatch && mediaMatch[1]) {
-    return mediaMatch[1];
+    const valid = tryValid(mediaMatch[1]);
+    if (valid) return valid;
   }
 
-  // 2. Check enclosure
+  // 2. enclosure with image MIME type
   const enclosureMatch = itemXml.match(/<enclosure[^>]*url=["']([^"']+)["'][^>]*type=["']image\/[^"']+["']/i);
   if (enclosureMatch && enclosureMatch[1]) {
-    return enclosureMatch[1];
+    const valid = tryValid(enclosureMatch[1]);
+    if (valid) return valid;
   }
 
-  // 3. Check img src in content or description
-  const imgMatch = itemXml.match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp)[^"']*)["']/i);
+  // 3. OpenGraph og:image
+  const ogMatch = itemXml.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i);
+  if (ogMatch && ogMatch[1]) {
+    const valid = tryValid(ogMatch[1]);
+    if (valid) return valid;
+  }
+
+  // 4. Twitter twitter:image
+  const twitterMatch = itemXml.match(/<meta[^>]*name=["']twitter:image["'][^>]*content=["']([^"']+)["']/i);
+  if (twitterMatch && twitterMatch[1]) {
+    const valid = tryValid(twitterMatch[1]);
+    if (valid) return valid;
+  }
+
+  // 5. first valid <img> src
+  const imgMatch = itemXml.match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png|webp))["']/i);
   if (imgMatch && imgMatch[1]) {
-    return imgMatch[1];
+    const valid = tryValid(imgMatch[1]);
+    if (valid) return valid;
   }
 
   return null;
 }
+import { isValidImageUrl } from './image-validator';
+export { isValidImageUrl };
 
 interface ParsedItem {
   title: string;
@@ -133,14 +156,21 @@ function parseRSSXml(xmlText: string): ParsedItem[] {
     const rawEncoded = encodedMatch ? stripHtml(encodedMatch[1] || "") : rawDesc;
     const imageUrl = extractImage(itemContent);
 
+    const cleanBody = (rawEncoded || rawDesc)
+      .replace(/\[\s*…\s*\]/g, '')
+      .replace(/\[\s*\.\.\.\s*\]/g, '')
+      .replace(/&#8230;/g, '')
+      .replace(/Citiți mai mult pe [a-zA-Z0-9\.\-]+/gi, '')
+      .trim();
+
     if (rawTitle && (rawLink || rawGuid)) {
       items.push({
         title: cleanText(rawTitle),
         link: rawLink,
         guid: rawGuid,
         pubDate: rawPubDate,
-        description: cleanText(rawDesc),
-        content: cleanText(rawEncoded || rawDesc),
+        description: cleanText(rawDesc.replace(/\[\s*…\s*\]/g, '').replace(/&#8230;/g, '')),
+        content: cleanText(cleanBody),
         imageUrl,
       });
     }
@@ -217,29 +247,42 @@ export async function runNewsIngestion(): Promise<IngestionResult> {
           const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
           const now = new Date().toISOString();
 
+          const isBusinessTopic = (text: string) => {
+            const lower = text.toLowerCase();
+            const keywords = [
+              'compan', 'afacer', 'bussines', 'business', 'firma', 'firme', 'venit', 'profit',
+              'cifra', 'tranzact', 'investit', 'm&a', 'bvb', 'banca', 'banc', 'retail', 'magazin',
+              'supermarket', 'hipermarket', 'lidl', 'kaufland', 'globus', 'strabag', 'construct',
+              'imobiliar', 'energie', 'fotovoltaic', 'solar', 'centrale', 'masin', 'auto', 'lepas',
+              'byd', 'pesa', 'cfr', 'aeroport', 'port', 'nava', 'tehnologi', 'startup', 'data center',
+              'centre de date', 'salari', 'buget', 'fiscal', 'taxe', 'patron', 'turis', 'insolvent',
+              'sabotaj', 'fabrica', 'uzina', 'producat', 'amcham', 'unicredit', 'libra', 'cnair', 'rabla'
+            ];
+            return keywords.some((kw) => lower.includes(kw));
+          };
+
+          const detectedCategory = isBusinessTopic(`${item.title} ${item.description}`) ? 'business' : 'news';
+
           const payload: Database['public']['Tables']['articles']['Insert'] = {
-            id: crypto.randomUUID(),
             title: item.title,
             slug,
             excerpt: item.description.slice(0, 250) || item.title,
             content: item.content || item.description || item.title,
-            cover_image_url: item.imageUrl || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+            cover_image_url: isValidImageUrl(item.imageUrl) ? item.imageUrl : null,
+            category_id: detectedCategory,
             status: "published",
             publish_date: new Date(item.pubDate).toISOString(),
             seo_title: item.title.slice(0, 100),
             seo_description: item.description.slice(0, 255),
             read_time: `${readTimeMinutes} min read`,
             view_count: 0,
-            created_at: now,
-            updated_at: now,
           };
+            
+            const { error: insertErr } = await supabaseAdmin
+              .from('articles')
+              .insert([payload]);
 
-          const { data: insertedRow, error: insertErr } = await (supabaseAdmin.from("articles") as any)
-            .insert([payload])
-            .select("*")
-            .single();
-
-          if (!insertErr && insertedRow) {
+          if (!insertErr) {
             stats.inserted++;
             totalInserted++;
           } else {

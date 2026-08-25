@@ -10,7 +10,7 @@ export type UserRole = 'super_admin' | 'admin' | 'editor' | 'author' | 'user';
 export type ArticleStatus = 'draft' | 'review' | 'scheduled' | 'published' | 'archived';
 export type NewsletterStatus = 'subscribed' | 'unsubscribed';
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       profiles: {
@@ -38,6 +38,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       authors: {
         Row: {
@@ -73,6 +74,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       categories: {
         Row: {
@@ -102,6 +104,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       tags: {
         Row: {
@@ -122,6 +125,7 @@ export interface Database {
           slug?: string
           created_at?: string
         }
+        Relationships: []
       }
       articles: {
         Row: {
@@ -178,6 +182,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       article_tags: {
         Row: {
@@ -192,6 +197,7 @@ export interface Database {
           article_id?: string
           tag_id?: string
         }
+        Relationships: []
       }
       media: {
         Row: {
@@ -230,6 +236,7 @@ export interface Database {
           uploaded_by?: string | null
           created_at?: string
         }
+        Relationships: []
       }
       settings: {
         Row: {
@@ -253,6 +260,7 @@ export interface Database {
           description?: string | null
           updated_at?: string
         }
+        Relationships: []
       }
       newsletters: {
         Row: {
@@ -279,7 +287,22 @@ export interface Database {
           metadata?: Json | null
           created_at?: string
         }
+        Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      user_role: UserRole
+      article_status: ArticleStatus
+      newsletter_status: NewsletterStatus
+    }
+    CompositeTypes: {
+      [_ in never]: never
     }
   }
 }

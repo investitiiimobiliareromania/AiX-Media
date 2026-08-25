@@ -1,18 +1,45 @@
 import { ArticleRepository, ArticleRow } from '@/repositories/article.repository';
+import { getFallbackImage } from '@/lib/fallbackImage';
+import { isValidImageUrl } from '@/lib/image-validator';
 import { createArticleSchema, updateArticleSchema, CreateArticleInput, UpdateArticleInput } from '@/lib/validations/article.schema';
 import { ValidationError, NotFoundError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 import { articles as fallbackArticles } from '@/lib/media/mock-db';
 import { Article } from '@/lib/media/models/article';
 
+import { RECOVERED_PUBLISHER_IMAGES } from '@/lib/publisher-image-map';
+
 export class ArticleService {
   constructor(private readonly repo = new ArticleRepository()) {}
 
-  async getPublishedArticles(): Promise<Article[]> {
+  private resolveCoverImage(row: ArticleRow): string {
+    if (row.slug in RECOVERED_PUBLISHER_IMAGES) {
+      const mapped = RECOVERED_PUBLISHER_IMAGES[row.slug];
+      if (mapped && isValidImageUrl(mapped)) {
+        return mapped;
+      }
+      return getFallbackImage(row.slug);
+    }
+
+    const raw = row.cover_image_url;
+    if (raw && !raw.includes('photo-1486406146926-c627a92ad1ab') && isValidImageUrl(raw)) {
+      return raw;
+    }
+
+    return getFallbackImage(row.slug);
+  }
+
+  async getPublishedArticles(limit = 200): Promise<Article[]> {
     try {
-      const rows = await this.repo.findAll({ status: 'published', limit: 50 });
+      const rows = await this.repo.findAll({ status: 'published', limit });
       if (rows && rows.length > 0) {
-        return rows.map((row) => ({
+        const cleanRows = rows.filter(
+          (row) =>
+            row.slug !== 'test-slug-12345' &&
+            row.title.toLowerCase() !== 'test' &&
+            !row.slug.startsWith('test-')
+        );
+        return cleanRows.map((row) => ({
           id: row.id,
           title: row.title,
           slug: row.slug,
@@ -24,7 +51,7 @@ export class ArticleService {
           authorRole: 'Redacția Economică',
           excerpt: row.excerpt,
           content: row.content,
-          coverImage: row.cover_image_url || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
+          coverImage: this.resolveCoverImage(row),
           publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
           readTime: row.read_time || '4 min read',
           views: row.view_count || 100,
@@ -36,6 +63,35 @@ export class ArticleService {
       logger.error('Failed to fetch published articles from Supabase, falling back to local dataset', err);
     }
     return fallbackArticles;
+  }
+
+  async getBusinessArticles(limit = 200): Promise<Article[]> {
+    const allArticles = await this.getPublishedArticles(limit);
+
+    const businessKeywords = [
+      'compan', 'afacer', 'bussines', 'business', 'firma', 'firme', 'venit', 'profit',
+      'cifra', 'tranzact', 'investit', 'm&a', 'bvb', 'banca', 'banc', 'retail', 'magazin',
+      'supermarket', 'hipermarket', 'lidl', 'kaufland', 'globus', 'strabag', 'construct',
+      'imobiliar', 'energie', 'fotovoltaic', 'solar', 'centrale', 'masin', 'auto', 'lepas',
+      'byd', 'pesa', 'cfr', 'aeroport', 'port', 'nava', 'tehnologi', 'startup', 'data center',
+      'centre de date', 'salari', 'buget', 'fiscal', 'taxe', 'patron', 'turis', 'insolvent',
+      'sabotaj', 'fabrica', 'uzina', 'producat', 'amcham', 'unicredit', 'libra', 'cnair', 'rabla'
+    ];
+
+    const excludeKeywords = [
+      'sons of anarchy', 'placido domingo', 'mungiu', 'vipera', 'cutremur', 'putin a mers', 'actorii din serialul'
+    ];
+
+    return allArticles.filter((art) => {
+      if (art.category === 'business' || art.category === 'finance') {
+        return true;
+      }
+      const text = `${art.title} ${art.excerpt} ${art.slug}`.toLowerCase();
+      if (excludeKeywords.some((ex) => text.includes(ex))) {
+        return false;
+      }
+      return businessKeywords.some((kw) => text.includes(kw));
+    });
   }
 
   async getPublishedArticleBySlug(slug: string): Promise<Article | undefined> {
@@ -50,11 +106,11 @@ export class ArticleService {
           categoryLabel: 'Știri & Analize',
           authorId: row.author_id || 'aix-editorial',
           authorName: 'AiX Media Editorial Desk',
-          authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+          authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=400&w=400&auto=format&fit=crop',
           authorRole: 'Redacția Economică',
           excerpt: row.excerpt,
           content: row.content,
-          coverImage: row.cover_image_url || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop',
+          coverImage: this.resolveCoverImage(row),
           publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
           readTime: row.read_time || '4 min read',
           views: row.view_count || 100,

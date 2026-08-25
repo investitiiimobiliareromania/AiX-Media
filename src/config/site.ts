@@ -1,14 +1,13 @@
 export const siteConfig = {
   name: "AiX Media",
   shortName: "AiX",
-  tagline: "Romania's Next Generation Business & Intelligence Media Platform",
+  tagline: "Platformă de Inteligență Economică, Piețe Financiare și Imobiliare",
   description:
-    "Institutional intelligence, business journalism, real estate dynamics, capital markets analysis, radio and video insights for leaders in Romania and CEE.",
+    "Platformă premium de analiză macroeconomică, date imobiliare oficiale ANCPI, indicatori BNR, companii listate la BVB și intelligence de business pentru liderii din România și CEE.",
   url: "https://aixmedia.cristianvaduva.com",
   locale: "ro_RO",
   language: "ro",
   author: "Cristian Văduva",
-  twitterHandle: "@aixmedia",
   categories: [
     "news",
     "markets",

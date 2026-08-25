@@ -4,6 +4,7 @@ import { type Metadata, type Viewport } from "next";
 import {
   JsonLd,
   organizationJsonLd,
+  webSiteJsonLd,
 } from "@/components/common/json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { NewSiteHeader } from "@/components/layout/NewSiteHeader";
@@ -58,6 +59,7 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-[var(--surface-elevated)] text-[var(--foreground)] antialiased selection:bg-[#A66A1F]/20 selection:text-[var(--foreground)]">
         <JsonLd data={organizationJsonLd} />
+        <JsonLd data={webSiteJsonLd} />
         <AppProviders>
           <VisitorTracker />
           <SkipLink />

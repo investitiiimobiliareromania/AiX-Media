@@ -8,11 +8,28 @@ import { getMarketData } from "@/lib/market-data";
 import { SourceBadge } from "@/components/common/SourceBadge";
 import { Percent } from "lucide-react";
 
+import { siteConfig } from "@/config/site";
+
 export const metadata: Metadata = {
   title: "Finanțe & Politică Monetară BNR | AiX Media",
   description:
     "Indicatori oficiali privind ratele dobânzilor BNR, ROBOR, IRCC, creditarea bancară și stabilitatea financiară a României.",
-  alternates: { canonical: "/finance" },
+  alternates: {
+    canonical: `${siteConfig.url}/finance`,
+    languages: {
+      "ro-RO": `${siteConfig.url}/finance`,
+      "x-default": `${siteConfig.url}/finance`,
+    },
+  },
+  openGraph: {
+    title: "Finanțe & Politică Monetară BNR | AiX Media",
+    description:
+      "Indicatori oficiali privind ratele dobânzilor BNR, ROBOR, IRCC, creditarea bancară și stabilitatea financiară a României.",
+    url: `${siteConfig.url}/finance`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
 };
 
 export default async function FinancePage() {

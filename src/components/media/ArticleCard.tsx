@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Article } from "@/lib/media/models/article";
 import { Clock } from "lucide-react";
+import { SafeImage } from "@/components/common/SafeImage";
 
 interface ArticleCardProps {
   article: Article;
@@ -17,8 +17,9 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
         className="group flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-sm"
       >
         <div className="relative w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-[var(--surface-elevated)]">
-          <Image
+          <SafeImage
             src={article.coverImage}
+            slug={article.slug}
             alt={article.title}
             fill
             className="object-cover group-hover:scale-103 transition-transform duration-500"
@@ -69,11 +70,12 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
   return (
     <Link
       href={`/${article.category}/${article.slug}`}
-      className="group flex flex-col rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all overflow-hidden shadow-lg hover:shadow-2xl"
+      className="group flex flex-col min-w-0 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all overflow-hidden shadow-lg hover:shadow-2xl"
     >
       <div className="relative w-full h-48 bg-[var(--surface-elevated)] overflow-hidden">
-        <Image
+        <SafeImage
           src={article.coverImage}
+          slug={article.slug}
           alt={article.title}
           fill
           className="object-cover group-hover:scale-103 transition-transform duration-500"

@@ -1,6 +1,7 @@
 import React from "react";
 import { EditorialGrid } from "@/components/media/EditorialGrid";
 import { Article } from "@/lib/media/models/article";
+import { getFallbackImage } from "@/lib/fallbackImage";
 
 interface LegacyArticle {
   category: string;
@@ -39,10 +40,10 @@ export function ArticleGrid({ title, description, articles }: ArticleGridProps) 
       authorName: legacy.author || "AiX Staff",
       excerpt: legacy.excerpt,
       content: legacy.excerpt,
-      coverImage: legacy.imageUrl || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+      coverImage: legacy.imageUrl || getFallbackImage(slugFromHref),
       publishedAt: legacy.date || "2026-08-04",
       readTime: legacy.readTime || "5 min read",
-    };
+    } as Article;
   });
 
   return <EditorialGrid articles={normalizedArticles} title={title} description={description} />;

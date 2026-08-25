@@ -12,7 +12,7 @@ export const mainNavigation: NavItem[] = [
   { label: "Companies", href: "/companies", category: "companies" },
   { label: "Business", href: "/business", category: "business" },
   { label: "Podcasts", href: "/podcasts", category: "podcasts" },
-  { label: "TV", href: "/tv", category: "tv" },
+  { label: "YouTube Channel", href: "/tv", category: "tv" },
   { label: "Radio", href: "/radio", category: "radio" },
   { label: "Search", href: "/search", category: "search" },
 ];
@@ -28,7 +28,7 @@ export const footerNavigation = {
   ],
   media: [
     { label: "Executive Podcasts", href: "/podcasts" },
-    { label: "AiX TV Broadcasts", href: "/tv" },
+    { label: "YouTube Channel", href: "/tv" },
     { label: "AiX Business Radio", href: "/radio" },
     { label: "Intelligence Academy", href: "/academy" },
     { label: "AiX Terminal Search", href: "/search" },
