@@ -69,12 +69,13 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
   const isin = dossier ? dossier.isin : fallbackComp?.isin || "";
   const canonicalUrl = `${siteConfig.url}/companies/${slug}`;
 
-  // Organization Schema for the Listed Company
+  // Corporation Schema for the Listed Company
   const companySchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "Corporation",
     name,
-    alternateName: ticker,
+    legalName: dossier?.legalName || name,
+    tickerSymbol: ticker,
     identifier: isin,
     url: canonicalUrl,
     description: dossier?.executiveSummary || fallbackComp?.description || "",

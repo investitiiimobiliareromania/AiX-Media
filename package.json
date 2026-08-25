@@ -19,6 +19,7 @@
     "schema-audit": "tsx ./scripts/schema-audit.ts",
     "media-audit": "tsx ./scripts/media-audit.ts",
     "browser-audit": "tsx ./scripts/forensic-browser-audit.ts",
+    "forensic-production-audit": "tsx ./scripts/forensic-production-audit.ts",
     "test:telegram": "node ./src/scripts/test-telegram-pipeline.js"
   },
   "dependencies": {

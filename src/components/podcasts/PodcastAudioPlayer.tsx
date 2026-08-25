@@ -126,6 +126,7 @@ export function PodcastAudioPlayer({
 
           <button
             onClick={togglePlay}
+            aria-label={isPlaying ? 'Pauză podcast' : 'Redă podcast'}
             className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold flex items-center gap-2 shadow-lg transition-all cursor-pointer"
           >
             {isPlaying ? (
