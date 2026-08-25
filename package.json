@@ -18,6 +18,7 @@
     "link-audit": "tsx ./scripts/link-audit.ts",
     "schema-audit": "tsx ./scripts/schema-audit.ts",
     "media-audit": "tsx ./scripts/media-audit.ts",
+    "browser-audit": "tsx ./scripts/forensic-browser-audit.ts",
     "test:telegram": "node ./src/scripts/test-telegram-pipeline.js"
   },
   "dependencies": {

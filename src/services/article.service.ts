@@ -5,6 +5,7 @@ import { createArticleSchema, updateArticleSchema, CreateArticleInput, UpdateArt
 import { ValidationError, NotFoundError } from '@/lib/errors';
 import { logger } from '@/lib/logger';
 import { articles as fallbackArticles } from '@/lib/media/mock-db';
+import { verifiedNewsArticles } from '@/lib/news-service';
 import { Article } from '@/lib/media/models/article';
 
 import { RECOVERED_PUBLISHER_IMAGES } from '@/lib/publisher-image-map';
@@ -121,7 +122,32 @@ export class ArticleService {
     } catch (err) {
       logger.error(`Failed to fetch article by slug '${slug}' from Supabase, checking fallback`, err);
     }
-    return fallbackArticles.find((art) => art.slug === slug);
+    const foundFallback = fallbackArticles.find((art) => art.slug === slug);
+    if (foundFallback) return foundFallback;
+
+    const foundVerified = verifiedNewsArticles.find((art) => art.slug === slug);
+    if (foundVerified) {
+      return {
+        id: foundVerified.id,
+        title: foundVerified.title,
+        slug: foundVerified.slug,
+        category: foundVerified.category as Article['category'],
+        categoryLabel: foundVerified.categoryLabel,
+        authorId: 'aix-editorial',
+        authorName: foundVerified.author,
+        authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+        authorRole: foundVerified.authorRole || 'Redacția Economică',
+        excerpt: foundVerified.excerpt,
+        content: foundVerified.content,
+        coverImage: foundVerified.image || getFallbackImage(foundVerified.slug),
+        publishedAt: foundVerified.publishedAt,
+        readTime: foundVerified.readTime || '4 min read',
+        views: 150,
+        featured: foundVerified.featured ?? true,
+        trending: foundVerified.trending ?? true,
+      };
+    }
+    return undefined;
   }
 
   async getRelatedIntelligenceArticles(
