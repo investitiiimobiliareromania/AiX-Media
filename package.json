@@ -14,6 +14,10 @@
     "content-check": "node ./src/scripts/content-integrity-check.js",
     "seo-check": "tsx ./scripts/seo-check.ts",
     "production-audit": "tsx ./scripts/production-audit.ts",
+    "data-audit": "tsx ./scripts/data-audit.ts",
+    "link-audit": "tsx ./scripts/link-audit.ts",
+    "schema-audit": "tsx ./scripts/schema-audit.ts",
+    "media-audit": "tsx ./scripts/media-audit.ts",
     "test:telegram": "node ./src/scripts/test-telegram-pipeline.js"
   },
   "dependencies": {

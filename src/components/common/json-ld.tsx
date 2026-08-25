@@ -32,6 +32,10 @@ export const organizationJsonLd = {
   correctionsPolicy: `${siteConfig.url}/legal`,
 } as const;
 
+export function createOrganizationJsonLd() {
+  return organizationJsonLd;
+}
+
 export const webSiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -53,6 +57,97 @@ export const webSiteJsonLd = {
     "query-input": "required name=search_term_string",
   },
 } as const;
+
+export function createWebSiteJsonLd() {
+  return webSiteJsonLd;
+}
+
+export function createNewsArticleJsonLd(article: {
+  title: string;
+  description: string;
+  slug: string;
+  publishedAt?: string;
+  modifiedAt?: string;
+  imageUrl?: string;
+  section?: string;
+  authorName?: string;
+}) {
+  const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.description,
+    image: article.imageUrl ? [article.imageUrl] : [`${siteConfig.url}/fallbacks/story-1.jpg`],
+    datePublished: article.publishedAt || "2026-08-01T00:00:00Z",
+    dateModified: article.modifiedAt || article.publishedAt || "2026-08-01T00:00:00Z",
+    inLanguage: "ro-RO",
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    author: {
+      "@type": "Organization",
+      name: article.authorName || "AiX Media Editorial Desk",
+      url: siteConfig.url,
+    },
+    publisher: {
+      "@type": "NewsMediaOrganization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/icon`,
+        width: 512,
+        height: 512,
+      },
+    },
+    articleSection: article.section || "Business & Economy",
+  };
+}
+
+export function createCorporationJsonLd(corp: {
+  name: string;
+  legalName?: string;
+  slug: string;
+  ticker?: string;
+  description: string;
+  industry?: string;
+  headquarters?: string;
+  website?: string;
+  logo?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Corporation",
+    name: corp.name,
+    legalName: corp.legalName || corp.name,
+    description: corp.description,
+    url: `${siteConfig.url}/companies/${corp.slug}`,
+    tickerSymbol: corp.ticker,
+    industry: corp.industry,
+    address: corp.headquarters ? {
+      "@type": "PostalAddress",
+      addressLocality: corp.headquarters,
+      addressCountry: "RO",
+    } : undefined,
+    sameAs: corp.website ? [corp.website] : undefined,
+  };
+}
+
+export function createBreadcrumbJsonLd(items: { label: string; href?: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: it.label,
+      item: it.href ? (it.href.startsWith("http") ? it.href : `${siteConfig.url}${it.href}`) : undefined,
+    })),
+  };
+}
 
 export function createItemListJsonLd(name: string, description: string, items: { name: string; url: string; position: number }[]) {
   return {
