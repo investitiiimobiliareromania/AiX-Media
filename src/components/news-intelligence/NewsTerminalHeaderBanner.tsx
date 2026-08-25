@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Newspaper, Search, Filter, Compass, ArrowDownRight, Zap } from 'lucide-react';
+import { Newspaper, Search, Filter, Zap } from 'lucide-react';
 
 interface NewsTerminalHeaderBannerProps {
   totalArticles: number;

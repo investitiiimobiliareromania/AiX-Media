@@ -2,15 +2,15 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Zap, TrendingUp, Building2, Activity, ArrowRight, ShieldCheck, Compass } from 'lucide-react';
+import { Zap, TrendingUp, Building2, Activity, ShieldCheck, Compass } from 'lucide-react';
 import { Article } from '@/lib/media/models/article';
 
 interface ArticleIntelligencePanelProps {
   article: Article;
-  relatedArticles: Article[];
+  relatedArticles?: Article[];
 }
 
-export function ArticleIntelligencePanel({ article, relatedArticles }: ArticleIntelligencePanelProps) {
+export function ArticleIntelligencePanel({ article }: ArticleIntelligencePanelProps) {
   // Derive factual intelligence tags based on category & title
   const isBusinessOrEnergy =
     article.category === 'business' ||
