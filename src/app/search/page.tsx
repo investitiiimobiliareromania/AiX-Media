@@ -19,7 +19,6 @@ import { institutionalDossiers } from "@/lib/institutional-company-dossiers";
 import { verifiedVideos } from "@/config/youtube";
 import { podcastEpisodes } from "@/lib/media/mock-db";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
-import { SafeImage } from "@/components/common/SafeImage";
 
 type SearchCategory = "all" | "articles" | "companies" | "videos" | "podcasts" | "markets";
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { verifiedRadioStations, RadioStationItem } from '@/lib/radio-intelligence-service';
 import { RadioHeaderBanner } from '@/components/radio-intelligence/RadioHeaderBanner';
 import { RadioPersistentAudioPlayer } from '@/components/radio-intelligence/RadioPersistentAudioPlayer';
@@ -94,7 +95,13 @@ export default function RadioPage() {
 
                   <div className="flex items-center gap-4">
                     <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-neutral-800 bg-neutral-950 shrink-0">
-                      <img src={st.logo} alt={st.name} className="w-full h-full object-cover" />
+                      <Image
+                        src={st.logo}
+                        alt={st.name}
+                        fill
+                        sizes="64px"
+                        className="object-cover"
+                      />
                     </div>
 
                     <div>

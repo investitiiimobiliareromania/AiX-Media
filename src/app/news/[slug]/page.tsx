@@ -13,7 +13,7 @@ import { SourceBadge } from "@/components/common/SourceBadge";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { siteConfig } from "@/config/site";
 import { cleanText } from "@/lib/sanitizer";
-import { Clock, Calendar, ArrowLeft, CheckCircle2, ShieldCheck, Sparkles, Building2 } from "lucide-react";
+import { Clock, Calendar, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 
 import { ensureFullArticleContent } from "@/lib/article-full-text-enhancer";
 import { ArticleIntelligencePanel } from "@/components/news-intelligence/ArticleIntelligencePanel";

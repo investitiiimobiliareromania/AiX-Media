@@ -2,7 +2,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, Radio, ExternalLink, Loader2, AlertCircle, RefreshCw } from 'lucide-react';
+import Image from 'next/image';
+import { Play, Pause, Volume2, VolumeX, ExternalLink, Loader2, AlertCircle, RefreshCw } from 'lucide-react';
 import { RadioStationItem } from '@/lib/radio-intelligence-service';
 
 interface RadioPersistentAudioPlayerProps {
@@ -92,7 +93,13 @@ export function RadioPersistentAudioPlayer({
         {/* Station Info */}
         <div className="flex items-center gap-3 min-w-0">
           <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900 shrink-0">
-            <img src={currentStation.logo} alt={currentStation.name} className="w-full h-full object-cover" />
+            <Image
+              src={currentStation.logo}
+              alt={currentStation.name}
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
           </div>
 
           <div className="min-w-0">

@@ -1,13 +1,14 @@
 import { type Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { verifiedVideos, verifiedShorts, youtubeChannelUrl, YouTubeVideo } from '@/config/youtube';
+import Image from 'next/image';
+import { verifiedVideos, verifiedShorts } from '@/config/youtube';
 import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { JsonLd, createVideoObjectJsonLd } from '@/components/common/json-ld';
-import { ArrowLeft, ExternalLink, Video, Building2, Activity, TrendingUp, Compass } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Video, Building2, Activity, TrendingUp } from 'lucide-react';
 
 interface VideoPageProps {
   params: Promise<{ slug: string }>;
@@ -184,10 +185,12 @@ export default async function VideoDetailPage({ params }: VideoPageProps) {
               className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-rose-500/40 transition-all space-y-3 block group"
             >
               <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-neutral-800 bg-neutral-950">
-                <img
+                <Image
                   src={`https://img.youtube.com/vi/${rel.id}/hqdefault.jpg`}
                   alt={`Cadru video: ${rel.title}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
 

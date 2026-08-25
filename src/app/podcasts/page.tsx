@@ -9,7 +9,7 @@ import { PodcastIntelligenceModule } from '@/components/podcasts-intelligence/Po
 import { PodcastCard } from '@/components/media/PodcastCard';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
-import { Mic, Headphones } from 'lucide-react';
+import { Mic } from 'lucide-react';
 
 export default function PodcastsPage() {
   const [searchQuery, setSearchQuery] = useState('');

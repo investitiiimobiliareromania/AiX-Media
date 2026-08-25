@@ -8,7 +8,7 @@ import { ChannelIntelligenceModule } from '@/components/youtube-channel/ChannelI
 import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
-import { Film, Play, ExternalLink, Video, ArrowRight } from 'lucide-react';
+import { Film, ExternalLink, Video } from 'lucide-react';
 
 export default function YouTubeChannelPage() {
   const [searchQuery, setSearchQuery] = useState('');

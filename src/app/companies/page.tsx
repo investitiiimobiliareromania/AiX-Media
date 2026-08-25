@@ -10,7 +10,7 @@ import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { CompanyTerminalDashboard } from '@/components/company-intelligence/CompanyTerminalDashboard';
 import { IndustryIntelligenceModule } from '@/components/company-intelligence/IndustryIntelligenceModule';
 import { CompanyRankingsModule } from '@/components/company-intelligence/CompanyRankingsModule';
-import { Building2, Award, ChevronRight } from 'lucide-react';
+import { Building2, Award } from 'lucide-react';
 
 export default function CompaniesPage() {
   const [searchQuery, setSearchQuery] = useState('');

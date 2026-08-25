@@ -8,7 +8,8 @@ import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { SafeImage } from '@/components/common/SafeImage';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { JsonLd, createPodcastEpisodeJsonLd } from '@/components/common/json-ld';
-import { Play, ArrowLeft, ExternalLink, Headphones, Calendar, Clock, Building2, Activity, TrendingUp } from 'lucide-react';
+import { PodcastAudioPlayer } from '@/components/podcasts/PodcastAudioPlayer';
+import { ArrowLeft, ExternalLink, Headphones, Building2, Activity, TrendingUp } from 'lucide-react';
 
 interface PodcastDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -151,6 +152,14 @@ export default async function PodcastDetailPage({ params }: PodcastDetailPagePro
           </div>
         </div>
       </div>
+
+      {/* Embedded Interactive HTML5 Audio Player */}
+      <PodcastAudioPlayer
+        title={episode.title}
+        showName={episode.showName}
+        durationString={episode.duration}
+        audioUrl={episode.audioUrl}
+      />
 
       {/* Chapters / Show Notes */}
       {episode.chapters && episode.chapters.length > 0 && (
