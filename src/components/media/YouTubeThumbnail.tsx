@@ -19,7 +19,7 @@ export function YouTubeThumbnail({
   sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
 }: YouTubeThumbnailProps) {
   const [src, setSrc] = useState<string>(
-    `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
+    `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
   );
   const [errorCount, setErrorCount] = useState<number>(0);
 

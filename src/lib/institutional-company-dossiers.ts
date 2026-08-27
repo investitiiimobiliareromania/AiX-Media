@@ -98,7 +98,7 @@ export interface InstitutionalCompanyDossier {
   founded: string;
   headquarters: string;
   website: string;
-  logo: string;
+  logo?: string | null;
   coverImage: string;
   ownershipType: string;
   parentCompany?: string;
@@ -185,7 +185,7 @@ export const institutionalDossiers: InstitutionalCompanyDossier[] = [
     founded: '1993',
     headquarters: 'Cluj-Napoca, str. George Barițiu nr. 8',
     website: 'https://www.bancatransilvania.ro',
-    logo: '/fallbacks/story-banking-finance.jpg',
+    logo: null,
     coverImage: '/fallbacks/story-banking-finance.jpg',
     ownershipType: 'Publicly Traded / BVB Main Market',
     parentCompany: 'Grupul Financiar Banca Transilvania',
@@ -378,7 +378,7 @@ export const institutionalDossiers: InstitutionalCompanyDossier[] = [
     founded: '2000',
     headquarters: 'București, Bd. Ion Mihalache nr. 15-17',
     website: 'https://www.hidroelectrica.ro',
-    logo: '/fallbacks/story-energy-solar.jpg',
+    logo: null,
     coverImage: '/fallbacks/story-energy-solar.jpg',
     ownershipType: 'Publicly Traded / State Controlled (80% Statul Român)',
     parentCompany: 'Ministerul Energiei (Acționar Majoritar)',
@@ -559,7 +559,7 @@ export const institutionalDossiers: InstitutionalCompanyDossier[] = [
     founded: '1997',
     headquarters: 'București, Str. Coralilor nr. 22 (Petrom City)',
     website: 'https://www.omvpetrom.com',
-    logo: '/fallbacks/story-energy-solar.jpg',
+    logo: null,
     coverImage: '/fallbacks/story-energy-solar.jpg',
     ownershipType: 'Publicly Traded / Controlled by OMV AG Austria (51.15%)',
     parentCompany: 'OMV AG Austria (Acționar Majoritar)',

@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: VideoPageProps): Promise<Meta
       type: "video.other",
       images: [
         {
-          url: `https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`,
-          width: 1280,
-          height: 720,
+          url: `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+          width: 480,
+          height: 360,
           alt: video.title,
         },
       ],

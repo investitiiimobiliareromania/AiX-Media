@@ -85,7 +85,8 @@ export interface Company {
   registrationNumber?: string;
   name: string;
   sector: string;
-  logo: string;
+  logo?: string | null;
+  coverImage?: string;
   marketCap: string;
   stockPrice: string;
   priceChange: string;

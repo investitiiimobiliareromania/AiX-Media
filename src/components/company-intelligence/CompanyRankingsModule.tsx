@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Award } from 'lucide-react';
 import { BvbCompanyProfile } from '@/lib/bvb-data';
+import { CompanyIdentityImage } from '@/components/company-intelligence/CompanyIdentityImage';
 
 interface CompanyRankingsModuleProps {
   companies: BvbCompanyProfile[];
@@ -99,11 +101,30 @@ export function CompanyRankingsModule({ companies }: CompanyRankingsModuleProps)
                   : 'N/A';
 
                 return (
-                  <tr key={comp.id} className="hover:bg-neutral-800/40 transition-colors">
+                  <tr key={comp.id} className="hover:bg-neutral-800/40 transition-colors group">
                     <td className="py-3.5 px-4 font-bold text-amber-400">#{idx + 1}</td>
                     <td className="py-3.5 px-4">
-                      <div className="font-serif font-bold text-white text-sm">{comp.name}</div>
-                      <div className="text-[10px] text-neutral-400 font-mono">{comp.symbol} • {comp.market}</div>
+                      <div className="flex items-center gap-3">
+                        <CompanyIdentityImage
+                          src={comp.logo}
+                          name={comp.name}
+                          symbol={comp.symbol}
+                          sector={comp.sector}
+                          slug={comp.slug}
+                          size="sm"
+                        />
+                        <div>
+                          <Link
+                            href={`/companies/${comp.slug}`}
+                            className="font-serif font-bold text-white group-hover:text-amber-400 transition-colors text-sm"
+                          >
+                            {comp.name}
+                          </Link>
+                          <div className="text-[10px] text-neutral-400 font-mono">
+                            {comp.symbol} • {comp.market}
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td className="py-3.5 px-4 text-neutral-300">{comp.sector}</td>
                     <td className="py-3.5 px-4 text-right font-bold text-white">

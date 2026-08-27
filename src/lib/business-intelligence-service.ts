@@ -19,8 +19,8 @@ export const companiesData: CompanyProfile[] = [
     isin: c.isin,
     cui: c.cui,
     name: c.name,
-    logo: c.logo,
-    coverImage: c.logo,
+    logo: null,
+    coverImage: c.coverImage,
     industry: c.sector,
     industrySlug: (c.slug.includes('banca') || c.slug.includes('bursa')
       ? 'banking'
@@ -62,7 +62,7 @@ export const companiesData: CompanyProfile[] = [
     symbol: 'UCB',
     cui: 'RO 361536',
     name: 'UniCredit Bank România S.A.',
-    logo: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?q=80&w=300&auto=format&fit=crop',
+    logo: null,
     coverImage: 'https://images.unsplash.com/photo-1541354329998-f4d9a9f9297f?q=80&w=600&auto=format&fit=crop',
     industry: 'Servicii Financiare & Bănci',
     industrySlug: 'banking',
@@ -100,7 +100,7 @@ export const companiesData: CompanyProfile[] = [
     symbol: 'STR',
     cui: 'RO 6601004',
     name: 'STRABAG SRL România',
-    logo: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=300&auto=format&fit=crop',
+    logo: null,
     coverImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?q=80&w=600&auto=format&fit=crop',
     industry: 'Construcții & Infrastructură',
     industrySlug: 'construction',

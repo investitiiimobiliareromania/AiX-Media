@@ -16,8 +16,6 @@ import {
   Workflow,
   Target,
   BarChart3,
-  Layers,
-  FileCheck2,
 } from 'lucide-react';
 
 interface InstitutionalCompanyProfileViewProps {

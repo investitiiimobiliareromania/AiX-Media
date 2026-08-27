@@ -30,7 +30,7 @@ export interface CompanyProfile {
   isin?: string;
   cui?: string;
   name: string;
-  logo: string;
+  logo?: string | null;
   coverImage?: string;
   industry: string;
   industrySlug: IndustrySlug;

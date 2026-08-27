@@ -25,7 +25,142 @@ function getCompanyMonogramInfo(
   symbol?: string | null,
   sectorOrIndustry?: string | null
 ) {
-  // 1. Determine Badge Text
+  const normName = name.toLowerCase();
+  const s = (symbol || '').toUpperCase().trim();
+  const sec = (sectorOrIndustry || '').toLowerCase();
+
+  // 1. Specific Known Corporate Overrides
+  if (normName.includes('petrom') || s === 'SNP') {
+    return {
+      text: 'SNP',
+      gradient: 'from-neutral-950 via-emerald-950/90 to-neutral-900',
+      border: 'border-emerald-500/40',
+      textAccent: 'text-emerald-400',
+      glow: 'shadow-emerald-950/50',
+    };
+  }
+
+  if (normName.includes('hidroelectrica') || s === 'H2O') {
+    return {
+      text: 'H2O',
+      gradient: 'from-neutral-950 via-sky-950/90 to-neutral-900',
+      border: 'border-sky-500/40',
+      textAccent: 'text-sky-400',
+      glow: 'shadow-sky-950/50',
+    };
+  }
+
+  if (normName.includes('transilvania') || s === 'TLV') {
+    return {
+      text: 'TLV',
+      gradient: 'from-slate-950 via-blue-950/90 to-neutral-950',
+      border: 'border-blue-500/40',
+      textAccent: 'text-amber-400',
+      glow: 'shadow-blue-950/50',
+    };
+  }
+
+  if (normName.includes('dacia') || s === 'DACIA') {
+    return {
+      text: 'DACIA',
+      gradient: 'from-neutral-950 via-zinc-800 to-neutral-900',
+      border: 'border-zinc-400/40',
+      textAccent: 'text-zinc-100',
+      glow: 'shadow-zinc-950/50',
+    };
+  }
+
+  if (normName.includes('dedeman') || s === 'DEDEMAN' || s === 'DED') {
+    return {
+      text: 'DED',
+      gradient: 'from-neutral-950 via-blue-950 to-neutral-900',
+      border: 'border-blue-400/40',
+      textAccent: 'text-orange-400',
+      glow: 'shadow-blue-950/50',
+    };
+  }
+
+  if (normName.includes('romgaz') || s === 'SNG') {
+    return {
+      text: 'SNG',
+      gradient: 'from-neutral-950 via-emerald-950/90 to-neutral-900',
+      border: 'border-emerald-500/40',
+      textAccent: 'text-emerald-300',
+      glow: 'shadow-emerald-950/50',
+    };
+  }
+
+  if (normName.includes('one united') || s === 'ONE') {
+    return {
+      text: 'ONE',
+      gradient: 'from-neutral-950 via-amber-950/80 to-neutral-900',
+      border: 'border-amber-500/40',
+      textAccent: 'text-amber-400',
+      glow: 'shadow-amber-950/50',
+    };
+  }
+
+  if (normName.includes('nuclearelectrica') || s === 'SNN') {
+    return {
+      text: 'SNN',
+      gradient: 'from-neutral-950 via-teal-950/90 to-neutral-900',
+      border: 'border-teal-500/40',
+      textAccent: 'text-teal-300',
+      glow: 'shadow-teal-950/50',
+    };
+  }
+
+  if (normName.includes('bursa de valori') || s === 'BVB') {
+    return {
+      text: 'BVB',
+      gradient: 'from-slate-950 via-blue-950/90 to-neutral-950',
+      border: 'border-amber-500/40',
+      textAccent: 'text-amber-400',
+      glow: 'shadow-blue-950/50',
+    };
+  }
+
+  if (normName.includes('uipath') || s === 'PATH') {
+    return {
+      text: 'PATH',
+      gradient: 'from-neutral-950 via-orange-950/80 to-neutral-900',
+      border: 'border-orange-500/40',
+      textAccent: 'text-orange-400',
+      glow: 'shadow-orange-950/50',
+    };
+  }
+
+  if (normName.includes('unicredit') || s === 'UCB') {
+    return {
+      text: 'UCB',
+      gradient: 'from-slate-950 via-rose-950/80 to-neutral-950',
+      border: 'border-rose-500/40',
+      textAccent: 'text-rose-300',
+      glow: 'shadow-rose-950/50',
+    };
+  }
+
+  if (normName.includes('strabag') || s === 'STR') {
+    return {
+      text: 'STR',
+      gradient: 'from-neutral-950 via-amber-950/80 to-neutral-900',
+      border: 'border-amber-500/40',
+      textAccent: 'text-amber-400',
+      glow: 'shadow-amber-950/50',
+    };
+  }
+
+  if (normName.includes('bitdefender') || s === 'BIT') {
+    return {
+      text: 'BIT',
+      gradient: 'from-neutral-950 via-red-950/80 to-neutral-900',
+      border: 'border-red-500/40',
+      textAccent: 'text-red-400',
+      glow: 'shadow-red-950/50',
+    };
+  }
+
+  // 2. Default Initial Extraction
   let text = '';
   if (symbol && symbol.trim().length > 0) {
     text = symbol.trim().toUpperCase();
@@ -38,45 +173,24 @@ function getCompanyMonogramInfo(
     if (words.length >= 2) {
       text = (words[0]![0]! + words[1]![0]!).toUpperCase();
     } else if (words.length === 1) {
-      text = words[0]!.slice(0, Math.min(3, words[0]!.length)).toUpperCase();
+      text = words[0]!.slice(0, Math.min(4, words[0]!.length)).toUpperCase();
     } else {
-      text = name.slice(0, 2).toUpperCase();
+      text = name.slice(0, 3).toUpperCase();
     }
   }
 
-  // 2. Determine Institutional Palette
-  const sector = (sectorOrIndustry || '').toLowerCase();
-  const s = (symbol || '').toUpperCase();
-
-  if (
-    s === 'TLV' ||
-    s === 'BRD' ||
-    s === 'BCR' ||
-    s === 'UCB' ||
-    s === 'BVB' ||
-    sector.includes('banc') ||
-    sector.includes('financiar')
-  ) {
+  // 3. Sector Color Mapping
+  if (sec.includes('banc') || sec.includes('financiar')) {
     return {
       text,
       gradient: 'from-slate-900 via-blue-950/80 to-neutral-950',
       border: 'border-blue-500/30',
-      textAccent: 'text-amber-400',
+      textAccent: 'text-blue-300',
       glow: 'shadow-blue-950/40',
     };
   }
 
-  if (
-    s === 'H2O' ||
-    s === 'SNP' ||
-    s === 'SNG' ||
-    s === 'SNN' ||
-    s === 'EL' ||
-    sector.includes('energ') ||
-    sector.includes('utilit') ||
-    sector.includes('nuclear') ||
-    sector.includes('gaz')
-  ) {
+  if (sec.includes('energ') || sec.includes('utilit') || sec.includes('nuclear') || sec.includes('gaz')) {
     return {
       text,
       gradient: 'from-neutral-950 via-emerald-950/80 to-neutral-900',
@@ -86,13 +200,7 @@ function getCompanyMonogramInfo(
     };
   }
 
-  if (
-    s === 'ONE' ||
-    s === 'STR' ||
-    sector.includes('imobil') ||
-    sector.includes('real estate') ||
-    sector.includes('construct')
-  ) {
+  if (sec.includes('imobil') || sec.includes('real estate') || sec.includes('construct')) {
     return {
       text,
       gradient: 'from-neutral-950 via-amber-950/70 to-neutral-900',
@@ -102,14 +210,7 @@ function getCompanyMonogramInfo(
     };
   }
 
-  if (
-    s === 'UI' ||
-    s === 'BIT' ||
-    sector.includes('tech') ||
-    sector.includes('software') ||
-    sector.includes('digital') ||
-    sector.includes('ai')
-  ) {
+  if (sec.includes('tech') || sec.includes('software') || sec.includes('digital') || sec.includes('ai')) {
     return {
       text,
       gradient: 'from-neutral-950 via-purple-950/70 to-neutral-900',
@@ -119,12 +220,7 @@ function getCompanyMonogramInfo(
     };
   }
 
-  if (
-    s === 'DACIA' ||
-    s === 'FORD' ||
-    sector.includes('auto') ||
-    sector.includes('transport')
-  ) {
+  if (sec.includes('auto') || sec.includes('transport')) {
     return {
       text,
       gradient: 'from-neutral-950 via-zinc-800/80 to-neutral-900',
@@ -134,13 +230,7 @@ function getCompanyMonogramInfo(
     };
   }
 
-  if (
-    s === 'DEDEMAN' ||
-    s === 'KAUFLAND' ||
-    s === 'LIDL' ||
-    sector.includes('retail') ||
-    sector.includes('fmcg')
-  ) {
+  if (sec.includes('retail') || sec.includes('fmcg')) {
     return {
       text,
       gradient: 'from-neutral-950 via-rose-950/60 to-neutral-900',
@@ -150,7 +240,6 @@ function getCompanyMonogramInfo(
     };
   }
 
-  // Default Luxury Institutional Dark
   return {
     text,
     gradient: 'from-neutral-950 via-neutral-900 to-neutral-950',
@@ -162,7 +251,7 @@ function getCompanyMonogramInfo(
 
 const SIZE_CLASSES = {
   xs: 'w-6 h-6 text-[9px]',
-  sm: 'w-8 h-8 text-[11px]',
+  sm: 'w-9 h-9 text-[11px]',
   md: 'w-12 h-12 text-sm',
   lg: 'w-16 h-16 text-base',
   xl: 'w-20 h-20 text-lg',
@@ -188,7 +277,9 @@ export function CompanyIdentityImage({
     src.startsWith('/fallbacks/') ||
     src.includes('story-') ||
     src.includes('fallback-') ||
-    src.includes('unsplash.com');
+    src.includes('unsplash.com') ||
+    src.includes('economedia.ro') ||
+    src.includes('ytimg.com');
 
   const [hasError, setHasError] = useState<boolean>(false);
   const info = getCompanyMonogramInfo(name, symbol, sector || industry);
@@ -249,14 +340,14 @@ export function CompanyIdentityImage({
         priority={priority}
         sizes={
           size === 'xs' || size === 'sm'
-            ? '32px'
+            ? '36px'
             : size === 'md'
-            ? '64px'
+            ? '48px'
             : size === 'lg'
-            ? '96px'
+            ? '64px'
             : size === 'xl'
-            ? '128px'
-            : '(max-width: 640px) 64px, 128px'
+            ? '80px'
+            : '(max-width: 640px) 48px, 64px'
         }
         className="object-cover rounded-[inherit]"
         onError={() => setHasError(true)}
