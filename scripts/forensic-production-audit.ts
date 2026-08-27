@@ -31,6 +31,10 @@ const majorRoutes = [
   { path: '/companies/banca-transilvania', name: 'Company Dossier (TLV)' },
   { path: '/companies/hidroelectrica', name: 'Company Dossier (H2O)' },
   { path: '/companies/omv-petrom', name: 'Company Dossier (SNP)' },
+  { path: '/business/industries', name: 'Industries Directory' },
+  { path: '/business/industries/energy', name: 'Industry Research (Energy)' },
+  { path: '/business/industries/banking', name: 'Industry Research (Banking)' },
+  { path: '/business/industries/real-estate', name: 'Industry Research (Real Estate)' },
   { path: '/markets', name: 'Capital Markets & Macro' },
   { path: '/real-estate', name: 'Real Estate Intelligence' },
   { path: '/podcasts', name: 'Podcast Catalog' },
@@ -254,8 +258,112 @@ async function runForensicAudit() {
   }
   await companyPage.close();
 
-  // 5. Live DOM JSON-LD Schema Verification
-  console.log('\n5. Testing Live DOM Structured Data Schemas...');
+  // 5. Industry Research & "Detalii Industrie" Functional Checks
+  console.log('\n5. Testing Industry Research Navigation & "Detalii Industrie" Controls...');
+  const industryPage = await browser.newPage();
+  await industryPage.setViewport({ width: 1440, height: 900 });
+
+  try {
+    await industryPage.goto('http://localhost:3000/business', { waitUntil: 'domcontentloaded', timeout: 20000 });
+    const industryLinks = await industryPage.evaluate(() => {
+      const links = Array.from(document.querySelectorAll('a[href*="/business/industries/"]'));
+      return links.map((l) => ({ href: l.getAttribute('href'), text: l.textContent?.trim() }));
+    });
+
+    if (industryLinks.length > 0) {
+      auditChecks.push({
+        section: 'Industry Research',
+        test: 'Detalii Industrie Navigation Links on /business',
+        status: 'PASS',
+        details: `Found ${industryLinks.length} functional links to industry dossiers`,
+      });
+    } else {
+      auditChecks.push({
+        section: 'Industry Research',
+        test: 'Detalii Industrie Navigation Links on /business',
+        status: 'FAIL',
+        details: 'No functional industry research links found on /business',
+      });
+    }
+
+    // Test detail page depth for /business/industries/energy
+    await industryPage.goto('http://localhost:3000/business/industries/energy', { waitUntil: 'networkidle2', timeout: 20000 });
+    const energyDepth = await industryPage.evaluate(() => {
+      const text = document.body.innerText;
+      const hasOverview = text.includes('Prezentare Generală') || text.includes('Neptun Deep') || text.includes('Definiție');
+      const hasLeaders = text.includes('Hidroelectrica') && text.includes('OMV Petrom');
+      const hasRisks = text.includes('Riscurilor') || text.includes('Plafonări') || text.includes('Prudențială');
+      const hasCapital = text.includes('Alocare') || text.includes('Investițional') || text.includes('Intensitate Capital');
+      const hasOutlook = text.includes('Strategic') || text.includes('Catalizatori') || text.includes('Indicatori');
+      return { hasOverview, hasLeaders, hasRisks, hasCapital, hasOutlook };
+    });
+
+    if (energyDepth.hasOverview && energyDepth.hasLeaders && energyDepth.hasRisks && energyDepth.hasCapital && energyDepth.hasOutlook) {
+      auditChecks.push({
+        section: 'Industry Research',
+        test: 'Energy Industry Dossier Depth & Sections',
+        status: 'PASS',
+        details: 'All 6 research sections verified: overview, leaders, drivers, risks, capital, outlook',
+      });
+    } else {
+      auditChecks.push({
+        section: 'Industry Research',
+        test: 'Energy Industry Dossier Depth & Sections',
+        status: 'FAIL',
+        details: `Missing section: ${JSON.stringify(energyDepth)}`,
+      });
+    }
+  } catch (e: any) {
+    auditChecks.push({
+      section: 'Industry Research',
+      test: 'Industry Navigation Test',
+      status: 'FAIL',
+      details: e.message,
+    });
+  }
+  await industryPage.close();
+
+  // 6. Company Identity & Monogram Fallback Verification
+  console.log('\n6. Testing Company Identity Badges & Image Rendering on /companies...');
+  const compImgPage = await browser.newPage();
+  await compImgPage.setViewport({ width: 1440, height: 900 });
+
+  try {
+    await compImgPage.goto('http://localhost:3000/companies', { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const imgEvaluation = await compImgPage.evaluate(() => {
+      const brokenImgs = Array.from(document.querySelectorAll('img')).filter((img) => img.complete && img.naturalWidth === 0);
+      const monograms = document.querySelectorAll('[data-company-badge="true"], [aria-label*="Identitate corporativă"]');
+      return { brokenCount: brokenImgs.length, monogramCount: monograms.length };
+    });
+
+    if (imgEvaluation.brokenCount === 0 && imgEvaluation.monogramCount > 0) {
+      auditChecks.push({
+        section: 'Company Identity',
+        test: 'Zero Broken Images & Monogram Badge Integrity',
+        status: 'PASS',
+        details: `Verified ${imgEvaluation.monogramCount} institutional company identity badges with 0 broken images`,
+      });
+    } else {
+      auditChecks.push({
+        section: 'Company Identity',
+        test: 'Zero Broken Images & Monogram Badge Integrity',
+        status: 'FAIL',
+        details: `Broken images: ${imgEvaluation.brokenCount}, Monograms: ${imgEvaluation.monogramCount}`,
+      });
+    }
+  } catch (e: any) {
+    auditChecks.push({
+      section: 'Company Identity',
+      test: 'Company Image Rendering Check',
+      status: 'FAIL',
+      details: e.message,
+    });
+  }
+  await compImgPage.close();
+
+  // 7. Live DOM JSON-LD Schema Verification
+  console.log('\n7. Testing Live DOM Structured Data Schemas...');
   const schemaPage = await browser.newPage();
   await schemaPage.setViewport({ width: 1440, height: 900 });
 

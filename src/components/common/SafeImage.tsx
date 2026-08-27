@@ -20,7 +20,7 @@ export function SafeImage({
   unoptimized,
   ...props
 }: SafeImageProps) {
-  const defaultFallback = fallbackUrl || getFallbackImage(slug) || '/fallbacks/story-1.jpg';
+  const defaultFallback = fallbackUrl || getFallbackImage(slug) || '/fallbacks/fallback-0.jpg';
   const targetSrc = src && src.trim().length > 0 ? src : defaultFallback;
 
   const [currentSrc, setCurrentSrc] = useState<string>(targetSrc);
@@ -34,8 +34,8 @@ export function SafeImage({
       className={className}
       unoptimized={unoptimized}
       onError={() => {
-        if (currentSrc !== '/fallbacks/story-1.jpg') {
-          setCurrentSrc('/fallbacks/story-1.jpg');
+        if (currentSrc !== '/fallbacks/fallback-0.jpg') {
+          setCurrentSrc('/fallbacks/fallback-0.jpg');
         }
       }}
     />

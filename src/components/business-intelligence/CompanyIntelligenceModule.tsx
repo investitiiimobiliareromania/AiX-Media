@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { CompanyProfile } from '@/lib/business-intelligence-types';
-import { SafeImage } from '@/components/common/SafeImage';
+import { CompanyIdentityImage } from '@/components/company-intelligence/CompanyIdentityImage';
 import {
   Building2,
   TrendingUp,
@@ -52,15 +52,14 @@ export function CompanyIntelligenceModule({ companies }: CompanyIntelligenceModu
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800 shrink-0">
-                    <SafeImage
-                      src={comp.logo}
-                      slug={comp.slug}
-                      alt={comp.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                  <CompanyIdentityImage
+                    src={comp.logo}
+                    name={comp.name}
+                    symbol={comp.symbol}
+                    industry={comp.industry}
+                    slug={comp.slug}
+                    size="md"
+                  />
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="font-serif font-bold text-white text-sm truncate">{comp.name}</span>
@@ -95,15 +94,14 @@ export function CompanyIntelligenceModule({ companies }: CompanyIntelligenceModu
           {/* Profile Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-800">
             <div className="flex items-center gap-4">
-              <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-neutral-700 bg-neutral-950 shrink-0">
-                <SafeImage
-                  src={selectedCompany.logo}
-                  slug={selectedCompany.slug}
-                  alt={selectedCompany.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <CompanyIdentityImage
+                src={selectedCompany.logo}
+                name={selectedCompany.name}
+                symbol={selectedCompany.symbol}
+                industry={selectedCompany.industry}
+                slug={selectedCompany.slug}
+                size="lg"
+              />
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="font-serif text-2xl font-bold text-white">{selectedCompany.name}</h3>

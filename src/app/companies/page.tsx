@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { institutionalDossiers } from '@/lib/institutional-company-dossiers';
 import { bvbCompanies, BvbCompanyProfile } from '@/lib/bvb-data';
-import { SafeImage } from '@/components/common/SafeImage';
+import { CompanyIdentityImage } from '@/components/company-intelligence/CompanyIdentityImage';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { CompanyTerminalDashboard } from '@/components/company-intelligence/CompanyTerminalDashboard';
@@ -91,15 +91,14 @@ export default function CompaniesPage() {
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-neutral-700 bg-neutral-950 shrink-0">
-                    <SafeImage
-                      src={dossier.logo}
-                      slug={dossier.slug}
-                      alt={dossier.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                  <CompanyIdentityImage
+                    src={dossier.logo}
+                    name={dossier.name}
+                    symbol={dossier.symbol}
+                    industry={dossier.industry}
+                    slug={dossier.slug}
+                    size="lg"
+                  />
                   <div>
                     <h3 className="font-serif text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
                       {dossier.name}
@@ -162,15 +161,14 @@ export default function CompaniesPage() {
               className="p-5 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 transition-all space-y-3 block shadow-md group"
             >
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-neutral-700 bg-neutral-950 shrink-0">
-                  <SafeImage
-                    src={comp.logo}
-                    slug={comp.slug}
-                    alt={comp.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <CompanyIdentityImage
+                  src={comp.logo}
+                  name={comp.name}
+                  symbol={comp.symbol}
+                  sector={comp.sector}
+                  slug={comp.slug}
+                  size="md"
+                />
                 <div>
                   <h3 className="font-serif text-base font-bold text-white group-hover:text-amber-400 transition-colors leading-snug">
                     {comp.name}

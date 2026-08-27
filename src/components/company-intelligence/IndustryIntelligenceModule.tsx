@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Layers, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { Layers, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 export interface IndustryOverviewItem {
   id: string;
+  slug: string;
   name: string;
   marketSize: string;
   leaderCompanies: string[];
@@ -16,15 +18,17 @@ export interface IndustryOverviewItem {
 export const industryOverviews: IndustryOverviewItem[] = [
   {
     id: 'ind-energy',
+    slug: 'energy',
     name: 'Energie & Utilități',
     marketSize: '~65 Miliarde RON',
     leaderCompanies: ['Hidroelectrica', 'OMV Petrom', 'Romgaz', 'Nuclearelectrica', 'Electrica'],
     growthYoY: '+4.8%',
-    keyDrivers: ['Proiectul Neptun Deep', 'Centrala Nuclerară Cernavodă 3 & 4', 'Tranziția spre regenerabile (solare/eoliene)'],
+    keyDrivers: ['Proiectul Neptun Deep', 'Centrala Nucleară Cernavodă 3 & 4', 'Tranziția spre regenerabile (solare/eoliene)'],
     risks: ['Capacele de preț reglementate', 'Taxa pe supraprofit', 'Fluctuațiile hidrologice'],
   },
   {
     id: 'ind-banking',
+    slug: 'banking',
     name: 'Bănci & Servicii Financiare',
     marketSize: '~950 Miliarde RON Active',
     leaderCompanies: ['Banca Transilvania', 'BCR', 'BRD', 'UniCredit Bank', 'ING Bank'],
@@ -33,7 +37,28 @@ export const industryOverviews: IndustryOverviewItem[] = [
     risks: ['Taxa pe cifra de afaceri bancară (2%)', 'Creșterea ratei NPL'],
   },
   {
+    id: 'ind-realestate',
+    slug: 'real-estate',
+    name: 'Dezvoltare Imobiliară & Construcții',
+    marketSize: '~45 Miliarde RON',
+    leaderCompanies: ['One United Properties', 'Skanska', 'Vastint', 'Dedeman Real Estate', 'Speedwell'],
+    growthYoY: '+7.4%',
+    keyDrivers: ['Cererea pentru clădiri verzi LEED Platinum', 'Prețurile pe mp rezidențiale crescute'],
+    risks: ['TVA 19% la achiziții peste 600,000 RON', 'Blocajele de autorizare urbanistică (PUG/PUZ)'],
+  },
+  {
+    id: 'ind-construction',
+    slug: 'construction',
+    name: 'Construcții & Infrastructură',
+    marketSize: '~42 Miliarde RON',
+    leaderCompanies: ['STRABAG', 'Umb Spedition', 'Webuild', 'Porr Construct'],
+    growthYoY: '+21.2%',
+    keyDrivers: ['Șantierele Autostrăzii A7 & A0', 'Finanțarea nerambursabilă PNRR Transport'],
+    risks: ['Presiunea pe costul materialelor', 'Deficitul de forță de muncă'],
+  },
+  {
     id: 'ind-automotive',
+    slug: 'automotive',
     name: 'Automotive & Componente',
     marketSize: '~38 Miliarde EUR',
     leaderCompanies: ['Automobile Dacia', 'Continental Romania', 'Ford Otosan', 'Autoliv', 'Bosch'],
@@ -43,24 +68,17 @@ export const industryOverviews: IndustryOverviewItem[] = [
   },
   {
     id: 'ind-retail',
+    slug: 'retail',
     name: 'Retail FMCG & Bricolaj',
     marketSize: '~120 Miliarde RON',
-    leaderCompanies: ['Kaufland', 'Lidl', 'Dedeman', 'Carrefour', 'Profim'],
+    leaderCompanies: ['Kaufland', 'Lidl', 'Dedeman', 'Carrefour', 'Profi'],
     growthYoY: '+6.2%',
     keyDrivers: ['Expansiunea rețelelor de hipermarketuri & parcuri de retail', 'Consumul casnic rezilient'],
     risks: ['Inflația alimentară', 'Creșterea salariului minim'],
   },
   {
-    id: 'ind-realestate',
-    name: 'Dezvoltare Imobiliară & Construcții',
-    marketSize: '~45 Miliarde RON',
-    leaderCompanies: ['One United Properties', 'Skanska', 'Vastint', 'Dedeman Real Estate', 'Speedwell'],
-    growthYoY: '+7.4%',
-    keyDrivers: ['Cererea pentru clădiri verzi LEED Platinum', 'Prețurile pe mp rezidențiale crescute'],
-    risks: ['TVA 19% la achiziții peste 600,000 RON', 'Blocajele de autorizare urbanistică (PUG/PUZ)'],
-  },
-  {
     id: 'ind-tech',
+    slug: 'technology',
     name: 'Tehnologie, Software & AI',
     marketSize: '~9 Miliarde EUR',
     leaderCompanies: ['UiPath', 'Bitdefender', 'Endava', 'Cognizant Softvision', 'Luxoft'],
@@ -90,11 +108,17 @@ export function IndustryIntelligenceModule() {
         {industryOverviews.map((ind: IndustryOverviewItem) => (
           <div
             key={ind.id}
-            className="p-6 rounded-2xl bg-neutral-900/90 border border-neutral-800 space-y-4 hover:border-amber-500/40 transition-all flex flex-col justify-between"
+            className="p-6 rounded-2xl bg-neutral-900/90 border border-neutral-800 space-y-4 hover:border-amber-500/40 transition-all flex flex-col justify-between group"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="font-serif text-xl font-bold text-white">{ind.name}</h3>
+                <Link
+                  href={`/business/industries/${ind.slug}`}
+                  className="font-serif text-xl font-bold text-white group-hover:text-amber-400 transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-amber-500 rounded"
+                >
+                  <span>{ind.name}</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-amber-400 shrink-0" />
+                </Link>
                 <span className="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-bold">
                   {ind.growthYoY} YoY
                 </span>
@@ -131,9 +155,14 @@ export function IndustryIntelligenceModule() {
 
             <div className="pt-4 border-t border-neutral-800 flex items-center justify-between text-xs font-mono text-neutral-400">
               <span>Sector Research</span>
-              <span className="text-amber-400 flex items-center gap-1 font-semibold">
-                Detalii Industrie <ChevronRight className="w-3.5 h-3.5" />
-              </span>
+              <Link
+                href={`/business/industries/${ind.slug}`}
+                className="text-amber-400 hover:text-amber-300 flex items-center gap-1 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 rounded px-1.5 py-0.5"
+                aria-label={`Vezi detalii complete pentru industria ${ind.name}`}
+              >
+                <span>Detalii Industrie</span>
+                <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </div>
           </div>
         ))}

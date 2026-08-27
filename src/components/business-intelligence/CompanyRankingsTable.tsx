@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { CompanyProfile } from '@/lib/business-intelligence-types';
-import { SafeImage } from '@/components/common/SafeImage';
+import { CompanyIdentityImage } from '@/components/company-intelligence/CompanyIdentityImage';
 import { Trophy, ArrowUpDown, Filter } from 'lucide-react';
 
 interface CompanyRankingsTableProps {
@@ -109,15 +109,14 @@ export function CompanyRankingsTable({ companies }: CompanyRankingsTableProps) {
 
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-neutral-700 bg-neutral-950 shrink-0">
-                          <SafeImage
-                            src={c.logo}
-                            slug={c.slug}
-                            alt={c.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                        <CompanyIdentityImage
+                          src={c.logo}
+                          name={c.name}
+                          symbol={c.symbol}
+                          industry={c.industry}
+                          slug={c.slug}
+                          size="sm"
+                        />
                         <div>
                           <div className="font-bold text-white group-hover:text-amber-400 transition-colors flex items-center gap-2">
                             <span>{c.name}</span>

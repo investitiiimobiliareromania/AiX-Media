@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { IndustryProfile } from '@/lib/business-intelligence-types';
 import { SafeImage } from '@/components/common/SafeImage';
-import { Layers, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Layers, TrendingUp, ShieldCheck, ChevronRight } from 'lucide-react';
 
 interface IndustryIntelligenceGridProps {
   industries: IndustryProfile[];
@@ -75,40 +76,55 @@ export function IndustryIntelligenceGrid({ industries }: IndustryIntelligenceGri
           </div>
 
           {/* Detailed Content */}
-          <div className="lg:col-span-7 p-6 md:p-8 space-y-6">
-            <div className="space-y-2">
-              <h4 className="font-mono text-xs uppercase font-bold text-amber-400">Prezentare Generală Sector</h4>
-              <p className="text-sm font-serif text-neutral-200 leading-relaxed">
-                {activeIndustry.marketOverview}
-              </p>
+          <div className="lg:col-span-7 p-6 md:p-8 space-y-6 flex flex-col justify-between">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs uppercase font-bold text-amber-400">Prezentare Generală Sector</h4>
+                <p className="text-sm font-serif text-neutral-200 leading-relaxed">
+                  {activeIndustry.marketOverview}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-2xl bg-neutral-950/70 border border-neutral-800 space-y-2">
+                  <div className="font-mono text-xs font-bold text-white uppercase flex items-center gap-1.5">
+                    <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Tendințe Cheie</span>
+                  </div>
+                  <ul className="text-xs font-serif text-neutral-300 list-disc list-inside space-y-1">
+                    {activeIndustry.trends.map((t, idx) => (
+                      <li key={idx}>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-neutral-950/70 border border-neutral-800 space-y-2">
+                  <div className="font-mono text-xs font-bold text-white uppercase flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Lideri de Piață</span>
+                  </div>
+                  <div className="space-y-1.5 font-mono text-xs text-neutral-200">
+                    {activeIndustry.marketLeaders.map((leader, idx) => (
+                      <div key={idx} className="p-2 rounded-lg bg-neutral-900 border border-neutral-800">
+                        {leader}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-neutral-950/70 border border-neutral-800 space-y-2">
-                <div className="font-mono text-xs font-bold text-white uppercase flex items-center gap-1.5">
-                  <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Tendințe Cheie</span>
-                </div>
-                <ul className="text-xs font-serif text-neutral-300 list-disc list-inside space-y-1">
-                  {activeIndustry.trends.map((t, idx) => (
-                    <li key={idx}>{t}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-neutral-950/70 border border-neutral-800 space-y-2">
-                <div className="font-mono text-xs font-bold text-white uppercase flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Lideri de Piață</span>
-                </div>
-                <div className="space-y-1.5 font-mono text-xs text-neutral-200">
-                  {activeIndustry.marketLeaders.map((leader, idx) => (
-                    <div key={idx} className="p-2 rounded-lg bg-neutral-900 border border-neutral-800">
-                      {leader}
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Bottom Button linking to real industry research */}
+            <div className="pt-4 border-t border-neutral-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
+              <span className="text-neutral-400">Rapoarte Auditate &amp; Metodologie BVB/INS</span>
+              <Link
+                href={`/business/industries/${activeIndustry.slug}`}
+                className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500"
+                aria-label={`Vezi raportul complet pentru industria ${activeIndustry.name}`}
+              >
+                <span>Detalii Industrie &amp; Raport Complet</span>
+                <ChevronRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>

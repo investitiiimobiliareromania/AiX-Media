@@ -61,6 +61,15 @@ podcastEpisodes.forEach((pod) => {
   }
 });
 
+const { industryDossiers } = require('../src/lib/industry-intelligence-data');
+if (industryDossiers) {
+  industryDossiers.forEach((ind: any) => {
+    if (!ind.slug || ind.slug.includes(' ') || ind.slug.includes('%20')) {
+      issues.push({ location: `Industry: ${ind.name}`, url: ind.slug, reason: 'Invalid industry slug' });
+    }
+  });
+}
+
 // Report
 console.log('\n=== LINK AUDIT RESULTS ===');
 if (issues.length === 0) {

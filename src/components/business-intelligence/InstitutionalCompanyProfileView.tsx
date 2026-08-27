@@ -4,25 +4,20 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { InstitutionalCompanyDossier } from '@/lib/institutional-company-dossiers';
 import { Article } from '@/lib/media/models/article';
-import { SafeImage } from '@/components/common/SafeImage';
+import { CompanyIdentityImage } from '@/components/company-intelligence/CompanyIdentityImage';
 import { ArticleCard } from '@/components/media/ArticleCard';
 import {
   ArrowLeft,
-  Building2,
   TrendingUp,
-  FileText,
   ShieldCheck,
-  Award,
-  AlertTriangle,
-  ExternalLink,
   ChevronRight,
-  Sparkles,
-  PieChart,
   CheckCircle2,
   Info,
   Workflow,
   Target,
   BarChart3,
+  Layers,
+  FileCheck2,
 } from 'lucide-react';
 
 interface InstitutionalCompanyProfileViewProps {
@@ -81,15 +76,14 @@ export function InstitutionalCompanyProfileView({
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <div className="relative w-20 h-20 rounded-2xl overflow-hidden border border-neutral-700 bg-neutral-950 shrink-0 shadow-md">
-              <SafeImage
-                src={dossier.logo}
-                slug={dossier.slug}
-                alt={dossier.name}
-                fill
-                className="object-cover"
-              />
-            </div>
+            <CompanyIdentityImage
+              src={dossier.logo}
+              name={dossier.name}
+              symbol={dossier.symbol}
+              industry={dossier.industry}
+              slug={dossier.slug}
+              size="xl"
+            />
 
             <div className="space-y-1">
               <div className="flex flex-wrap items-center gap-2">
@@ -239,7 +233,7 @@ export function InstitutionalCompanyProfileView({
               <div className="text-lg font-bold text-white">{formatRon(latestFin?.revenue)}</div>
             </div>
             <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-1">
-              <div className="text-[10px] uppercase text-neutral-400">EBITDA</div>
+              <div className="text-[10px] uppercase text-neutral-400">EBITDA ({ebitdaMargin}%)</div>
               <div className="text-lg font-bold text-white">{formatRon(latestFin?.ebitda)}</div>
             </div>
             <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-1">
