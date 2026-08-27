@@ -78,7 +78,7 @@ export function createNewsArticleJsonLd(article: {
     "@type": "NewsArticle",
     headline: article.title,
     description: article.description,
-    image: article.imageUrl ? [article.imageUrl] : [`${siteConfig.url}/fallbacks/story-1.jpg`],
+    image: article.imageUrl ? [article.imageUrl] : [`${siteConfig.url}/fallbacks/fallback-0.jpg`],
     datePublished: article.publishedAt || "2026-08-01T00:00:00Z",
     dateModified: article.modifiedAt || article.publishedAt || "2026-08-01T00:00:00Z",
     inLanguage: "ro-RO",

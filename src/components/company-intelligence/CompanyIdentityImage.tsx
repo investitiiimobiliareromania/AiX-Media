@@ -270,16 +270,21 @@ export function CompanyIdentityImage({
   priority = false,
   alt,
 }: CompanyIdentityImageProps) {
-  // If src is missing or is a generic/fallback stock photo, render the institutional monogram badge
-  const isGenericOrPhotoSrc =
-    !src ||
-    src.trim().length === 0 ||
-    src.startsWith('/fallbacks/') ||
-    src.includes('story-') ||
-    src.includes('fallback-') ||
-    src.includes('unsplash.com') ||
-    src.includes('economedia.ro') ||
-    src.includes('ytimg.com');
+  // CRITICAL ARCHITECTURAL RULE:
+  // Company identity MUST never render a photograph or fallback story/news image.
+  // ONLY explicitly verified vector logo assets (starting with /logos/ and ending with .svg) are allowed.
+  // Any missing logo, null logo, fallback photo, unsplash photo, or generic URL immediately renders the deterministic institutional monogram.
+  const isOfficialVerifiedLogo = Boolean(
+    src &&
+    src.trim().length > 0 &&
+    (src.startsWith('/logos/') || src.endsWith('.svg')) &&
+    !src.startsWith('/fallbacks/') &&
+    !src.includes('story-') &&
+    !src.includes('fallback-') &&
+    !src.includes('unsplash.com') &&
+    !src.includes('economedia.ro') &&
+    !src.includes('ytimg.com')
+  );
 
   const [hasError, setHasError] = useState<boolean>(false);
   const info = getCompanyMonogramInfo(name, symbol, sector || industry);
@@ -308,7 +313,7 @@ export function CompanyIdentityImage({
   );
 
   // If no official logo asset or if image load failed, render deterministic institutional monogram badge
-  if (isGenericOrPhotoSrc || hasError) {
+  if (!isOfficialVerifiedLogo || hasError) {
     if (fill) {
       return (
         <div className={`relative w-full h-full rounded-[inherit] ${className}`}>

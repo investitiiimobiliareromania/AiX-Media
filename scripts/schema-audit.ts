@@ -26,7 +26,7 @@ const sampleNews = createNewsArticleJsonLd({
   description: 'Test Article Description for validation',
   slug: 'test-article-title',
   publishedAt: '2026-08-25T10:00:00Z',
-  imageUrl: 'https://aixmedia.cristianvaduva.com/fallbacks/story-1.jpg',
+  imageUrl: 'https://aixmedia.cristianvaduva.com/fallbacks/fallback-0.jpg',
   section: 'Markets',
 });
 if (sampleNews['@type'] !== 'NewsArticle') issues.push({ schema: 'NewsArticle', field: '@type', reason: 'Invalid @type' });
