@@ -18,7 +18,7 @@ export const authors: Author[] = [
     name: "AiX Media Editorial Desk",
     role: "AiX Media Editorial Desk",
     bio: "Redacția de analiză economică, piețe financiare și date imobiliare a rețelei AiX Media.",
-    avatar: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop",
+    avatar: "/fallbacks/fallback-0.jpg",
     expertise: ["Macroeconomie", "Piețe de Capital", "Statistici Imobiliare", "Politică Monetară"],
     linkedin: "https://linkedin.com/company/aixmedia",
   },
@@ -28,7 +28,7 @@ export const authors: Author[] = [
     name: "Cristian Văduva",
     role: "Fondator AiX Media",
     bio: "Fondator AiX Media și realizator al emisiunilor video și podcasturilor de analiză economică și investițională.",
-    avatar: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=400&auto=format&fit=crop",
+    avatar: "/fallbacks/fallback-1.jpg",
     expertise: ["Analiză Economică", "Strategie de Business", "Piețe Imobiliare"],
     linkedin: "https://linkedin.com/company/aixmedia",
   },
@@ -36,6 +36,7 @@ export const authors: Author[] = [
 
 import { getFallbackImage } from "../fallbackImage";
 import { isValidImageUrl } from "../image-validator";
+import { normalizeArticleString } from "../article-normalizer";
 
 export const articles: Article[] = verifiedNewsArticles.map((art) => ({
   id: art.id,
@@ -46,9 +47,9 @@ export const articles: Article[] = verifiedNewsArticles.map((art) => ({
   authorId: "aix-editorial",
   authorName: "AiX Media Editorial Desk",
   authorRole: "Redacția Economică",
-  authorAvatar: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=400&auto=format&fit=crop",
+  authorAvatar: "/fallbacks/fallback-0.jpg",
   excerpt: art.excerpt,
-  content: art.content,
+  content: normalizeArticleString(art.content),
   coverImage: (art.image && isValidImageUrl(art.image)) ? art.image : getFallbackImage(art.slug),
   publishedAt: art.publishedAt,
   readTime: art.readTime || "5 min read",

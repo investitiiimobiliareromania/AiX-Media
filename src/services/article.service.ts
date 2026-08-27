@@ -7,6 +7,7 @@ import { logger } from '@/lib/logger';
 import { articles as fallbackArticles } from '@/lib/media/mock-db';
 import { verifiedNewsArticles } from '@/lib/news-service';
 import { Article } from '@/lib/media/models/article';
+import { normalizeArticleString } from '@/lib/article-normalizer';
 
 import { RECOVERED_PUBLISHER_IMAGES } from '@/lib/publisher-image-map';
 
@@ -48,10 +49,10 @@ export class ArticleService {
           categoryLabel: 'Știri & Analize',
           authorId: row.author_id || 'aix-editorial',
           authorName: 'AiX Media Editorial Desk',
-          authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+          authorAvatar: '/fallbacks/fallback-0.jpg',
           authorRole: 'Redacția Economică',
           excerpt: row.excerpt,
-          content: row.content,
+          content: normalizeArticleString(row.content),
           coverImage: this.resolveCoverImage(row),
           publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
           readTime: row.read_time || '4 min read',
@@ -107,10 +108,10 @@ export class ArticleService {
           categoryLabel: 'Știri & Analize',
           authorId: row.author_id || 'aix-editorial',
           authorName: 'AiX Media Editorial Desk',
-          authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=400&w=400&auto=format&fit=crop',
+          authorAvatar: '/fallbacks/fallback-0.jpg',
           authorRole: 'Redacția Economică',
           excerpt: row.excerpt,
-          content: row.content,
+          content: normalizeArticleString(row.content),
           coverImage: this.resolveCoverImage(row),
           publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
           readTime: row.read_time || '4 min read',
@@ -135,7 +136,7 @@ export class ArticleService {
         categoryLabel: foundVerified.categoryLabel,
         authorId: 'aix-editorial',
         authorName: foundVerified.author,
-        authorAvatar: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&auto=format&fit=crop',
+        authorAvatar: '/fallbacks/fallback-0.jpg',
         authorRole: foundVerified.authorRole || 'Redacția Economică',
         excerpt: foundVerified.excerpt,
         content: foundVerified.content,

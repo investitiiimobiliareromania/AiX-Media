@@ -17,6 +17,8 @@ import { Clock, Calendar, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react
 
 import { ensureFullArticleContent } from "@/lib/article-full-text-enhancer";
 import { ArticleIntelligencePanel } from "@/components/news-intelligence/ArticleIntelligencePanel";
+import { ArticleContentRenderer } from "@/components/editorial/ArticleContentRenderer";
+import { parseArticleContentToBlocks } from "@/lib/article-normalizer";
 
 export const revalidate = 300;
 
@@ -39,34 +41,26 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     description: article.excerpt,
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        "ro-RO": canonicalUrl,
-        "x-default": canonicalUrl,
-      },
     },
     openGraph: {
-      title: article.title,
+      title: `${article.title} | AiX Media`,
       description: article.excerpt,
-      type: "article",
       url: canonicalUrl,
       siteName: siteConfig.name,
-      locale: siteConfig.locale,
-      publishedTime: article.publishedAt,
-      modifiedTime: article.publishedAt,
-      section: article.categoryLabel || article.category,
-      authors: [article.authorName],
       images: [
         {
           url: article.coverImage,
           width: 1200,
           height: 630,
-          alt: `Analiză AiX Media: ${article.title}`,
+          alt: article.title,
         },
       ],
+      type: "article",
+      publishedTime: article.publishedAt,
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
+      title: `${article.title} | AiX Media`,
       description: article.excerpt,
       images: [article.coverImage],
     },
@@ -92,6 +86,7 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
   const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
 
+  // Structured Data Schema for NewsArticle
   const newsArticleSchema = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -100,17 +95,15 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
     image: [article.coverImage],
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
-    inLanguage: "ro-RO",
     url: canonicalUrl,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonicalUrl,
-    },
-    author: {
-      "@type": "Organization",
-      name: "AiX Media Editorial Desk",
-      url: siteConfig.url,
-    },
+    inLanguage: "ro-RO",
+    author: [
+      {
+        "@type": "Person",
+        name: article.authorName,
+        jobTitle: article.authorRole || "Redacția Economică",
+      },
+    ],
     publisher: {
       "@type": "NewsMediaOrganization",
       name: siteConfig.name,
@@ -126,10 +119,10 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
   };
 
   // Derive key takeaways from content
-  const paragraphs = article.content
-    .split(/\n\n+/)
-    .map((p) => cleanText(p.trim()))
-    .filter((p) => p.length > 20 && !p.startsWith('#'));
+  const blocks = parseArticleContentToBlocks(article.content);
+  const paragraphs = blocks
+    .filter((b) => b.type === "paragraph" && b.text.length > 25)
+    .map((b) => b.text);
 
   const keyTakeaways = [
     article.excerpt,
@@ -232,31 +225,8 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       </section>
 
       {/* Article Content - Full Body Rendering */}
-      <div className="prose prose-invert max-w-none text-neutral-200 font-serif leading-relaxed space-y-6 text-base sm:text-lg">
-        {article.content.includes('<p>') || article.content.includes('<h3') ? (
-          <div
-            className="space-y-6 leading-[1.85]"
-            dangerouslySetInnerHTML={{
-              __html: article.content
-                .replace(/\[\s*…\s*\]/g, '')
-                .replace(/\[\s*\.\.\.\s*\]/g, '')
-                .replace(/&#8230;/g, ''),
-            }}
-          />
-        ) : (
-          <div className="space-y-6 leading-[1.85]">
-            {article.content
-              .replace(/\[\s*…\s*\]/g, '')
-              .replace(/\[\s*\.\.\.\s*\]/g, '')
-              .replace(/&#8230;/g, '')
-              .split(/\n\n+/)
-              .map((para, idx) => (
-                <p key={idx} className="leading-[1.85] font-serif text-neutral-200 text-base sm:text-lg">
-                  {cleanText(para.trim())}
-                </p>
-              ))}
-          </div>
-        )}
+      <div className="max-w-none text-neutral-200 font-serif leading-relaxed">
+        <ArticleContentRenderer content={article.content} />
       </div>
 
       {/* Source Provenance */}

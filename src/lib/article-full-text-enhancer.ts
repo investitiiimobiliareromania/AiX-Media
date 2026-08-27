@@ -1,5 +1,11 @@
 import { createAdminClient } from '@/lib/supabase/admin';
+import { cleanEditorialText, isBoilerplateParagraph, normalizeArticleString } from './article-normalizer';
 
+/**
+ * Fetches and semantically extracts full article body content from a publisher source URL.
+ * Strictly ignores site navigation, headers, currency tickers, ads, Google buttons, social widgets,
+ * and comment sections.
+ */
 export async function fetchFullArticleHtmlFromUrl(url: string): Promise<string | null> {
   if (!url || !url.startsWith('http')) return null;
 
@@ -16,66 +22,47 @@ export async function fetchFullArticleHtmlFromUrl(url: string): Promise<string |
     if (!res.ok) return null;
     const htmlText = await res.text();
 
-    // Remove scripts, styles, ads, and navigation noise
-    const cleanHtml = htmlText
+    // 1. Remove scripts, styles, ads, SVGs, and header/footer structures before container matching
+    const strippedHtml = htmlText
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
       .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+      .replace(/<svg\b[^<]*(?:(?!<\/svg>)<[^<]*)*<\/svg>/gi, '')
+      .replace(/<header\b[^<]*(?:(?!<\/header>)<[^<]*)*<\/header>/gi, '')
+      .replace(/<footer\b[^<]*(?:(?!<\/footer>)<[^<]*)*<\/footer>/gi, '')
+      .replace(/<nav\b[^<]*(?:(?!<\/nav>)<[^<]*)*<\/nav>/gi, '')
+      .replace(/<div[^>]*class=["'][^"']*(?:exchange|curs|header-rates|share|social|sgb-google-button|comments|comment-respond|ad|banner|widget)[^"']*["'][^>]*>[\s\S]*?<\/div>/gi, '')
       .replace(/<ins\b[^<]*(?:(?!<\/ins>)<[^<]*)*<\/ins>/gi, '')
       .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '');
 
-    // Target article body content container
-    let bodyHtml = '';
-
-    // Match Economedia / HotNews / G4Media / Profit.ro article containers
+    // 2. Target specific editorial body container (Economedia, HotNews, G4Media, Profit.ro)
     const entryMatch =
-      cleanHtml.match(/<div[^>]*class=["'][^"']*(?:entry-content|article-body|single-content|post-content|article-text)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i) ||
-      cleanHtml.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+      strippedHtml.match(/<div[^>]*class=["'][^"']*(?:single__text|entry-content|article-body|article__content|single-content|post-content|article-text|main-article-content)[^"']*["'][^>]*>([\s\S]*?)<\/div>/i) ||
+      strippedHtml.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
 
-    if (entryMatch && entryMatch[1]) {
-      bodyHtml = entryMatch[1];
-    } else {
-      bodyHtml = cleanHtml;
-    }
+    const bodyHtml = entryMatch && entryMatch[1] ? entryMatch[1] : strippedHtml;
 
-    // Extract all <p>, <h3>, <h4>, <ul>, <blockquote> paragraphs
-    const paragraphs: string[] = [];
-    const pRegex = /<(p|h2|h3|h4|ul|blockquote)[^>]*>([\s\S]*?)<\/\1>/gi;
-    let match;
+    // 3. Extract clean paragraphs, subheadings, and blockquotes
+    const blockMatches = Array.from(bodyHtml.matchAll(/<(p|h2|h3|h4|blockquote)[^>]*>([\s\S]*?)<\/\1>/gi));
+    const cleanParagraphs: string[] = [];
 
-    while ((match = pRegex.exec(bodyHtml)) !== null) {
+    for (const match of blockMatches) {
       const tag = match[1]!.toLowerCase();
-      let innerText = match[2] || '';
+      const rawText = match[2] || '';
+      const text = cleanEditorialText(rawText);
 
-      // Strip inner tags except strong, em, b, i, a
-      innerText = innerText
-        .replace(/<(?!\/?(strong|b|em|i|a|img)\b)[^>]+>/gi, '')
-        .replace(/&nbsp;/gi, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-
-      // Filter out boilerplate signatures / share links / short noise
-      if (
-        innerText.length > 20 &&
-        !innerText.toLowerCase().includes('abonează-te') &&
-        !innerText.toLowerCase().includes('citește și') &&
-        !innerText.toLowerCase().includes('foto:') &&
-        !innerText.includes('&#8230;') &&
-        !innerText.endsWith('[…]')
-      ) {
+      if (text.length > 20 && !isBoilerplateParagraph(text)) {
         if (tag.startsWith('h')) {
-          paragraphs.push(`<h3 className="text-xl font-bold text-white mt-6 mb-3 font-serif">${innerText}</h3>`);
+          cleanParagraphs.push(`### ${text}`);
         } else if (tag === 'blockquote') {
-          paragraphs.push(
-            `<blockquote className="p-4 rounded-xl bg-neutral-900 border-l-4 border-amber-500 italic text-neutral-300 font-serif my-4">${innerText}</blockquote>`
-          );
+          cleanParagraphs.push(`> ${text}`);
         } else {
-          paragraphs.push(`<p className="leading-[1.85] font-serif text-neutral-200 text-base sm:text-lg mb-5">${innerText}</p>`);
+          cleanParagraphs.push(text);
         }
       }
     }
 
-    if (paragraphs.length >= 2) {
-      return paragraphs.join('\n');
+    if (cleanParagraphs.length >= 1) {
+      return cleanParagraphs.join('\n\n');
     }
 
     return null;
@@ -85,6 +72,9 @@ export async function fetchFullArticleHtmlFromUrl(url: string): Promise<string |
   }
 }
 
+/**
+ * Ensures full editorial content for an article, sanitizing and normalizing the result.
+ */
 export async function ensureFullArticleContent(article: {
   id: string;
   slug: string;
@@ -92,38 +82,35 @@ export async function ensureFullArticleContent(article: {
   excerpt: string;
   content: string;
 }): Promise<string> {
-  const needsExpansion =
-    article.content.includes('[…]') ||
-    article.content.includes('[...]') ||
-    article.content.includes('&#8230;') ||
-    article.content.length < 500;
+  const currentCleaned = normalizeArticleString(article.content);
 
-  if (!needsExpansion) {
-    return article.content;
+  const needsExpansion =
+    currentCleaned.includes('[…]') ||
+    currentCleaned.includes('[...]') ||
+    currentCleaned.includes('&#8230;') ||
+    currentCleaned.length < 400;
+
+  if (!needsExpansion && currentCleaned.length >= 400) {
+    return currentCleaned;
   }
 
   // Try to construct source URL from slug or search
   const tryUrl = `https://economedia.ro/${article.slug}.html`;
   const fullContent = await fetchFullArticleHtmlFromUrl(tryUrl);
 
-  if (fullContent && fullContent.length > article.content.length) {
-    // Update Supabase DB in background
+  if (fullContent && fullContent.length > currentCleaned.length) {
+    const normalizedFull = normalizeArticleString(fullContent);
+
+    // Update Supabase DB in background with clean normalized content
     try {
       const supabaseAdmin = createAdminClient();
-      await supabaseAdmin.from('articles').update({ content: fullContent }).eq('id', article.id);
+      await supabaseAdmin.from('articles').update({ content: normalizedFull }).eq('id', article.id);
     } catch (dbErr) {
       console.error('[FullArticleEnhancer] Error updating Supabase DB:', dbErr);
     }
 
-    return fullContent;
+    return normalizedFull;
   }
 
-  // Clean trailing [...] from current content
-  const cleanedContent = article.content
-    .replace(/\[\s*…\s*\]/g, '')
-    .replace(/\[\s*\.\.\.\s*\]/g, '')
-    .replace(/&#8230;/g, '')
-    .trim();
-
-  return cleanedContent;
+  return currentCleaned;
 }

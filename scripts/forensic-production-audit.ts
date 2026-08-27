@@ -420,6 +420,99 @@ async function runForensicAudit() {
   }
   await schemaPage.close();
 
+  // 8. Article Content Integrity & Zero Markup/Scraper Leakage Checks
+  console.log('\n8. Testing News Articles for Raw Markup, JSX Attributes, and Scraper Leakage...');
+  const articleAuditPage = await browser.newPage();
+  await articleAuditPage.setViewport({ width: 1440, height: 900 });
+
+  const testArticleSlugs = [
+    'ancpi-evolutie-tranzactii-imobiliare-romania',
+    'bnr-decizie-rata-dobanzii-politica-monetara',
+    'sindicalistii-din-educatie-cer-partidelor-politice-sa-nu-voteze-noul-proiect-al-legii-sala',
+    'bulgaria-nivelul-scazut-al-dunarii-obliga-centrala-nucleara-kozlodui-sa-reduca-productia-u',
+    'afacerile-din-comertul-cu-masini-si-motociclete-au-scazut-usor-in-prima-jumatate-a-anului',
+  ];
+
+  const forbiddenTextPatterns = [
+    { name: 'Raw JSX className', regex: /className=["']/i },
+    { name: 'Raw VSCode file protocol', regex: /vscode-file:\/\//i },
+    { name: 'Raw HTML p tag in text', regex: /<\/?p(?: [^>]*)?>/i },
+    { name: 'Raw HTML heading tag in text', regex: /<\/?h[1-6](?: [^>]*)?>/i },
+    { name: 'Raw HTML anchor tag in text', regex: /<a\s+href=/i },
+    { name: 'Raw HTML bold/italic in text', regex: /<b>|<i>|<\/b>|<\/i>/i },
+    { name: 'Scraped BNR ticker header junk', regex: /EUR:\s*[\d\.,]+\s*USD:/i },
+    { name: 'Scraper comments prompt', regex: /Lasă un răspuns|Anulează răspunsul/i },
+    { name: 'Scraper sidebar widget title', regex: /Cele mai noi articole/i },
+    { name: 'Standalone SVG artifact word', regex: /\b(svg)\b(?!\s*[\w\d])/i },
+    { name: 'Image placeholder syntax', regex: /\[\s*image\s*\]|!\[[^\]]*\]\([^)]+\)/i },
+    { name: 'Escaped HTML entities in text', regex: /&#8230;|&amp;gt;|&amp;lt;/i },
+    { name: 'Raw transport Markdown in HTML href', regex: /href=["']\[https?:\/\//i },
+  ];
+
+  for (const slug of testArticleSlugs) {
+    try {
+      await articleAuditPage.goto(`http://localhost:3000/news/${slug}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      const articleData = await articleAuditPage.evaluate(() => {
+        const bodyEl = document.querySelector('.article-body-content');
+        return {
+          bodyText: bodyEl ? (bodyEl as HTMLElement).innerText : '',
+          bodyHtml: bodyEl ? bodyEl.innerHTML : '',
+        };
+      });
+
+      if (!articleData.bodyText || articleData.bodyText.length < 50) {
+        auditChecks.push({
+          section: 'Article Content Integrity',
+          test: `Article Content Render: ${slug}`,
+          status: 'FAIL',
+          details: `Article body is empty or too short (${articleData.bodyText.length} chars)`,
+        });
+        continue;
+      }
+
+      let hasViolation = false;
+      let violationDetails = '';
+
+      for (const pattern of forbiddenTextPatterns) {
+        if (pattern.regex.test(articleData.bodyText)) {
+          hasViolation = true;
+          violationDetails = `Found forbidden pattern [${pattern.name}] in visible text`;
+          break;
+        }
+      }
+
+      if (!hasViolation && /className=/i.test(articleData.bodyHtml)) {
+        hasViolation = true;
+        violationDetails = 'Rendered HTML contains raw JSX attribute [className=]';
+      }
+
+      if (hasViolation) {
+        auditChecks.push({
+          section: 'Article Content Integrity',
+          test: `Article Content Render: ${slug}`,
+          status: 'FAIL',
+          details: violationDetails,
+        });
+      } else {
+        auditChecks.push({
+          section: 'Article Content Integrity',
+          test: `Article Content Render: ${slug}`,
+          status: 'PASS',
+          details: `Pristine editorial render (${articleData.bodyText.length} chars, 0 artifacts)`,
+        });
+      }
+    } catch (e: any) {
+      auditChecks.push({
+        section: 'Article Content Integrity',
+        test: `Article Content Render: ${slug}`,
+        status: 'FAIL',
+        details: e.message,
+      });
+    }
+  }
+  await articleAuditPage.close();
+
   await browser.close();
 
   // Summary Report

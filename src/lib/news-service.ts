@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { cleanText } from "./sanitizer";
+import { normalizeArticleString } from "./article-normalizer";
 
 export interface NormalizedArticle {
   id: string;
@@ -52,7 +53,7 @@ Datele reflectă contractele de vânzare-cumpărare autentificate la notarii pub
     fetchedAt: "2026-08-17",
     category: "real-estate",
     categoryLabel: "Statistici Imobiliare Oficiale",
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1200&auto=format&fit=crop",
+    image: "/fallbacks/fallback-0.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Economică",
     readTime: "4 min read",
@@ -85,7 +86,7 @@ Deciziile BNR vizează readucerea durabilă a ratei anuale a inflației în lini
     fetchedAt: "2026-08-17",
     category: "finance",
     categoryLabel: "Politică Monetară",
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1200&auto=format&fit=crop",
+    image: "/fallbacks/fallback-1.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Piețe Financiare",
     readTime: "5 min read",
@@ -117,7 +118,7 @@ Datele sunt colectate pe bază de cercetare statistică exhaustivă de la admini
     fetchedAt: "2026-08-17",
     category: "real-estate",
     categoryLabel: "Construcții & Autorizații",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop",
+    image: "/fallbacks/fallback-2.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Imobiliară",
     readTime: "4 min read",
@@ -149,7 +150,7 @@ Sursa: Rapoartele oficiale BVB și comunicatele de piață emise de operatorul p
     fetchedAt: "2026-08-17",
     category: "markets",
     categoryLabel: "Piețe de Capital",
-    image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=1200&auto=format&fit=crop",
+    image: "/fallbacks/fallback-3.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Piețe Financiare",
     readTime: "5 min read",
@@ -181,7 +182,7 @@ Sursa: Comunicatele oficiale emise de Guvernul României și Ministerul Energiei
     fetchedAt: "2026-08-17",
     category: "business",
     categoryLabel: "Energie & Infrastructură",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1200&auto=format&fit=crop",
+    image: "/fallbacks/fallback-4.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Economică",
     readTime: "6 min read",
@@ -213,7 +214,7 @@ Sursa: MIPE și rapoartele oficiale privind absorbția fondurilor structurale ș
     fetchedAt: "2026-08-17",
     category: "news",
     categoryLabel: "Macroeconomie",
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1200&auto=format&fit=crop",
+    image: "/fallbacks/fallback-5.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Economică",
     readTime: "5 min read",
@@ -226,7 +227,7 @@ export const verifiedNewsArticles: NormalizedArticle[] = rawNewsArticles.map((ar
   ...art,
   title: cleanText(art.title),
   excerpt: cleanText(art.excerpt),
-  content: cleanText(art.content),
+  content: normalizeArticleString(art.content),
 }));
 
 export const getVerifiedArticles = cache(async (category?: string): Promise<NormalizedArticle[]> => {

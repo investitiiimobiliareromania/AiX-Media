@@ -1,3 +1,5 @@
+import { cleanEditorialText, normalizeArticleString, parseArticleContentToBlocks } from './article-normalizer';
+
 /**
  * Enterprise HTML sanitizer helper
  */
@@ -9,30 +11,22 @@ export function sanitizeHtml(input?: string | null): string {
     .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
     .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
     .replace(/<embed\b[^<]*>/gi, '')
+    .replace(/<svg\b[^<]*(?:(?!<\/svg>)<[^<]*)*<\/svg>/gi, '')
     .replace(/\son\w+=(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, '')
     .replace(/href=["']?\s*javascript:[^"'>]*["']?/gi, 'href="#"')
     .replace(/src=["']?\s*javascript:[^"'>]*["']?/gi, 'src=""');
 }
 
 /**
- * Strips literal Markdown syntax artifacts while strictly preserving
+ * Strips literal Markdown and JSX syntax artifacts while strictly preserving
  * legitimate content, numbers, punctuation, dashes, quotes, currency, and symbols.
- * 
- * Preserves:
- * - #1, EP #2 (issue/rank numbering)
- * - BET-TR, Cluj-Napoca (hyphenated names/tickers)
- * - 2026–2027 (en-dash)
- * - BNR — Piața monetară (em-dash)
- * - EUR/RON (slashes)
- * - +8,4% (plus signs and percentages)
- * - €1,2 milioane (currency symbols and numbers)
- * - Top 5 (standard text)
- * - 2026.08.17 (dates)
  */
 export function cleanText(input?: string | null): string {
   if (!input || typeof input !== 'string') return '';
 
-  return input
+  const withoutMarkup = cleanEditorialText(input);
+
+  return withoutMarkup
     // 1. Remove code blocks
     .replace(/```[a-zA-Z]*\n?([\s\S]*?)```/g, '$1')
     // 2. Remove inline code backticks
@@ -55,11 +49,16 @@ export function cleanText(input?: string | null): string {
     .replace(/^[ \t]*>[ \t]*/gm, '')
     // 11. Normalize markdown bullet lists (- Item, * Item, + Item) to clean bullets • 
     .replace(/^[ \t]*[-*+][ \t]+/gm, '• ')
-    // 12. Clean trailing whitespace on lines
+    // 12. Strip leftover tag syntax
+    .replace(/<[^>]+>/g, '')
+    // 13. Clean trailing whitespace on lines
     .split('\n')
     .map((line) => line.trimEnd())
     .join('\n')
     .trim();
 }
+
+export { cleanEditorialText, normalizeArticleString, parseArticleContentToBlocks };
+
 
 
