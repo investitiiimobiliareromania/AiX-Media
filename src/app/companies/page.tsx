@@ -174,7 +174,11 @@ export default function CompaniesPage() {
                     {comp.name}
                   </h3>
                   <div className="text-xs font-mono text-neutral-400">
-                    Simbol: <strong className="text-amber-400">{comp.symbol}</strong> • {comp.sector}
+                    Simbol: <strong className="text-amber-400">{comp.symbol}</strong>
+                    {comp.isin && comp.isin !== 'N/A' && (
+                      <> • ISIN: <span className="text-neutral-300 font-semibold">{comp.isin}</span></>
+                    )}
+                    {" • "}{comp.sector}
                   </div>
                 </div>
               </div>

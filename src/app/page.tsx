@@ -256,11 +256,15 @@ export default async function HomePage() {
               href={`/companies/${comp.slug}`}
               className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] transition-all block space-y-3 shadow-lg"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <span className="text-amber-400 font-mono text-xs font-bold px-2 py-0.5 rounded bg-[var(--surface-elevated)] border border-[var(--border)]">
                   {comp.symbol}
                 </span>
-                <span className="text-neutral-400 font-mono text-xs">{comp.isin}</span>
+                {comp.isin && comp.isin !== 'N/A' && (
+                  <span className="text-neutral-400 font-mono text-xs">
+                    ISIN: <span className="text-neutral-300 font-semibold">{comp.isin}</span>
+                  </span>
+                )}
               </div>
               <h3 className="font-serif text-base font-bold text-white truncate">{comp.name}</h3>
               <p className="text-xs text-neutral-300 line-clamp-2 font-serif">{comp.description}</p>

@@ -29,16 +29,16 @@ export function HomepageVideoSection({ videos }: HomepageVideoSectionProps) {
         <div>
           <div className="text-[10px] font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
             <Tv className="w-3.5 h-3.5" />
-            Jurnalism Video &amp; Analize
+            Cristian Văduva — Momente &amp; Perspective
           </div>
           <h2
             id="homepage-video-section-title"
             className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1"
           >
-            Cristian Văduva • Video Journalism
+            Cristian Văduva — Momente &amp; Perspective
           </h2>
           <p className="text-xs font-mono text-neutral-400 mt-0.5 tracking-wide">
-            Real Estate · Markets · Negotiation · Wealth
+            Real Estate · Markets · Negotiation · Perspective
           </p>
         </div>
 
@@ -46,7 +46,7 @@ export function HomepageVideoSection({ videos }: HomepageVideoSectionProps) {
           href="/tv"
           className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold transition-colors shrink-0 group uppercase tracking-wider"
         >
-          <span>Toate Analizele Video</span>
+          <span>Toate Materialele Video</span>
           <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
