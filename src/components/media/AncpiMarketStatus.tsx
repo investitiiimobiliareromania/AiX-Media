@@ -102,7 +102,7 @@ export function AncpiMarketStatus() {
             <Activity className="w-3.5 h-3.5 text-amber-400" />
             Top Județe Tranzacții Cadastrale (Luna {ancpiData.period})
           </span>
-          <span className="text-[11px] text-neutral-500 font-normal">Volum imobile</span>
+          <span className="text-[11px] text-neutral-400 font-normal">Volum imobile</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 font-mono text-xs">
