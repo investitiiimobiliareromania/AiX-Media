@@ -147,7 +147,7 @@ export default async function HomePage() {
               <span>Căutare Rapoarte</span>
             </Link>
             <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline text-neutral-500">Surse Oficiale ANCPI &amp; INS</span>
+            <span className="hidden sm:inline text-neutral-400">Surse Oficiale ANCPI &amp; INS</span>
           </div>
         </div>
 
