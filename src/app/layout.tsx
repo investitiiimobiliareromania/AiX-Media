@@ -16,7 +16,9 @@ import { AppProviders } from "@/providers/app-providers";
 import "./globals.css";
 import CookieConsentBanner from "@/components/common/CookieConsentBanner";
 import { getMarketData } from "@/lib/market-data";
+import { getAllArticles, getPodcastEpisodes } from "@/lib/media/service";
 import { VisitorTracker } from "@/components/layout/VisitorTracker";
+import { TopInfoTicker } from "@/components/layout/TopInfoTicker";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -50,6 +52,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const marketSnapshot = await getMarketData();
+  const latestArticle = getAllArticles()[0];
+  const latestPodcast = getPodcastEpisodes()[0];
 
   return (
     <html
@@ -63,6 +67,11 @@ export default async function RootLayout({
         <AppProviders>
           <VisitorTracker />
           <SkipLink />
+          <TopInfoTicker
+            latestArticleTitle={latestArticle?.title}
+            latestPodcastTitle={latestPodcast?.title}
+            equities={marketSnapshot.equities}
+          />
           <NewSiteHeader currencies={marketSnapshot.currencies} />
           <main id="main-content" className="flex-1 w-full max-w-[1600px] mx-auto px-4 md:px-6">
             {children}

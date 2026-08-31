@@ -128,3 +128,33 @@
   }
 }
 
+@keyframes top-ticker-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-top-ticker {
+  display: flex;
+  width: max-content;
+  animation: top-ticker-marquee 45s linear infinite;
+  will-change: transform;
+}
+
+.animate-top-ticker:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-top-ticker {
+    animation: none !important;
+    transform: none !important;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+
