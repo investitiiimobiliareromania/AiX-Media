@@ -9,8 +9,6 @@ interface FeaturedArticleProps {
 }
 
 export function FeaturedArticle({ article }: FeaturedArticleProps) {
-  const isLocalImage = article.coverImage?.startsWith("/");
-
   return (
     <Link
       href={`/${article.category}/${article.slug}`}
@@ -25,7 +23,6 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             priority
             fetchPriority="high"
             decoding="async"
-            unoptimized={isLocalImage}
             sizes="(max-width: 1024px) 100vw, 60vw"
             className="object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
           />

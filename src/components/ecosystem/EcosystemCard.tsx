@@ -33,14 +33,12 @@ export const EcosystemCard: React.FC<EcosystemCardProps> = ({ node }) => {
           href={node.url}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Accesează platforma ${node.name} — ${node.description}`}
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[var(--surface-elevated)] group-hover:bg-[var(--surface-elevated)] text-neutral-200 group-hover:text-neutral-950 font-semibold font-mono text-xs transition-all cursor-pointer min-h-[40px] border border-[var(--border)] group-hover:border-white"
+          className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold font-mono text-xs transition-all cursor-pointer min-h-[44px] shadow-sm"
         >
-          <span>Accesează platforma</span>
+          <span>Accesează {node.name}</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
     </div>
   );
 };
-

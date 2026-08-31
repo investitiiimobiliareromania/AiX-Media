@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // fix-encoded-pipe-titles.js
 // Run with: node scripts/fix-encoded-pipe-titles.js
 require('dotenv').config({ path: '.env.local' });

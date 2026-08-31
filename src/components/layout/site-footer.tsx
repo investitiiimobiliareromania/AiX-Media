@@ -41,8 +41,7 @@ export function SiteFooter() {
                 href={node.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Accesează ${node.name}`}
-                className="group flex flex-col p-2.5 rounded-xl border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-editorial)] hover:border-[var(--accent-bronze)]/50 transition-all shadow-xs"
+                className="group flex flex-col p-2.5 rounded-xl border border-[var(--border)] bg-[var(--surface)] hover:bg-[var(--surface-editorial)] hover:border-[var(--accent-bronze)]/50 transition-all shadow-xs"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-neutral-200 group-hover:text-amber-400 transition-colors truncate">

@@ -43,7 +43,7 @@ const CookieConsentBanner: React.FC = () => {
           </button>
           <button
             onClick={handleAccept}
-            className="px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider bg-[var(--surface-elevated)] hover:bg-[var(--surface)] text-neutral-950 rounded-xl transition-colors cursor-pointer min-h-[44px]"
+            className="px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider bg-amber-500 hover:bg-amber-400 text-neutral-950 rounded-xl transition-colors cursor-pointer min-h-[44px] shadow-sm"
           >
             Acceptă toate
           </button>

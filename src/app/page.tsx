@@ -415,7 +415,7 @@ export default async function HomePage() {
         </div>
         <Link
           href="/academy"
-          className="px-6 py-3.5 rounded-xl bg-[var(--surface-elevated)] hover:bg-neutral-200 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center"
+          className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center shadow-md"
         >
           EXPLOREAZĂ ACADEMIA →
         </Link>

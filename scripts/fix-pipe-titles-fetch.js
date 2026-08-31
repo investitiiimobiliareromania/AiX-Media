@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // scripts/fix-pipe-titles-fetch.js
 require('dotenv').config({ path: '.env.local' });
 
