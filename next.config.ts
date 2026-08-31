@@ -70,6 +70,80 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/podcast/:path*",
+        destination: "/tv",
+        permanent: false,
+      },
+      {
+        source: "/podcasts/:path*",
+        destination: "/tv",
+        permanent: false,
+      },
+      {
+        source: "/insurance/ghid-asigurare-patrimoniu-locuinte-pad-facultativa",
+        destination: "/insurance",
+        permanent: false,
+      },
+      {
+        source: "/insurance/asigurare-patrimoniu-locuinte-pad-facultativa",
+        destination: "/insurance",
+        permanent: false,
+      },
+      {
+        source: "/insurance/corporate-risk-management-protectia-activelor-imobiliare",
+        destination: "/insurance",
+        permanent: false,
+      },
+      {
+        source: "/credits/ghid-credit-ipotecar-ircc-dobanda-fixa-variabila",
+        destination: "/credits",
+        permanent: false,
+      },
+      {
+        source: "/credits/credit-ipotecar-ircc-dobanda-fixa-variabila",
+        destination: "/credits",
+        permanent: false,
+      },
+      {
+        source: "/credits/refinantare-ipotecara-optimizare-cost-capital-grad-indatorare",
+        destination: "/credits",
+        permanent: false,
+      },
+      {
+        source: "/news/ghid-asigurare-patrimoniu-locuinte-pad-facultativa",
+        destination: "/insurance",
+        permanent: false,
+      },
+      {
+        source: "/news/asigurare-patrimoniu-locuinte-pad-facultativa",
+        destination: "/insurance",
+        permanent: false,
+      },
+      {
+        source: "/news/corporate-risk-management-protectia-activelor-imobiliare",
+        destination: "/insurance",
+        permanent: false,
+      },
+      {
+        source: "/news/ghid-credit-ipotecar-ircc-dobanda-fixa-variabila",
+        destination: "/credits",
+        permanent: false,
+      },
+      {
+        source: "/news/credit-ipotecar-ircc-dobanda-fixa-variabila",
+        destination: "/credits",
+        permanent: false,
+      },
+      {
+        source: "/news/refinantare-ipotecara-optimizare-cost-capital-grad-indatorare",
+        destination: "/credits",
+        permanent: false,
+      },
+    ];
+  },
   async headers() {
     return [
       {

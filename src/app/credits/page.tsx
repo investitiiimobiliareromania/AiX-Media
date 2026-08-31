@@ -119,8 +119,8 @@ export default async function CreditsPage() {
         description="Cotații oficiale de referință privind indicii IRCC, ROBOR și rata dobânzii BNR."
       />
 
-      {/* Credit Articles (rendered only if articles exist) */}
-      {creditArticles.length > 0 && (
+      {/* Credit Articles or Premium Empty State */}
+      {creditArticles.length > 0 ? (
         <section className="space-y-6">
           <div className="border-b border-[var(--border)] pb-3">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
@@ -135,6 +135,32 @@ export default async function CreditsPage() {
             {creditArticles.map((art) => (
               <ArticleCard key={art.id} article={art} />
             ))}
+          </div>
+        </section>
+      ) : (
+        <section className="p-8 md:p-12 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] text-center space-y-6 shadow-xl">
+          <div className="max-w-2xl mx-auto space-y-4">
+            <span className="text-amber-500 font-mono text-xs font-bold uppercase tracking-widest">
+              CREDIT &amp; FINANCING ADVISORY
+            </span>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white">
+              Looking for the right financing structure?
+            </h2>
+            <p className="text-sm md:text-base text-neutral-300 font-serif leading-relaxed">
+              Platforma AiX Media oferă acces direct la serviciile de consultanță financiară și structurare ipotecară.
+            </p>
+            <div className="pt-2">
+              <a
+                href="https://credite.cristianvaduva.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shadow-lg cursor-pointer"
+              >
+                <span>Explore Credit Advisory</span>
+                <ArrowRight className="w-4 h-4" />
+                <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+              </a>
+            </div>
           </div>
         </section>
       )}
