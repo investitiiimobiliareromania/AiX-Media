@@ -9,16 +9,23 @@ import {
   getAllCompanies,
   getEconomicEvents,
 } from "@/lib/media/service";
+import dynamic from "next/dynamic";
 import { FeaturedArticle } from "@/components/media/FeaturedArticle";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
-import { RadioPlayer } from "@/components/media/RadioPlayer";
 import { HomepageVideoSection } from "@/components/media/HomepageVideoSection";
-import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { AiXIntelligenceBox } from "@/components/media/AiXIntelligenceBox";
 import { AncpiMarketStatus } from "@/components/media/AncpiMarketStatus";
 import { EcosystemGrid } from "@/components/ecosystem/EcosystemGrid";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
+
+const RadioPlayer = dynamic(
+  () => import("@/components/media/RadioPlayer").then((m) => m.RadioPlayer)
+);
+
+const NewsletterBox = dynamic(
+  () => import("@/components/media/NewsletterBox").then((m) => m.NewsletterBox)
+);
 import {
   GraduationCap,
   Building2,
