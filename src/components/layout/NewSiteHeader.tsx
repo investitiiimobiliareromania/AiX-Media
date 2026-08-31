@@ -34,34 +34,29 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
   }, [menuOpen, ecosystemMobileOpen]);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const ref = scrollRef.current;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const ref = scrollRef.current;
 
-      // If drawer is open, keep header visible
-      if (ref.drawerOpen) {
-        setHeaderVisible(true);
-        ref.lastScrollY = currentScrollY;
-        return;
+          if (ref.drawerOpen || currentScrollY <= 80) {
+            setHeaderVisible(true);
+            ref.lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          const diff = currentScrollY - ref.lastScrollY;
+          if (Math.abs(diff) >= 15) {
+            setHeaderVisible(diff <= 0);
+            ref.lastScrollY = currentScrollY;
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      // Always visible near top
-      if (currentScrollY <= 80) {
-        setHeaderVisible(true);
-        ref.lastScrollY = currentScrollY;
-        return;
-      }
-
-      const diff = currentScrollY - ref.lastScrollY;
-      if (Math.abs(diff) < 10) return;
-
-      if (diff > 0) {
-        setHeaderVisible(false);
-      } else {
-        setHeaderVisible(true);
-      }
-
-      ref.lastScrollY = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

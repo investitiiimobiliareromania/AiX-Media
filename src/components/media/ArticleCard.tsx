@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Article } from "@/lib/media/models/article";
 import { Clock } from "lucide-react";
-import { SafeImage } from "@/components/common/SafeImage";
 
 interface ArticleCardProps {
   article: Article;
@@ -10,6 +10,10 @@ interface ArticleCardProps {
 }
 
 export function ArticleCard({ article, variant = "standard" }: ArticleCardProps) {
+  const imageSrc = article.coverImage && article.coverImage.trim().length > 0
+    ? article.coverImage
+    : "/fallbacks/fallback-0.jpg";
+
   if (variant === "horizontal") {
     return (
       <Link
@@ -17,11 +21,12 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
         className="group flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-sm"
       >
         <div className="relative w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-[var(--surface-elevated)]">
-          <SafeImage
-            src={article.coverImage}
-            slug={article.slug}
+          <Image
+            src={imageSrc}
             alt={article.title}
             fill
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, 33vw"
             className="object-cover group-hover:scale-103 transition-transform duration-500"
           />
           <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[var(--surface-elevated)]/90 text-amber-400 border border-[var(--border)] shadow-xs">
@@ -73,11 +78,12 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
       className="group flex flex-col min-w-0 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all overflow-hidden shadow-lg hover:shadow-2xl"
     >
       <div className="relative w-full h-48 bg-[var(--surface-elevated)] overflow-hidden">
-        <SafeImage
-          src={article.coverImage}
-          slug={article.slug}
+        <Image
+          src={imageSrc}
           alt={article.title}
           fill
+          loading="lazy"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-103 transition-transform duration-500"
         />
         <span className="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-[var(--surface-elevated)]/90 text-amber-400 border border-[var(--border)] shadow-xs">
@@ -108,4 +114,3 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
     </Link>
   );
 }
-

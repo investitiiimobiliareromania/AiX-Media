@@ -8,7 +8,6 @@ import {
   Shield,
   ArrowRight,
   ExternalLink,
-  CheckCircle2,
   Home,
   AlertTriangle,
   Building2,

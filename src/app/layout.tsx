@@ -12,25 +12,24 @@ import { SkipLink } from "@/components/layout/skip-link";
 import { rootMetadata } from "@/config/metadata";
 import { siteConfig } from "@/config/site";
 import { AppProviders } from "@/providers/app-providers";
+import { ClientOnlyComponents } from "@/components/common/ClientOnlyComponents";
 
 import "./globals.css";
-import CookieConsentBanner from "@/components/common/CookieConsentBanner";
 import { getMarketData } from "@/lib/market-data";
 import { getAllArticles } from "@/lib/media/service";
-import { VisitorTracker } from "@/components/layout/VisitorTracker";
 import { TopInfoTicker } from "@/components/layout/TopInfoTicker";
 
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -67,7 +66,6 @@ export default async function RootLayout({
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={webSiteJsonLd} />
         <AppProviders>
-          <VisitorTracker />
           <SkipLink />
           <TopInfoTicker
             latestArticleTitle={latestArticle?.title}
@@ -79,7 +77,7 @@ export default async function RootLayout({
           </main>
           <SiteFooter />
         </AppProviders>
-        <CookieConsentBanner />
+        <ClientOnlyComponents />
       </body>
     </html>
   );

@@ -17,7 +17,6 @@ import {
   Scale,
   DollarSign,
   Building,
-  AlertCircle,
   FileCheck,
 } from "lucide-react";
 import { getMarketData } from "@/lib/market-data";

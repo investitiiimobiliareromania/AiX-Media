@@ -64,7 +64,7 @@ export function HomepageVideoSection({ videos }: HomepageVideoSectionProps) {
               <YouTubeThumbnail
                 videoId={featuredVideo.youtubeId}
                 alt={featuredVideo.title}
-                priority={true}
+                priority={false}
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="group-hover:scale-103 transition-transform duration-500 ease-out"
               />
