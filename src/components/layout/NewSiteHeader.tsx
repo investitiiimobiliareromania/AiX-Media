@@ -359,7 +359,6 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
           <button
             id="desktop-ecosystem-button"
             type="button"
-            aria-label="Open AiX Ecosystem"
             aria-expanded={ecosystemDesktopOpen}
             aria-controls="desktop-ecosystem-panel"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-300 hover:text-white hover:border-amber-500/40 hover:bg-[var(--surface-elevated)] text-xs font-semibold font-mono uppercase tracking-wider transition-all cursor-pointer"
@@ -377,7 +376,6 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
         <div className="flex lg:hidden items-center gap-2 ml-auto">
           <button
             type="button"
-            aria-label="Open AiX Ecosystem"
             aria-expanded={ecosystemMobileOpen}
             className="flex min-h-[48px] min-w-[48px] items-center justify-center px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider bg-[var(--surface-elevated)] text-neutral-200 border border-[var(--border)] active:bg-[var(--surface-elevated)] transition-colors"
             onClick={() => {
