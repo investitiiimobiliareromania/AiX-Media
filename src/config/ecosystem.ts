@@ -59,7 +59,7 @@ export const AIX_ECOSYSTEM_NODES: EcosystemNode[] = [
     url: "https://credite.cristianvaduva.com",
     category: "REAL_ESTATE_CAPITAL",
     categoryLabel: "Real Estate & Capital",
-    description: "Credit intelligence, financing analysis and structured lending solutions.",
+    description: "Credit advisory, financing options and structured lending solutions.",
     isExternal: true,
   },
   {
@@ -68,7 +68,7 @@ export const AIX_ECOSYSTEM_NODES: EcosystemNode[] = [
     url: "https://insurance.cristianvaduva.com",
     category: "PROTECTION_WELLNESS",
     categoryLabel: "Protection & Wellness",
-    description: "Insurance intelligence and strategic asset protection.",
+    description: "Insurance advisory and strategic asset protection.",
     isExternal: true,
   },
   {

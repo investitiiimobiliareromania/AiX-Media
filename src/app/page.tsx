@@ -43,9 +43,9 @@ import {
 import { getMarketData } from "@/lib/market-data";
 
 export const metadata: Metadata = {
-  title: "AiX Media — Real Estate, Insurance, Credit & Market Intelligence",
+  title: "AiX Media — Real Estate, Insurance, Credit & Market Information",
   description:
-    "Platformă instituțională de analiză imobiliară, protecția patrimoniului, creditare ipotecară, date ANCPI, indicatori BNR, companii BVB și materiale video cu Cristian Văduva.",
+    "Platformă editorială de analiză imobiliară, protecția patrimoniului, creditare ipotecară, date ANCPI, indicatori BNR, companii BVB și materiale video cu Cristian Văduva.",
   alternates: { canonical: "/" },
 };
 
@@ -160,23 +160,23 @@ export default async function HomePage() {
       {/* 3. Three Editorial Verticals & Ecosystem Triptych Module */}
       <EditorialVerticalsTriptych />
 
-      {/* 4. Real Estate Vertical Section (Primary Editorial Vertical) */}
+      {/* 4. Real Estate Vertical Section */}
       <section className="space-y-6 pt-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[var(--border)] pb-3 gap-3">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Building2 className="w-4 h-4" />
-              Real Estate Vertical • Primary Intelligence
+              Real Estate News &amp; Property Market
             </div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
               Piața Imobiliară: România &amp; Europa
             </h2>
             <p className="text-xs font-mono text-neutral-400 mt-1">
-              Tranzacții cadastrale ANCPI, prețuri, chirii, dezvoltatori și construcții
+              Tranzacții cadastrale ANCPI, prețuri, chirii și construcții
             </p>
           </div>
           <Link href="/real-estate" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
-            <span>Toate Analizele Imobiliare</span>
+            <span>Toate Știrile Imobiliare</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -210,32 +210,34 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5. Insurance Vertical Section */}
+      {/* 5. Insurance Section */}
       <section className="space-y-6 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[var(--border)] pb-3 gap-3">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Shield className="w-4 h-4" />
-              Insurance Vertical • Risk Protection
+              Insurance &amp; Risk Information
             </div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
-              Insurance Intelligence &amp; Risk Protection
+              Insurance &amp; Protecția Patrimoniului
             </h2>
             <p className="text-xs font-mono text-neutral-400 mt-1">
-              Ghiduri de protecție a patrimoniului, polițe de locuință și managementul riscurilor
+              Informații despre asigurări, protecția proprietăților și riscuri
             </p>
           </div>
           <Link href="/insurance" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
-            <span>Toate Ghidurile de Asigurări</span>
+            <span>Toate Informațiile Asigurări</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {insuranceArticles.slice(0, 3).map((art) => (
-            <ArticleCard key={art.id} article={art} />
-          ))}
-        </div>
+        {insuranceArticles.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {insuranceArticles.slice(0, 3).map((art) => (
+              <ArticleCard key={art.id} article={art} />
+            ))}
+          </div>
+        )}
 
         {/* Insurance Section CTA */}
         <div className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
@@ -260,32 +262,34 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 6. Credits & Financing Vertical Section */}
+      {/* 6. Credits & Financing Section */}
       <section className="space-y-6 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[var(--border)] pb-3 gap-3">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Landmark className="w-4 h-4" />
-              Credits &amp; Financing Vertical
+              Credit &amp; Financing Information
             </div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
-              Credit Intelligence &amp; Financial Optimization
+              Credit &amp; Finanțare Ipotecară
             </h2>
             <p className="text-xs font-mono text-neutral-400 mt-1">
-              Credite ipotecare, analiză IRCC/ROBOR, refinanțări și capacitate de îndatorare
+              Informații despre creditare, dobânzi BNR, IRCC și refinanțare
             </p>
           </div>
           <Link href="/credits" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
-            <span>Toate Ghidurile de Creditare</span>
+            <span>Toate Informațiile Credite</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {creditArticles.slice(0, 3).map((art) => (
-            <ArticleCard key={art.id} article={art} />
-          ))}
-        </div>
+        {creditArticles.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {creditArticles.slice(0, 3).map((art) => (
+              <ArticleCard key={art.id} article={art} />
+            ))}
+          </div>
+        )}
 
         {/* Credit Section CTA */}
         <div className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
@@ -402,11 +406,11 @@ export default async function HomePage() {
         <div className="space-y-2.5 flex-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
             <GraduationCap className="w-4 h-4 text-amber-500" />
-            Intelligence Academy
+            Academy Spotlight
           </div>
-          <h3 className="font-serif text-2xl lg:text-3xl font-bold text-white">Ghiduri &amp; Modele de Analiză Imobiliară</h3>
+          <h3 className="font-serif text-2xl lg:text-3xl font-bold text-white">Analiza Tranzacțiilor Cadastrale &amp; Economie Imobiliară</h3>
           <p className="text-xs sm:text-sm text-neutral-300 max-w-2xl leading-relaxed font-serif">
-            Metodologii structurate pentru calculul randamentelor investiționale, analiza tranzacțiilor cadastrale ANCPI și interpretarea indicatorilor macroeconomici.
+            Sinteze ale tranzacțiilor ANCPI și interpretarea indicatorilor macroeconomici.
           </p>
         </div>
         <Link

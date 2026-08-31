@@ -177,9 +177,9 @@ export default function RadioPage() {
       />
 
       <NewsletterBox
-        overline="AiX Radio Intelligence Brief"
+        overline="AiX Radio Brief"
         headline="Notificări Emisiuni Economice Live"
-        description="Abonați-vă pentru a primi ghidul săptămânal al emisiunilor de analiză financiară."
+        description="Abonați-vă pentru a primi notificările emisiunilor economice."
       />
     </div>
   );

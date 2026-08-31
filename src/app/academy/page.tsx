@@ -5,22 +5,22 @@ import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { GraduationCap, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Intelligence Academy & Ghiduri Economice | AiX Media",
+  title: "Academy & Cadre de Analiză | AiX Media",
   description:
-    "Ghiduri structurate, modele de analiză a randamentelor imobiliare și cadre de interpretare a pieței de capital.",
+    "Materiale informaționale și cadre de interpretare a datelor imobiliare și a indicatorilor macroeconomici.",
   alternates: { canonical: "/academy" },
 };
 
 const courses = [
   {
-    title: "Modelarea Randamentelor Imobiliare & Analiza Datelor ANCPI",
+    title: "Interpretarea Datelor Cadastrale ANCPI & Indicatori Imobiliari",
     category: "Real Estate Academy",
-    duration: "Ghid Metodologic Structurat",
+    duration: "Cadru de Analiză",
     level: "Nivel Executiv",
-    description: "Calculul randamentului net (NOI), interpretarea contractelor de vânzare-cumpărare și corelarea cu dobânzile de referință BNR.",
+    description: "Interpretarea volumelor de tranzacții cadastrale, a autorizațiilor de construire INS și corelarea cu dobânzile de referință BNR.",
   },
   {
-    title: "Evaluarea Companiilor Listate la BVB & Interpretarea Rapoartelor",
+    title: "Evaluarea Companiilor Listate la BVB & Raportări Financiare",
     category: "Markets Academy",
     duration: "Cadru de Analiză Financiară",
     level: "Avansat",
@@ -29,7 +29,7 @@ const courses = [
   {
     title: "Indicatorii Macroeconomici: Inflație, Politică Monetară & IRCC",
     category: "Macro Academy",
-    duration: "Sinteză Teoretică & Practică",
+    duration: "Sinteză Informativă",
     level: "Nivel Executiv",
     description: "Înțelegerea mecanismului de transmisie al politicii monetare a BNR, calculul indicilor ROBOR/IRCC și impactul asupra creditării.",
   },
@@ -40,7 +40,7 @@ export default function AcademyPage() {
     <div className="space-y-8 pb-16 pt-4 text-neutral-100">
       <PremiumHero
         eyebrow="Educație &amp; Metodologie Economică"
-        headline="Ghiduri Practice &amp; Modele de Analiză"
+        headline="Materiale Informative &amp; Cadre de Analiză"
         description="Materiale educaționale și metodologii structurate pentru profesioniști, investitori și decidenți din mediul de afaceri."
         ctaLabel="Explorează Materialele"
         ctaHref="#courses"
@@ -50,7 +50,7 @@ export default function AcademyPage() {
         <div className="border-b border-[var(--border)] pb-3">
           <h2 className="font-serif text-2xl font-bold text-white tracking-tight flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-amber-500" />
-            Module Educaționale &amp; Ghiduri Practice
+            Module Educaționale &amp; Cadre de Analiză
           </h2>
         </div>
 
@@ -88,4 +88,3 @@ export default function AcademyPage() {
     </div>
   );
 }
-

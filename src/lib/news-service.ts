@@ -26,7 +26,7 @@ export interface NormalizedArticle {
   intelligence?: ExecutiveIntelligence;
 }
 
-// Strictly Real Estate, Insurance & Credit Editorial News & Insight Dataset
+// Strictly Real Estate, Insurance & Credit Editorial News & Information Dataset
 const rawNewsArticles: NormalizedArticle[] = [
   {
     id: "ancpi-tranzactii-imobiliare-iunie",
@@ -118,15 +118,15 @@ Datele sunt colectate pe bază de cercetare statistică exhaustivă de la admini
     },
   },
   {
-    id: "ghid-asigurare-patrimoniu-locuinte",
-    slug: "ghid-asigurare-patrimoniu-locuinte-pad-facultativa",
-    title: "Asigurarea Patrimoniului și a Clădirilor: Diferențe Cheie între Polița Obligatorie PAD și Polițele Facultative",
+    id: "asigurare-patrimoniu-locuinte",
+    slug: "asigurare-patrimoniu-locuinte-pad-facultativa",
+    title: "Asigurarea Patrimoniului și a Clădirilor: Diferențe între Polița Obligatorie PAD și Polițele Facultative",
     excerpt:
-      "Ghid de analiză a riscului imobiliar: ce acoperă polița obligatorie PAD împotriva catastrofelor naturale comparativ cu o poliță facultativă completă de proprietate.",
+      "Informații despre riscurile imobiliare: ce acoperă polița obligatorie PAD împotriva catastrofelor naturale comparativ cu o poliță facultativă de proprietate.",
     content: `
-Ghid de Inteligență în Asigurări: Protecția Patrimoniului Imobiliar
+Informații Asigurări: Protecția Patrimoniului Imobiliar
 
-Protecția activele imobiliare rezidențiale și comerciale necesită o înțelegere clară a cadrului legal și a instrumentelor de mitigare a riscului.
+Protecția activelor imobiliare rezidențiale și comerciale necesită o înțelegere clară a cadrului legal și a instrumentelor de mitigare a riscului.
 
 Structura Protecției Imobiliare în România
 
@@ -134,59 +134,59 @@ Structura Protecției Imobiliare în România
 • Acoperă 3 riscuri catastrofice majore: cutremur, alunecări de teren și inundații naturale.
 • Suma asigurată legală este de 20.000 EUR (sau 10.000 EUR pentru clădiri din materiale nesupuse tratamentului termic).
 
-2. Polița Facultativă de Proprietate (Comprehensive):
+2. Polița Facultativă de Proprietate:
 • Extinde protecția pentru riscuri de incendiu, explozie, furtunilor, avarii la instalațiile de apă și furt.
-• Include clauza de Răspundere Civilă față de Vecini (esențială la apartamente în blocuri rezidențiale).
-• Permite asigurarea la valoarea reală de piață a imobilului și a bunurilor interioare.
+• Include clauza de Răspundere Civilă față de Vecini.
+• Permite asigurarea la valoarea reală a imobilului și a bunurilor.
     `,
-    source: "AiX Insurance Desk",
+    source: "AiX Insurance News",
     sourceUrl: "https://insurance.cristianvaduva.com",
-    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/ghid-asigurare-patrimoniu-locuinte-pad-facultativa",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/asigurare-patrimoniu-locuinte-pad-facultativa",
     publishedAt: "2026-08-14",
     fetchedAt: "2026-08-31",
     category: "insurance",
-    categoryLabel: "INSURANCE INSIGHT",
+    categoryLabel: "Informații Asigurări",
     image: "/fallbacks/fallback-3.jpg",
     author: "AiX Media Editorial Desk",
-    authorRole: "Redacția Asigurări & Risc",
+    authorRole: "Redacția Asigurări",
     readTime: "5 min read",
     featured: true,
     trending: true,
     intelligence: {
       whyItMatters:
-        "Polița obligatorie PAD oferă doar acoperire de bază pentru catastrofe, lăsând imobilul neasigurat la incendiu, avarii de apă sau răspundere civilă.",
+        "Polița obligatorie PAD oferă acoperire de bază pentru catastrofe, în timp ce polița facultativă acoperă riscurile de incendiu sau avarii de apă.",
       businessImpact:
-        "Proprietarii de portofolii rezidențiale și comerciale care încheie polițe facultative complete își protejează fluxul de venituri și valoarea capitalului investițional.",
+        "Proprietarii care încheie polițe facultative își protejează veniturile din chirii și valoarea capitalului imobiliar.",
       marketConnection:
-        "Băncile comerciale solicită obligatoriu poliță facultativă cesionată în favoarea băncii pentru orice imobil ipotecat.",
+        "Băncile comerciale solicită poliță facultativă cesionată în favoarea băncii pentru orice imobil ipotecat.",
       whatToWatchNext:
-        "Evoluția normelor ASF privind asigurările de locuințe și introducerea de inspecții digitale de risc.",
+        "Evoluția normelor ASF privind asigurările de locuințe.",
     },
   },
   {
     id: "corporate-risk-management-asigurari-active",
     slug: "corporate-risk-management-protectia-activelor-imobiliare",
-    title: "Corporate Risk Management: Ghidul de Protecție a Activelor Imobiliare și Comercial-Industrial",
+    title: "Corporate Risk Management: Protecția Activelor Imobiliare și Comercial-Industrial",
     excerpt:
-      "Metodologii de analiză a riscurilor comerciale pentru clădiri de birouri, spații logistice și flote de companie (CASCO & Business Interruption).",
+      "Informații privind riscurile comerciale pentru clădiri de birouri, spații logistice și flote de companie (CASCO & Business Interruption).",
     content: `
-Ghid de Inteligență în Risc Corporate
+Informații Risc Corporate
 
-Gestionarea riscurilor patrimoniale pentru companii implică auditarea activelor imobiliare, clădirilor de birouri și spațiilor industriale de producție.
+Gestionarea riscurilor patrimoniale pentru companii implică analizarea activelor imobiliare, clădirilor de birouri și spațiilor industriale de producție.
 
 Piloni în Managementul Riscului Corporate
 
 • Property Damage & Business Interruption: Acoperă pierderile financiare cauzate de oprirea activității comerciale în urma unui incendiu sau avarie majoră.
 • Asigurarea Flotelor Auto (CASCO & RCA Corporate): Optimizarea costului total al polițelor pentru flote comerciale și logistice.
-• Răspunderea Managerială (D&O - Directors & Officers): Protecția juridică și financiară a executivilor împotriva deciziilor operaționale cu impact patrimonial.
+• Răspunderea Managerială (D&O): Protecția juridică și financiară a executivilor în deciziile operaționale.
     `,
-    source: "AiX Insurance Advisory",
+    source: "AiX Insurance News",
     sourceUrl: "https://insurance.cristianvaduva.com",
     canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/corporate-risk-management-protectia-activelor-imobiliare",
     publishedAt: "2026-08-06",
     fetchedAt: "2026-08-31",
     category: "insurance",
-    categoryLabel: "RISK INTELLIGENCE",
+    categoryLabel: "Informații Risc Corporate",
     image: "/fallbacks/fallback-4.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Corporate Risk",
@@ -195,44 +195,44 @@ Piloni în Managementul Riscului Corporate
     trending: true,
     intelligence: {
       whyItMatters:
-        "Oprirea accidentală a activității într-un spaiu comercial sau depozit logistic generează pierderi de venit direct superioare daunei materiale fizice.",
+        "Oprirea accidentală a activității într-un spațiu comercial sau depozit logistic generează pierderi financiare directe.",
       businessImpact:
-        "Polițele de Business Interruption transferă riscul financiar către reasigurători internaționali, menținând bonitatea firmei în fața băncilor de credite.",
+        "Polițele de Business Interruption transferă riscul financiar către reasigurători, menținând stabilitatea firmei.",
       marketConnection:
-        "Sectorul asigurărilor din România este reglementat de ASF și strâns conectat cu marii brokeri europeni de reasigurare.",
+        "Sectorul asigurărilor din România este reglementat de ASF și conectat cu piața europeană de reasigurare.",
       whatToWatchNext:
-        "Noile cerințe ESG privind sustenabilitatea și reziliența clădirilor la schimbări climatice.",
+        "Cerințele privind sustenabilitatea și reziliența clădirilor la schimbări climatice.",
     },
   },
   {
-    id: "ghid-credit-ipotecar-ircc-dobanda-fixa-variabila",
-    slug: "ghid-credit-ipotecar-ircc-dobanda-fixa-variabila",
-    title: "Ghid Ipotecar 2026: Dobândă Fixă vs. Variabilă și Impactul IRCC asupra Ratelor Lunare",
+    id: "credit-ipotecar-ircc-dobanda-fixa-variabila",
+    slug: "credit-ipotecar-ircc-dobanda-fixa-variabila",
+    title: "Creditare Ipotecară 2026: Dobândă Fixă vs. Variabilă și Impactul IRCC asupra Ratelor Lunare",
     excerpt:
-      "Analiză de inteligență financiară privind structura creditelor ipotecare: de ce 80% din noile împrumuturi rezidențiale aleg dobânda fixă în primii 3-5 ani.",
+      "Informații privind structura creditelor ipotecare: de ce majoritatea noilor împrumuturi rezidențiale aleg dobânda fixă în primii 3-5 ani.",
     content: `
-Ghid de Inteligență Financiară: Structurarea Creditului Ipotecar
+Informații Finanțare: Structurarea Creditului Ipotecar
 
 Alegerea structurii optime de dobândă determină predictibilitatea ratelor lunare și bugetul de capital alocat pentru achiziția unei locuințe.
 
-Analiza Comparativă a Dobânzilor
+Analiza Dobânzilor Ipotecare
 
 1. Dobânda Fixă pe 3 - 5 Ani:
-• Oferă stabilitate totală a ratei în perioada inițială a împrumutului.
+• Oferă stabilitate a ratei în perioada inițială a împrumutului.
 • Protejează debitorul împotriva fluctuațiilor IRCC pe piața monetară.
-• Permite refinanțarea fără penalități majore la finalul perioadei fixe.
+• Permite refinanțarea fără penalități la finalul perioadei fixe.
 
 2. Dobânda Variabilă (IRCC + Marjă Bancară):
 • Se actualizează trimestrial pe baza indicelui reglementat calculat de BNR.
-• Recomandată în perioadele de relaxare a politicii monetare când BNR scade dobânda cheie.
+• Depinde direct de evoluția indicilor de piață.
     `,
-    source: "AiX Credit Advisory",
+    source: "AiX Credit News",
     sourceUrl: "https://credite.cristianvaduva.com",
-    canonicalUrl: "https://aixmedia.cristianvaduva.com/credits/ghid-credit-ipotecar-ircc-dobanda-fixa-variabila",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/credits/credit-ipotecar-ircc-dobanda-fixa-variabila",
     publishedAt: "2026-08-12",
     fetchedAt: "2026-08-31",
     category: "credits",
-    categoryLabel: "CREDIT INSIGHT",
+    categoryLabel: "Informații Credite",
     image: "/fallbacks/fallback-1.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Finanțare & Credite",
@@ -241,39 +241,39 @@ Analiza Comparativă a Dobânzilor
     trending: true,
     intelligence: {
       whyItMatters:
-        "Rata lunară a creditului ipotecar depinde direct de marja fixă a băncii (1.9% - 2.5%) plus indicele de referință (IRCC).",
+        "Rata lunară a creditului ipotecar depinde de marja fixă a băncii plus indicele de referință (IRCC).",
       businessImpact:
-        "Cumpărătorii de locuințe care optează pentru dobândă fixă la achiziție beneficiază de predictibilitate bugetară și pot aloca capital pentru alte investiții.",
+        "Cumpărătorii de locuințe care optează pentru dobândă fixă la achiziție beneficiază de predictibilitate bugetară.",
       marketConnection:
-        "Portofoliile ipotecare ale băncilor comerciale (Banca Transilvania, BRD, BCR) sunt cele mai sigure active garantate din bilant.",
+        "Portofoliile ipotecare ale băncilor comerciale (Banca Transilvania, BRD, BCR) constituie active importante din bilanț.",
       whatToWatchNext:
-        "Publicarea cotației oficiale IRCC aplicabilă trimestrului IV 2026 de către BNR.",
+        "Publicarea cotației oficiale IRCC de către BNR.",
     },
   },
   {
     id: "refinanțare-ipotecara-optimizare-cost-capital",
     slug: "refinantare-ipotecara-optimizare-cost-capital-grad-indatorare",
-    title: "Refinanțarea Ipotecară: Criterii BNR privind Gradul Maxim de Îndatorare (40%-45%) și Optimizarea Costului Capitalului",
+    title: "Refinanțarea Ipotecară: Criterii BNR privind Gradul Maxim de Îndatorare (40%-45%)",
     excerpt:
-      "Cum se calculează capacitatea de plată și gradul maxim de îndatorare reglementat de BNR la refinanțarea creditelor vechi în condiții de dobândă mai favorabile.",
+      "Cum se calculează capacitatea de plată și gradul maxim de îndatorare reglementat de BNR la refinanțarea creditelor în condiții de dobândă mai favorabile.",
     content: `
-Ghid de Optimizare Financiară: Refinanțare & Capacitate de Îndatorare
+Informații Refinanțare & Capacitate de Îndatorare
 
 Refinanțarea creditelor ipotecare existente permite scăderea costului total al dobânzilor și reducerea duratei de rambursare.
 
 Regulamentul BNR privind Gradul de Îndatorare
 
 • Grad maxim de îndatorare populație: Reglementat la 40% din venitul net lunar pentru credite în RON (45% pentru primii cumpărători ai primei locuințe).
-• Evaluarea Veniturilor Eligibile: Venituri din salarii, dividende, chirii și activități independente cu o vechime minimă verificată la ANAF.
-• Scăderea Costului Total: Refinanțarea unui credit vechi la o dobândă fixă actualizată poate reduce rata lunară cu 15% - 25%.
+• Evaluarea Veniturilor Eligibile: Venituri din salarii, dividende, chirii și activități independente verificate oficial.
+• Scăderea Costului Total: Refinanțarea unui credit vechi la o dobândă fixă actualizată poate reduce rata lunară.
     `,
-    source: "AiX Credit Advisory",
+    source: "AiX Credit News",
     sourceUrl: "https://credite.cristianvaduva.com",
     canonicalUrl: "https://aixmedia.cristianvaduva.com/credits/refinantare-ipotecara-optimizare-cost-capital-grad-indatorare",
     publishedAt: "2026-08-04",
     fetchedAt: "2026-08-31",
     category: "credits",
-    categoryLabel: "FINANCING GUIDE",
+    categoryLabel: "Informații Finanțare",
     image: "/fallbacks/fallback-0.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Finanțare & Credite",
@@ -282,13 +282,13 @@ Regulamentul BNR privind Gradul de Îndatorare
     trending: true,
     intelligence: {
       whyItMatters:
-        "Gradul maxim de îndatorare de 40% impus de BNR protejează debitorii de riscul de supra-îndatorare în perioade de volatilitate economică.",
+        "Gradul maxim de îndatorare de 40% impus de BNR protejează debitorii de riscul de supra-îndatorare.",
       businessImpact:
-        "Refinanțarea strategică eliberează flux de numerar lunar utilizabil pentru investiții alternative sau rambursări anticipate.",
+        "Refinanțarea eliberează flux de numerar lunar utilizabil pentru alte cheltuieli sau economii.",
       marketConnection:
-        "Conexiune directă cu băncile din România prin interogarea automată a bazei de date Biroul de Credit și ANAF.",
+        "Verificarea se face prin interogarea bazei de date Biroul de Credit și ANAF.",
       whatToWatchNext:
-        "Ofertele promoționale de refinanțare ipotecară cu dobândă fixă emise de băncile de top din România.",
+        "Ofertele de refinanțare ipotecară emise de băncile din România.",
     },
   },
   {
@@ -298,7 +298,7 @@ Regulamentul BNR privind Gradul de Îndatorare
     excerpt:
       "Evoluția ratelor dobânzilor de referință BNR și nivelul IRCC influențează gradul de îndatorare al cumpărătorilor de locuințe și volumul noilor împrumuturi ipotecare.",
     content: `
-Analiză Macroeconomică BNR & Piața Creditelor Ipotecare
+Sinteză BNR & Piața Creditelor Ipotecare
 
 Consiliul de Administrație al Băncii Naționale a României a analizat evoluția creditului negvernamental și structura împrumuturilor ipotecare acordate populației.
 
@@ -323,13 +323,13 @@ Subiecte Cheie
     trending: true,
     intelligence: {
       whyItMatters:
-        "Evoluția IRCC stabilește costul lunar al ratelor la credite și afectează bugetul maxim alocat de cumpărătorii de proprietăți rezidențiale.",
+        "Evoluția IRCC stabilește costul lunar al ratelor la credite și afectează bugetul alocat de cumpărătorii de locuințe.",
       businessImpact:
-        "Dezvoltatorii adaptează mixul de apartamente (2 și 3 camere optimizate) pentru a se încadra în pragurile de creditare ale băncilor partener.",
+        "Dezvoltatorii adaptează mixul de apartamente pentru a se încadra în pragurile de creditare ale băncilor.",
       marketConnection:
-        "Conexiune directă cu veniturile din dobânzi ale băncilor comerciale listate la BVB (Banca Transilvania, BRD) și marja netă de dobândă.",
+        "Conexiune cu veniturile din dobânzi ale băncilor comerciale (Banca Transilvania, BRD).",
       whatToWatchNext:
-        "Publicarea noului indice IRCC aplicabil trimestrului următor și rapoartele BNR privind soldul creditelor acordate populației.",
+        "Publicarea noului indice IRCC aplicabil trimestrului următor de către BNR.",
     },
   },
   {
@@ -346,8 +346,8 @@ Evoluția sectorului imobiliar rezidențial din Uniunea Europeană reflectă ada
 Tendințe Europene Cheie
 
 • Germania: Stabilizarea indicelui prețurilor la locuințe după ajustările succesive din ultimele semestre.
-• Spania & Portugalia: Creșteri continue ale cererii pe segmentul rezidențial de coastă și premium urbane.
-• Randamente de Închiriere: Randamentele brute din Europa Centrală și de Est (6,5% - 8,0%) rămân atractive prin comparație cu randamentele vest-europene (3,5% - 4,5%).
+• Spania & Portugalia: Creșteri ale cererii pe segmentul rezidențial de coastă și premium urbane.
+• Randamente de Închiriere: Randamentele brute din Europa Centrală și de Est (6,5% - 8,0%) comparativ cu cele vest-europene (3,5% - 4,5%).
     `,
     source: "Eurostat",
     sourceUrl: "https://ec.europa.eu/eurostat",
@@ -364,13 +364,13 @@ Tendințe Europene Cheie
     trending: true,
     intelligence: {
       whyItMatters:
-        "Comportamentul piețelor imobiliare vest-europene (Germania, Spania, Franța) oferă un indicator avansat pentru mișcările de capital ale fondurilor instituționale.",
+        "Comportamentul piețelor imobiliare vest-europene oferă un indicator avansat pentru mișcările de capital.",
       businessImpact:
-        "Investitorii privați și fondurile imobiliare compară randamentele brute din România (6,5-8%) cu cele din vestul Europei (3,5-4,5%), realocând capital.",
+        "Investitorii compară randamentele brute din România cu cele din vestul Europei.",
       marketConnection:
-        "Fără conexiune BVB directă. Evoluția vizează fondurile europene de real estate cross-border și vehiculele de investiții private equity.",
+        "Evoluția vizează fondurile europene de real estate cross-border.",
       whatToWatchNext:
-        "Publicarea indicelui Eurostat House Price Index (HPI) și deciziile de dobândă ale Băncii Centrale Europene (BCE).",
+        "Publicarea indicelui Eurostat House Price Index (HPI) și deciziile BCE.",
     },
   },
   {
@@ -382,15 +382,15 @@ Tendințe Europene Cheie
     content: `
 Sinteza Pieței Imobiliare Comerciale și Logistice
 
-Analiza volumelor de capital plasate în active comerciale cu venit generat din chirii (yield-producing assets) din marile poluri de business ale României.
+Analiza volumelor de capital plasate în active comerciale cu venit generat din chirii din marile poluri de business ale României.
 
 Elemente Principale
 
-1. Office Clasa A: Proiecte cu certificare verde (BREEAM/LEED) care atrag chiriași multinaționali cu contracte pe termen lung (5-10 ani).
+1. Office Clasa A: Proiecte cu certificare verde (BREEAM/LEED) care atrag chiriași multinaționali cu contracte pe termen lung.
 2. Sectorul Logistic: Cererea susținută de extinderea rețelelor de retail și e-commerce în regiunile București, Timișoara și Cluj.
-3. Rata de Randament (Prime Yield): Se menține la nivelul de 7,25% - 7,75% pentru birouri și spații logistice de primă clasă.
+3. Rata de Randament: Se menține la nivelul de 7,25% - 7,75% pentru birouri și spații logistice.
     `,
-    source: "AiX Research",
+    source: "AiX News",
     sourceUrl: "https://aixmedia.cristianvaduva.com/real-estate",
     canonicalUrl: "https://aixmedia.cristianvaduva.com/real-estate",
     publishedAt: "2026-08-01",
@@ -405,13 +405,13 @@ Elemente Principale
     trending: false,
     intelligence: {
       whyItMatters:
-        "Volumul investițiilor comerciale testează randamentele de primă clasă (prime yields) și arată încrederea investitorilor instituționali în active reale.",
+        "Volumul investițiilor comerciale arată încrederea investitorilor instituționali în active reale.",
       businessImpact:
-        "Proprietarii de clădiri de birouri și chiriașii corporate renegociază clauzele de indexare la inflație și bugetele de amenajare a spațiilor.",
+        "Proprietarii de clădiri de birouri și chiriașii corporate renegociază clauzele de indexare.",
       marketConnection:
-        "Conexiune directă cu dezvoltatorii imobiliari listați la BVB (One United Properties) și companiile din sectorul logistic și de infrastructură.",
+        "Conexiune cu dezvoltatorii imobiliari listați la BVB (One United Properties).",
       whatToWatchNext:
-        "Rata de neocupare a spațiilor office din polul de birouri Nord București și noile livrări de parcuri industriale.",
+        "Rata de neocupare a spațiilor office din polul de birouri Nord București.",
     },
   },
 ];

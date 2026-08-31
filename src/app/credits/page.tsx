@@ -4,14 +4,14 @@ import { ArticleCard } from "@/components/media/ArticleCard";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { siteConfig } from "@/config/site";
-import { Landmark, ArrowRight, ExternalLink, Calculator } from "lucide-react";
+import { Landmark, ArrowRight, ExternalLink } from "lucide-react";
 import { getMarketData } from "@/lib/market-data";
 import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 
 export const metadata: Metadata = {
-  title: "Credit Intelligence & Financial Optimization | AiX Media",
+  title: "Credit & Financing Information | AiX Media",
   description:
-    "Analize de creditare ipotecară și refinanțare: indicatori BNR, indicii IRCC/ROBOR, gradul maxim de îndatorare și optimizarea costului capitalului.",
+    "Informații relevante despre creditare, dobânzi, IRCC și finanțarea proprietăților.",
   alternates: {
     canonical: `${siteConfig.url}/credits`,
   },
@@ -79,24 +79,6 @@ export default async function CreditsPage() {
     },
   ];
 
-  const keyCreditGuides = [
-    {
-      title: "Dobândă Fixă vs. Dobândă Variabilă în 2026",
-      description: "Analiză comparativă privind structura creditelor ipotecare: de ce peste 80% din achiziții folosesc dobânda fixă inițială pe 3-5 ani.",
-      tag: "CREDIT INSIGHT",
-    },
-    {
-      title: "Optimizarea Refinanțării Ipotecare",
-      description: "Cum poți reduce rata lunară și costul total al dobânzilor prin refinanțarea creditelor vechi în condiții de piață mai avantajoase.",
-      tag: "FINANCING GUIDE",
-    },
-    {
-      title: "Evaluarea Capacității de Îndatorare (ANAF & BNR)",
-      description: "Cadru practic de calcul al gradului maxim de îndatorare de 40% din veniturile nete lunare verificate oficial.",
-      tag: "CREDIT INTELLIGENCE",
-    },
-  ];
-
   return (
     <div className="space-y-12 pb-20 pt-4 text-neutral-100 max-w-7xl mx-auto px-4 sm:px-6">
       {/* Header Banner */}
@@ -107,13 +89,13 @@ export default async function CreditsPage() {
           <div className="space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
               <Landmark className="w-4 h-4 text-amber-500" />
-              Credit Intelligence &amp; Financial Optimization
+              Credit &amp; Financing Information
             </div>
             <h1 className="font-serif text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
-              Inteligență în Creditare Ipotecară &amp; Refinanțare
+              Informații Despre Creditare &amp; Dobânzi
             </h1>
             <p className="text-sm md:text-base text-neutral-300 font-serif leading-relaxed">
-              Analize privind evoluția ratelor dobânzilor IRCC și ROBOR, normele BNR privind îndatorarea și strategii de optimizare a costului creditelor.
+              Informații relevante despre creditare, dobânzi, IRCC și finanțarea proprietăților.
             </p>
           </div>
 
@@ -130,57 +112,22 @@ export default async function CreditsPage() {
         </div>
       </section>
 
-      {/* Credit Dashboard */}
+      {/* Official Monetary Metrics Dashboard */}
       <IntelligenceDashboard
         metrics={creditMetrics}
-        title="Indicatori Oficiali de Creditare BNR"
-        description="Date de referință privind indicii IRCC, ROBOR și rata dobânzii de politică monetară."
+        title="Indicatori Monetari &amp; Dobânzi BNR"
+        description="Cotații oficiale de referință privind indicii IRCC, ROBOR și rata dobânzii BNR."
       />
 
-      {/* Evergreen Credit Guides */}
-      <section className="space-y-6">
-        <div className="border-b border-[var(--border)] pb-3">
-          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
-            Optimizare Financiară &amp; Ghiduri
-          </span>
-          <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
-            Ghiduri &amp; Strategii de Creditare Ipotecară
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {keyCreditGuides.map((guide, idx) => (
-            <div
-              key={idx}
-              className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-3 shadow-lg flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/30">
-                  {guide.tag}
-                </span>
-                <h3 className="font-serif text-lg font-bold text-white">{guide.title}</h3>
-                <p className="text-xs text-neutral-300 font-serif leading-relaxed">
-                  {guide.description}
-                </p>
-              </div>
-              <div className="pt-4 border-t border-[var(--border)] text-xs font-mono text-amber-400 flex items-center gap-1">
-                <Calculator className="w-4 h-4 text-amber-500" />
-                <span>Analiză Structurată Evergreen</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Credit Articles */}
+      {/* Credit Articles (rendered only if articles exist) */}
       {creditArticles.length > 0 && (
         <section className="space-y-6">
           <div className="border-b border-[var(--border)] pb-3">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
-              Analize &amp; Dobânzi
+              Știri &amp; Informații
             </span>
             <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
-              Analize Financiar-Bancare &amp; Refinanțare
+              Informații Finanțare &amp; Dobânzi Ipotecare
             </h2>
           </div>
 
@@ -196,13 +143,13 @@ export default async function CreditsPage() {
       <section className="p-8 rounded-2xl bg-[var(--surface-elevated)] border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
         <div className="space-y-2">
           <div className="text-amber-400 font-mono text-xs font-bold uppercase tracking-widest">
-            Credit Advisory &amp; Structuring
+            External Credit Advisory
           </div>
           <h3 className="font-serif text-2xl font-bold text-white">
-            Ai nevoie de asistență pentru structurarea sau refinanțarea unui credit?
+            Dorești asistență pentru structurarea unei finanțări sau refinanțări?
           </h3>
           <p className="text-xs sm:text-sm text-neutral-300 max-w-2xl font-serif">
-            Consultă opțiunile de finanțare și beneficiază de recomandări optimizate pentru profilul tău de venituri.
+            Accesează platforma dedicată de consultanță în creditare și finanțare.
           </p>
         </div>
         <a
@@ -211,7 +158,7 @@ export default async function CreditsPage() {
           rel="noopener noreferrer"
           className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 flex items-center justify-center gap-2 cursor-pointer"
         >
-          <span>Request Credit Consultation</span>
+          <span>Explore Credit Advisory</span>
           <ArrowRight className="w-4 h-4" />
         </a>
       </section>
@@ -219,9 +166,9 @@ export default async function CreditsPage() {
       <DataDisclaimer type="general" />
 
       <NewsletterBox
-        overline="AiX Credit Advisory Brief"
-        headline="Sinteza Periodică a Dobânzilor &amp; Ipotecilor"
-        description="Primiți direct pe email evoluția noului IRCC, prognozele BNR și ghidurile de refinanțare."
+        overline="AiX Credit Brief"
+        headline="Notificări &amp; Actualizări Dobânzi"
+        description="Abonați-vă pentru a primi informații la publicarea noului indice IRCC și a deciziilor BNR."
       />
     </div>
   );

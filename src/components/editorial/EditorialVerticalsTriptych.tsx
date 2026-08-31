@@ -8,10 +8,10 @@ export function EditorialVerticalsTriptych() {
       number: "01",
       pillar: "REAL ESTATE",
       question: "Ce cumperi?",
-      action: "Discover",
-      title: "Real Estate Intelligence",
-      description: "Analiză de piață, date cadastrale ANCPI, randamente de închiriere și oportunități rezidențiale & comerciale în România și Europa.",
-      ctaText: "Descoperă proprietăți selectate și oportunități imobiliare prin HomeFind.",
+      action: "Market & News",
+      title: "Real Estate",
+      description: "Informații din piața imobiliară, date ANCPI, construcții rezidențiale și evoluții din România și Europa.",
+      ctaText: "Acces la platforma dedicată căutării de proprietăți.",
       buttonText: "Explore HomeFind",
       href: "https://homefind.cristianvaduva.com",
       icon: Building2,
@@ -25,10 +25,10 @@ export function EditorialVerticalsTriptych() {
       number: "02",
       pillar: "CREDIT & FINANCING",
       question: "Cum finanțezi?",
-      action: "Finance",
-      title: "Credit Intelligence",
-      description: "Analiza dobânzilor de referință BNR și IRCC, optimizarea gradului de îndatorare, credite ipotecare și strategii de refinanțare.",
-      ctaText: "Evaluează opțiunile de creditare și refinanțare cu consultanți specializați.",
+      action: "Financing Info",
+      title: "Credit & Financing",
+      description: "Informații relevante despre creditare ipotecară, evoluția ratelor dobânzilor BNR, IRCC și refinanțare.",
+      ctaText: "Consultă opțiunile de finanțare cu specialiști dedicați.",
       buttonText: "Explore Credit Advisory",
       href: "https://credite.cristianvaduva.com",
       icon: Landmark,
@@ -42,10 +42,10 @@ export function EditorialVerticalsTriptych() {
       number: "03",
       pillar: "INSURANCE",
       question: "Cum protejezi?",
-      action: "Protect",
-      title: "Insurance Intelligence",
-      description: "Protecția patrimoniului imobiliar, evaluarea riscurilor catastrofice, polițe facultative, CASCO/RCA și corporate risk management.",
-      ctaText: "Protejează-ți patrimoniul și activele imobiliare împotriva riscurilor.",
+      action: "Risk & Protection",
+      title: "Insurance",
+      description: "Informații despre asigurările de locuință, protecția proprietăților și gestionarea riscurilor patrimoniale.",
+      ctaText: "Solicită o evaluare dedicată a riscurilor pentru proprietăți.",
       buttonText: "Request Insurance Analysis",
       href: "https://insurance.cristianvaduva.com",
       icon: Shield,
@@ -68,11 +68,11 @@ export function EditorialVerticalsTriptych() {
             id="editorial-triptych-heading"
             className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-1"
           >
-            Pilonii Strategici de Analiză și Servicii Deducate
+            Informații Imobiliare, Finanțare &amp; Asigurări
           </h2>
         </div>
         <p className="text-xs font-mono text-neutral-400 max-w-md leading-relaxed font-serif">
-          De la analiza pieței până la achiziție, structurare financiară și protecția activelor.
+          Informații din piață și trimitere către platformele dedicate de servicii.
         </p>
       </div>
 

@@ -23,7 +23,7 @@ export function TopInfoTicker({
       href: "/real-estate",
       isExternal: false,
       content: [
-        "Market Intelligence",
+        "Property Market",
         latestArticleTitle || "ANCPI: Peste 51.000 de imobile tranzacționate în iulie",
       ],
     },
@@ -31,13 +31,13 @@ export function TopInfoTicker({
       category: "INSURANCE",
       href: "/insurance",
       isExternal: false,
-      content: ["Risk Protection & Patrimoniu", "Insurance Insights"],
+      content: ["Asigurări & Risc", "Protecție Imobiliară"],
     },
     {
       category: "CREDIT",
       href: "/credits",
       isExternal: false,
-      content: ["Ipotecar & Refinanțare", "Analiză IRCC / BNR"],
+      content: ["Credite & Finanțare", "Rate Dobânzi BNR / IRCC"],
     },
     {
       category: "ANCPI",

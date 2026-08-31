@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "AiX Media",
   shortName: "AiX",
-  tagline: "Platformă de Inteligență Economică, Real Estate, Insurance & Credit",
+  tagline: "Platformă Editorială & Știri: Real Estate, Asigurări, Credite & Piețe",
   description:
-    "Platformă premium de analiză macroeconomică, date imobiliare oficiale ANCPI, indicatori BNR, companii listate la BVB și intelligence de business pentru liderii din România și CEE.",
+    "Platformă editorială de analiză macroeconomică, date imobiliare ANCPI, indicatori BNR, companii BVB și știri din afaceri.",
   url: "https://aixmedia.cristianvaduva.com",
   locale: "ro_RO",
   language: "ro",
