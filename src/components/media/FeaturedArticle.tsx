@@ -21,6 +21,8 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             alt={article.title}
             fill
             priority
+            fetchPriority="high"
+            sizes="(max-width: 1024px) 100vw, 60vw"
             className="object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#F7F7F5] via-transparent to-transparent lg:hidden opacity-80" />

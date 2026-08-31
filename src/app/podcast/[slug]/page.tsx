@@ -126,27 +126,17 @@ export default async function PodcastDetailPage({ params }: PodcastDetailPagePro
               {episode.description}
             </p>
 
-            {/* Audio Player Action Bar */}
+            {/* Action Bar */}
             <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3 font-mono text-xs">
               <a
-                href={episode.spotifyUrl || 'https://open.spotify.com'}
+                href="https://www.youtube.com/@CristianVaduvaCV"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all flex items-center gap-2 shadow-lg"
+                className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold transition-all flex items-center gap-2 shadow-lg"
               >
                 <Headphones className="w-4 h-4" />
-                <span>Ascultă pe Spotify</span>
+                <span>Canalul YouTube Cristian Văduva</span>
                 <ExternalLink className="w-3 h-3" />
-              </a>
-
-              <a
-                href={episode.appleUrl || 'https://podcasts.apple.com'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-neutral-950 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 font-bold transition-all flex items-center gap-2"
-              >
-                <span>Apple Podcasts</span>
-                <ExternalLink className="w-3 h-3 text-neutral-500" />
               </a>
             </div>
           </div>

@@ -28,8 +28,6 @@ export interface PodcastEpisode {
   description: string;
   host: string;
   guest?: string;
-  spotifyUrl?: string;
-  appleUrl?: string;
   transcript?: string;
   chapters?: PodcastChapter[];
   keyQuote?: string;

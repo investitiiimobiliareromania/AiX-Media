@@ -1,5 +1,12 @@
 import { CategorySlug } from "@/config/category-configs";
 
+export interface ExecutiveIntelligence {
+  whyItMatters: string;
+  businessImpact: string;
+  marketConnection: string;
+  whatToWatchNext: string;
+}
+
 export interface Article {
   id: string;
   title: string;
@@ -19,4 +26,6 @@ export interface Article {
   featured?: boolean;
   breaking?: boolean;
   trending?: boolean;
+  intelligence?: ExecutiveIntelligence;
 }
+

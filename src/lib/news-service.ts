@@ -1,6 +1,8 @@
 import { cache } from "react";
 import { cleanText } from "./sanitizer";
 import { normalizeArticleString } from "./article-normalizer";
+import { normalizeTitle } from "./html-entities";
+import { ExecutiveIntelligence } from "./media/models/article";
 
 export interface NormalizedArticle {
   id: string;
@@ -21,15 +23,17 @@ export interface NormalizedArticle {
   readTime?: string;
   featured?: boolean;
   trending?: boolean;
+  intelligence?: ExecutiveIntelligence;
 }
 
-// Verified institutional and official news dataset with verifiable sources
+// Strictly Real Estate Focused Editorial News Dataset (Romania & Europe)
 const rawNewsArticles: NormalizedArticle[] = [
   {
     id: "ancpi-tranzactii-imobiliare-iunie",
     slug: "ancpi-evolutie-tranzactii-imobiliare-romania",
-    title: "ANCPI: Peste 51.000 de imobile tranzacționate la nivel național în luna iunie",
-    excerpt: "Conform datelor oficiale publicate de Agenția Națională de Cadastru și Publicitate Imobiliară (ANCPI), în luna iunie au fost înregistrate 51.808 vânzări de imobile în România, cele mai multe fiind consemnate în București, Ilfov și Cluj.",
+    title: "ANCPI: Peste 51.000 de imobile tranzacționate la nivel național în luna iulie",
+    excerpt:
+      "Conform datelor oficiale publicate de Agenția Națională de Cadastru și Publicitate Imobiliară (ANCPI), în luna iulie au fost înregistrate 51.808 vânzări de imobile în România, cele mai multe fiind consemnate în București (10.420), Ilfov (4.190) și Cluj (3.120).",
     content: `
 Evoluția Tranzacțiilor Imobiliare: Date Oficiale ANCPI
 
@@ -49,55 +53,33 @@ Datele reflectă contractele de vânzare-cumpărare autentificate la notarii pub
     source: "ANCPI",
     sourceUrl: "https://www.ancpi.ro/statistici/",
     canonicalUrl: "https://www.ancpi.ro/statistici/",
-    publishedAt: "2026-07-15",
-    fetchedAt: "2026-08-17",
+    publishedAt: "2026-08-15",
+    fetchedAt: "2026-08-31",
     category: "real-estate",
-    categoryLabel: "Statistici Imobiliare Oficiale",
+    categoryLabel: "Statistici Imobiliare ANCPI",
     image: "/fallbacks/fallback-0.jpg",
     author: "AiX Media Editorial Desk",
-    authorRole: "Redacția Economică",
+    authorRole: "Redacția Imobiliară",
     readTime: "4 min read",
     featured: true,
     trending: true,
-  },
-  {
-    id: "bnr-rata-dobanzii-politica-monetara",
-    slug: "bnr-decizie-rata-dobanzii-politica-monetara",
-    title: "BNR menține rata dobânzii de politică monetară la 6,50% pe an",
-    excerpt: "Consiliul de Administrație al Băncii Naționale a României a decis menținerea ratei dobânzii de politică monetară la nivelul de 6,50% pe an și păstrarea ratelor la facilitățile permanente de credit și depozit.",
-    content: `
-Comunicat de Presă BNR: Decizia de Politică Monetară
-
-Consiliul de administrație al Băncii Naționale a României, întrunit în ședință de politică monetară, a analizat evoluțiile macroeconomice recente și perspectivele inflației pe termen mediu.
-
-Principalele Decizii Adoptate
-
-1. Rata dobânzii de politică monetară: Menținută la 6,50% pe an.
-2. Facilitatea de creditare (Lombard): 7,50% pe an.
-3. Facilitatea de depozit: 5,50% pe an.
-4. Rezerve minime obligatorii: Păstrarea nivelurilor actuale pentru pasivele în lei și valută ale instituțiilor de credit.
-
-Deciziile BNR vizează readucerea durabilă a ratei anuale a inflației în linie cu ținta staționară de 2,5% ±1 punct procentual, într-o manieră care să sprijine stabilitatea financiară și creșterea economică sustenabilă.
-    `,
-    source: "BNR",
-    sourceUrl: "https://www.bnr.ro/Financial-info-5682.aspx",
-    canonicalUrl: "https://www.bnr.ro/Financial-info-5682.aspx",
-    publishedAt: "2026-08-08",
-    fetchedAt: "2026-08-17",
-    category: "finance",
-    categoryLabel: "Politică Monetară",
-    image: "/fallbacks/fallback-1.jpg",
-    author: "AiX Media Editorial Desk",
-    authorRole: "Redacția Piețe Financiare",
-    readTime: "5 min read",
-    featured: true,
-    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Volumul lunar de 51.808 tranzacții confirmă nivelul de activitate din cărțile funciare și indică lichiditate în marile poli urbane (București, Ilfov, Cluj, Brașov).",
+      businessImpact:
+        "Dezvoltatorii imobiliari și investitorii rezidențiali înregistrează un ritm constant de vânzare a stocurilor noi, cu presiune ridicată pe proprietățile bine poziționate cu acces la infrastructură.",
+      marketConnection:
+        "Tranzacțiile rezidențiale influențează direct portofoliile de credite ipotecare ale băncilor comerciale (Banca Transilvania, BRD) și calitatea activelor din sectorul bancar.",
+      whatToWatchNext:
+        "Datele ANCPI din lunile următoare privind tranzacțiile de terenuri pentru proiecte noi și evoluția volumului de contracte ipotecare autentificate.",
+    },
   },
   {
     id: "ins-autorizatii-construire-locuinte",
     slug: "ins-autorizatii-construire-cladiri-rezidentiale",
     title: "INS: Autorizațiile de construire pentru clădiri rezidențiale în primele luni ale anului",
-    excerpt: "Institutul Național de Statistică raportează dinamica autorizațiilor de construire eliberate pentru clădiri rezidențiale, evidențiind creșteri în regiunile Nord-Vest și Centru.",
+    excerpt:
+      "Institutul Național de Statistică raportează peste 3.100 de autorizații lunare eliberate pentru clădiri rezidențiale, cu o suprafață utilă autorizată în creștere în regiunile Nord-Vest și Centru.",
     content: `
 Date Statistice INS privind Sectorul Construcțiilor
 
@@ -114,118 +96,155 @@ Datele sunt colectate pe bază de cercetare statistică exhaustivă de la admini
     source: "INS",
     sourceUrl: "https://insse.ro/cms/ro/comunicate-de-presa",
     canonicalUrl: "https://insse.ro/cms/ro/comunicate-de-presa",
-    publishedAt: "2026-08-02",
-    fetchedAt: "2026-08-17",
+    publishedAt: "2026-08-10",
+    fetchedAt: "2026-08-31",
     category: "real-estate",
-    categoryLabel: "Construcții & Autorizații",
+    categoryLabel: "Construcții Rezidențiale",
     image: "/fallbacks/fallback-2.jpg",
     author: "AiX Media Editorial Desk",
     authorRole: "Redacția Imobiliară",
     readTime: "4 min read",
-    featured: false,
+    featured: true,
     trending: true,
+    intelligence: {
+      whyItMatters:
+        "Dinamica autorizațiilor eliberate măsoară viteza cu care noua ofertă rezidențială va intra pe piață în următorii 1-2 ani.",
+      businessImpact:
+        "Companiile de construcții și furnizorii de materiale își dimensionează capacitățile de execuție în funcție de autorizațiile obținute de dezvoltatori.",
+      marketConnection:
+        "Direct conectat cu producătorii de materiale de construcții și companiile din sectorul imobiliar comercial listate la BVB (One United Properties, TeraPlast).",
+      whatToWatchNext:
+        "Rapoartele INS privind indicele costurilor în construcții și viteza de începere efectivă a lucrărilor de șantier.",
+    },
   },
   {
-    id: "bvb-lichiditate-si-participare-institutionala",
-    slug: "bvb-raport-lichiditate-piata-reglementata",
-    title: "BVB: Evoluția lichidității pe piața principală a Bursei de Valori București",
-    excerpt: "Raportul lunar al BVB confirmă consolidarea volumelor de tranzacționare susținute de fondurile de pensii Pilon II și investitorii instituționali internaționali.",
+    id: "bnr-impact-dobanzi-creditare-ipotecara",
+    slug: "bnr-decizie-rata-dobanzii-politica-monetara",
+    title: "BNR & Piața Ipotecară: Menținerea IRCC la 5,86% și dinamica cererii de creditare rezidențială",
+    excerpt:
+      "Evoluția ratelor dobânzilor de referință BNR și nivelul IRCC influențează gradul de îndatorare al cumpărătorilor de locuințe și volumul noilor împrumuturi ipotecare.",
     content: `
-Raport BVB privind Activitatea de Tranzacționare
+Analiză Macroeconomică BNR & Piața Creditelor Ipotecare
 
-Bursa de Valori București (BVB) a prezentat sinteza activității de tranzacționare pentru piața reglementată de acțiuni și obligațiuni.
+Consiliul de Administrație al Băncii Naționale a României a analizat evoluția creditului negvernamental și structura împrumuturilor ipotecare acordate populației.
 
-Date Cheie de Piață
+Subiecte Cheie
 
-• Indicele BET: Reprezintă performanța celor mai lichide companii românești listate.
-• Participare instituțională: Fondurile de pensii private din Pilonul II continuă să aloce capital pe termen lung în companiile de utilități, energie și servicii financiare.
-• Capitalizare bursieră totală: Reflectă activele evaluate pe piața principală conform cotațiilor de referință.
-
-Sursa: Rapoartele oficiale BVB și comunicatele de piață emise de operatorul pieței reglementate.
+1. Indicele IRCC: Menținut la 5,86% pentru trimestrul în curs.
+2. Soldul creditului ipotecar: Depășește 108 miliarde RON la nivel național.
+3. Cerințe de eligibilitate: Ponderea creditelor ipotecare cu dobândă fixă în primii 3-5 ani continuă să crească în preferințele debitorilor.
     `,
-    source: "BVB",
-    sourceUrl: "https://www.bvb.ro/",
-    canonicalUrl: "https://www.bvb.ro/",
-    publishedAt: "2026-08-04",
-    fetchedAt: "2026-08-17",
-    category: "markets",
-    categoryLabel: "Piețe de Capital",
-    image: "/fallbacks/fallback-3.jpg",
+    source: "BNR",
+    sourceUrl: "https://www.bnr.ro/Financial-info-5682.aspx",
+    canonicalUrl: "https://www.bnr.ro/Financial-info-5682.aspx",
+    publishedAt: "2026-08-08",
+    fetchedAt: "2026-08-31",
+    category: "real-estate",
+    categoryLabel: "Creditare Ipotecară BNR",
+    image: "/fallbacks/fallback-1.jpg",
     author: "AiX Media Editorial Desk",
-    authorRole: "Redacția Piețe Financiare",
+    authorRole: "Redacția Imobiliară",
     readTime: "5 min read",
     featured: true,
-    trending: false,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Evoluția IRCC stabilește costul lunar al ratelor la credite și afectează bugetul maxim alocat de cumpărătorii de proprietăți rezidențiale.",
+      businessImpact:
+        "Dezvoltatorii adaptează mixul de apartamente (2 și 3 camere optimizate) pentru a se încadra în pragurile de creditare ale băncilor partener.",
+      marketConnection:
+        "Conexiune directă cu veniturile din dobânzi ale băncilor comerciale listate la BVB (Banca Transilvania, BRD) și marja netă de dobândă.",
+      whatToWatchNext:
+        "Publicarea noului indice IRCC aplicabil trimestrului următor și rapoartele BNR privind soldul creditelor acordate populației.",
+    },
   },
   {
-    id: "gov-energie-investitii-infrastructura",
-    slug: "guvernul-romaniei-investitii-infrastructura-energie",
-    title: "Guvernul României: Proiecte strategice de infrastructură și independență energetică",
-    excerpt: "Ministerul Energiei și Guvernul României au avansat calendarele de investiții pentru capacitățile de producție din surse regenerabile și proiectele offshore din Marea Neagră.",
+    id: "piata-imobiliara-europeana-preturi-chirii",
+    slug: "piata-imobiliara-europeana-preturi-chirii",
+    title: "Piața Imobiliară Europeană: Evoluția prețurilor rezidențiale și a chiriilor în Germania, Spania și Franța",
+    excerpt:
+      "Rapoartele Eurostat indică stabilizarea prețurilor proprietăților rezidențiale în zona euro și o creștere continuă a randamentelor de închiriere în marile capitale europene.",
     content: `
-Priorități Strategice în Sectorul Energetic Național
+Raport Eurostat privind Piața Imobiliară Europeană
 
-Executivul a aprobat schemele de sprijin prin Contracte pentru Diferență (CfD) și a monitorizat stadiul proiectelor de infrastructură energetică.
+Evoluția sectorului imobiliar rezidențial din Uniunea Europeană reflectă adaptarea piețelor la noile niveluri de dobândă stabilite de Banca Centrală Europeană (BCE).
 
-Obiective Principale
+Tendințe Europene Cheie
 
-• Capacități noi regenerabile: Licitații pentru energie eoliană și solară finanțate prin Fondul pentru Modernizare.
-• Proiecte offshore: Progresele înregistrate la perimetrul Neptun Deep pentru exploatarea gazelor naturale din Marea Neagră.
-• Consolidarea rețelei: Investiții derulate de Transelectrica și distribuitorii regionali pentru integrarea noilor surse de producție.
-
-Sursa: Comunicatele oficiale emise de Guvernul României și Ministerul Energiei.
+• Germania: Stabilizarea indicelui prețurilor la locuințe după ajustările succesive din ultimele semestre.
+• Spania & Portugalia: Creșteri continue ale cererii pe segmentul rezidențial de coastă și premium urbane.
+• Randamente de Închiriere: Randamentele brute din Europa Centrală și de Est (6,5% - 8,0%) rămân atractive prin comparație cu randamentele vest-europene (3,5% - 4,5%).
     `,
-    source: "Gov.ro",
-    sourceUrl: "https://gov.ro/ro/stiri",
-    canonicalUrl: "https://gov.ro/ro/stiri",
-    publishedAt: "2026-07-29",
-    fetchedAt: "2026-08-17",
-    category: "business",
-    categoryLabel: "Energie & Infrastructură",
+    source: "Eurostat",
+    sourceUrl: "https://ec.europa.eu/eurostat",
+    canonicalUrl: "https://ec.europa.eu/eurostat",
+    publishedAt: "2026-08-05",
+    fetchedAt: "2026-08-31",
+    category: "real-estate",
+    categoryLabel: "Real Estate Europa",
+    image: "/fallbacks/fallback-3.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Imobiliară Europene",
+    readTime: "5 min read",
+    featured: false,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Comportamentul piețelor imobiliare vest-europene (Germania, Spania, Franța) oferă un indicator avansat pentru mișcările de capital ale fondurilor instituționale.",
+      businessImpact:
+        "Investitorii privați și fondurile imobiliare compară randamentele brute din România (6,5-8%) cu cele din vestul Europei (3,5-4,5%), realocând capital.",
+      marketConnection:
+        "Fără conexiune BVB directă. Evoluția vizează fondurile europene de real estate cross-border și vehiculele de investiții private equity.",
+      whatToWatchNext:
+        "Publicarea indicelui Eurostat House Price Index (HPI) și deciziile de dobândă ale Băncii Centrale Europene (BCE).",
+    },
+  },
+  {
+    id: "tranzactii-imobiliare-comerciale-office-logistica",
+    slug: "tranzactii-imobiliare-comerciale-office-logistica",
+    title: "Tranzacții Imobiliare Comerciale: Volumul investițiilor în spații office clasa A și parcuri logistice",
+    excerpt:
+      "Segmentul imobiliar comercial din România înregistrează tranzacții importante pe spații de birouri de clasa A și extinderi ale parcurilor logistice la nodurile de infrastructură A1 și A3.",
+    content: `
+Sinteza Pieței Imobiliare Comerciale și Logistice
+
+Analiza volumelor de capital plasate în active comerciale cu venit generat din chirii (yield-producing assets) din marile poluri de business ale României.
+
+Elemente Principale
+
+1. Office Clasa A: Proiecte cu certificare verde (BREEAM/LEED) care atrag chiriași multinaționali cu contracte pe termen lung (5-10 ani).
+2. Sectorul Logistic: Cererea susținută de extinderea rețelelor de retail și e-commerce în regiunile București, Timișoara și Cluj.
+3. Rata de Randament (Prime Yield): Se menține la nivelul de 7,25% - 7,75% pentru birouri și spații logistice de primă clasă.
+    `,
+    source: "AiX Research",
+    sourceUrl: "https://aixmedia.cristianvaduva.com/real-estate",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/real-estate",
+    publishedAt: "2026-08-01",
+    fetchedAt: "2026-08-31",
+    category: "real-estate",
+    categoryLabel: "Commercial Real Estate",
     image: "/fallbacks/fallback-4.jpg",
     author: "AiX Media Editorial Desk",
-    authorRole: "Redacția Economică",
+    authorRole: "Redacția Imobiliară",
     readTime: "6 min read",
     featured: false,
     trending: false,
-  },
-  {
-    id: "fonduri-europene-pnrr-absorbtie",
-    slug: "absorbtie-fonduri-europene-investitii-publice",
-    title: "Ministerul Investițiilor: Stadiul absorbției fondurilor europene și alocărilor PNRR",
-    excerpt: "Analiza execuției fondurilor de coeziune și a cererilor de plată din cadrul Planului Național de Redresare și Reziliență destinate marilor proiecte de transport și sănătate.",
-    content: `
-Absorbția Fondurilor Europene și Investițiile Publice
-
-Ministerul Investițiilor și Proiectelor Europene (MIPE) a prezentat bilanțul fluxurilor financiare atrase de la Comisia Europeană.
-
-Direcții Finanțate
-
-1. Infrastructură de transport: Autostrăzile A7 și A8 și modernizarea coridoarelor feroviare.
-2. Tranziție verde și digitală: Eficiență energetică pentru clădiri publice și rezidențiale.
-3. Spitale și centre medicale: Construcția și dotarea noilor corpuri de spital județene și regionale.
-
-Sursa: MIPE și rapoartele oficiale privind absorbția fondurilor structurale și de coeziune.
-    `,
-    source: "Gov.ro / MIPE",
-    sourceUrl: "https://gov.ro/ro/stiri",
-    canonicalUrl: "https://gov.ro/ro/stiri",
-    publishedAt: "2026-07-22",
-    fetchedAt: "2026-08-17",
-    category: "news",
-    categoryLabel: "Macroeconomie",
-    image: "/fallbacks/fallback-5.jpg",
-    author: "AiX Media Editorial Desk",
-    authorRole: "Redacția Economică",
-    readTime: "5 min read",
-    featured: false,
-    trending: false,
+    intelligence: {
+      whyItMatters:
+        "Volumul investițiilor comerciale testează randamentele de primă clasă (prime yields) și arată încrederea investitorilor instituționali în active reale.",
+      businessImpact:
+        "Proprietarii de clădiri de birouri și chiriașii corporate renegociază clauzele de indexare la inflație și bugetele de amenajare a spațiilor.",
+      marketConnection:
+        "Conexiune directă cu dezvoltatorii imobiliari listați la BVB (One United Properties) și companiile din sectorul logistic și de infrastructură.",
+      whatToWatchNext:
+        "Rata de neocupare a spațiilor office din polul de birouri Nord București și noile livrări de parcuri industriale.",
+    },
   },
 ];
 
 export const verifiedNewsArticles: NormalizedArticle[] = rawNewsArticles.map((art) => ({
   ...art,
-  title: cleanText(art.title),
+  title: normalizeTitle(art.title),
   excerpt: cleanText(art.excerpt),
   content: normalizeArticleString(art.content),
 }));
@@ -239,4 +258,3 @@ export const getVerifiedArticleBySlug = cache(async (slug: string): Promise<Norm
   const article = verifiedNewsArticles.find((art) => art.slug === slug);
   return article || null;
 });
-

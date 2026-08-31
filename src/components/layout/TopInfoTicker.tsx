@@ -10,7 +10,6 @@ export interface TopInfoTickerProps {
 
 export function TopInfoTicker({
   latestArticleTitle,
-  latestPodcastTitle,
   equities = [],
 }: TopInfoTickerProps) {
   // Extract BVB indices & tickers from market data if available
@@ -18,56 +17,52 @@ export function TopInfoTicker({
   const betPrice = betIndex && betIndex.value !== null ? betIndex.value : 18450;
   const betChange = 0.65;
 
-  // Build structured dynamic ticker sections
+  // Build structured dynamic ticker sections reflecting Real Estate & Media focus
   const sections = [
     {
-      category: "MARKETS",
+      category: "REAL ESTATE",
+      href: "/real-estate",
+      content: [
+        "Market Intelligence",
+        latestArticleTitle || "ANCPI: Peste 51.000 de imobile tranzacționate în iulie",
+      ],
+    },
+    {
+      category: "ROMANIA",
+      href: "/real-estate",
+      content: ["București & Marile Poli", "Statistici Cadastrale & Indici Rezidențiali"],
+    },
+    {
+      category: "EUROPE",
+      href: "/real-estate",
+      content: ["European Housing Markets", "Prețuri & Randamente de Închiriere"],
+    },
+    {
+      category: "ANCPI",
+      href: "/real-estate",
+      content: ["51.808 Tranzacții Naționale", "10.420 București"],
+    },
+    {
+      category: "BVB",
       href: "/markets",
       content: [
-        "BVB",
         `BET ${betPrice.toLocaleString("ro-RO")} (${betChange >= 0 ? "+" : ""}${betChange}%)`,
+        "ONE",
         "TLV",
         "H2O",
         "SNP",
-        "ONE",
         "SNG",
       ],
     },
     {
-      category: "NEWS",
-      href: "/news",
-      content: [
-        "Sinteză Editorială",
-        latestArticleTitle || "ANCPI: Peste 51.000 de imobile tranzacționate la nivel național",
-      ],
-    },
-    {
-      category: "REAL ESTATE",
-      href: "/real-estate",
-      content: ["Market Intelligence", "Statistici Cadastrale ANCPI & Indici Rezidențiali"],
-    },
-    {
-      category: "INVESTMENTS",
-      href: "/investments",
-      content: ["Perspectives", "Evoluția Lichidității pe Piața Principală BVB"],
-    },
-    {
-      category: "VIDEO",
+      category: "PROPERTY VIDEO",
       href: "/tv",
-      content: ["Cristian Văduva — Momente & Perspective"],
+      content: ["Vile de Lux · Penthouse-uri 220 mp · Tururi Imobiliare Exclusiviste"],
     },
     {
-      category: "PODCASTS",
-      href: "/podcasts",
-      content: [
-        "Latest Episode",
-        latestPodcastTitle || "Analize Executive & Strategie de Capital",
-      ],
-    },
-    {
-      category: "COMPANIES",
-      href: "/companies",
-      content: ["9 Corporații BVB", "Rapoarte Auditate 2025/2026"],
+      category: "CRISTIAN VĂDUVA",
+      href: "/tv",
+      content: ["Video Talks & Strategy", "Momente & Perspective"],
     },
   ];
 

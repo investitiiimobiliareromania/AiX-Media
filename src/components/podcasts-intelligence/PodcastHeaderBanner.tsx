@@ -55,27 +55,17 @@ export function PodcastHeaderBanner({
               Interviuri executive, analize de fond, strategie financiară, negociere de active și conversații despre dinamica piețelor cu Cristian Văduva.
             </p>
 
-            {/* Platform Buttons */}
+            {/* Official YouTube Channel CTA */}
             <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">
               <a
-                href="https://open.spotify.com"
+                href="https://www.youtube.com/@CristianVaduvaCV"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all shadow-lg hover:shadow-emerald-600/30 flex items-center gap-2 cursor-pointer"
+                className="px-5 py-3 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold transition-all shadow-lg hover:shadow-red-600/30 flex items-center gap-2 cursor-pointer"
               >
                 <Radio className="w-4 h-4" />
-                <span>Ascultă pe Spotify</span>
+                <span>Canalul YouTube Cristian Văduva</span>
                 <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-
-              <a
-                href="https://podcasts.apple.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-3 rounded-2xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-800 transition-all flex items-center gap-2 cursor-pointer font-bold"
-              >
-                <span>Apple Podcasts</span>
-                <ExternalLink className="w-3.5 h-3.5 text-neutral-500" />
               </a>
             </div>
           </div>

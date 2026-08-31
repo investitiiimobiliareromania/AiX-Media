@@ -38,9 +38,9 @@ export function PodcastIntelligenceModule({
         </div>
 
         <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-1">
-          <div className="text-[10px] text-neutral-400 uppercase">Platforme Distribuție</div>
-          <div className="text-base font-bold text-emerald-400">Spotify &amp; Apple</div>
-          <div className="text-[10px] text-neutral-400">Distribuție Globală RSS</div>
+          <div className="text-[10px] text-neutral-400 uppercase">Platformă Distribuție</div>
+          <div className="text-base font-bold text-red-500">YouTube Official Channel</div>
+          <div className="text-[10px] text-neutral-400">Canalul YouTube Cristian Văduva</div>
         </div>
 
         <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-800 space-y-1">

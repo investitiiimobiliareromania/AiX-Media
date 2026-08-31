@@ -37,10 +37,12 @@ export const authors: Author[] = [
 import { getFallbackImage } from "../fallbackImage";
 import { isValidImageUrl } from "../image-validator";
 import { normalizeArticleString } from "../article-normalizer";
+import { normalizeTitle } from "../html-entities";
+import { cleanText } from "../sanitizer";
 
 export const articles: Article[] = verifiedNewsArticles.map((art) => ({
   id: art.id,
-  title: art.title,
+  title: normalizeTitle(art.title),
   slug: art.slug,
   category: art.category,
   categoryLabel: art.categoryLabel,
@@ -48,7 +50,7 @@ export const articles: Article[] = verifiedNewsArticles.map((art) => ({
   authorName: "AiX Media Editorial Desk",
   authorRole: "Redacția Economică",
   authorAvatar: "/fallbacks/fallback-0.jpg",
-  excerpt: art.excerpt,
+  excerpt: cleanText(art.excerpt),
   content: normalizeArticleString(art.content),
   coverImage: (art.image && isValidImageUrl(art.image)) ? art.image : getFallbackImage(art.slug),
   publishedAt: art.publishedAt,
@@ -109,8 +111,6 @@ export const podcastEpisodes: PodcastEpisode[] = [
     coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop",
     description: "Analiză detaliată privind datele de tranzacționare publicate de ANCPI, randamentele investiționale pe segmentul rezidențial premium din București și evoluția creditării ipotecare.",
     host: "Cristian Văduva",
-    spotifyUrl: "https://open.spotify.com",
-    appleUrl: "https://podcasts.apple.com",
     chapters: [
       { time: "00:00", title: "Introducere și contextul pieței imobiliare" },
       { time: "10:15", title: "Statistici ANCPI pe marile județe și București" },
@@ -130,8 +130,6 @@ export const podcastEpisodes: PodcastEpisode[] = [
     coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop",
     description: "Cum influențează alocările de capital ale fondurilor private de pensii lichiditatea indicilor BVB (BET/BET-TR) și emisiunile de titluri de stat Fidelis.",
     host: "Cristian Văduva",
-    spotifyUrl: "https://open.spotify.com",
-    appleUrl: "https://podcasts.apple.com",
     chapters: [
       { time: "00:00", title: "Structura lichidității la BVB" },
       { time: "12:00", title: "Alocările Pilon II și acțiunile reprezentative" },
@@ -150,8 +148,6 @@ export const podcastEpisodes: PodcastEpisode[] = [
     coverImage: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop",
     description: "Sinteza deciziei de politică monetară BNR (6.50%), traiectoria scăderii inflației IPC (4.80%) și prognoza pentru trimestrul IV 2026.",
     host: "Cristian Văduva",
-    spotifyUrl: "https://open.spotify.com",
-    appleUrl: "https://podcasts.apple.com",
   },
   {
     id: "pod-4",
@@ -165,8 +161,6 @@ export const podcastEpisodes: PodcastEpisode[] = [
     coverImage: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop",
     description: "Principiile de bază în negocierea tranzacțiilor mari cu active imobiliare și private equity în România cu Cristian Văduva.",
     host: "Cristian Văduva",
-    spotifyUrl: "https://open.spotify.com",
-    appleUrl: "https://podcasts.apple.com",
   },
 ];
 
