@@ -1,4 +1,5 @@
 import { cleanEditorialText, normalizeArticleString, parseArticleContentToBlocks } from './article-normalizer';
+import { decodeHtmlEntities, normalizeTitle } from './html-entities';
 
 /**
  * Enterprise HTML sanitizer helper
@@ -24,7 +25,8 @@ export function sanitizeHtml(input?: string | null): string {
 export function cleanText(input?: string | null): string {
   if (!input || typeof input !== 'string') return '';
 
-  const withoutMarkup = cleanEditorialText(input);
+  const withoutEntities = decodeHtmlEntities(input);
+  const withoutMarkup = cleanEditorialText(withoutEntities);
 
   return withoutMarkup
     // 1. Remove code blocks
@@ -58,7 +60,14 @@ export function cleanText(input?: string | null): string {
     .trim();
 }
 
-export { cleanEditorialText, normalizeArticleString, parseArticleContentToBlocks };
+export {
+  cleanEditorialText,
+  normalizeArticleString,
+  parseArticleContentToBlocks,
+  decodeHtmlEntities,
+  normalizeTitle,
+};
+
 
 
 

@@ -8,12 +8,12 @@ export interface NavItem {
 export const mainNavigation: NavItem[] = [
   { label: "News", href: "/news", category: "news" },
   { label: "Real Estate", href: "/real-estate", category: "real-estate" },
+  { label: "Insurance", href: "/insurance", category: "insurance" },
+  { label: "Credits", href: "/credits", category: "credits" },
   { label: "Markets", href: "/markets", category: "markets" },
   { label: "Companies", href: "/companies", category: "companies" },
   { label: "Business", href: "/business", category: "business" },
-  { label: "Podcasts", href: "/podcasts", category: "podcasts" },
-  { label: "YouTube Channel", href: "/tv", category: "tv" },
-  { label: "Radio", href: "/radio", category: "radio" },
+  { label: "Video", href: "/tv", category: "tv" },
   { label: "Search", href: "/search", category: "search" },
 ];
 
@@ -21,17 +21,18 @@ export const footerNavigation = {
   intelligence: [
     { label: "News & Macro Intelligence", href: "/news" },
     { label: "Real Estate Intelligence", href: "/real-estate" },
+    { label: "Insurance Intelligence", href: "/insurance" },
+    { label: "Credit & Financing Intelligence", href: "/credits" },
     { label: "Capital Markets & BNR Rates", href: "/markets" },
     { label: "BVB Company Profiles", href: "/companies" },
-    { label: "Business & Enterprise", href: "/business" },
     { label: "Macroeconomic Calendar", href: "/calendar" },
   ],
-  media: [
-    { label: "Executive Podcasts", href: "/podcasts" },
-    { label: "YouTube Channel", href: "/tv" },
-    { label: "AiX Business Radio", href: "/radio" },
+  services: [
+    { label: "HomeFind — Real Estate", href: "https://homefind.cristianvaduva.com" },
+    { label: "Insurance Analysis — Protection", href: "https://insurance.cristianvaduva.com" },
+    { label: "Credit Advisory — Financing", href: "https://credite.cristianvaduva.com" },
+    { label: "YouTube — Video Tours", href: "/tv" },
     { label: "Intelligence Academy", href: "/academy" },
-    { label: "AiX Terminal Search", href: "/search" },
   ],
   legalAndAbout: [
     { label: "About AiX Media", href: "/news" },

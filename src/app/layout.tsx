@@ -16,7 +16,7 @@ import { AppProviders } from "@/providers/app-providers";
 import "./globals.css";
 import CookieConsentBanner from "@/components/common/CookieConsentBanner";
 import { getMarketData } from "@/lib/market-data";
-import { getAllArticles, getPodcastEpisodes } from "@/lib/media/service";
+import { getAllArticles } from "@/lib/media/service";
 import { VisitorTracker } from "@/components/layout/VisitorTracker";
 import { TopInfoTicker } from "@/components/layout/TopInfoTicker";
 
@@ -56,7 +56,6 @@ export default async function RootLayout({
 }) {
   const marketSnapshot = await getMarketData();
   const latestArticle = getAllArticles()[0];
-  const latestPodcast = getPodcastEpisodes()[0];
 
   return (
     <html
@@ -72,7 +71,6 @@ export default async function RootLayout({
           <SkipLink />
           <TopInfoTicker
             latestArticleTitle={latestArticle?.title}
-            latestPodcastTitle={latestPodcast?.title}
             equities={marketSnapshot.equities}
           />
           <NewSiteHeader currencies={marketSnapshot.currencies} />

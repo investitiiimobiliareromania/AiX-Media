@@ -1,8 +1,10 @@
 import { createAdminClient } from '../src/lib/supabase/admin';
-import { normalizeArticleString, cleanEditorialText, isBoilerplateParagraph } from '../src/lib/article-normalizer';
+import { normalizeArticleString } from '../src/lib/article-normalizer';
+import { normalizeTitle } from '../src/lib/html-entities';
+import { cleanText } from '../src/lib/sanitizer';
 
 async function repairDatabaseArticles() {
-  console.log('=== DATABASE ARTICLE CONTENT SANITATION & REPAIR ===\n');
+  console.log('=== DATABASE ARTICLE TITLE & CONTENT SANITATION & REPAIR ===\n');
 
   const supabaseAdmin = createAdminClient();
   const { data: articles, error } = await supabaseAdmin
@@ -20,37 +22,43 @@ async function repairDatabaseArticles() {
   let cleanCount = 0;
 
   for (const article of articles) {
-    const raw = article.content || '';
-    const hasHtml = /<[a-z][\s\S]*>/i.test(raw);
-    const hasSvg = /\bsvg\b/i.test(raw);
-    const hasClassName = raw.includes('className');
-    const hasClass = raw.includes('class=');
-    const hasVsCode = raw.includes('vscode');
-    const hasBoilerplate =
-      raw.includes('Lasă un răspuns') ||
-      raw.includes('Anulează răspunsul') ||
-      raw.includes('Cele mai noi articole') ||
-      raw.includes('EUR: 5,2489') ||
-      raw.includes('<b>EUR:</b>');
+    const rawTitle = article.title || '';
+    const rawExcerpt = article.excerpt || '';
+    const rawContent = article.content || '';
 
-    const isCorrupt = hasHtml || hasSvg || hasClassName || hasClass || hasVsCode || hasBoilerplate;
+    const normalizedTitle = normalizeTitle(rawTitle);
+    const normalizedExcerpt = cleanText(rawExcerpt);
+    const normalizedContent = normalizeArticleString(rawContent);
 
-    const normalized = normalizeArticleString(raw);
+    const titleChanged = normalizedTitle !== rawTitle;
+    const excerptChanged = normalizedExcerpt !== rawExcerpt;
+    const contentChanged = normalizedContent !== rawContent;
 
-    if (isCorrupt || (normalized !== raw && normalized.length > 0)) {
+    if (titleChanged || excerptChanged || contentChanged) {
       console.log(`[REPAIRING] id: ${article.id}, slug: ${article.slug}`);
-      console.log(`  Issues: html=${hasHtml}, svg=${hasSvg}, className=${hasClassName}, vsCode=${hasVsCode}, boilerplate=${hasBoilerplate}`);
-      console.log(`  Original length: ${raw.length} -> Normalized length: ${normalized.length}`);
+      if (titleChanged) {
+        console.log(`  Title:   "${rawTitle}" -> "${normalizedTitle}"`);
+      }
+      if (excerptChanged) {
+        console.log(`  Excerpt: "${rawExcerpt.slice(0, 80)}..." -> "${normalizedExcerpt.slice(0, 80)}..."`);
+      }
+      if (contentChanged) {
+        console.log(`  Content: length ${rawContent.length} -> length ${normalizedContent.length}`);
+      }
 
       const { error: updateError } = await supabaseAdmin
         .from('articles')
-        .update({ content: normalized })
+        .update({
+          title: normalizedTitle,
+          excerpt: normalizedExcerpt,
+          content: normalizedContent,
+        })
         .eq('id', article.id);
 
       if (updateError) {
         console.error(`  ERROR updating article ${article.id}:`, updateError);
       } else {
-        console.log(`  -> SUCCESS: Cleaned & stored`);
+        console.log(`  -> SUCCESS: Cleaned & stored in database`);
         repairedCount++;
       }
     } else {

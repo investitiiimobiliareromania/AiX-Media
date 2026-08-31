@@ -8,6 +8,8 @@ import { articles as fallbackArticles } from '@/lib/media/mock-db';
 import { verifiedNewsArticles } from '@/lib/news-service';
 import { Article } from '@/lib/media/models/article';
 import { normalizeArticleString } from '@/lib/article-normalizer';
+import { normalizeTitle } from '@/lib/html-entities';
+import { cleanText } from '@/lib/sanitizer';
 
 import { RECOVERED_PUBLISHER_IMAGES } from '@/lib/publisher-image-map';
 
@@ -43,7 +45,7 @@ export class ArticleService {
         );
         return cleanRows.map((row) => ({
           id: row.id,
-          title: row.title,
+          title: normalizeTitle(row.title),
           slug: row.slug,
           category: (row.category_id as Article['category']) || 'news',
           categoryLabel: 'Știri & Analize',
@@ -51,7 +53,7 @@ export class ArticleService {
           authorName: 'AiX Media Editorial Desk',
           authorAvatar: '/fallbacks/fallback-0.jpg',
           authorRole: 'Redacția Economică',
-          excerpt: row.excerpt,
+          excerpt: cleanText(row.excerpt),
           content: normalizeArticleString(row.content),
           coverImage: this.resolveCoverImage(row),
           publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
@@ -102,7 +104,7 @@ export class ArticleService {
       if (row) {
         return {
           id: row.id,
-          title: row.title,
+          title: normalizeTitle(row.title),
           slug: row.slug,
           category: (row.category_id as Article['category']) || 'news',
           categoryLabel: 'Știri & Analize',
@@ -110,7 +112,7 @@ export class ArticleService {
           authorName: 'AiX Media Editorial Desk',
           authorAvatar: '/fallbacks/fallback-0.jpg',
           authorRole: 'Redacția Economică',
-          excerpt: row.excerpt,
+          excerpt: cleanText(row.excerpt),
           content: normalizeArticleString(row.content),
           coverImage: this.resolveCoverImage(row),
           publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,

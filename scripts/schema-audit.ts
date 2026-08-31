@@ -6,7 +6,6 @@ import {
   createWebSiteJsonLd,
   createBreadcrumbJsonLd,
   createVideoObjectJsonLd,
-  createPodcastEpisodeJsonLd,
 } from '../src/components/common/json-ld';
 
 interface SchemaIssue {
@@ -81,20 +80,6 @@ const videoObj = createVideoObjectJsonLd({
 });
 if (videoObj['@type'] !== 'VideoObject') issues.push({ schema: 'VideoObject', field: '@type', reason: 'Invalid @type' });
 if (!videoObj.embedUrl || !videoObj.thumbnailUrl) issues.push({ schema: 'VideoObject', field: 'embedUrl/thumbnailUrl', reason: 'Missing embedUrl or thumbnailUrl' });
-
-// 7. PodcastEpisode Schema
-console.log('7. Auditing PodcastEpisode JSON-LD generator...');
-const podcastObj = createPodcastEpisodeJsonLd({
-  title: 'Test Podcast',
-  description: 'Test Description',
-  slug: 'test-podcast',
-  publishedAt: '2026-08-20',
-  duration: '42 min',
-  coverImage: 'https://aixmedia.cristianvaduva.com/fallbacks/story-2.jpg',
-  showName: 'AiX Real Estate',
-});
-if (podcastObj['@type'] !== 'PodcastEpisode') issues.push({ schema: 'PodcastEpisode', field: '@type', reason: 'Invalid @type' });
-if (!podcastObj.partOfSeries) issues.push({ schema: 'PodcastEpisode', field: 'partOfSeries', reason: 'Missing partOfSeries' });
 
 // Report
 console.log('\n=== SCHEMA AUDIT RESULTS ===');

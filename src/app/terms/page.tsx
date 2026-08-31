@@ -23,7 +23,7 @@ export default function TermsPage() {
 
       <h2 className="font-serif text-xl font-bold text-white mt-8">2. Caracterul Informativ al Conținutului</h2>
       <p className="text-neutral-300 font-serif leading-relaxed text-sm sm:text-base">
-        Toate analizele, articolele, materialele video, episoadele de podcast și sintezele statistice sunt publicate exclusiv în scop informativ și educațional. Acestea nu constituie consultanță financiară, juridică sau fiscală.
+        Toate analizele, articolele, materialele video, emisiunile radio și sintezele statistice sunt publicate exclusiv în scop informativ și educațional. Acestea nu constituie consultanță financiară, juridică sau fiscală.
       </p>
 
       <h2 className="font-serif text-xl font-bold text-white mt-8">3. Drepturi de Proprietate Intelectuală</h2>

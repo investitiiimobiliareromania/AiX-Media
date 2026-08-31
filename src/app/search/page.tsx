@@ -7,7 +7,6 @@ import {
   Building2,
   FileText,
   Film,
-  Headphones,
   TrendingUp,
   ArrowRight,
   Filter,
@@ -17,14 +16,13 @@ import { verifiedNewsArticles } from "@/lib/news-service";
 import { bvbCompanies } from "@/lib/bvb-data";
 import { institutionalDossiers } from "@/lib/institutional-company-dossiers";
 import { verifiedVideos } from "@/config/youtube";
-import { podcastEpisodes } from "@/lib/media/mock-db";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 
-type SearchCategory = "all" | "articles" | "companies" | "videos" | "podcasts" | "markets";
+type SearchCategory = "all" | "articles" | "companies" | "videos" | "markets";
 
 interface UnifiedSearchResult {
   id: string;
-  type: "ARTICLE" | "COMPANY" | "VIDEO" | "PODCAST" | "MARKET";
+  type: "ARTICLE" | "COMPANY" | "VIDEO" | "MARKET";
   title: string;
   subtitle: string;
   description: string;
@@ -152,34 +150,7 @@ export default function SearchPage() {
       }
     });
 
-    // 4. Podcasts
-    podcastEpisodes.forEach((pod) => {
-      let score = 0;
-      if (q) {
-        if (pod.title.toLowerCase().includes(q)) score += 10;
-        if (pod.description.toLowerCase().includes(q)) score += 4;
-        if (pod.showName.toLowerCase().includes(q)) score += 6;
-      } else {
-        score = 1;
-      }
-
-      if (!q || score > 0) {
-        items.push({
-          id: `pod-${pod.id}`,
-          type: "PODCAST",
-          title: pod.title,
-          subtitle: `${pod.showName} • EP #${pod.episodeNumber || 1}`,
-          description: pod.description,
-          href: `/podcast/${pod.slug}`,
-          badge: "PODCAST",
-          image: pod.coverImage,
-          date: pod.publishedAt,
-          score,
-        });
-      }
-    });
-
-    // 5. Market Terminals
+    // 4. Market Terminals
     const marketNodes = [
       {
         id: "mkt-bvb",
@@ -238,7 +209,6 @@ export default function SearchPage() {
     if (selectedType === "articles") return results.filter((r) => r.type === "ARTICLE");
     if (selectedType === "companies") return results.filter((r) => r.type === "COMPANY");
     if (selectedType === "videos") return results.filter((r) => r.type === "VIDEO");
-    if (selectedType === "podcasts") return results.filter((r) => r.type === "PODCAST");
     if (selectedType === "markets") return results.filter((r) => r.type === "MARKET");
     return results;
   }, [results, selectedType]);
@@ -249,7 +219,6 @@ export default function SearchPage() {
       articles: results.filter((r) => r.type === "ARTICLE").length,
       companies: results.filter((r) => r.type === "COMPANY").length,
       videos: results.filter((r) => r.type === "VIDEO").length,
-      podcasts: results.filter((r) => r.type === "PODCAST").length,
       markets: results.filter((r) => r.type === "MARKET").length,
     };
   }, [results]);
@@ -262,8 +231,6 @@ export default function SearchPage() {
         return <Building2 className="w-3.5 h-3.5 text-emerald-500" />;
       case "VIDEO":
         return <Film className="w-3.5 h-3.5 text-rose-500" />;
-      case "PODCAST":
-        return <Headphones className="w-3.5 h-3.5 text-sky-500" />;
       case "MARKET":
         return <TrendingUp className="w-3.5 h-3.5 text-purple-500" />;
       default:
@@ -279,8 +246,6 @@ export default function SearchPage() {
         return "bg-emerald-500/10 text-emerald-400 border-emerald-500/25";
       case "VIDEO":
         return "bg-rose-500/10 text-rose-400 border-rose-500/25";
-      case "PODCAST":
-        return "bg-sky-500/10 text-sky-400 border-sky-500/25";
       case "MARKET":
         return "bg-purple-500/10 text-purple-400 border-purple-500/25";
       default:
@@ -325,7 +290,6 @@ export default function SearchPage() {
             { id: "articles", label: `Articole (${counts.articles})` },
             { id: "companies", label: `Companii (${counts.companies})` },
             { id: "videos", label: `Video (${counts.videos})` },
-            { id: "podcasts", label: `Podcasts (${counts.podcasts})` },
             { id: "markets", label: `Piețe (${counts.markets})` },
           ].map((tab) => (
             <button

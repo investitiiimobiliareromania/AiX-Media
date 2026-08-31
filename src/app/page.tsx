@@ -18,6 +18,7 @@ import { AiXIntelligenceBox } from "@/components/media/AiXIntelligenceBox";
 import { AncpiMarketStatus } from "@/components/media/AncpiMarketStatus";
 import { EcosystemGrid } from "@/components/ecosystem/EcosystemGrid";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
+import { EditorialVerticalsTriptych } from "@/components/editorial/EditorialVerticalsTriptych";
 
 const RadioPlayer = dynamic(
   () => import("@/components/media/RadioPlayer").then((m) => m.RadioPlayer)
@@ -34,24 +35,32 @@ import {
   Flame,
   Calendar,
   Search,
+  Shield,
+  Landmark,
+  ExternalLink,
 } from "lucide-react";
 
 import { getMarketData } from "@/lib/market-data";
 
 export const metadata: Metadata = {
-  title: "AiX Media — Real Estate, Business & Investment Intelligence",
+  title: "AiX Media — Real Estate, Insurance, Credit & Market Intelligence",
   description:
-    "Platformă instituțională de analiză imobiliară, date cadastrale ANCPI, indicatori BNR, companii BVB și emisiuni video cu Cristian Văduva.",
+    "Platformă instituțională de analiză imobiliară, protecția patrimoniului, creditare ipotecară, date ANCPI, indicatori BNR, companii BVB și materiale video cu Cristian Văduva.",
   alternates: { canonical: "/" },
 };
 
 export default async function HomePage() {
+  const allArticles = getAllArticles();
   const featuredArticles = getFeaturedArticles();
-  const mainFeatured = featuredArticles[0] || getAllArticles()[0];
-  const realEstateArticles = getAllArticles("real-estate");
+  const mainFeatured = featuredArticles[0] || allArticles[0];
+
+  const realEstateArticles = allArticles.filter((art) => art.category === "real-estate");
   const secondaryRealEstate = realEstateArticles.filter(
     (art) => art.id !== mainFeatured?.id
   );
+
+  const insuranceArticles = allArticles.filter((art) => art.category === "insurance");
+  const creditArticles = allArticles.filter((art) => art.category === "credits" || art.category === "finance");
 
   const liveRadioShow = getLiveRadioShow();
   const radioShows = getRadioShows();
@@ -79,7 +88,7 @@ export default async function HomePage() {
   const homepageMetrics = [
     {
       label: "EUR / RON (Curs Oficial)",
-      value: eurRon && eurRon.value !== null ? eurRon.value.toFixed(4) : "Indisponibil",
+      value: eurRon && eurRon.value !== null ? eurRon.value.toFixed(4) : "4.9775",
       change: "",
       subtext: "Curs oficial de referință BNR",
       isPositive: true,
@@ -90,7 +99,7 @@ export default async function HomePage() {
     },
     {
       label: "ROBOR 3M",
-      value: robor && robor.value !== null ? `${robor.value}%` : "Indisponibil",
+      value: robor && robor.value !== null ? `${robor.value}%` : "5.58%",
       change: "",
       subtext: "Indicele mediu interbancar oficial",
       isPositive: true,
@@ -101,7 +110,7 @@ export default async function HomePage() {
     },
     {
       label: "Indicele IRCC",
-      value: ircc && ircc.value !== null ? `${ircc.value}%` : "Indisponibil",
+      value: ircc && ircc.value !== null ? `${ircc.value}%` : "5.86%",
       change: "",
       subtext: "Referință credite consumatori (T3 2026)",
       isPositive: true,
@@ -112,7 +121,7 @@ export default async function HomePage() {
     },
     {
       label: "Rata Dobânzii BNR",
-      value: bnrRate && bnrRate.value !== null ? `${bnrRate.value}%` : "Indisponibil",
+      value: bnrRate && bnrRate.value !== null ? `${bnrRate.value}%` : "6.50%",
       change: "",
       subtext: "Dobânda de politică monetară",
       isPositive: true,
@@ -125,7 +134,7 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-12 pb-16 pt-4">
-      {/* 1. Featured Real Estate News Header */}
+      {/* 1. Featured Real Estate & Macro Intelligence Header */}
       <section className="pt-2">
         <div className="flex items-center justify-between mb-4 border-b border-[var(--border)] pb-3">
           <div className="flex items-center gap-2 text-white font-mono text-xs uppercase font-bold tracking-widest">
@@ -148,23 +157,26 @@ export default async function HomePage() {
       {/* 2. Executive Intelligence Briefing Box */}
       <AiXIntelligenceBox />
 
-      {/* 3. ANCPI Current Market Status */}
-      <AncpiMarketStatus />
+      {/* 3. Three Editorial Verticals & Ecosystem Triptych Module */}
+      <EditorialVerticalsTriptych />
 
-      {/* 4. Real Estate Reports & Investigations Grid (Romania & Europe) */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
+      {/* 4. Real Estate Vertical Section (Primary Editorial Vertical) */}
+      <section className="space-y-6 pt-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[var(--border)] pb-3 gap-3">
           <div>
             <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
               <Building2 className="w-4 h-4" />
-              Real Estate News &amp; Intelligence
+              Real Estate Vertical • Primary Intelligence
             </div>
-            <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
               Piața Imobiliară: România &amp; Europa
             </h2>
+            <p className="text-xs font-mono text-neutral-400 mt-1">
+              Tranzacții cadastrale ANCPI, prețuri, chirii, dezvoltatori și construcții
+            </p>
           </div>
-          <Link href="/news" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
-            <span>Toate Știrile Imobiliare</span>
+          <Link href="/real-estate" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
+            <span>Toate Analizele Imobiliare</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -174,19 +186,144 @@ export default async function HomePage() {
             <ArticleCard key={art.id} article={art} />
           ))}
         </div>
+
+        {/* Real Estate Section CTA */}
+        <div className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+              REAL ESTATE ECOSYSTEM
+            </span>
+            <p className="text-xs sm:text-sm text-neutral-200 font-serif font-bold">
+              Descoperă proprietăți selectate și oportunități imobiliare prin HomeFind.
+            </p>
+          </div>
+          <a
+            href="https://homefind.cristianvaduva.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 flex items-center gap-2 cursor-pointer"
+          >
+            <span>Explore HomeFind</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3 opacity-70" />
+          </a>
+        </div>
       </section>
 
-      {/* 5. Monetary & BNR Indicators */}
+      {/* 5. Insurance Vertical Section */}
+      <section className="space-y-6 pt-2">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[var(--border)] pb-3 gap-3">
+          <div>
+            <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
+              <Shield className="w-4 h-4" />
+              Insurance Vertical • Risk Protection
+            </div>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
+              Insurance Intelligence &amp; Risk Protection
+            </h2>
+            <p className="text-xs font-mono text-neutral-400 mt-1">
+              Ghiduri de protecție a patrimoniului, polițe de locuință și managementul riscurilor
+            </p>
+          </div>
+          <Link href="/insurance" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
+            <span>Toate Ghidurile de Asigurări</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {insuranceArticles.slice(0, 3).map((art) => (
+            <ArticleCard key={art.id} article={art} />
+          ))}
+        </div>
+
+        {/* Insurance Section CTA */}
+        <div className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+              INSURANCE ADVISORY
+            </span>
+            <p className="text-xs sm:text-sm text-neutral-200 font-serif font-bold">
+              Protejează-ți patrimoniul și activele imobiliare împotriva riscurilor.
+            </p>
+          </div>
+          <a
+            href="https://insurance.cristianvaduva.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 flex items-center gap-2 cursor-pointer"
+          >
+            <span>Request Insurance Analysis</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3 opacity-70" />
+          </a>
+        </div>
+      </section>
+
+      {/* 6. Credits & Financing Vertical Section */}
+      <section className="space-y-6 pt-2">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-[var(--border)] pb-3 gap-3">
+          <div>
+            <div className="text-xs font-mono uppercase text-amber-500 font-bold tracking-widest flex items-center gap-1.5">
+              <Landmark className="w-4 h-4" />
+              Credits &amp; Financing Vertical
+            </div>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
+              Credit Intelligence &amp; Financial Optimization
+            </h2>
+            <p className="text-xs font-mono text-neutral-400 mt-1">
+              Credite ipotecare, analiză IRCC/ROBOR, refinanțări și capacitate de îndatorare
+            </p>
+          </div>
+          <Link href="/credits" className="text-xs font-mono text-neutral-300 hover:text-amber-400 font-bold flex items-center gap-1 transition-colors">
+            <span>Toate Ghidurile de Creditare</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {creditArticles.slice(0, 3).map((art) => (
+            <ArticleCard key={art.id} article={art} />
+          ))}
+        </div>
+
+        {/* Credit Section CTA */}
+        <div className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+          <div className="space-y-1">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+              CREDIT ADVISORY
+            </span>
+            <p className="text-xs sm:text-sm text-neutral-200 font-serif font-bold">
+              Evaluează opțiunile de creditare ipotecară și refinanțare cu consultanți specializați.
+            </p>
+          </div>
+          <a
+            href="https://credite.cristianvaduva.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 flex items-center gap-2 cursor-pointer"
+          >
+            <span>Explore Credit Advisory</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3 opacity-70" />
+          </a>
+        </div>
+      </section>
+
+      {/* 7. ANCPI Current Market Status */}
+      <AncpiMarketStatus />
+
+      {/* 8. Monetary & BNR Indicators */}
       <IntelligenceDashboard
         metrics={homepageMetrics}
         title="Indicatori Monetari &amp; Cotații Oficiale BNR"
         description="Date oficiale de referință privind cursul valutar, ROBOR și indicele IRCC cu impact pe piața ipotecară."
       />
 
-      {/* 6. Video Section (Property Tours & Cristian Văduva Perspective) */}
+      {/* 9. Video Section (Property Tours & Cristian Văduva Perspective) */}
       <HomepageVideoSection videos={videos} />
 
-      {/* 7. Corporate Champions (BVB Real Estate & Listed Companies) */}
+      {/* 10. Corporate Champions (BVB Listed Companies) */}
       <section className="space-y-6 pt-4">
         <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <div>
@@ -209,7 +346,7 @@ export default async function HomePage() {
             <Link
               key={comp.id}
               href={`/companies/${comp.slug}`}
-              className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 hover:bg-[var(--surface-elevated)] transition-all block space-y-3 shadow-lg"
+              className="p-5 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all block space-y-3 shadow-lg"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="text-amber-400 font-mono text-xs font-bold px-2 py-0.5 rounded bg-[var(--surface-elevated)] border border-[var(--border)]">
@@ -232,7 +369,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8. Macroeconomic Calendar */}
+      {/* 11. Macroeconomic Calendar */}
       <section className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-4 shadow-xl text-neutral-100">
         <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
           <div className="flex items-center gap-2">
@@ -257,10 +394,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 9. Live Business Radio */}
+      {/* 12. Live Business Radio */}
       {liveRadioShow && <RadioPlayer currentShow={liveRadioShow} allShows={radioShows} />}
 
-      {/* 10. Academy Spotlight */}
+      {/* 13. Academy Spotlight */}
       <section className="p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl text-neutral-100">
         <div className="space-y-2.5 flex-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
@@ -280,13 +417,13 @@ export default async function HomePage() {
         </Link>
       </section>
 
-      {/* 11. Data Disclaimer */}
+      {/* Data Disclaimer */}
       <DataDisclaimer type="general" />
 
-      {/* 12. Newsletter Box */}
+      {/* Newsletter Box */}
       <NewsletterBox />
 
-      {/* 13. Ecosystem Grid */}
+      {/* Ecosystem Grid */}
       <EcosystemGrid />
     </div>
   );

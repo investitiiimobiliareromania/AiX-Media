@@ -22,6 +22,8 @@ export interface InlineSegment {
   href?: string;
 }
 
+import { decodeHtmlEntities, normalizeTitle } from './html-entities';
+
 /**
  * Filter list for known publisher boilerplate phrases that should never appear in article bodies.
  */
@@ -73,7 +75,7 @@ export function isBoilerplateParagraph(text: string): boolean {
 export function cleanEditorialText(input?: string | null): string {
   if (!input || typeof input !== 'string') return '';
 
-  let cleaned = input
+  const cleaned = decodeHtmlEntities(input)
     // 1. Remove HTML comments
     .replace(/<!--[\s\S]*?-->/g, '')
     // 2. Remove script and style tags
@@ -119,14 +121,7 @@ export function cleanEditorialText(input?: string | null): string {
       }
       return '';
     })
-    // 8. Clean HTML entities
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#039;/gi, "'")
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&#8230;/g, '...')
+    // 8. Clean leftover brackets & symbols
     .replace(/\[\s*…\s*\]/g, '')
     .replace(/\[\s*\.\.\.\s*\]/g, '')
     // 9. Clean redundant whitespace

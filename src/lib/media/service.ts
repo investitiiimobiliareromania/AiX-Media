@@ -1,7 +1,6 @@
 import {
   articles,
   radioShows,
-  podcastEpisodes,
   tvVideos,
   marketItems,
   authors,
@@ -12,7 +11,6 @@ import {
 import { Article } from "./models/article";
 import {
   RadioShow,
-  PodcastEpisode,
   VideoItem,
   MarketItem,
   Author,
@@ -44,14 +42,6 @@ export function getRadioShows(): RadioShow[] {
 
 export function getLiveRadioShow(): RadioShow {
   return radioShows.find((show) => show.status === "LIVE") || radioShows[0]!;
-}
-
-export function getPodcastEpisodes(): PodcastEpisode[] {
-  return podcastEpisodes;
-}
-
-export function getPodcastBySlug(slug: string): PodcastEpisode | undefined {
-  return podcastEpisodes.find((pod) => pod.slug === slug);
 }
 
 export function getTvVideos(): VideoItem[] {

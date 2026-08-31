@@ -18,6 +18,7 @@ import { Clock, Calendar, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react
 import { ensureFullArticleContent } from "@/lib/article-full-text-enhancer";
 import { ArticleIntelligencePanel } from "@/components/news-intelligence/ArticleIntelligencePanel";
 import { ArticleContentRenderer } from "@/components/editorial/ArticleContentRenderer";
+import { ContextualServiceCTA } from "@/components/editorial/ContextualServiceCTA";
 import { parseArticleContentToBlocks } from "@/lib/article-normalizer";
 
 export const revalidate = 300;
@@ -228,6 +229,14 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
       <div className="max-w-none text-neutral-200 font-serif leading-relaxed">
         <ArticleContentRenderer content={article.content} />
       </div>
+
+      {/* Single Contextual Ecosystem Service CTA */}
+      <ContextualServiceCTA
+        category={article.category}
+        title={article.title}
+        excerpt={article.excerpt}
+        content={article.content}
+      />
 
       {/* Source Provenance */}
       <div className="p-4 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)]">

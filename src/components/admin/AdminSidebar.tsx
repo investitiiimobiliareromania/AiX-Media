@@ -19,7 +19,6 @@ export function AdminSidebar() {
     { name: 'Autori', href: '/admin/authors', icon: Users },
     { name: 'Radio CMS', href: '/admin/radio', icon: Radio },
     { name: 'AiX TV CMS', href: '/admin/tv', icon: Tv },
-    { name: 'Podcasts CMS', href: '/admin/podcasts', icon: Mic },
     { name: 'Media Library', href: '/admin/media', icon: ImageIcon },
     { name: 'Profil & Securitate', href: '/admin/profile', icon: User },
     { name: 'Setări', href: '/admin/settings', icon: Settings },

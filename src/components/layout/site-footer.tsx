@@ -143,20 +143,31 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          {/* Media Links */}
+          {/* Ecosystem & Services Links */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-neutral-200 uppercase tracking-wider font-mono">
-              Media &amp; Podcast
+              Platforme Ecosistem
             </h4>
             <ul className="space-y-2 text-xs">
-              {footerNavigation.media.map((item) => (
+              {footerNavigation.services.map((item) => (
                 <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="hover:text-amber-400 text-neutral-400 transition-colors block py-0.5"
-                  >
-                    {item.label}
-                  </Link>
+                  {item.href.startsWith("http") ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-amber-400 text-neutral-400 transition-colors block py-0.5"
+                    >
+                      {item.label} ↗
+                    </a>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="hover:text-amber-400 text-neutral-400 transition-colors block py-0.5"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

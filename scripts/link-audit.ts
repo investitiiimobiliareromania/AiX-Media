@@ -5,7 +5,6 @@ import { mainNavigation, footerNavigation } from '../src/constants/navigation';
 import { verifiedNewsArticles } from '../src/lib/news-service';
 import { institutionalDossiers } from '../src/lib/institutional-company-dossiers';
 import { verifiedVideos, verifiedShorts } from '../src/config/youtube';
-import { podcastEpisodes } from '../src/lib/media/mock-db';
 
 interface LinkIssue {
   location: string;
@@ -22,13 +21,13 @@ console.log('1. Auditing Primary & Footer Navigation Links...');
 const allNavLinks = [
   ...mainNavigation.map((n) => ({ label: n.label, href: n.href, source: 'mainNavigation' })),
   ...footerNavigation.intelligence.map((n) => ({ label: n.label, href: n.href, source: 'footer.intelligence' })),
-  ...footerNavigation.media.map((n) => ({ label: n.label, href: n.href, source: 'footer.media' })),
+  ...footerNavigation.services.map((n) => ({ label: n.label, href: n.href, source: 'footer.services' })),
   ...footerNavigation.legalAndAbout.map((n) => ({ label: n.label, href: n.href, source: 'footer.legalAndAbout' })),
 ];
 
 allNavLinks.forEach((item) => {
-  if (!item.href || !item.href.startsWith('/')) {
-    issues.push({ location: item.source, url: item.href, reason: 'Invalid internal link format (must start with /)' });
+  if (!item.href || (!item.href.startsWith('/') && !item.href.startsWith('http'))) {
+    issues.push({ location: item.source, url: item.href, reason: 'Invalid internal link format' });
   }
   if (item.href.includes('localhost') || item.href.includes('vercel.app')) {
     issues.push({ location: item.source, url: item.href, reason: 'Contains prohibited test/dev domain' });
@@ -46,12 +45,6 @@ verifiedNewsArticles.forEach((art) => {
 institutionalDossiers.forEach((comp) => {
   if (!comp.slug || comp.slug.includes(' ') || comp.slug.includes('%20')) {
     issues.push({ location: `Company: ${comp.name}`, url: comp.slug, reason: 'Invalid URL slug' });
-  }
-});
-
-podcastEpisodes.forEach((pod) => {
-  if (!pod.slug || pod.slug.includes(' ') || pod.slug.includes('%20')) {
-    issues.push({ location: `Podcast: ${pod.title}`, url: pod.slug, reason: 'Invalid URL slug' });
   }
 });
 

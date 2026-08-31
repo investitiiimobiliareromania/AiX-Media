@@ -4,7 +4,6 @@ import { verifiedNewsArticles } from '../src/lib/news-service';
 import { institutionalDossiers } from '../src/lib/institutional-company-dossiers';
 import { bvbCompanies } from '../src/lib/bvb-data';
 import { verifiedVideos, verifiedShorts } from '../src/config/youtube';
-import { podcastEpisodes } from '../src/lib/media/mock-db';
 import { verifiedRadioStations } from '../src/lib/radio-intelligence-service';
 import { romaniaMacroIndicators, romaniaBondYields } from '../src/lib/markets-intelligence-service';
 import { neighborhoodProfiles, commercialMetrics, realEstateReports } from '../src/lib/real-estate-intelligence-service';
@@ -134,23 +133,8 @@ if (metricsData.length < 5) {
   recordError('Business', 'MetricsData', 'Fewer than 5 corporate metrics found');
 }
 
-// 7. PODCASTS & AUDIO ENGINE
-console.log('7. Auditing Podcast Catalog & Audio Playback Readiness...');
-if (podcastEpisodes.length === 0) {
-  recordError('Podcasts', 'Catalog', 'Zero podcast episodes found');
-}
-podcastEpisodes.forEach((pod) => {
-  const ref = pod.slug || pod.id;
-  if (!pod.title || !pod.showName || !pod.duration) {
-    recordError('Podcasts', ref, 'Podcast missing title, showName, or duration');
-  }
-  if (!pod.audioUrl) {
-    recordError('Podcasts', ref, 'Podcast missing audioUrl for native HTML5 audio playback');
-  }
-});
-
-// 8. RADIO LIVE STREAMING CONNECTIVITY
-console.log('8. Auditing Verified Radio Stations...');
+// 7. RADIO LIVE STREAMING CONNECTIVITY
+console.log('7. Auditing Verified Radio Stations...');
 if (verifiedRadioStations.length < 5) {
   recordError('Radio', 'Stations', 'Fewer than 5 verified radio stations available');
 }
@@ -163,8 +147,8 @@ verifiedRadioStations.forEach((st) => {
   }
 });
 
-// 9. YOUTUBE CHANNEL VIDEOS
-console.log('9. Auditing YouTube Channel Media IDs...');
+// 8. YOUTUBE CHANNEL VIDEOS
+console.log('8. Auditing YouTube Channel Media IDs...');
 if (verifiedVideos.length === 0 || verifiedShorts.length === 0) {
   recordError('YouTube', 'Media', 'Missing verified videos or shorts');
 }

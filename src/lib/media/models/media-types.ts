@@ -10,29 +10,6 @@ export interface Author {
   linkedin?: string;
 }
 
-export interface PodcastChapter {
-  time: string;
-  title: string;
-}
-
-export interface PodcastEpisode {
-  id: string;
-  title: string;
-  slug: string;
-  showName: string;
-  episodeNumber: number;
-  duration: string;
-  publishedAt: string;
-  audioUrl: string;
-  coverImage: string;
-  description: string;
-  host: string;
-  guest?: string;
-  transcript?: string;
-  chapters?: PodcastChapter[];
-  keyQuote?: string;
-}
-
 export interface RadioShow {
   id: string;
   title: string;

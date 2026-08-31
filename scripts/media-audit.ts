@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { verifiedVideos, verifiedShorts } from '../src/config/youtube';
-import { podcastEpisodes } from '../src/lib/media/mock-db';
 import { verifiedRadioStations } from '../src/lib/radio-intelligence-service';
 
 interface MediaIssue {
@@ -25,19 +24,8 @@ allVideos.forEach((v) => {
   }
 });
 
-// 2. Podcast Episodes & Audio Assets
-console.log('2. Auditing Podcasts Audio URLs & Cover Assets...');
-podcastEpisodes.forEach((pod) => {
-  if (!pod.audioUrl || !pod.audioUrl.startsWith('http')) {
-    issues.push({ type: 'Podcast', item: pod.title, reason: `Invalid or missing audioUrl: "${pod.audioUrl}"` });
-  }
-  if (!pod.coverImage) {
-    issues.push({ type: 'Podcast', item: pod.title, reason: 'Missing cover image' });
-  }
-});
-
-// 3. Live Radio Stations & Streaming Feeds
-console.log('3. Auditing Verified Radio Station Streams...');
+// 2. Live Radio Stations & Streaming Feeds
+console.log('2. Auditing Verified Radio Station Streams...');
 verifiedRadioStations.forEach((st) => {
   if (!st.streamUrl || (!st.streamUrl.startsWith('http') && !st.streamUrl.startsWith('/api/radio/stream-proxy'))) {
     issues.push({ type: 'Radio', item: st.name, reason: `Invalid live stream URL: "${st.streamUrl}"` });
@@ -50,7 +38,7 @@ verifiedRadioStations.forEach((st) => {
 // Report
 console.log('\n=== MEDIA AUDIT RESULTS ===');
 if (issues.length === 0) {
-  console.log('✓ PASS: All YouTube videos/shorts, podcast audio files, and verified radio streams validated with 0 errors.');
+  console.log('✓ PASS: All YouTube videos/shorts and verified radio streams validated with 0 errors.');
   process.exit(0);
 } else {
   console.error(`✗ FAILED: Found ${issues.length} media issues:`);

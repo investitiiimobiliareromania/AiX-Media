@@ -1,7 +1,6 @@
 import { Article } from "./models/article";
 import {
   Author,
-  PodcastEpisode,
   RadioShow,
   VideoItem,
   MarketItem,
@@ -27,7 +26,7 @@ export const authors: Author[] = [
     slug: "cristian-vaduva",
     name: "Cristian Văduva",
     role: "Fondator AiX Media",
-    bio: "Fondator AiX Media și realizator al emisiunilor video și podcasturilor de analiză economică și investițională.",
+    bio: "Fondator AiX Media și realizator al analizelor de piață și emisiunilor video despre piața imobiliară și investiții.",
     avatar: "/fallbacks/fallback-1.jpg",
     expertise: ["Analiză Economică", "Strategie de Business", "Piețe Imobiliare"],
     linkedin: "https://linkedin.com/company/aixmedia",
@@ -98,72 +97,6 @@ export const radioShows: RadioShow[] = [
   },
 ];
 
-export const podcastEpisodes: PodcastEpisode[] = [
-  {
-    id: "pod-1",
-    title: "Evoluția Pieței Imobiliare și Dinamica Tranzacțiilor Oficiale ANCPI",
-    slug: "evolutia-pietei-imobiliare-tranzactii-oficiale",
-    showName: "AiX Real Estate Intelligence",
-    episodeNumber: 1,
-    duration: "42 min",
-    publishedAt: "2026-08-05",
-    audioUrl: "https://media.aixmedia.ro/podcasts/ep1.mp3",
-    coverImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop",
-    description: "Analiză detaliată privind datele de tranzacționare publicate de ANCPI, randamentele investiționale pe segmentul rezidențial premium din București și evoluția creditării ipotecare.",
-    host: "Cristian Văduva",
-    chapters: [
-      { time: "00:00", title: "Introducere și contextul pieței imobiliare" },
-      { time: "10:15", title: "Statistici ANCPI pe marile județe și București" },
-      { time: "24:30", title: "Impactul dobânzilor de referință BNR și IRCC" },
-      { time: "38:00", title: "Perspective și concluzii de alocare capital" },
-    ],
-  },
-  {
-    id: "pod-2",
-    title: "Bursa de Valori București și Fondurile de Pensii Pilon II",
-    slug: "bursa-valori-bucuresti-pensii-pilon-ii",
-    showName: "AiX Capital Markets",
-    episodeNumber: 2,
-    duration: "38 min",
-    publishedAt: "2026-08-01",
-    audioUrl: "https://media.aixmedia.ro/podcasts/ep2.mp3",
-    coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop",
-    description: "Cum influențează alocările de capital ale fondurilor private de pensii lichiditatea indicilor BVB (BET/BET-TR) și emisiunile de titluri de stat Fidelis.",
-    host: "Cristian Văduva",
-    chapters: [
-      { time: "00:00", title: "Structura lichidității la BVB" },
-      { time: "12:00", title: "Alocările Pilon II și acțiunile reprezentative" },
-      { time: "26:45", title: "Titlurile de stat Fidelis și randamentele garantate" },
-    ],
-  },
-  {
-    id: "pod-3",
-    title: "Politica Monetară BNR: Decizia de Dobândă și Inflația IPC",
-    slug: "politica-monetara-bnr-decizie-dobanda-inflatie",
-    showName: "AiX Monetary Policy",
-    episodeNumber: 3,
-    duration: "45 min",
-    publishedAt: "2026-07-28",
-    audioUrl: "https://media.aixmedia.ro/podcasts/ep3.mp3",
-    coverImage: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop",
-    description: "Sinteza deciziei de politică monetară BNR (6.50%), traiectoria scăderii inflației IPC (4.80%) și prognoza pentru trimestrul IV 2026.",
-    host: "Cristian Văduva",
-  },
-  {
-    id: "pod-4",
-    title: "Wealth Architecture: Negociere de Active și Structurarea Tranzacțiilor",
-    slug: "wealth-architecture-negociere-active-tranzactii",
-    showName: "AiX Wealth Architecture",
-    episodeNumber: 4,
-    duration: "50 min",
-    publishedAt: "2026-07-20",
-    audioUrl: "https://media.aixmedia.ro/podcasts/ep4.mp3",
-    coverImage: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop",
-    description: "Principiile de bază în negocierea tranzacțiilor mari cu active imobiliare și private equity în România cu Cristian Văduva.",
-    host: "Cristian Văduva",
-  },
-];
-
 import { verifiedVideos } from "@/config/youtube";
 
 export const tvVideos: VideoItem[] = verifiedVideos.map((v) => ({
@@ -173,8 +106,10 @@ export const tvVideos: VideoItem[] = verifiedVideos.map((v) => ({
   youtubeId: v.id,
   duration: v.duration || "0:30",
   publishedAt: v.publishedAt || "2026-08-08",
-  category: "Analize Video",
-  playlistName: "AiX Video Journalism",
+  category: v.category?.toLowerCase().includes("property") || v.category?.toLowerCase().includes("penthouse") || v.category?.toLowerCase().includes("residence") || v.title?.toLowerCase().includes("vila") || v.title?.toLowerCase().includes("terasă")
+    ? "PROPERTY VIDEO"
+    : "CRISTIAN VĂDUVA — VIDEO",
+  playlistName: "AiX Video Channel",
   description: v.description || v.title,
   thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
 }));

@@ -86,33 +86,6 @@ export function generateVideoObjectSchema(input: VideoSEOInput) {
   };
 }
 
-export interface PodcastSEOInput {
-  title: string;
-  description: string;
-  slug: string;
-  audioUrl: string;
-  artworkUrl: string;
-  publishDate?: string;
-}
-
-export function generatePodcastEpisodeSchema(input: PodcastSEOInput) {
-  const domain = siteConfig.url;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'PodcastEpisode',
-    name: input.title,
-    description: input.description,
-    image: input.artworkUrl,
-    datePublished: input.publishDate || new Date().toISOString(),
-    associatedMedia: {
-      '@type': 'MediaObject',
-      contentUrl: input.audioUrl,
-    },
-    url: `${domain}/podcast/${input.slug}`,
-    inLanguage: 'ro-RO',
-  };
-}
-
 export function generateOrganizationSchema() {
   const domain = siteConfig.url;
   return {

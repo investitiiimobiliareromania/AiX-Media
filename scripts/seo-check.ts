@@ -6,7 +6,6 @@ import { verifiedNewsArticles } from '../src/lib/news-service';
 import { institutionalDossiers } from '../src/lib/institutional-company-dossiers';
 import { bvbCompanies } from '../src/lib/bvb-data';
 import { verifiedVideos, verifiedShorts } from '../src/config/youtube';
-import { podcastEpisodes } from '../src/lib/media/mock-db';
 
 interface SeoIssue {
   type: 'error' | 'warning';
@@ -113,18 +112,11 @@ allCompanies.forEach((comp) => {
 });
 
 // 6. Video & Media SEO Completeness
-console.log('6. Validating Media Entities (Videos & Podcasts)...');
+console.log('6. Validating Media Entities (Videos)...');
 verifiedVideos.forEach((vid) => {
   check(Boolean(vid.id && vid.id.length === 11), `Video [${vid.title}] has invalid YouTube ID "${vid.id}"`);
   check(Boolean(vid.title && vid.title.length > 5), `Video [${vid.id}] has missing title`);
   check(Boolean(vid.url && vid.url.startsWith('https://www.youtube.com')), `Video [${vid.id}] has invalid URL`);
-});
-
-podcastEpisodes.forEach((pod) => {
-  const ref = pod.slug || pod.id;
-  check(Boolean(pod.slug && pod.title), `Podcast episode [${ref}] missing slug or title`);
-  check(Boolean(pod.coverImage && (pod.coverImage.startsWith('http') || pod.coverImage.startsWith('/'))), `Podcast episode [${ref}] missing cover image`);
-  check(Boolean(pod.publishedAt), `Podcast episode [${ref}] missing publishedAt date`);
 });
 
 // 7. Report & Exit
@@ -134,8 +126,8 @@ if (issues.length === 0) {
   process.exit(0);
 } else {
   console.error(`✗ FAILED: Found ${issues.length} SEO issues:`);
-  issues.forEach((err, i) => {
-    console.error(`  ${i + 1}. [${err.file || 'Global'}] ${err.message}`);
+  issues.forEach((err, idx) => {
+    console.error(`  ${idx + 1}. ${err.file ? `[${err.file}] ` : ''}${err.message}`);
   });
   process.exit(1);
 }

@@ -4,6 +4,7 @@ import { articleService } from "@/services/article.service";
 import { cleanText } from "./sanitizer";
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { normalizeTitle } from "@/lib/html-entities";
 // Database import removed as unused
 
 export interface RSSFeedConfig {
@@ -165,7 +166,7 @@ function parseRSSXml(xmlText: string): ParsedItem[] {
 
     if (rawTitle && (rawLink || rawGuid)) {
       items.push({
-        title: cleanText(rawTitle),
+        title: normalizeTitle(rawTitle),
         link: rawLink,
         guid: rawGuid,
         pubDate: rawPubDate,

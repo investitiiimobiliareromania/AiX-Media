@@ -4,7 +4,6 @@ import { articleService } from "@/services/article.service";
 import { institutionalDossiers } from "@/lib/institutional-company-dossiers";
 import { bvbCompanies } from "@/lib/bvb-data";
 import { verifiedVideos } from "@/config/youtube";
-import { podcastEpisodes } from "@/lib/media/mock-db";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
@@ -25,6 +24,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/real-estate`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/insurance`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/credits`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/business`,
       lastModified: now,
       changeFrequency: "daily",
@@ -32,12 +49,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/markets`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/real-estate`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.9,
@@ -58,12 +69,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/investments`,
       lastModified: now,
       changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/podcasts`,
-      lastModified: now,
-      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
@@ -161,20 +166,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // 6. Dynamic Podcast Routes
-  const podcastRoutes: MetadataRoute.Sitemap = podcastEpisodes.map((pod) => ({
-    url: `${baseUrl}/podcast/${pod.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
-
   return [
     ...coreRoutes,
     ...legalRoutes,
     ...articleRoutes,
     ...companyRoutes,
     ...videoRoutes,
-    ...podcastRoutes,
   ];
 }

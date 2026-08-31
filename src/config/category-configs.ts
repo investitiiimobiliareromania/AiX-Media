@@ -3,11 +3,12 @@ export type CategorySlug =
   | "markets"
   | "business"
   | "real-estate"
+  | "insurance"
+  | "credits"
   | "investments"
   | "finance"
   | "radio"
   | "tv"
-  | "podcasts"
   | "academy";
 
 export interface MarketSignal {
@@ -138,7 +139,7 @@ export const categoryConfigs: Record<CategorySlug, CategoryConfig> = {
       "Statistici oficiale ANCPI, evoluția autorizațiilor de construire INS și dinamica creditelor ipotecare BNR.",
     ctaLabel: "Vezi Datele Imobiliare",
     marketSignals: [
-      { label: "Tranzacții Naționale", value: "51.808", change: "Iunie 2026 (ANCPI)", isPositive: true },
+      { label: "Tranzacții Naționale", value: "51.808", change: "Iulie 2026 (ANCPI)", isPositive: true },
       { label: "București Imobile", value: "10.420", change: "Lider Național (ANCPI)", isPositive: true },
       { label: "Credit Ipotecar", value: "108.4 Mld", change: "Sold BNR", isPositive: true },
     ],
@@ -155,6 +156,59 @@ export const categoryConfigs: Record<CategorySlug, CategoryConfig> = {
     newsletterOverline: "AiX Real Estate Brief",
     newsletterHeadline: "Monitorul Imobiliar Lunar",
     newsletterDescription: "Date agregate din cadastru, autorizații de construire și statistici bancare.",
+  },
+  "insurance": {
+    slug: "insurance",
+    title: "Insurance Intelligence & Risk Protection",
+    eyebrow: "AiX Insurance Desk",
+    headline: "Protecția patrimoniului, asigurări imobiliare și corporate risk management.",
+    description:
+      "Ghiduri și analize structurate privind polițele de locuințe PAD vs facultative, CASCO/RCA și mitigarea riscurilor patrimoniale.",
+    ctaLabel: "Solicită Analiză Asigurări",
+    marketSignals: [
+      { label: "Protecție Active", value: "Patrimoniu & Clădiri", change: "Evergreen Guide", isPositive: true },
+      { label: "Tip Polițe", value: "PAD / Facultativ / CASCO", change: "Ghid Structurat", isPositive: true },
+    ],
+    intelligenceMetrics: [
+      { label: "Asigurare Locuință PAD", value: "Obligatorie Lege", subtext: "Protecție dezastre naturale", source: "PAID", isPositive: true },
+      { label: "Polițe Facultative", value: "Acoperire Extinsă", subtext: "Bunuri & Răspundere civilă", source: "UNSAR", isPositive: true },
+      { label: "Risk Management", value: "Corporate & Flote", subtext: "Mitigare riscuri afaceri", source: "AiX", isPositive: true },
+      { label: "Daune & Despăgubiri", value: "Proceduri Verificate", subtext: "Evaluare & Notificare", source: "AiX", isPositive: true },
+    ],
+    dashboardTitle: "Tablou Inteligență Asigurări",
+    dashboardDescription: "Ghiduri practice și indicatori de protecție a patrimoniului.",
+    featuredInsightHeadline: "Ghidul Protecției Patrimoniului: Diferențe Cheie între PAD și Polița Facultativă",
+    featuredInsightExcerpt: "Analiză detaliată privind acoperirile necesare pentru proprietățile rezidențiale și comerciale.",
+    newsletterOverline: "AiX Insurance Brief",
+    newsletterHeadline: "Sinteza Protecției Patrimoniului",
+    newsletterDescription: "Noutăți legislative și ghiduri de mitigare a riscurilor imobiliare.",
+  },
+  "credits": {
+    slug: "credits",
+    title: "Credit Intelligence & Financial Optimization",
+    eyebrow: "AiX Credit Advisory",
+    headline: "Credite ipotecare, analiză dobânzi IRCC/BNR și refinanțare.",
+    description:
+      "Ghiduri și analize de creditare privind gradul de îndatorare, dobânzile fixe vs variabile și structurarea finanțării imobiliare.",
+    ctaLabel: "Solicită Consultanță Credit",
+    marketSignals: [
+      { label: "IRCC T3", value: "5.86%", change: "Referință BNR", isPositive: true },
+      { label: "ROBOR 3M", value: "5.58%", change: "Interbancar BNR", isPositive: true },
+      { label: "Grad Max Îndatorare", value: "40% - 45%", change: "Reglementare BNR", isPositive: true },
+    ],
+    intelligenceMetrics: [
+      { label: "Rată Dobândă Referință BNR", value: "6.50%", subtext: "Politică monetară", source: "BNR", isPositive: true },
+      { label: "Indice IRCC", value: "5.86%", subtext: "Trimestrul III 2026", source: "BNR", isPositive: true },
+      { label: "ROBOR 3M", value: "5.58%", subtext: "Piața monetară", source: "BNR", isPositive: true },
+      { label: "Sold Credit Ipotecar", value: "108.4 Mld RON", subtext: "Statistici BNR", source: "BNR", isPositive: true },
+    ],
+    dashboardTitle: "Tablou Creditare & Finanțare",
+    dashboardDescription: "Indicatori monetari oficiali BNR și structuri de creditare.",
+    featuredInsightHeadline: "Optimizarea Creditului Ipotecar: Dobândă Fixă vs. Variabilă în 2026",
+    featuredInsightExcerpt: "Analiza impactului noului IRCC asupra ratelor lunare și strategiile optime de refinanțare.",
+    newsletterOverline: "AiX Credit Advisory",
+    newsletterHeadline: "Sinteza Creditării & Refinanțării",
+    newsletterDescription: "Evoluția dobânzilor și sfaturi practice pentru cumpărătorii imobiliari.",
   },
   "investments": {
     slug: "investments",
@@ -241,15 +295,15 @@ export const categoryConfigs: Record<CategorySlug, CategoryConfig> = {
     eyebrow: "AiX Video Desk",
     headline: "Prezentări video și analize economice verificate.",
     description:
-      "Catalog video structurat cu prezentări macroeconomice și analize realizate de Cristian Văduva.",
+      "Catalog video structurat cu tururi imobiliare reale și analize realizate de Cristian Văduva.",
     ctaLabel: "Urmărește Prezentările",
     marketSignals: [
       { label: "Canal Video", value: "Cristian Văduva", change: "Canal Oficial", isPositive: true },
       { label: "Calitate", value: "Full HD", change: "Video Verificat", isPositive: true },
     ],
     intelligenceMetrics: [
-      { label: "Videoclipuri Disponibile", value: "Catalog Oficial", subtext: "YouTube Cristian Văduva", source: "YouTube", isPositive: true },
-      { label: "Prezentări Principale", value: "Analiză & Strategie", subtext: "Format extins", source: "AiX TV", isPositive: true },
+      { label: "Property Videos", value: "Vile & Penthouse-uri", subtext: "Tururi imobiliare reale", source: "YouTube", isPositive: true },
+      { label: "Cristian Văduva Video", value: "Talks & Strategie", subtext: "Perspective de piață", source: "YouTube", isPositive: true },
       { label: "Clipuri Scurte", value: "Shorts Oficiale", subtext: "Format vertical 9:16", source: "YouTube", isPositive: true },
       { label: "Subiecte Cheie", value: "Imobiliare & BNR", subtext: "Economie & Afaceri", source: "AiX Media", isPositive: true },
     ],
@@ -259,33 +313,7 @@ export const categoryConfigs: Record<CategorySlug, CategoryConfig> = {
     featuredInsightExcerpt: "Urmăriți analiza video completă a dinamicii tranzacțiilor și a evoluției dobânzilor.",
     newsletterOverline: "AiX Video Alert",
     newsletterHeadline: "Notificări Video Noi",
-    newsletterDescription: "Primiți notificări la publicarea noilor analize video și prezentări.",
-  },
-  "podcasts": {
-    slug: "podcasts",
-    title: "Podcasts & Dialoguri Economice",
-    eyebrow: "AiX Audio Intelligence",
-    headline: "Episoade audio structurate privind economia și piețele de capital.",
-    description:
-      "Dialoguri și masterclasses axate pe transparența datelor financiare, investiții și dezvoltare de proiecte.",
-    ctaLabel: "Explorează Episoadele",
-    marketSignals: [
-      { label: "Catalog Episoade", value: "Audio Oficial", change: "Masterclass", isPositive: true },
-      { label: "Acces", value: "Gratuit", change: "Educațional", isPositive: true },
-    ],
-    intelligenceMetrics: [
-      { label: "Episoade Disponibile", value: "Catalog Activ", subtext: "Serii educaționale", source: "AiX Media", isPositive: true },
-      { label: "Durată Medie", value: "35 - 45 min", subtext: "Format detaliat", source: "AiX Media", isPositive: true },
-      { label: "Teme Principale", value: "Imobiliare & BVB", subtext: "Analiză de date", source: "AiX Media", isPositive: true },
-      { label: "Realizator", value: "Cristian Văduva", subtext: "AiX Media", source: "AiX Media", isPositive: true },
-    ],
-    dashboardTitle: "Catalog Audio AiX Podcasts",
-    dashboardDescription: "Serii tematice de analiză economică și financiară.",
-    featuredInsightHeadline: "Episod Recomandat: Modelarea Randamentelor Imobiliare",
-    featuredInsightExcerpt: "O sinteză audio completă privind metodologia de calcul a randamentelor și riscurilor în piața imobiliară.",
-    newsletterOverline: "AiX Podcast Alert",
-    newsletterHeadline: "Sinteza Episoadelor Audio",
-    newsletterDescription: "Concluziile principale și notițele din fiecare episod lansat.",
+    newsletterDescription: "Primiți notificări la publicarea noilor analize video și tururi imobiliare.",
   },
   "academy": {
     slug: "academy",

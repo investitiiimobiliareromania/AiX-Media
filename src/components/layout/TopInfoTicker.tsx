@@ -4,7 +4,6 @@ import { MarketDataPoint } from "@/lib/market-data";
 
 export interface TopInfoTickerProps {
   latestArticleTitle?: string;
-  latestPodcastTitle?: string;
   equities?: MarketDataPoint[];
 }
 
@@ -17,34 +16,39 @@ export function TopInfoTicker({
   const betPrice = betIndex && betIndex.value !== null ? betIndex.value : 18450;
   const betChange = 0.65;
 
-  // Build structured dynamic ticker sections reflecting Real Estate & Media focus
+  // Structured dynamic ticker sections reflecting Real Estate, Insurance, Credit & Media focus
   const sections = [
     {
       category: "REAL ESTATE",
       href: "/real-estate",
+      isExternal: false,
       content: [
         "Market Intelligence",
         latestArticleTitle || "ANCPI: Peste 51.000 de imobile tranzacționate în iulie",
       ],
     },
     {
-      category: "ROMANIA",
-      href: "/real-estate",
-      content: ["București & Marile Poli", "Statistici Cadastrale & Indici Rezidențiali"],
+      category: "INSURANCE",
+      href: "/insurance",
+      isExternal: false,
+      content: ["Risk Protection & Patrimoniu", "Insurance Insights"],
     },
     {
-      category: "EUROPE",
-      href: "/real-estate",
-      content: ["European Housing Markets", "Prețuri & Randamente de Închiriere"],
+      category: "CREDIT",
+      href: "/credits",
+      isExternal: false,
+      content: ["Ipotecar & Refinanțare", "Analiză IRCC / BNR"],
     },
     {
       category: "ANCPI",
       href: "/real-estate",
+      isExternal: false,
       content: ["51.808 Tranzacții Naționale", "10.420 București"],
     },
     {
       category: "BVB",
       href: "/markets",
+      isExternal: false,
       content: [
         `BET ${betPrice.toLocaleString("ro-RO")} (${betChange >= 0 ? "+" : ""}${betChange}%)`,
         "ONE",
@@ -57,31 +61,50 @@ export function TopInfoTicker({
     {
       category: "PROPERTY VIDEO",
       href: "/tv",
+      isExternal: false,
       content: ["Vile de Lux · Penthouse-uri 220 mp · Tururi Imobiliare Exclusiviste"],
     },
     {
       category: "CRISTIAN VĂDUVA",
       href: "/tv",
+      isExternal: false,
       content: ["Video Talks & Strategy", "Momente & Perspective"],
     },
   ];
+
+  const renderItemContent = (sec: typeof sections[0]) => (
+    <>
+      <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-amber-400 group-hover/item:text-amber-300">
+        {sec.category}
+      </span>
+      <span className="text-[10px] text-neutral-600 font-mono font-normal">•</span>
+      <span className="text-[11px] sm:text-xs font-mono text-neutral-300 group-hover/item:text-white transition-colors truncate max-w-[320px] sm:max-w-none">
+        {sec.content.join(" · ")}
+      </span>
+    </>
+  );
 
   const renderTrackContent = (trackKey: string) => (
     <div key={trackKey} className="flex items-center shrink-0">
       {sections.map((sec, idx) => (
         <React.Fragment key={`${trackKey}-${sec.category}-${idx}`}>
-          <Link
-            href={sec.href}
-            className="inline-flex items-center gap-2 group/item py-1 px-1 transition-opacity hover:opacity-80 cursor-pointer"
-          >
-            <span className="font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-amber-400 group-hover/item:text-amber-300">
-              {sec.category}
-            </span>
-            <span className="text-[10px] text-neutral-600 font-mono font-normal">•</span>
-            <span className="text-[11px] sm:text-xs font-mono text-neutral-300 group-hover/item:text-white transition-colors truncate max-w-[320px] sm:max-w-none">
-              {sec.content.join(" · ")}
-            </span>
-          </Link>
+          {sec.isExternal ? (
+            <a
+              href={sec.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 group/item py-1 px-1 transition-opacity hover:opacity-80 cursor-pointer"
+            >
+              {renderItemContent(sec)}
+            </a>
+          ) : (
+            <Link
+              href={sec.href}
+              className="inline-flex items-center gap-2 group/item py-1 px-1 transition-opacity hover:opacity-80 cursor-pointer"
+            >
+              {renderItemContent(sec)}
+            </Link>
+          )}
           <span className="text-amber-500/40 text-[10px] mx-4 font-normal select-none pointer-events-none">
             ✦
           </span>
