@@ -22,22 +22,22 @@ import { TopInfoTicker } from "@/components/layout/TopInfoTicker";
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
   display: "swap",
+  preload: true,
 });
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["700"],
   display: "swap",
+  preload: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "700"],
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = rootMetadata;
