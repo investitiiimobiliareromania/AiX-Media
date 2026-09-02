@@ -144,7 +144,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       <>
         <div
           data-testid="mobile-overlay"
-          className="fixed inset-0 bg-[var(--surface-elevated)]/70 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
           style={{ zIndex: 99998 }}
           onClick={() => setMenuOpen(false)}
           aria-hidden="true"
@@ -152,11 +152,11 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
         <aside
           id="mobile-menu-drawer"
           data-testid="mobile-drawer"
-          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[var(--surface-elevated)] border-l border-[var(--border)] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
+          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-neutral-950 border-l border-neutral-800 text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
           style={{ zIndex: 99999, height: "100dvh" }}
           aria-label="Mobile Navigation"
         >
-          <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
+          <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span className="font-bold text-neutral-200 text-xs font-mono uppercase tracking-widest">
@@ -166,7 +166,7 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             <button
               type="button"
               aria-label="Close navigation"
-              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-[var(--surface-elevated)] min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
+              className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 min-h-[48px] min-w-[48px] flex items-center justify-center transition-colors cursor-pointer"
               onClick={() => setMenuOpen(false)}
             >
               <X className="w-5 h-5" />
@@ -183,8 +183,8 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
                   onClick={() => setMenuOpen(false)}
                   className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider transition-colors min-h-[48px] ${
                     isActive
-                      ? "bg-[var(--surface-elevated)] text-amber-400 border border-amber-500/30 font-bold"
-                      : "text-neutral-300 hover:bg-[var(--surface-elevated)] hover:text-white"
+                      ? "bg-neutral-900 text-amber-400 border border-amber-500/30 font-bold"
+                      : "text-neutral-300 hover:bg-neutral-900 hover:text-white"
                   }`}
                 >
                   <span>{item.label}</span>
@@ -194,14 +194,14 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
             })}
           </nav>
 
-          <div className="pt-4 border-t border-[var(--border)]">
+          <div className="pt-4 border-t border-neutral-800">
             <button
               type="button"
               onClick={() => {
                 setMenuOpen(false);
                 setEcosystemMobileOpen(true);
               }}
-              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] text-neutral-200 font-semibold text-xs font-mono uppercase tracking-wider hover:bg-[var(--surface-elevated)] hover:text-white min-h-[48px] transition-colors cursor-pointer"
+              className="w-full flex items-center justify-between px-4 py-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-200 font-semibold text-xs font-mono uppercase tracking-wider hover:bg-neutral-850 hover:text-white min-h-[48px] transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-2">
                 <Globe className="w-4 h-4 text-amber-500" />
@@ -219,14 +219,14 @@ export function NewSiteHeader({ currencies = [] }: NewSiteHeaderProps) {
       <>
         <div
           data-testid="ecosystem-overlay"
-          className="fixed inset-0 bg-[var(--surface-elevated)]/70 backdrop-blur-xs transition-opacity"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
           style={{ zIndex: 99998 }}
           onClick={() => setEcosystemMobileOpen(false)}
           aria-hidden="true"
         />
         <aside
           id="mobile-ecosystem-drawer"
-          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-[var(--surface-elevated)] border-l border-[var(--border)] text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
+          className="fixed inset-y-0 right-0 top-0 bottom-0 w-full sm:w-[380px] bg-neutral-950 border-l border-neutral-800 text-neutral-100 overflow-y-auto flex flex-col p-6 shadow-2xl"
           style={{ zIndex: 99999, height: "100dvh" }}
           aria-label="AiX Ecosystem Navigation"
         >

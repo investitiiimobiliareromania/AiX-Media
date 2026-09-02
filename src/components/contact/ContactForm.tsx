@@ -125,7 +125,10 @@ export function ContactForm({
           </div>
 
           {status?.type === "error" && (
-            <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-400 text-xs font-mono flex items-center gap-2">
+            <div
+              aria-live="polite"
+              className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-400 text-xs font-mono flex items-center gap-2"
+            >
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
               <span>{status.text}</span>
             </div>
@@ -133,12 +136,14 @@ export function ContactForm({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
+              <label htmlFor="contact-name" className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
                 Nume complet <span className="text-amber-500">*</span>
               </label>
               <input
+                id="contact-name"
                 type="text"
                 required
+                autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="ex. Nume Prenume"
@@ -147,12 +152,14 @@ export function ContactForm({
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
+              <label htmlFor="contact-info" className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
                 Telefon sau Email <span className="text-amber-500">*</span>
               </label>
               <input
+                id="contact-info"
                 type="text"
                 required
+                autoComplete="email tel"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 placeholder="07xx xxx xxx sau email@domeniu.ro"
@@ -175,10 +182,11 @@ export function ContactForm({
 
           {!compact && (
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
+              <label htmlFor="contact-message" className="block text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
                 Mesaj / Detalii solicitare (opțional)
               </label>
               <textarea
+                id="contact-message"
                 rows={3}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

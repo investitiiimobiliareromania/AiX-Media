@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FileText, Settings, Image as ImageIcon, FolderTree, LogOut, User, Users, Radio, Tv, Mic } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, Image as ImageIcon, FolderTree, LogOut, User, Users, Radio, Tv } from 'lucide-react';
 import { logoutAction } from '@/lib/authActions';
 
 export function AdminSidebar() {

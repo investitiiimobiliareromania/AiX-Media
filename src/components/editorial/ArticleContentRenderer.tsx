@@ -6,14 +6,27 @@ import {
   EditorialBlock,
   InlineSegment,
 } from '@/lib/article-normalizer';
+import { injectContextualEntityLinks } from '@/lib/entity-linker';
 
 interface ArticleContentRendererProps {
   content?: string | null;
   className?: string;
 }
 
-function FormattedInline({ text }: { text: string }) {
-  const segments: InlineSegment[] = parseInlineSegments(text);
+function FormattedInline({
+  text,
+  enableEntityLinking = true,
+  linkedEntitiesSet,
+}: {
+  text: string;
+  enableEntityLinking?: boolean;
+  linkedEntitiesSet?: Set<string>;
+}) {
+  let segments: InlineSegment[] = parseInlineSegments(text);
+
+  if (enableEntityLinking && linkedEntitiesSet) {
+    segments = injectContextualEntityLinks(segments, linkedEntitiesSet);
+  }
 
   return (
     <>
@@ -70,6 +83,8 @@ export function ArticleContentRenderer({ content, className = '' }: ArticleConte
 
   if (blocks.length === 0) return null;
 
+  const linkedEntitiesSet = new Set<string>();
+
   return (
     <div className={`article-body-content text-neutral-200 font-serif leading-relaxed ${className}`}>
       {blocks.map((block, idx) => {
@@ -80,7 +95,7 @@ export function ArticleContentRenderer({ content, className = '' }: ArticleConte
                 key={idx}
                 className="text-2xl sm:text-3xl font-bold font-serif text-white mt-10 mb-4 tracking-tight"
               >
-                <FormattedInline text={block.text} />
+                <FormattedInline text={block.text} enableEntityLinking={false} linkedEntitiesSet={linkedEntitiesSet} />
               </h2>
             );
           }
@@ -89,7 +104,7 @@ export function ArticleContentRenderer({ content, className = '' }: ArticleConte
               key={idx}
               className="text-xl sm:text-2xl font-bold font-serif text-white mt-8 mb-3 tracking-tight"
             >
-              <FormattedInline text={block.text} />
+              <FormattedInline text={block.text} enableEntityLinking={false} linkedEntitiesSet={linkedEntitiesSet} />
             </h3>
           );
         }
@@ -100,7 +115,7 @@ export function ArticleContentRenderer({ content, className = '' }: ArticleConte
               key={idx}
               className="p-5 sm:p-6 rounded-2xl bg-neutral-900/90 border-l-4 border-amber-500 italic text-neutral-200 font-serif my-6 shadow-sm leading-relaxed"
             >
-              <FormattedInline text={block.text} />
+              <FormattedInline text={block.text} enableEntityLinking={true} linkedEntitiesSet={linkedEntitiesSet} />
             </blockquote>
           );
         }
@@ -113,7 +128,7 @@ export function ArticleContentRenderer({ content, className = '' }: ArticleConte
             >
               {block.items.map((item, itemIdx) => (
                 <li key={itemIdx} className="pl-1">
-                  <FormattedInline text={item} />
+                  <FormattedInline text={item} enableEntityLinking={true} linkedEntitiesSet={linkedEntitiesSet} />
                 </li>
               ))}
             </ul>
@@ -126,10 +141,11 @@ export function ArticleContentRenderer({ content, className = '' }: ArticleConte
             key={idx}
             className="leading-[1.85] font-serif text-neutral-200 text-base sm:text-lg mb-6"
           >
-            <FormattedInline text={block.text} />
+            <FormattedInline text={block.text} enableEntityLinking={true} linkedEntitiesSet={linkedEntitiesSet} />
           </p>
         );
       })}
     </div>
   );
 }
+

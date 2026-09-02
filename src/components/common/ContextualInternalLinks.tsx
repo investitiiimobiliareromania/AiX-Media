@@ -19,8 +19,8 @@ export function ContextualInternalLinks({
   // Match companies mentioned in the content
   const matchedCompanies = bvbCompanies.filter((comp) => {
     if (comp.slug === currentSlug) return false;
-    const nameMatch = textLower.includes(comp.name.toLowerCase());
-    const symbolMatch = comp.symbol && textLower.includes(comp.symbol.toLowerCase());
+    const nameMatch = textLower.includes(comp.name.toLowerCase()) || textLower.includes(comp.slug.replace(/-/g, ' '));
+    const symbolMatch = comp.symbol && comp.symbol.length >= 3 && (textLower.includes(`$${comp.symbol.toLowerCase()}`) || textLower.includes(`(${comp.symbol.toLowerCase()})`));
     return nameMatch || symbolMatch;
   });
 
@@ -57,6 +57,33 @@ export function ContextualInternalLinks({
       description: "Clasamentul marilor corporații românești și dinamica tranzacțiilor M&A.",
       href: "/business",
       icon: Layers,
+    });
+  }
+
+  if (category === "credits" || textLower.includes("credit") || textLower.includes("ipoteca") || textLower.includes("ircc") || textLower.includes("robor")) {
+    verticalLinks.push({
+      title: "Ghiduri & Analize Credite",
+      description: "Indicatori bancari, credite ipotecare și evoluția IRCC/ROBOR.",
+      href: "/credits",
+      icon: TrendingUp,
+    });
+  }
+
+  if (category === "insurance" || textLower.includes("asigur") || textLower.includes("rca") || textLower.includes("asf")) {
+    verticalLinks.push({
+      title: "Piața Asigurărilor & Reglementări",
+      description: "Analize RCA, asigurări de bunuri și rapoarte ASF.",
+      href: "/insurance",
+      icon: Layers,
+    });
+  }
+
+  if (category === "investments" || textLower.includes("investi") || textLower.includes("titluri de stat") || textLower.includes("fidelis")) {
+    verticalLinks.push({
+      title: "Investiții & Instrumente Financiare",
+      description: "Titluri de stat, fonduri mutuale și strategii de alocare a capitalului.",
+      href: "/investments",
+      icon: TrendingUp,
     });
   }
 

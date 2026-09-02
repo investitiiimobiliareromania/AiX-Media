@@ -33,12 +33,6 @@ const categoryGradients: Record<string, string> = {
 
 const fallbackGradient = categoryGradients["real-estate"];
 
-const placeholderPatterns: Record<string, string> = {
-  "real-estate": "repeating-linear-gradient(55deg,oklch(1 0 0/3%) 0,oklch(1 0 0/3%) 1px,transparent 0,transparent 40px),repeating-linear-gradient(125deg,oklch(1 0 0/2%) 0,oklch(1 0 0/2%) 1px,transparent 0,transparent 40px)",
-  "insurance": "radial-gradient(circle at 35% 55%,oklch(0.78 0.11 85/8%) 0%,transparent 55%),repeating-linear-gradient(45deg,oklch(1 0 0/2%) 0,oklch(1 0 0/2%) 1px,transparent 0,transparent 36px)",
-  "investments": "repeating-linear-gradient(90deg,oklch(0.78 0.11 85/4%) 0,oklch(0.78 0.11 85/4%) 1px,transparent 0,transparent 56px),repeating-linear-gradient(0deg,oklch(1 0 0/2%) 0,oklch(1 0 0/2%) 1px,transparent 0,transparent 40px)"
-};
-
 export function ArticleCard({
   category,
   title,

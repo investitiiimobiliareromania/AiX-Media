@@ -1,4 +1,9 @@
-import { siteConfig } from "@/config/site";
+import {
+  createNewsArticleJsonLd,
+  createVideoObjectJsonLd,
+  organizationJsonLd,
+  webSiteJsonLd,
+} from "@/components/common/json-ld";
 
 export interface NewsArticleSEOInput {
   title: string;
@@ -24,42 +29,16 @@ export function estimateReadTime(content: string, wpm = 200): string {
  * Generates Schema.org NewsArticle JSON-LD structured data
  */
 export function generateNewsArticleSchema(input: NewsArticleSEOInput) {
-  const domain = siteConfig.url;
-  const url = `${domain}/news/${input.slug}`;
-  const defaultImage = `${domain}/opengraph-image`;
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'NewsArticle',
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url,
-    },
-    url,
-    headline: input.title,
+  return createNewsArticleJsonLd({
+    title: input.title,
     description: input.description,
-    image: [input.coverImageUrl || defaultImage],
-    datePublished: input.publishDate || new Date().toISOString(),
-    dateModified: input.modifiedDate || input.publishDate || new Date().toISOString(),
-    inLanguage: 'ro-RO',
-    author: {
-      '@type': 'Organization',
-      name: 'AiX Media Editorial Desk',
-      url: domain,
-    },
-    publisher: {
-      '@type': 'NewsMediaOrganization',
-      name: 'AiX Media',
-      url: domain,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${domain}/icon`,
-        width: 512,
-        height: 512,
-      },
-    },
-    articleSection: input.categoryName || 'Știri Economice',
-  };
+    slug: input.slug,
+    imageUrl: input.coverImageUrl,
+    publishedAt: input.publishDate,
+    modifiedAt: input.modifiedDate,
+    authorName: input.authorName,
+    section: input.categoryName,
+  });
 }
 
 export interface VideoSEOInput {
@@ -72,54 +51,20 @@ export interface VideoSEOInput {
 }
 
 export function generateVideoObjectSchema(input: VideoSEOInput) {
-  const domain = siteConfig.url;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'VideoObject',
-    name: input.title,
+  return createVideoObjectJsonLd({
+    id: input.slug,
+    title: input.title,
     description: input.description,
-    thumbnailUrl: [input.thumbnailUrl],
-    uploadDate: input.uploadDate || new Date().toISOString(),
-    contentUrl: `${domain}/video/${input.slug}`,
-    embedUrl: `https://www.youtube-nocookie.com/embed/${input.slug}`,
-    inLanguage: 'ro-RO',
-  };
+    slug: input.slug,
+    uploadDate: input.uploadDate,
+  });
 }
 
 export function generateOrganizationSchema() {
-  const domain = siteConfig.url;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'NewsMediaOrganization',
-    name: 'AiX Media',
-    url: domain,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${domain}/icon`,
-      width: 512,
-      height: 512,
-    },
-    sameAs: [
-      'https://www.youtube.com/@CristianVaduvaCV',
-    ],
-  };
+  return organizationJsonLd;
 }
 
 export function generateWebSiteSchema() {
-  const domain = siteConfig.url;
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'AiX Media',
-    url: domain,
-    inLanguage: 'ro-RO',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${domain}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
-  };
+  return webSiteJsonLd;
 }
+

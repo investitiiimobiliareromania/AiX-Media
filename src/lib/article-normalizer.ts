@@ -22,7 +22,7 @@ export interface InlineSegment {
   href?: string;
 }
 
-import { decodeHtmlEntities, normalizeTitle } from './html-entities';
+import { decodeHtmlEntities } from './html-entities';
 
 /**
  * Filter list for known publisher boilerplate phrases that should never appear in article bodies.

@@ -23,7 +23,7 @@ export async function GET() {
       listeners: typeof data.listeners === 'number' ? data.listeners : 0,
     };
     return NextResponse.json(normalized, { status: 200 });
-  } catch (err) {
+  } catch {
     clearTimeout(timeout);
     const safeResponse = {
       isLive: false,

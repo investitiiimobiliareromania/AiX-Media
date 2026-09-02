@@ -43,14 +43,17 @@ export function FooterNewsletterForm() {
   return (
     <form onSubmit={handleSubscribe} className="space-y-2">
       <input
+        id="footer-newsletter-email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
+        autoComplete="email"
+        aria-label="Adresa de email pentru abonare la sinteza AiX Media"
         placeholder="adresa@email.com"
         className="w-full px-3.5 py-2.5 text-xs bg-[var(--surface-editorial)] border border-[var(--border)] rounded-xl focus:border-amber-500 focus:outline-none text-[var(--foreground)] placeholder:text-neutral-500 shadow-xs"
       />
-      <button className="w-full py-2.5 bg-[var(--surface-editorial)] hover:bg-[var(--surface)] text-[var(--foreground)] font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]">
+      <button type="submit" className="w-full py-2.5 bg-[var(--surface-editorial)] hover:bg-[var(--surface)] text-[var(--foreground)] font-bold text-xs font-mono uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]">
         <span>Abonează-te</span>
         <ArrowRight className="w-3.5 h-3.5" />
       </button>

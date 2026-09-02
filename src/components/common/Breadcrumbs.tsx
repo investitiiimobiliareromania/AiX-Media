@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
-import { JsonLd } from "@/components/common/json-ld";
+import { JsonLd, createBreadcrumbJsonLd } from "@/components/common/json-ld";
 import { siteConfig } from "@/config/site";
 
 export interface BreadcrumbItem {
@@ -20,20 +20,12 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
     ...items,
   ];
 
-  const breadcrumbListSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: allItems.map((item, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: item.label,
-      item: item.href
-        ? item.href.startsWith("http")
-          ? item.href
-          : `${siteConfig.url}${item.href}`
-        : `${siteConfig.url}`,
-    })),
-  };
+  const lastItemHref = items.find((it) => it.href)?.href;
+  const canonicalUrl = lastItemHref
+    ? (lastItemHref.startsWith("http") ? lastItemHref : `${siteConfig.url}${lastItemHref}`)
+    : siteConfig.url;
+
+  const breadcrumbListSchema = createBreadcrumbJsonLd(allItems, canonicalUrl);
 
   return (
     <nav

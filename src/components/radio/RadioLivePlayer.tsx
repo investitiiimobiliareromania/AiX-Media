@@ -66,11 +66,12 @@ export function RadioLivePlayer({ streamConfig, currentProgram, nextProgram }: R
   const renderNowPlaying = () => {
     if (nowPlaying.loading) return null;
     if (nowPlaying.error) return <p className="text-xs text-[var(--foreground-muted)]">Now Playing unavailable</p>;
-    const { isLive, artist, title, album, art, stationName, listeners } = nowPlaying;
+    const { isLive, artist, title, art, stationName, listeners } = nowPlaying;
     return (
       <div className="mt-4 p-4 bg-[var(--surface-elevated)] rounded-md border border-[var(--border)]">
         <div className="flex items-center gap-3">
           {art && (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={art}
               alt="Album art"

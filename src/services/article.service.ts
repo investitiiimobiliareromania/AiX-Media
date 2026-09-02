@@ -43,25 +43,50 @@ export class ArticleService {
             row.title.toLowerCase() !== 'test' &&
             !row.slug.startsWith('test-')
         );
-        return cleanRows.map((row) => ({
-          id: row.id,
-          title: normalizeTitle(row.title),
-          slug: row.slug,
-          category: (row.category_id as Article['category']) || 'news',
-          categoryLabel: 'Știri & Analize',
-          authorId: row.author_id || 'aix-editorial',
-          authorName: 'AiX Media Editorial Desk',
-          authorAvatar: '/fallbacks/fallback-0.jpg',
-          authorRole: 'Redacția Economică',
-          excerpt: cleanText(row.excerpt),
-          content: normalizeArticleString(row.content),
-          coverImage: this.resolveCoverImage(row),
-          publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
-          readTime: row.read_time || '4 min read',
-          views: row.view_count || 100,
-          featured: true,
-          trending: true,
-        }));
+        return cleanRows.map((row) => {
+          const textForCategory = `${row.title} ${row.excerpt || ''} ${row.content || ''}`.toLowerCase();
+          let categorySlug: Article['category'] = 'news';
+
+          if (/\b(asigurare|asigurari|rca|asf|polita|polite|omniasig|allianz|generali)\b/i.test(textForCategory)) {
+            categorySlug = 'insurance';
+          } else if (/\b(credit|credite|dobanda|dobanzi|ircc|robor|ipotecar|ipotecare|refinantare|rate bancare)\b/i.test(textForCategory)) {
+            categorySlug = 'credits';
+          } else if (/\b(titluri de stat|fidelis|tezaur|fonduri de investitii|obligatiuni|randament|cupon)\b/i.test(textForCategory)) {
+            categorySlug = 'investments';
+          } else if (/\b(bvb|bursa|bursa de valori|indicele bet|bet-tr|actiuni|hidroelectrica|omv petrom|romgaz|nuclearelectrica|banca transilvania|uipath|dedeman)\b/i.test(textForCategory)) {
+            categorySlug = 'markets';
+          } else if (/\b(imobil|imobiliare|apartament|apartamente|cadastru|ancpi|rezidential|rezidentiale|constructii|constructie|dezvoltator|birouri)\b/i.test(textForCategory)) {
+            categorySlug = 'real-estate';
+          } else if (/\b(buget|fiscal|fiscala|taxe|impozit|impozite|inflatie|bnr|ministerul finantelor|deficit|macroeconomie)\b/i.test(textForCategory)) {
+            categorySlug = 'finance';
+          } else if (/\b(companie|companii|firma|firme|fuziune|fuziuni|achizitie|achizitii|cifra de afaceri|profit|venituri|management|ceo|metrou|autostrada|aeroport)\b/i.test(textForCategory)) {
+            categorySlug = 'business';
+          }
+
+          const finalCategory = (row.category_id && ['real-estate', 'markets', 'business', 'finance', 'credits', 'insurance', 'investments'].includes(row.category_id)
+            ? row.category_id
+            : categorySlug) as Article['category'];
+
+          return {
+            id: row.id,
+            title: normalizeTitle(row.title),
+            slug: row.slug,
+            category: finalCategory,
+            categoryLabel: 'Știri & Analize',
+            authorId: row.author_id || 'aix-editorial',
+            authorName: 'AiX Media Editorial Desk',
+            authorAvatar: '/fallbacks/fallback-0.jpg',
+            authorRole: 'Redacția Economică',
+            excerpt: cleanText(row.excerpt),
+            content: normalizeArticleString(row.content),
+            coverImage: this.resolveCoverImage(row),
+            publishedAt: row.publish_date ? row.publish_date.split('T')[0]! : row.created_at.split('T')[0]!,
+            readTime: row.read_time || '4 min read',
+            views: row.view_count || 100,
+            featured: true,
+            trending: true,
+          };
+        });
       }
     } catch (err) {
       logger.error('Failed to fetch published articles from Supabase, falling back to local dataset', err);

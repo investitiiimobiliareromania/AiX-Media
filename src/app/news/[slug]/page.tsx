@@ -6,13 +6,12 @@ import { articleService } from "@/services/article.service";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { EcosystemContextLinks } from "@/components/ecosystem/EcosystemContextLinks";
-import { JsonLd } from "@/components/common/json-ld";
+import { JsonLd, createNewsArticleJsonLd } from "@/components/common/json-ld";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { ContextualInternalLinks } from "@/components/common/ContextualInternalLinks";
 import { SourceBadge } from "@/components/common/SourceBadge";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { siteConfig } from "@/config/site";
-import { cleanText } from "@/lib/sanitizer";
 import { Clock, Calendar, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 
 import { ensureFullArticleContent } from "@/lib/article-full-text-enhancer";
@@ -85,39 +84,17 @@ export default async function ArticleDetailPage({ params }: ArticlePageProps) {
 
   const related = await articleService.getRelatedIntelligenceArticles(article, 3);
 
-  const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
-
   // Structured Data Schema for NewsArticle
-  const newsArticleSchema = {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    headline: article.title,
+  const newsArticleSchema = createNewsArticleJsonLd({
+    title: article.title,
     description: article.excerpt,
-    image: [article.coverImage],
-    datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
-    url: canonicalUrl,
-    inLanguage: "ro-RO",
-    author: [
-      {
-        "@type": "Person",
-        name: article.authorName,
-        jobTitle: article.authorRole || "Redacția Economică",
-      },
-    ],
-    publisher: {
-      "@type": "NewsMediaOrganization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/icon`,
-        width: 512,
-        height: 512,
-      },
-    },
-    articleSection: article.categoryLabel || article.category,
-  };
+    slug: article.slug,
+    publishedAt: article.publishedAt,
+    imageUrl: article.coverImage,
+    section: article.categoryLabel || article.category,
+    authorName: article.authorName,
+    authorRole: article.authorRole,
+  });
 
   // Derive key takeaways from content
   const blocks = parseArticleContentToBlocks(article.content);

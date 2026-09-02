@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Database } from '@/types/database.types';
 import { articleService } from "@/services/article.service";
 import { cleanText } from "./sanitizer";
@@ -246,23 +245,32 @@ export async function runNewsIngestion(): Promise<IngestionResult> {
 
           const wordCount = item.content.split(/\s+/).filter(Boolean).length;
           const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
-          const now = new Date().toISOString();
 
-          const isBusinessTopic = (text: string) => {
+          const detectMultiVerticalCategory = (text: string): string => {
             const lower = text.toLowerCase();
-            const keywords = [
-              'compan', 'afacer', 'bussines', 'business', 'firma', 'firme', 'venit', 'profit',
-              'cifra', 'tranzact', 'investit', 'm&a', 'bvb', 'banca', 'banc', 'retail', 'magazin',
-              'supermarket', 'hipermarket', 'lidl', 'kaufland', 'globus', 'strabag', 'construct',
-              'imobiliar', 'energie', 'fotovoltaic', 'solar', 'centrale', 'masin', 'auto', 'lepas',
-              'byd', 'pesa', 'cfr', 'aeroport', 'port', 'nava', 'tehnologi', 'startup', 'data center',
-              'centre de date', 'salari', 'buget', 'fiscal', 'taxe', 'patron', 'turis', 'insolvent',
-              'sabotaj', 'fabrica', 'uzina', 'producat', 'amcham', 'unicredit', 'libra', 'cnair', 'rabla'
-            ];
-            return keywords.some((kw) => lower.includes(kw));
+
+            if (/\b(asigurare|asigurari|rca|asf|polita|polite|omniasig|allianz|generali)\b/i.test(lower)) {
+              return 'insurance';
+            }
+            if (/\b(credit|credite|dobanda|dobanzi|ircc|robor|ipotecar|ipotecare|refinantare|rate bancare)\b/i.test(lower)) {
+              return 'credits';
+            }
+            if (/\b(titluri de stat|fidelis|tezaur|fonduri de investitii|obligatiuni|randament|cupon)\b/i.test(lower)) {
+              return 'investments';
+            }
+            if (/\b(bvb|bursa|bursa de valori|indicele bet|bet-tr|actiuni|hidroelectrica|omv petrom|romgaz|nuclearelectrica|banca transilvania|uipath|dedeman)\b/i.test(lower)) {
+              return 'markets';
+            }
+            if (/\b(imobil|imobiliare|apartament|apartamente|cadastru|ancpi|rezidential|rezidentiale|constructii|constructie|dezvoltator|birouri)\b/i.test(lower)) {
+              return 'real-estate';
+            }
+            if (/\b(buget|fiscal|fiscala|taxe|impozit|impozite|inflatie|bnr|ministerul finantelor|deficit|macroeconomie)\b/i.test(lower)) {
+              return 'finance';
+            }
+            return 'business';
           };
 
-          const detectedCategory = isBusinessTopic(`${item.title} ${item.description}`) ? 'business' : 'news';
+          const detectedCategory = detectMultiVerticalCategory(`${item.title} ${item.description}`);
 
           const payload: Database['public']['Tables']['articles']['Insert'] = {
             title: item.title,
