@@ -22,6 +22,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             fill
             priority
             fetchPriority="high"
+            decoding="sync"
             quality={70}
             sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 60vw, (max-width: 1600px) 50vw, 800px"
             className="object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
