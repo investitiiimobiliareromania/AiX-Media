@@ -22,11 +22,30 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Insurance & Risk Information | AiX Media",
+  title: "Informații Asigurări & Gestiunea Riscului | AiX Media",
   description:
     "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
   alternates: {
     canonical: `${siteConfig.url}/insurance`,
+    languages: {
+      "ro-RO": `${siteConfig.url}/insurance`,
+      "x-default": `${siteConfig.url}/insurance`,
+    },
+  },
+  openGraph: {
+    title: "Informații Asigurări & Gestiunea Riscului | AiX Media",
+    description:
+      "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
+    url: `${siteConfig.url}/insurance`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Informații Asigurări & Gestiunea Riscului | AiX Media",
+    description:
+      "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
   },
 };
 

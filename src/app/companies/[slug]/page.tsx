@@ -11,6 +11,7 @@ import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { InstitutionalCompanyProfileView } from "@/components/business-intelligence/InstitutionalCompanyProfileView";
 import { CompanyIdentityImage } from "@/components/company-intelligence/CompanyIdentityImage";
+import { ExternalLink } from "lucide-react";
 
 interface CompanyDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -203,6 +204,21 @@ export default async function CompanyDetailPage({ params }: CompanyDetailPagePro
                     : 'N/A'}
                 </div>
               </div>
+            </div>
+
+            <div className="pt-2 border-t border-neutral-800 flex flex-wrap items-center justify-between text-xs font-mono text-neutral-400 gap-2">
+              <span>Perioadă raportată: <strong className="text-neutral-200">{fallbackComp.reportedPeriod}</strong></span>
+              {fallbackComp.sourceUrl && (
+                <a
+                  href={fallbackComp.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 transition-colors"
+                >
+                  <span>Sursă oficială: {fallbackComp.source}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
             </div>
           </div>
 

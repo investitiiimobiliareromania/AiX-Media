@@ -84,8 +84,12 @@ export function TopInfoTicker({
     </>
   );
 
-  const renderTrackContent = (trackKey: string) => (
-    <div key={trackKey} className="flex items-center shrink-0">
+  const renderTrackContent = (trackKey: string, isAriaHidden = false) => (
+    <div
+      key={trackKey}
+      className="flex items-center shrink-0"
+      aria-hidden={isAriaHidden || undefined}
+    >
       {sections.map((sec, idx) => (
         <React.Fragment key={`${trackKey}-${sec.category}-${idx}`}>
           {sec.isExternal ? (
@@ -93,6 +97,7 @@ export function TopInfoTicker({
               href={sec.href}
               target="_blank"
               rel="noopener noreferrer"
+              tabIndex={isAriaHidden ? -1 : undefined}
               className="inline-flex items-center gap-2 group/item py-1 px-1 transition-opacity hover:opacity-80 cursor-pointer"
             >
               {renderItemContent(sec)}
@@ -100,12 +105,13 @@ export function TopInfoTicker({
           ) : (
             <Link
               href={sec.href}
+              tabIndex={isAriaHidden ? -1 : undefined}
               className="inline-flex items-center gap-2 group/item py-1 px-1 transition-opacity hover:opacity-80 cursor-pointer"
             >
               {renderItemContent(sec)}
             </Link>
           )}
-          <span className="text-amber-500/40 text-[10px] mx-4 font-normal select-none pointer-events-none">
+          <span className="text-amber-500/40 text-[10px] mx-4 font-normal select-none pointer-events-none" aria-hidden="true">
             ✦
           </span>
         </React.Fragment>
@@ -120,8 +126,8 @@ export function TopInfoTicker({
     >
       <div className="w-full overflow-hidden flex items-center">
         <div className="animate-top-ticker flex items-center whitespace-nowrap">
-          {renderTrackContent("track-1")}
-          {renderTrackContent("track-2")}
+          {renderTrackContent("track-1", false)}
+          {renderTrackContent("track-2", true)}
         </div>
       </div>
     </aside>

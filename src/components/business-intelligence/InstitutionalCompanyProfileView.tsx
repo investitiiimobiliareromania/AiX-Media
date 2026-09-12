@@ -16,6 +16,8 @@ import {
   Workflow,
   Target,
   BarChart3,
+  ExternalLink,
+  FileText,
 } from 'lucide-react';
 
 interface InstitutionalCompanyProfileViewProps {
@@ -294,6 +296,21 @@ export function InstitutionalCompanyProfileView({
               </tbody>
             </table>
           </div>
+
+          <div className="p-3 bg-neutral-950/80 border-t border-neutral-800 flex flex-wrap items-center justify-between text-xs font-mono text-neutral-400 gap-2">
+            <span>Perioadă: <strong>Situații Financiare Anuale Auditate (IFRS)</strong></span>
+            {dossier.symbol && (
+              <a
+                href={`https://www.bvb.ro/FinancialInstruments/Details/FinancialInstrumentsDetails.aspx?s=${dossier.symbol}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-amber-400 hover:text-amber-300 font-semibold inline-flex items-center gap-1 transition-colors"
+              >
+                <span>Sursă oficială: Bursa de Valori București (BVB)</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
         </div>
       </section>
 
@@ -469,6 +486,30 @@ export function InstitutionalCompanyProfileView({
             </p>
           </div>
         </div>
+
+        {/* Verified Official Filings & Reports */}
+        {dossier.documents && dossier.documents.length > 0 && (
+          <div className="p-4 rounded-2xl bg-neutral-950/80 border border-neutral-800 space-y-2">
+            <h3 className="font-mono text-xs font-bold uppercase text-amber-400 flex items-center gap-1.5">
+              <FileText className="w-4 h-4" />
+              Documente &amp; Raportări Financiare Oficiale
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs">
+              {dossier.documents.map((doc, idx) => (
+                <a
+                  key={idx}
+                  href={doc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-amber-500/40 flex items-center justify-between text-neutral-300 hover:text-white transition-all group"
+                >
+                  <span className="truncate">{doc.title} ({doc.year})</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-amber-400 group-hover:text-amber-300 shrink-0 ml-2" />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Regulatory Disclosure Box */}
         <div className="p-3.5 rounded-xl bg-neutral-950/60 border border-neutral-800 text-[11px] font-mono text-neutral-400">

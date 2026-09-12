@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
+export const CANONICAL_SITE_TITLE = "AiX Media — Știri și Informații despre Business, Piețe, Imobiliare și Finanțe";
+
 export function createMetadata(overrides: Metadata = {}): Metadata {
-  const defaultTitle = "AiX Media — Știri și Informații despre Business, Piețe, Imobiliare și Finanțe";
+  const defaultTitle = CANONICAL_SITE_TITLE;
   const title = overrides.title ?? defaultTitle;
+  const titleString = typeof title === "string" ? title : (title && "default" in title ? (title.default as string) : defaultTitle);
   const description =
     (typeof overrides.description === "string"
       ? overrides.description
@@ -30,12 +33,12 @@ export function createMetadata(overrides: Metadata = {}): Metadata {
       locale: siteConfig.locale,
       url: siteConfig.url,
       siteName: siteConfig.name,
-      title,
+      title: titleString,
       description,
     },
     twitter: {
       card: "summary_large_image",
-      title: typeof title === "string" ? title : defaultTitle,
+      title: titleString,
       description,
     },
     robots: {
@@ -54,6 +57,9 @@ export function createMetadata(overrides: Metadata = {}): Metadata {
       languages: {
         "ro-RO": siteConfig.url,
         "x-default": siteConfig.url,
+      },
+      types: {
+        "application/rss+xml": `${siteConfig.url}/feed.xml`,
       },
     },
     ...overrides,

@@ -23,11 +23,30 @@ import { getMarketData } from "@/lib/market-data";
 import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 
 export const metadata: Metadata = {
-  title: "Credit & Financing Information | AiX Media",
+  title: "Informații Despre Creditare & Dobânzi | AiX Media",
   description:
     "Informații despre credite ipotecare, dobânzi, IRCC, grad de îndatorare, refinanțare și structura finanțării.",
   alternates: {
     canonical: `${siteConfig.url}/credits`,
+    languages: {
+      "ro-RO": `${siteConfig.url}/credits`,
+      "x-default": `${siteConfig.url}/credits`,
+    },
+  },
+  openGraph: {
+    title: "Informații Despre Creditare & Dobânzi | AiX Media",
+    description:
+      "Informații despre credite ipotecare, dobânzi, IRCC, grad de îndatorare, refinanțare și structura finanțării.",
+    url: `${siteConfig.url}/credits`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Informații Despre Creditare & Dobânzi | AiX Media",
+    description:
+      "Informații despre credite ipotecare, dobânzi, IRCC, grad de îndatorare, refinanțare și structura finanțării.",
   },
 };
 
@@ -63,17 +82,21 @@ export default async function CreditsPage() {
       label: "Indicele IRCC",
       value: ircc && ircc.value !== null ? `${ircc.value}%` : "5.86%",
       change: "",
-      subtext: "Referință oficială BNR credite consumatori",
+      subtext: ircc?.referencePeriod ? `Aplicabil ${ircc.referencePeriod}` : "Trimestrul III 2026 (OUG 19/2019)",
       isPositive: true,
       source: "BNR",
+      publishedAt: ircc?.publishedAt,
+      fetchedAt: ircc?.fetchedAt,
     },
     {
       label: "ROBOR 3M",
       value: robor && robor.value !== null ? `${robor.value}%` : "5.58%",
       change: "",
-      subtext: "Indice mediu piață interbancară",
+      subtext: "Piața monetară interbancară BNR",
       isPositive: true,
       source: "BNR",
+      publishedAt: robor?.publishedAt,
+      fetchedAt: robor?.fetchedAt,
     },
     {
       label: "Rata Dobânzii BNR",
@@ -82,12 +105,14 @@ export default async function CreditsPage() {
       subtext: "Dobânda de politică monetară",
       isPositive: true,
       source: "BNR",
+      publishedAt: bnrRate?.publishedAt,
+      fetchedAt: bnrRate?.fetchedAt,
     },
     {
       label: "Grad Max. Îndatorare",
       value: "40% - 45%",
       change: "",
-      subtext: "Plafon reglementat BNR",
+      subtext: "Regulamentul BNR 17/2018",
       isPositive: true,
       source: "BNR",
     },

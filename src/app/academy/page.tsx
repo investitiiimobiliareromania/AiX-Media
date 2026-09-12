@@ -4,11 +4,34 @@ import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { GraduationCap, ArrowRight } from "lucide-react";
 
+import { siteConfig } from "@/config/site";
+
 export const metadata: Metadata = {
   title: "Academy & Cadre de Analiză | AiX Media",
   description:
     "Materiale informaționale și cadre de interpretare a datelor imobiliare și a indicatorilor macroeconomici.",
-  alternates: { canonical: "/academy" },
+  alternates: {
+    canonical: `${siteConfig.url}/academy`,
+    languages: {
+      "ro-RO": `${siteConfig.url}/academy`,
+      "x-default": `${siteConfig.url}/academy`,
+    },
+  },
+  openGraph: {
+    title: "Academy & Cadre de Analiză | AiX Media",
+    description:
+      "Materiale informaționale și cadre de interpretare a datelor imobiliare și a indicatorilor macroeconomici.",
+    url: `${siteConfig.url}/academy`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Academy & Cadre de Analiză | AiX Media",
+    description:
+      "Materiale informaționale și cadre de interpretare a datelor imobiliare și a indicatorilor macroeconomici.",
+  },
 };
 
 const courses = [

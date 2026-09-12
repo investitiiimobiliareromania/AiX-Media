@@ -191,6 +191,11 @@ export default function CompaniesPage() {
                 <span className="text-neutral-400">Venituri: <strong className="text-white">{comp.revenue}</strong></span>
                 <span className="text-emerald-400 font-bold">Profit: {comp.netIncome}</span>
               </div>
+
+              <div className="text-[10px] text-neutral-400 font-mono flex items-center justify-between pt-1">
+                <span>{'reportedPeriod' in comp && typeof comp.reportedPeriod === 'string' ? comp.reportedPeriod : 'Raport Anual FY 2025'}</span>
+                <span className="text-amber-400 font-medium">Sursă: {'source' in comp && typeof comp.source === 'string' ? comp.source.split('&')[0]?.trim() : 'BVB'} ↗</span>
+              </div>
             </Link>
           ))}
         </div>

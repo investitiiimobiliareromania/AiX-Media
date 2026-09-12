@@ -5,11 +5,34 @@ import { NewsletterBox } from "@/components/media/NewsletterBox";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { Calendar } from "lucide-react";
 
+import { siteConfig } from "@/config/site";
+
 export const metadata: Metadata = {
   title: "Calendar Macroeconomic & Evenimente Oficiale | AiX Media",
   description:
     "Calendarul deciziilor de politică monetară BNR, ședințelor BCE, publicării indicelui inflației INS și a rapoartelor financiare BVB.",
-  alternates: { canonical: "/calendar" },
+  alternates: {
+    canonical: `${siteConfig.url}/calendar`,
+    languages: {
+      "ro-RO": `${siteConfig.url}/calendar`,
+      "x-default": `${siteConfig.url}/calendar`,
+    },
+  },
+  openGraph: {
+    title: "Calendar Macroeconomic & Evenimente Oficiale | AiX Media",
+    description:
+      "Calendarul deciziilor de politică monetară BNR, ședințelor BCE, publicării indicelui inflației INS și a rapoartelor financiare BVB.",
+    url: `${siteConfig.url}/calendar`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Calendar Macroeconomic & Evenimente Oficiale | AiX Media",
+    description:
+      "Calendarul deciziilor de politică monetară BNR, ședințelor BCE, publicării indicelui inflației INS și a rapoartelor financiare BVB.",
+  },
 };
 
 export default function CalendarPage() {

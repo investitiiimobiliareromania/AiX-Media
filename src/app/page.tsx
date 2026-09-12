@@ -41,12 +41,40 @@ import {
 } from "lucide-react";
 
 import { getMarketData } from "@/lib/market-data";
+import { CANONICAL_SITE_TITLE } from "@/config/metadata";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "AiX Media — Real Estate, Insurance, Credit & Market Information",
+  title: {
+    absolute: CANONICAL_SITE_TITLE,
+  },
   description:
     "Platformă editorială de analiză imobiliară, protecția patrimoniului, creditare ipotecară, date ANCPI, indicatori BNR, companii BVB și materiale video cu Cristian Văduva.",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "ro-RO": "/",
+      "x-default": "/",
+    },
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
+  openGraph: {
+    title: CANONICAL_SITE_TITLE,
+    description:
+      "Platformă editorială de analiză imobiliară, protecția patrimoniului, creditare ipotecară, date ANCPI, indicatori BNR, companii BVB și materiale video cu Cristian Văduva.",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: CANONICAL_SITE_TITLE,
+    description:
+      "Platformă editorială de analiză imobiliară, protecția patrimoniului, creditare ipotecară, date ANCPI, indicatori BNR, companii BVB și materiale video cu Cristian Văduva.",
+  },
 };
 
 export default async function HomePage() {
@@ -367,6 +395,10 @@ export default async function HomePage() {
               <div className="text-[11px] text-neutral-400 font-mono flex items-center justify-between pt-2.5 border-t border-[var(--border)]">
                 <span>Venituri: <strong className="text-white">{comp.revenue}</strong></span>
                 <span>Profit: <strong className="text-white">{comp.netIncome}</strong></span>
+              </div>
+              <div className="text-[10px] text-neutral-400 font-mono flex items-center justify-between pt-1">
+                <span>{'reportedPeriod' in comp && typeof comp.reportedPeriod === 'string' ? comp.reportedPeriod : 'Raport Anual FY 2025'}</span>
+                <span className="text-amber-400 font-medium">Sursă: {'source' in comp && typeof comp.source === 'string' ? comp.source.split('&')[0]?.trim() : 'BVB'} ↗</span>
               </div>
             </Link>
           ))}
