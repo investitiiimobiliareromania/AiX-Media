@@ -18,6 +18,7 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
     return (
       <Link
         href={`/${article.category}/${article.slug}`}
+        prefetch={false}
         className="group flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-sm"
       >
         <div className="relative w-full sm:w-48 h-32 rounded-lg overflow-hidden shrink-0 bg-[var(--surface-elevated)]">
@@ -59,6 +60,7 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
     return (
       <Link
         href={`/${article.category}/${article.slug}`}
+        prefetch={false}
         className="group block p-3.5 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all hover:bg-[var(--surface-elevated)] shadow-xs"
       >
         <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 mb-1.5">
@@ -75,6 +77,7 @@ export function ArticleCard({ article, variant = "standard" }: ArticleCardProps)
   return (
     <Link
       href={`/${article.category}/${article.slug}`}
+      prefetch={false}
       className="group flex flex-col min-w-0 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all overflow-hidden shadow-lg hover:shadow-2xl"
     >
       <div className="relative w-full h-48 bg-[var(--surface-elevated)] overflow-hidden">

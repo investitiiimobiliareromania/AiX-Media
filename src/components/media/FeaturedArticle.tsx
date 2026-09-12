@@ -16,7 +16,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
       className="group block w-full rounded-2xl overflow-hidden bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-        <div className="relative min-h-[280px] sm:min-h-[360px] lg:col-span-7 overflow-hidden bg-[var(--surface-elevated)]">
+        <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto min-h-[260px] sm:min-h-[340px] lg:min-h-[360px] lg:h-full overflow-hidden bg-[var(--surface-elevated)]">
           <Image
             src={article.coverImage}
             alt={article.title}
@@ -26,7 +26,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             decoding="async"
             quality={75}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 800px"
-            className="object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
+            className="object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F1116] via-transparent to-transparent lg:hidden opacity-80 pointer-events-none" />
         </div>

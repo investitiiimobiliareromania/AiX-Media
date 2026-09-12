@@ -47,14 +47,22 @@ export function VisitorTracker() {
       referrer,
     };
 
-    fetch("/api/visitor", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    }).catch((err) => {
-      console.warn("[VisitorTracker] Failed to send visitor event:", err);
-    });
+    const sendTracker = () => {
+      fetch("/api/visitor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch((err) => {
+        console.warn("[VisitorTracker] Failed to send visitor event:", err);
+      });
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      window.requestIdleCallback(sendTracker, { timeout: 3000 });
+    } else {
+      setTimeout(sendTracker, 2000);
+    }
   }, [pathname]);
 
   return null;
