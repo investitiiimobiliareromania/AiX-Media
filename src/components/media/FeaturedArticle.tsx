@@ -22,12 +22,11 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
             fill
             priority
             fetchPriority="high"
-            decoding="async"
             quality={70}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 50vw"
+            sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 60vw, (max-width: 1600px) 50vw, 800px"
             className="object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F1116] via-transparent to-transparent lg:hidden opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F1116] via-transparent to-transparent lg:hidden opacity-80 pointer-events-none" />
         </div>
 
         <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-[var(--surface-elevated)]">
