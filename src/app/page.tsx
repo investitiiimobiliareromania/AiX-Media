@@ -170,7 +170,7 @@ export default async function HomePage() {
             Investigație &amp; Raport Imobiliar Principal
           </div>
           <div className="flex items-center gap-4 text-xs text-neutral-400 font-mono">
-            <Link href="/search" className="flex items-center gap-1 text-neutral-300 hover:text-amber-400 transition-colors">
+            <Link href="/search" prefetch={false} className="flex items-center gap-1 text-neutral-300 hover:text-amber-400 transition-colors">
               <Search className="w-3.5 h-3.5" />
               <span>Căutare Rapoarte</span>
             </Link>

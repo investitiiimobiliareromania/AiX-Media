@@ -105,6 +105,7 @@ export function TopInfoTicker({
           ) : (
             <Link
               href={sec.href}
+              prefetch={false}
               tabIndex={isAriaHidden ? -1 : undefined}
               className="inline-flex items-center gap-2 group/item py-1 px-1 transition-opacity hover:opacity-80 cursor-pointer"
             >

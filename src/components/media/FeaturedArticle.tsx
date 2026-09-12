@@ -12,6 +12,7 @@ export function FeaturedArticle({ article }: FeaturedArticleProps) {
   return (
     <Link
       href={`/${article.category}/${article.slug}`}
+      prefetch={false}
       className="group block w-full rounded-2xl overflow-hidden bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/50 transition-all duration-300 shadow-xl hover:shadow-2xl"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
