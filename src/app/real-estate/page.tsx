@@ -14,7 +14,9 @@ import { neighborhoodProfiles, developerProfiles, projectItems } from '@/lib/rea
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Piața Imobiliară, Statistici ANCPI & Construcții | AiX Media',
+  title: {
+    absolute: 'Piața Imobiliară, Statistici ANCPI & Construcții | AiX Media',
+  },
   description:
     'Platformă de research imobiliar: dinamica tranzacțiilor cadastrale ANCPI, autorizații de construire INS, analiza pieței rezidențiale și investiții.',
   alternates: {

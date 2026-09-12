@@ -7,7 +7,9 @@ import { GraduationCap, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Academy & Cadre de Analiză | AiX Media",
+  title: {
+    absolute: "Academy & Cadre de Analiză | AiX Media",
+  },
   description:
     "Materiale informaționale și cadre de interpretare a datelor imobiliare și a indicatorilor macroeconomici.",
   alternates: {

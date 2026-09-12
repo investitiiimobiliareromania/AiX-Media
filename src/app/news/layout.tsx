@@ -7,7 +7,9 @@ import {
 } from "@/components/common/json-ld";
 
 export const metadata: Metadata = {
-  title: "Știri Economice & Analize Financiare | AiX Media",
+  title: {
+    absolute: "Știri Economice & Analize Financiare | AiX Media",
+  },
   description:
     "Flux de știri economice, analize de politică monetară, evoluția piețelor de capital și statistici imobiliare verificate din România și CEE.",
   alternates: {

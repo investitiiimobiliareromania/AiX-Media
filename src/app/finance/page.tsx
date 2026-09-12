@@ -11,7 +11,9 @@ import { Percent } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Finanțe & Politică Monetară BNR | AiX Media",
+  title: {
+    absolute: "Finanțe & Politică Monetară BNR | AiX Media",
+  },
   description:
     "Indicatori oficiali privind ratele dobânzilor BNR, ROBOR, IRCC, creditarea bancară și stabilitatea financiară a României.",
   alternates: {

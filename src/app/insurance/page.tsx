@@ -22,7 +22,9 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Informații Asigurări & Gestiunea Riscului | AiX Media",
+  title: {
+    absolute: "Informații Asigurări & Gestiunea Riscului | AiX Media",
+  },
   description:
     "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
   alternates: {

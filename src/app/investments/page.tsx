@@ -8,7 +8,9 @@ import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Investiții & Capital Privat | AiX Media",
+  title: {
+    absolute: "Investiții & Capital Privat | AiX Media",
+  },
   description:
     "Strategii de alocare a capitalului, private equity, venture capital și dinamica investițiilor instituționale în România și CEE.",
   alternates: {

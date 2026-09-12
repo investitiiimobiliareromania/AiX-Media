@@ -29,7 +29,9 @@ import { siteConfig } from "@/config/site";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Business Intelligence & Companii Românești | AiX Media",
+  title: {
+    absolute: "Business Intelligence & Companii Românești | AiX Media",
+  },
   description:
     "Analize strategice, intelligence corporativ, clasamentul marilor companii din România, tranzacții M&A și dinamica mediului de afaceri.",
   alternates: {

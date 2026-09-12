@@ -39,7 +39,9 @@ export async function generateMetadata({ params }: CompanyDetailPageProps): Prom
   const canonicalUrl = `${siteConfig.url}/companies/${slug}`;
 
   return {
-    title: `${name} — Profil Financiar și Business Intelligence | AiX Media`,
+    title: {
+      absolute: `${name} — Profil Financiar și Business Intelligence | AiX Media`,
+    },
     description: desc,
     alternates: {
       canonical: canonicalUrl,

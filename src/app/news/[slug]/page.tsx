@@ -37,7 +37,9 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const canonicalUrl = `${siteConfig.url}/news/${article.slug}`;
 
   return {
-    title: `${article.title} | AiX Media`,
+    title: {
+      absolute: `${article.title} | AiX Media`,
+    },
     description: article.excerpt,
     alternates: {
       canonical: canonicalUrl,

@@ -2,7 +2,9 @@ import { type Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Companii Listate la BVB & Profiluri Corporative | AiX Media",
+  title: {
+    absolute: "Companii Listate la BVB & Profiluri Corporative | AiX Media",
+  },
   description:
     "Profiluri financiare auditate, rapoarte anuale, coduri ISIN/CUI și analize de guvernanță pentru companiile listate la Bursa de Valori București.",
   alternates: {

@@ -13,7 +13,9 @@ import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Piețe Financiare, BVB & Cotații Oficiale BNR | AiX Media',
+  title: {
+    absolute: 'Piețe Financiare, BVB & Cotații Oficiale BNR | AiX Media',
+  },
   description:
     'Cotații de referință oficiale BNR (EUR/RON, USD/RON), indicii ROBOR, IRCC, politica monetară și dinamica companiilor listate la Bursa de Valori București.',
   alternates: {

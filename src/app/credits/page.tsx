@@ -23,7 +23,9 @@ import { getMarketData } from "@/lib/market-data";
 import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
 
 export const metadata: Metadata = {
-  title: "Informații Despre Creditare & Dobânzi | AiX Media",
+  title: {
+    absolute: "Informații Despre Creditare & Dobânzi | AiX Media",
+  },
   description:
     "Informații despre credite ipotecare, dobânzi, IRCC, grad de îndatorare, refinanțare și structura finanțării.",
   alternates: {

@@ -8,7 +8,9 @@ import { Calendar } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Calendar Macroeconomic & Evenimente Oficiale | AiX Media",
+  title: {
+    absolute: "Calendar Macroeconomic & Evenimente Oficiale | AiX Media",
+  },
   description:
     "Calendarul deciziilor de politică monetară BNR, ședințelor BCE, publicării indicelui inflației INS și a rapoartelor financiare BVB.",
   alternates: {
