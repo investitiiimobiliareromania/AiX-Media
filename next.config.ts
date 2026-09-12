@@ -3,15 +3,36 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin();
 
+const isProd = process.env.NODE_ENV === "production";
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'self'",
+  "form-action 'self'",
+  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://www.economedia.ro https://economedia.ro https://images.unsplash.com https://cristianvaduva.com https://i.ytimg.com https://img.youtube.com https://*.supabase.co",
+  "font-src 'self' data:",
+  "connect-src 'self' https://curs.bnr.ro https://*.supabase.co wss://*.supabase.co https://vitals.vercel-insights.com",
+  "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://youtube.com",
+  "media-src 'self' https://stream.aixmedia.ro blob: data:",
+].join("; ");
+
 const securityHeaders = [
   {
     key: "X-DNS-Prefetch-Control",
     value: "on",
   },
-  {
-    key: "Strict-Transport-Security",
-    value: "max-age=63072000; includeSubDomains; preload",
-  },
+  ...(isProd
+    ? [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=31536000; includeSubDomains; preload",
+        },
+      ]
+    : []),
   {
     key: "X-Frame-Options",
     value: "SAMEORIGIN",
@@ -22,11 +43,16 @@ const securityHeaders = [
   },
   {
     key: "Referrer-Policy",
-    value: "origin-when-cross-origin",
+    value: "strict-origin-when-cross-origin",
   },
   {
     key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=()",
+    value:
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()",
+  },
+  {
+    key: "Content-Security-Policy",
+    value: contentSecurityPolicy,
   },
 ];
 
