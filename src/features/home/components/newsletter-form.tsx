@@ -6,6 +6,8 @@ import { type FormEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { VisitorStore } from "@/lib/visitor-intelligence/visitor-store";
+
 export function NewsletterForm() {
   const [submitted, setSubmitted] = useState(false);
 
@@ -16,6 +18,9 @@ export function NewsletterForm() {
     if (!emailInput?.value) return;
 
     try {
+      const vid = VisitorStore.getVisitorId();
+      const sid = VisitorStore.getSessionId();
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -26,9 +31,12 @@ export function NewsletterForm() {
           source: "AiX Media Homepage",
           cta: "Homepage Newsletter Form",
           pageUrl: typeof window !== "undefined" ? window.location.href : "N/A",
+          visitorId: vid || undefined,
+          sessionId: sid || undefined,
         }),
       });
       if (res.ok) {
+        VisitorStore.pushEvent("newsletter_signup", window.location.pathname, { email: emailInput.value });
         setSubmitted(true);
       }
     } catch {

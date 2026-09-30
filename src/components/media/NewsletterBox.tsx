@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { Mail, ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 
+import { VisitorStore } from "@/lib/visitor-intelligence/visitor-store";
+
 interface NewsletterBoxProps {
   overline?: string;
   headline?: string;
@@ -22,6 +24,9 @@ export function NewsletterBox({
     if (!email) return;
 
     try {
+      const vid = VisitorStore.getVisitorId();
+      const sid = VisitorStore.getSessionId();
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,10 +37,13 @@ export function NewsletterBox({
           source: "AiX Media Newsletter Section",
           cta: headline,
           pageUrl: typeof window !== "undefined" ? window.location.href : "N/A",
+          visitorId: vid || undefined,
+          sessionId: sid || undefined,
         }),
       });
 
       if (res.ok) {
+        VisitorStore.pushEvent("newsletter_signup", window.location.pathname, { email, cta: headline });
         setSubscribed(true);
       }
     } catch {

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
+import { VisitorStore } from "@/lib/visitor-intelligence/visitor-store";
+
 export function FooterNewsletterForm() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -12,18 +14,25 @@ export function FooterNewsletterForm() {
     if (!email) return;
 
     try {
+      const vid = VisitorStore.getVisitorId();
+      const sid = VisitorStore.getSessionId();
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: "Abonat Footer",
+          name: "Abonat Newsletter Footer",
           contact: email,
           message: "Abonat din footer la sinteza AiX Media",
           source: "AiX Media Footer",
+          cta: "Footer Newsletter",
           pageUrl: typeof window !== "undefined" ? window.location.href : "N/A",
+          visitorId: vid || undefined,
+          sessionId: sid || undefined,
         }),
       });
       if (res.ok) {
+        VisitorStore.pushEvent("newsletter_signup", window.location.pathname, { email });
         setSubscribed(true);
         setEmail("");
       }

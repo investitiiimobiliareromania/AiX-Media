@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { trackLeadConversion } from "@/lib/analytics";
+import { VisitorStore } from "@/lib/visitor-intelligence/visitor-store";
 
 interface ContactFormProps {
   ctaLabel?: string;
@@ -53,6 +54,9 @@ export function ContactForm({
     setLoading(true);
 
     try {
+      const vid = VisitorStore.getVisitorId();
+      const sid = VisitorStore.getSessionId();
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -64,6 +68,8 @@ export function ContactForm({
           cta: sourceContext,
           pageUrl: pathname || typeof window !== "undefined" ? window.location.href : "N/A",
           website: honeypot,
+          visitorId: vid || undefined,
+          sessionId: sid || undefined,
         }),
       });
 
@@ -71,6 +77,10 @@ export function ContactForm({
 
       if (res.ok && data?.success) {
         trackLeadConversion(sourceContext, pathname || "Contact Form");
+        VisitorStore.pushEvent("contact_submit", pathname || "/contact", {
+          cta: sourceContext,
+          name: name.trim(),
+        });
         setStatus({
           type: "success",
           text: data.message || "Mulțumim. Am primit solicitarea și vom reveni în cel mai scurt timp.",

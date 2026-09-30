@@ -1,5 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { sendTelegramAlert, type TelegramLeadData } from "@/lib/telegram";
+import {
+  ServerIntelligenceService,
+  extractLocationFromHeaders,
+} from "@/lib/visitor-intelligence/server-intelligence-service";
+import { sendLeadAlert } from "@/lib/visitor-intelligence/telegram-intelligence";
+import { EnrichedLeadData } from "@/types/visitor-intelligence";
 
 // Simple in-memory rate limiting map with periodic cleanup
 const rateLimitMap = new Map<string, { count: number; expiresAt: number }>();
@@ -52,7 +58,7 @@ export async function DELETE() {
   );
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const contentLength = parseInt(request.headers.get("content-length") || "0", 10);
     if (contentLength > 20000) { // 20KB limit
@@ -79,7 +85,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, contact, message, source, cta, pageUrl, website } = body;
+    const { name, contact, message, source, cta, pageUrl, website, visitorId, sessionId } = body;
 
     // Honeypot bot check
     if (website) {
@@ -104,26 +110,65 @@ export async function POST(request: Request) {
       );
     }
 
-    // Sanitize input values
-    const sanitizedLead: TelegramLeadData = {
-      name: name.trim().slice(0, 100),
-      contact: contact.trim().slice(0, 120),
-      message: typeof message === "string" ? message.trim().slice(0, 1000) : "—",
-      source: typeof source === "string" ? source.trim().slice(0, 100) : "AiX Media",
-      cta: typeof cta === "string" ? cta.trim().slice(0, 100) : "Inquiry Form",
-      pageUrl: typeof pageUrl === "string" ? pageUrl.trim().slice(0, 200) : "N/A",
-      timestamp: new Date().toLocaleString("ro-RO", {
-        timeZone: "Europe/Bucharest",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      }),
-    };
+    const nowFormatted = new Date().toLocaleString("ro-RO", {
+      timeZone: "Europe/Bucharest",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
 
-    const telegramSuccess = await sendTelegramAlert(sanitizedLead);
+    const location = extractLocationFromHeaders(request.headers);
+
+    // Retrieve active session intelligence if available
+    const existingSession = sessionId ? ServerIntelligenceService.getSession(sessionId) : undefined;
+
+    let telegramSuccess = false;
+
+    if (existingSession || visitorId) {
+      const topInterests = existingSession
+        ? Array.from(existingSession.interestsMap.keys())
+        : [];
+
+      const enrichedLead: EnrichedLeadData = {
+        name: name.trim().slice(0, 100),
+        contact: contact.trim().slice(0, 120),
+        message: typeof message === "string" ? message.trim().slice(0, 1000) : "—",
+        sourceContext: typeof cta === "string" ? cta.trim().slice(0, 100) : "AiX Media Contact",
+        pageUrl: typeof pageUrl === "string" ? pageUrl.trim().slice(0, 200) : "N/A",
+        visitorId: visitorId || existingSession?.visitorId,
+        sessionId: sessionId || existingSession?.sessionId,
+        attribution: existingSession?.attribution,
+        previousActivitySummary: existingSession
+          ? {
+              pageCount: existingSession.pagesViewed.size,
+              pages: Array.from(existingSession.pagesViewed).slice(0, 5),
+              topInterests,
+              visitCount: existingSession.visitCount,
+            }
+          : undefined,
+        location: existingSession?.location || location,
+        device: existingSession?.device,
+        timestamp: nowFormatted,
+      };
+
+      telegramSuccess = await sendLeadAlert(enrichedLead);
+    } else {
+      // Standard lead fallback
+      const sanitizedLead: TelegramLeadData = {
+        name: name.trim().slice(0, 100),
+        contact: contact.trim().slice(0, 120),
+        message: typeof message === "string" ? message.trim().slice(0, 1000) : "—",
+        source: typeof source === "string" ? source.trim().slice(0, 100) : "AiX Media",
+        cta: typeof cta === "string" ? cta.trim().slice(0, 100) : "Inquiry Form",
+        pageUrl: typeof pageUrl === "string" ? pageUrl.trim().slice(0, 200) : "N/A",
+        timestamp: nowFormatted,
+      };
+
+      telegramSuccess = await sendTelegramAlert(sanitizedLead);
+    }
 
     if (telegramSuccess) {
       console.log("[Contact API] Lead accepted + Telegram delivered successfully.");
@@ -147,3 +192,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
