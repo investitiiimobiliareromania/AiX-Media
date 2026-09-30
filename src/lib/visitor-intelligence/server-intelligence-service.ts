@@ -4,10 +4,12 @@ import {
   EngagementLevel,
   EnrichedSessionData,
   LocationInfo,
+  TimelineEntry,
   VisitorBatchRequest,
 } from '@/types/visitor-intelligence';
 import {
   sendKeyActionAlert,
+  sendNavigationAlert,
   sendVisitorSessionSummary,
 } from './telegram-intelligence';
 
@@ -21,6 +23,7 @@ export interface StoredSession {
   lastActivityAt: number;
   landingPage: string;
   lastRoute: string;
+  previousRoute?: string;
   pagesViewed: Set<string>;
   maxScrollDepth: number;
   eventsCount: number;
@@ -28,6 +31,8 @@ export interface StoredSession {
   location: LocationInfo;
   device: VisitorBatchRequest['device'];
   attribution: VisitorBatchRequest['firstTouch'];
+  timeline: TimelineEntry[];
+  initialAlertSent: boolean;
 }
 
 // In-memory active session store
@@ -123,6 +128,10 @@ export class ServerIntelligenceService {
     let session = activeSessions.get(safeSessionId);
 
     if (!session) {
+      const initialLanding = typeof batch.firstTouch?.landingPage === 'string'
+        ? batch.firstTouch.landingPage.slice(0, 300)
+        : (batch.events?.[0]?.route?.slice(0, 300) || '/');
+
       session = {
         sessionId: safeSessionId,
         visitorId: safeVisitorId,
@@ -131,8 +140,9 @@ export class ServerIntelligenceService {
         sessionCount: typeof batch.sessionCount === 'number' && batch.sessionCount > 0 ? Math.min(batch.sessionCount, 10000) : 1,
         startedAt: typeof batch.firstSeen === 'number' && batch.firstSeen > 0 ? batch.firstSeen : now,
         lastActivityAt: now,
-        landingPage: typeof batch.firstTouch?.landingPage === 'string' ? batch.firstTouch.landingPage.slice(0, 300) : '/',
-        lastRoute: '/',
+        landingPage: initialLanding,
+        lastRoute: initialLanding,
+        previousRoute: undefined,
         pagesViewed: new Set<string>(),
         maxScrollDepth: typeof batch.maxScrollDepth === 'number' ? Math.min(Math.max(batch.maxScrollDepth, 0), 100) : 0,
         eventsCount: 0,
@@ -140,6 +150,8 @@ export class ServerIntelligenceService {
         location,
         device: batch.device,
         attribution: batch.firstTouch || batch.lastTouch || {},
+        timeline: [],
+        initialAlertSent: false,
       };
       activeSessions.set(safeSessionId, session);
     }
@@ -153,6 +165,7 @@ export class ServerIntelligenceService {
     }
 
     let processedCount = 0;
+    let hasNewRoute = false;
 
     // Process all incoming events with strict allowlist and boundary validation
     if (Array.isArray(batch.events)) {
@@ -162,11 +175,16 @@ export class ServerIntelligenceService {
 
         const safeRoute = typeof event.route === 'string' ? event.route.slice(0, 300) : '/';
         session.eventsCount++;
-        session.lastRoute = safeRoute;
         processedCount++;
 
-        if (event.eventType === 'page_view' || event.eventType === 'article_view') {
+        const isNavEvent = event.eventType === 'page_view' || event.eventType === 'article_view' || event.eventType === 'category_view';
+        if (isNavEvent) {
           session.pagesViewed.add(safeRoute);
+          if (session.lastRoute !== safeRoute) {
+            session.previousRoute = session.lastRoute;
+            session.lastRoute = safeRoute;
+            hasNewRoute = true;
+          }
         }
 
         // Record interests based on category
@@ -192,6 +210,86 @@ export class ServerIntelligenceService {
           }
         }
 
+        // Add to chronological timeline
+        const timeStr = new Date(event.timestamp || now).toLocaleTimeString('ro-RO', {
+          timeZone: 'Europe/Bucharest',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
+
+        let timelineLabel = 'Action';
+        switch (event.eventType) {
+          case 'session_start':
+            timelineLabel = 'Landing';
+            break;
+          case 'return_visit':
+            timelineLabel = 'Return Visit';
+            break;
+          case 'page_view':
+            timelineLabel = 'Page View';
+            break;
+          case 'article_view':
+            timelineLabel = 'Article';
+            break;
+          case 'category_view':
+            timelineLabel = 'Category';
+            break;
+          case 'scroll_depth':
+            timelineLabel = `Scroll ${sanitizedMetadata?.depth || 0}%`;
+            break;
+          case 'cta_click':
+            timelineLabel = `CTA: ${sanitizedMetadata?.cta || 'Click'}`;
+            break;
+          case 'phone_click':
+            timelineLabel = 'Phone Call';
+            break;
+          case 'whatsapp_click':
+            timelineLabel = 'WhatsApp';
+            break;
+          case 'telegram_click':
+            timelineLabel = 'Telegram';
+            break;
+          case 'contact_open':
+            timelineLabel = 'Contact Open';
+            break;
+          case 'contact_submit':
+            timelineLabel = 'Contact Submit';
+            break;
+          case 'newsletter_signup':
+            timelineLabel = 'Newsletter';
+            break;
+          case 'search':
+            timelineLabel = `Search: "${sanitizedMetadata?.query || ''}"`;
+            break;
+          case 'external_link_click':
+            timelineLabel = 'External Link';
+            break;
+          case 'download':
+            timelineLabel = 'Download';
+            break;
+          case 'video_play':
+            timelineLabel = 'Video Play';
+            break;
+          case 'video_complete':
+            timelineLabel = 'Video Complete';
+            break;
+          default:
+            timelineLabel = event.eventType;
+        }
+
+        session.timeline.push({
+          time: timeStr,
+          type: event.eventType,
+          label: timelineLabel,
+          route: safeRoute,
+          details: typeof sanitizedMetadata?.details === 'string' ? sanitizedMetadata.details : undefined,
+        });
+
+        if (session.timeline.length > 15) {
+          session.timeline.shift();
+        }
+
         const sanitizedEvent = {
           ...event,
           route: safeRoute,
@@ -203,8 +301,8 @@ export class ServerIntelligenceService {
       }
     }
 
-    // Check if we should send or update Level 2 visitor summary
-    await this.evaluateVisitorSummary(session, batch);
+    // Evaluate notifications: Level 2A Initial Arrival vs Level 2B Navigation Update
+    await this.evaluateNotifications(session, batch, hasNewRoute);
 
     // Maintenance cleanup
     if (activeSessions.size > 3000) {
@@ -274,6 +372,16 @@ export class ServerIntelligenceService {
         label = 'Telegram Channel / Chat Click';
         details = metadata?.target ? String(metadata.target) : 'Click on Telegram link';
         break;
+      case 'contact_open':
+        shouldAlert = true;
+        label = 'Contact Form Opened';
+        details = `Opened on ${route}`;
+        break;
+      case 'contact_submit':
+        shouldAlert = true;
+        label = 'Contact Form Submission';
+        details = metadata?.source ? `Context: ${metadata.source}` : 'Contact submitted';
+        break;
       case 'newsletter_signup':
         shouldAlert = true;
         label = 'Newsletter Subscription';
@@ -292,6 +400,26 @@ export class ServerIntelligenceService {
           label = `CTA: ${metadata.cta}`;
           details = metadata.target ? `Target: ${metadata.target}` : undefined;
         }
+        break;
+      case 'external_link_click':
+        shouldAlert = true;
+        label = 'External Link Clicked';
+        details = metadata?.target ? String(metadata.target) : undefined;
+        break;
+      case 'download':
+        shouldAlert = true;
+        label = 'File / Report Download';
+        details = metadata?.file ? String(metadata.file) : undefined;
+        break;
+      case 'video_play':
+        shouldAlert = true;
+        label = 'Video Play Initiated';
+        details = metadata?.title ? String(metadata.title) : undefined;
+        break;
+      case 'video_complete':
+        shouldAlert = true;
+        label = 'Video Play Completed';
+        details = metadata?.title ? String(metadata.title) : undefined;
         break;
       default:
         break;
@@ -315,9 +443,10 @@ export class ServerIntelligenceService {
     }
   }
 
-  private static async evaluateVisitorSummary(
+  private static async evaluateNotifications(
     session: StoredSession,
-    batch: VisitorBatchRequest
+    batch: VisitorBatchRequest,
+    hasNewRoute: boolean
   ): Promise<void> {
     const durationSec = Math.max(0, Math.floor((session.lastActivityAt - session.startedAt) / 1000));
     const topInterests = this.getTopInterests(session);
@@ -341,10 +470,12 @@ export class ServerIntelligenceService {
         timeZone: 'Europe/Bucharest',
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
       }),
       sessionDurationFormatted: formatDuration(durationSec),
       landingPage: session.landingPage,
       lastRoute: session.lastRoute,
+      previousRoute: session.previousRoute,
       pagesViewed: Array.from(session.pagesViewed),
       pageCount: session.pagesViewed.size || 1,
       attribution: session.attribution,
@@ -353,6 +484,7 @@ export class ServerIntelligenceService {
       topInterests,
       engagement,
       maxScrollDepth: session.maxScrollDepth,
+      timeline: session.timeline,
       lastAction: batch.events[batch.events.length - 1]
         ? {
             type: batch.events[batch.events.length - 1]!.eventType,
@@ -362,8 +494,12 @@ export class ServerIntelligenceService {
         : undefined,
     };
 
-    // Send summary on session start / returning visit
-    await sendVisitorSessionSummary(enriched, false);
+    if (!session.initialAlertSent) {
+      session.initialAlertSent = true;
+      await sendVisitorSessionSummary(enriched, true);
+    } else if (hasNewRoute) {
+      await sendNavigationAlert(enriched, false);
+    }
   }
 
   static getSession(sessionId: string): StoredSession | undefined {

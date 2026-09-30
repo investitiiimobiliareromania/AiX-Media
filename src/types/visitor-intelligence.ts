@@ -93,6 +93,14 @@ export interface VisitorBatchRequest {
   maxScrollDepth?: number;
 }
 
+export interface TimelineEntry {
+  time: string;
+  type: EventType;
+  label: string;
+  route: string;
+  details?: string;
+}
+
 export interface EnrichedSessionData {
   sessionId: string;
   visitorId: string;
@@ -104,6 +112,7 @@ export interface EnrichedSessionData {
   sessionDurationFormatted: string;
   landingPage: string;
   lastRoute: string;
+  previousRoute?: string;
   pagesViewed: string[];
   pageCount: number;
   attribution: AttributionData;
@@ -112,6 +121,7 @@ export interface EnrichedSessionData {
   topInterests: DerivedInterest[];
   engagement: EngagementLevel;
   maxScrollDepth: number;
+  timeline?: TimelineEntry[];
   lastAction?: {
     type: EventType;
     label: string;

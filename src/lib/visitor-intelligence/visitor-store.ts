@@ -372,7 +372,8 @@ export class VisitorStore {
     eventType: EventType,
     route: string,
     metadata?: Record<string, string | number | boolean | null>,
-    contentId?: string
+    contentId?: string,
+    forceImmediate = false
   ): void {
     const context = this.initialize();
     const category = detectRouteCategory(route);
@@ -398,22 +399,49 @@ export class VisitorStore {
     };
 
     this.eventQueue.push(event);
-    this.scheduleBatchSend();
+
+    const isHighPriority =
+      forceImmediate ||
+      eventType === 'page_view' ||
+      eventType === 'article_view' ||
+      eventType === 'category_view' ||
+      eventType === 'phone_click' ||
+      eventType === 'whatsapp_click' ||
+      eventType === 'telegram_click' ||
+      eventType === 'cta_click' ||
+      eventType === 'contact_open' ||
+      eventType === 'contact_submit' ||
+      eventType === 'newsletter_signup' ||
+      eventType === 'session_start' ||
+      eventType === 'return_visit';
+
+    this.scheduleBatchSend(isHighPriority);
   }
+
+  private static batchTimer: NodeJS.Timeout | null = null;
 
   static scheduleBatchSend(immediate = false): void {
     if (typeof window === 'undefined') return;
 
-    const execute = () => {
-      this.flushQueue();
-    };
-
     if (immediate) {
-      execute();
-    } else if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(execute, { timeout: 3000 });
+      if (this.batchTimer) {
+        clearTimeout(this.batchTimer);
+        this.batchTimer = null;
+      }
+      this.batchTimer = setTimeout(() => {
+        this.batchTimer = null;
+        this.flushQueue();
+      }, 150);
     } else {
-      setTimeout(execute, 2000);
+      if (this.batchTimer) return;
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(() => this.flushQueue(), { timeout: 2000 });
+      } else {
+        this.batchTimer = setTimeout(() => {
+          this.batchTimer = null;
+          this.flushQueue();
+        }, 1500);
+      }
     }
   }
 

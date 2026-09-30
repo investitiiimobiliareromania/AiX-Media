@@ -9,9 +9,14 @@ const MAX_RETRIES = 2;
 const INITIAL_BACKOFF_MS = 800;
 const TIMEOUT_MS = 15000;
 
-// Session-level cooldown map to prevent duplicate notifications within 30 min window
-const sessionNotificationCooldown = new Map<string, number>();
-const SESSION_COOLDOWN_MS = 30 * 60 * 1000;
+// Session-level cooldown maps to prevent notification spam while ensuring live updates
+const sessionSummaryCooldown = new Map<string, number>();
+const navigationAlertCooldown = new Map<string, number>();
+const keyActionCooldown = new Map<string, number>();
+
+const NAVIGATION_COOLDOWN_MS = 8 * 1000; // 8 seconds minimum between navigation alerts for the same session
+const KEY_ACTION_COOLDOWN_MS = 5 * 1000; // 5 seconds per key action type per session
+const SUMMARY_COOLDOWN_MS = 15 * 60 * 1000; // 15 min for full summary refreshes
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -152,7 +157,7 @@ export function buildLeadNotificationMessage(lead: EnrichedLeadData): string {
 }
 
 /**
- * Level 2: Visitor Session Intelligence Summary
+ * Level 2A: Visitor Session Start / Initial Summary
  */
 export function buildVisitorSummaryMessage(session: EnrichedSessionData): string {
   const visitorType = session.isNewVisitor ? 'New Visitor' : `Returning Visitor (Visit #${session.visitCount})`;
@@ -181,7 +186,7 @@ export function buildVisitorSummaryMessage(session: EnrichedSessionData): string
     : 'Page navigation';
 
   return [
-    `🔔 <b>AIX MEDIA — VISITOR INTELLIGENCE</b>`,
+    `🔔 <b>AIX MEDIA — VISITOR ARRIVAL</b>`,
     `─────────────────────`,
     `👤 <b>VISITOR</b>`,
     `Status: ${visitorType}`,
@@ -210,6 +215,65 @@ export function buildVisitorSummaryMessage(session: EnrichedSessionData): string
     ``,
     `⚡ <b>LAST ACTION</b>`,
     `${lastActionStr}`,
+  ].join('\n');
+}
+
+/**
+ * Level 2B: Visitor Navigation Activity Update
+ */
+export function buildNavigationActivityMessage(session: EnrichedSessionData): string {
+  const vid = escapeHtml(session.visitorId);
+  const sid = escapeHtml(session.sessionId);
+
+  const city = session.location?.city ? escapeHtml(session.location.city) : '';
+  const country = session.location?.country ? escapeHtml(session.location.country) : 'Romania';
+  const locationStr = city ? `${city}, ${country}` : country;
+
+  const source = escapeHtml(session.attribution?.source || 'Direct');
+  const medium = escapeHtml(session.attribution?.medium || 'none');
+
+  const device = session.device;
+  const deviceStr = `${escapeHtml(device.deviceType)} • ${escapeHtml(device.os)} / ${escapeHtml(device.browser)}`;
+
+  const currentRoute = escapeHtml(session.lastRoute || '/');
+  const prevRoute = session.previousRoute ? escapeHtml(session.previousRoute) : undefined;
+
+  const interestsStr =
+    session.topInterests.length > 0
+      ? session.topInterests.map((i) => escapeHtml(i.category)).join(', ')
+      : 'General News';
+
+  const timelineLines: string[] = [];
+  if (session.timeline && session.timeline.length > 0) {
+    const recentTimeline = session.timeline.slice(-6);
+    for (const t of recentTimeline) {
+      timelineLines.push(`• <code>${escapeHtml(t.time)}</code> ${escapeHtml(t.label)} → <code>${escapeHtml(t.route)}</code>`);
+    }
+  }
+
+  return [
+    `⚡ <b>AIX MEDIA — VISITOR NAVIGATION</b>`,
+    `─────────────────────`,
+    `👤 <b>Visitor:</b> <code>${vid}</code> • Session: <code>${sid}</code>`,
+    `🕒 <b>Time:</b> ${escapeHtml(session.lastActivityAt)} • Durată: ${escapeHtml(session.sessionDurationFormatted)}`,
+    `📍 <b>Location (Approx):</b> ${locationStr}`,
+    `🌐 <b>Source:</b> ${source} / ${medium}`,
+    `💻 <b>Device:</b> ${deviceStr}`,
+    ``,
+    `📄 <b>NAVIGATION</b>`,
+    ...(prevRoute ? [`Precedent: <code>${prevRoute}</code>`] : []),
+    `Curent: <b>${currentRoute}</b>`,
+    ``,
+    `🎯 <b>Current Interest:</b> ${interestsStr}`,
+    `📊 <b>Session Progress:</b> ${session.pageCount} pagini • Scroll max: ${session.maxScrollDepth}%`,
+    `Nivel implicare: <b>${session.engagement}</b>`,
+    ...(timelineLines.length > 0
+      ? [
+          ``,
+          `🧭 <b>SESSION TIMELINE</b>`,
+          ...timelineLines,
+        ]
+      : []),
   ].join('\n');
 }
 
@@ -279,25 +343,49 @@ export async function sendVisitorSessionSummary(
   force = false
 ): Promise<boolean> {
   const now = Date.now();
-  const lastSent = sessionNotificationCooldown.get(session.sessionId);
+  const lastSent = sessionSummaryCooldown.get(session.sessionId);
 
-  // Skip if within 30 min cooldown unless forced by high engagement/milestone
-  if (!force && lastSent && now - lastSent < SESSION_COOLDOWN_MS) {
+  if (!force && lastSent && now - lastSent < SUMMARY_COOLDOWN_MS) {
     return false;
   }
 
-  sessionNotificationCooldown.set(session.sessionId, now);
+  sessionSummaryCooldown.set(session.sessionId, now);
 
-  // Periodic cleanup if map grows too large
-  if (sessionNotificationCooldown.size > 2000) {
-    for (const [key, timestamp] of sessionNotificationCooldown.entries()) {
-      if (now - timestamp > SESSION_COOLDOWN_MS) {
-        sessionNotificationCooldown.delete(key);
+  if (sessionSummaryCooldown.size > 2000) {
+    for (const [key, timestamp] of sessionSummaryCooldown.entries()) {
+      if (now - timestamp > SUMMARY_COOLDOWN_MS) {
+        sessionSummaryCooldown.delete(key);
       }
     }
   }
 
   const message = buildVisitorSummaryMessage(session);
+  return postToTelegram(message);
+}
+
+export async function sendNavigationAlert(
+  session: EnrichedSessionData,
+  force = false
+): Promise<boolean> {
+  const now = Date.now();
+  const lastSent = navigationAlertCooldown.get(session.sessionId);
+
+  // 8s throttle per session to prevent spam from rapid clicks
+  if (!force && lastSent && now - lastSent < NAVIGATION_COOLDOWN_MS) {
+    return false;
+  }
+
+  navigationAlertCooldown.set(session.sessionId, now);
+
+  if (navigationAlertCooldown.size > 2000) {
+    for (const [key, timestamp] of navigationAlertCooldown.entries()) {
+      if (now - timestamp > NAVIGATION_COOLDOWN_MS * 10) {
+        navigationAlertCooldown.delete(key);
+      }
+    }
+  }
+
+  const message = buildNavigationActivityMessage(session);
   return postToTelegram(message);
 }
 
@@ -314,6 +402,25 @@ export async function sendKeyActionAlert(data: {
   durationFormatted?: string;
   pagesCount?: number;
 }): Promise<boolean> {
+  const now = Date.now();
+  const key = `${data.sessionId}_${data.eventType}`;
+  const lastSent = keyActionCooldown.get(key);
+
+  // 5s throttle per key action type to prevent double-click spam
+  if (lastSent && now - lastSent < KEY_ACTION_COOLDOWN_MS) {
+    return false;
+  }
+
+  keyActionCooldown.set(key, now);
+
+  if (keyActionCooldown.size > 2000) {
+    for (const [k, timestamp] of keyActionCooldown.entries()) {
+      if (now - timestamp > KEY_ACTION_COOLDOWN_MS * 10) {
+        keyActionCooldown.delete(k);
+      }
+    }
+  }
+
   const message = buildImportantActivityMessage(data);
   return postToTelegram(message);
 }

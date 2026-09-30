@@ -110,14 +110,22 @@ export function VisitorTracker() {
       }
     };
 
+    const handlePageHide = () => {
+      VisitorStore.flushQueue();
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     document.addEventListener('click', handleClick, { passive: true });
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pagehide', handlePageHide);
+    window.addEventListener('beforeunload', handlePageHide);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('click', handleClick);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', handlePageHide);
+      window.removeEventListener('beforeunload', handlePageHide);
       if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, [pathname, searchParams]);

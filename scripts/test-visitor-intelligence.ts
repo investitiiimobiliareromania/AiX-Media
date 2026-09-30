@@ -126,7 +126,7 @@ async function runVisitorIntelligenceTests() {
   assert.ok(leadMsg.includes('Google (organic)'), 'Attribution present');
   assert.ok(leadMsg.includes('vf_test_8K29X'), 'Visitor ID present');
 
-  // Level 2: Visitor Summary
+  // Level 2A: Visitor Arrival Summary
   const summaryMsg = buildVisitorSummaryMessage({
     sessionId: 'sess_test_92HF',
     visitorId: 'vf_test_8K29X',
@@ -149,10 +149,42 @@ async function runVisitorIntelligenceTests() {
     lastAction: { type: 'cta_click', label: 'CTA CLICK', details: 'Solicită Raport Imobiliar' },
   });
 
-  assert.ok(summaryMsg.includes('AIX MEDIA — VISITOR INTELLIGENCE'), 'Visitor summary header present');
+  assert.ok(summaryMsg.includes('AIX MEDIA — VISITOR ARRIVAL'), 'Visitor summary header present');
   assert.ok(summaryMsg.includes('Returning Visitor (Visit #4)'), 'Returning visitor badge present');
   assert.ok(summaryMsg.includes('390×844'), 'Screen dimensions present');
   assert.ok(summaryMsg.includes('Real Estate'), 'Top interest present');
+
+  // Level 2B: Visitor Navigation Activity
+  const { buildNavigationActivityMessage } = await import('../src/lib/visitor-intelligence/telegram-intelligence');
+  const navMsg = buildNavigationActivityMessage({
+    sessionId: 'sess_test_92HF',
+    visitorId: 'vf_test_8K29X',
+    isNewVisitor: false,
+    visitCount: 4,
+    sessionCount: 5,
+    startedAt: '01.10.2026, 00:40',
+    lastActivityAt: '00:45:30',
+    sessionDurationFormatted: '5m 30s',
+    landingPage: '/real-estate',
+    previousRoute: '/real-estate',
+    lastRoute: '/real-estate/piata-rezidentiala-bucuresti-2026',
+    pagesViewed: ['/real-estate', '/real-estate/piata-rezidentiala-bucuresti-2026'],
+    pageCount: 2,
+    attribution: { source: 'Google', medium: 'organic' },
+    device: testBatch.device,
+    location: { country: 'RO', city: 'Bucharest', precision: 'approximate' },
+    topInterests: [{ category: 'Real Estate', score: 6, evidence: ['6 points'] }],
+    engagement: 'High',
+    maxScrollDepth: 85,
+    timeline: [
+      { time: '00:40:00', type: 'page_view', label: 'Landing', route: '/real-estate' },
+      { time: '00:45:30', type: 'article_view', label: 'Article', route: '/real-estate/piata-rezidentiala-bucuresti-2026' },
+    ],
+  });
+
+  assert.ok(navMsg.includes('AIX MEDIA — VISITOR NAVIGATION'), 'Navigation alert header present');
+  assert.ok(navMsg.includes('SESSION TIMELINE'), 'Timeline section present');
+  assert.ok(navMsg.includes('piata-rezidentiala-bucuresti-2026'), 'Current route present');
 
   // Level 3: Key Action
   const actionMsg = buildImportantActivityMessage({
