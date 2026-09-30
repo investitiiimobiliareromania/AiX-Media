@@ -79,6 +79,36 @@ export function maskIp(ip: string | null | undefined): string {
   return 'masked';
 }
 
+const ALLOWED_EVENT_TYPES = new Set<string>([
+  'session_start',
+  'page_view',
+  'article_view',
+  'category_view',
+  'search',
+  'cta_click',
+  'contact_open',
+  'contact_submit',
+  'newsletter_signup',
+  'phone_click',
+  'whatsapp_click',
+  'telegram_click',
+  'external_link_click',
+  'download',
+  'video_play',
+  'video_complete',
+  'scroll_depth',
+  'return_visit',
+]);
+
+const ID_REGEX = /^[a-zA-Z0-9_-]{3,64}$/;
+
+function sanitizeId(id: string | null | undefined, prefix: string): string {
+  if (typeof id === 'string' && ID_REGEX.test(id)) {
+    return id;
+  }
+  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+}
+
 export class ServerIntelligenceService {
   static async processBatch(
     batch: VisitorBatchRequest,
@@ -87,55 +117,90 @@ export class ServerIntelligenceService {
     const now = Date.now();
     const location = extractLocationFromHeaders(headers);
 
-    let session = activeSessions.get(batch.sessionId);
+    const safeVisitorId = sanitizeId(batch.visitorId, 'vf');
+    const safeSessionId = sanitizeId(batch.sessionId, 'sess');
+
+    let session = activeSessions.get(safeSessionId);
 
     if (!session) {
       session = {
-        sessionId: batch.sessionId,
-        visitorId: batch.visitorId,
-        isNewVisitor: batch.isNewVisitor,
-        visitCount: batch.visitCount,
-        sessionCount: batch.sessionCount,
-        startedAt: batch.firstSeen || now,
+        sessionId: safeSessionId,
+        visitorId: safeVisitorId,
+        isNewVisitor: Boolean(batch.isNewVisitor),
+        visitCount: typeof batch.visitCount === 'number' && batch.visitCount > 0 ? Math.min(batch.visitCount, 10000) : 1,
+        sessionCount: typeof batch.sessionCount === 'number' && batch.sessionCount > 0 ? Math.min(batch.sessionCount, 10000) : 1,
+        startedAt: typeof batch.firstSeen === 'number' && batch.firstSeen > 0 ? batch.firstSeen : now,
         lastActivityAt: now,
-        landingPage: batch.firstTouch?.landingPage || batch.events[0]?.route || '/',
-        lastRoute: batch.events[batch.events.length - 1]?.route || '/',
+        landingPage: typeof batch.firstTouch?.landingPage === 'string' ? batch.firstTouch.landingPage.slice(0, 300) : '/',
+        lastRoute: '/',
         pagesViewed: new Set<string>(),
-        maxScrollDepth: batch.maxScrollDepth || 0,
+        maxScrollDepth: typeof batch.maxScrollDepth === 'number' ? Math.min(Math.max(batch.maxScrollDepth, 0), 100) : 0,
         eventsCount: 0,
         interestsMap: new Map<ContentVertical, number>(),
         location,
         device: batch.device,
         attribution: batch.firstTouch || batch.lastTouch || {},
       };
-      activeSessions.set(batch.sessionId, session);
+      activeSessions.set(safeSessionId, session);
     }
 
     session.lastActivityAt = now;
-    session.device = batch.device;
-    if (batch.maxScrollDepth && batch.maxScrollDepth > session.maxScrollDepth) {
-      session.maxScrollDepth = batch.maxScrollDepth;
+    if (batch.device) {
+      session.device = batch.device;
+    }
+    if (typeof batch.maxScrollDepth === 'number' && batch.maxScrollDepth > session.maxScrollDepth) {
+      session.maxScrollDepth = Math.min(batch.maxScrollDepth, 100);
     }
 
-    // Process all incoming events
-    for (const event of batch.events) {
-      session.eventsCount++;
-      session.lastRoute = event.route;
+    let processedCount = 0;
 
-      if (event.eventType === 'page_view' || event.eventType === 'article_view') {
-        session.pagesViewed.add(event.route);
+    // Process all incoming events with strict allowlist and boundary validation
+    if (Array.isArray(batch.events)) {
+      for (const event of batch.events) {
+        if (!event || typeof event !== 'object') continue;
+        if (!ALLOWED_EVENT_TYPES.has(event.eventType)) continue;
+
+        const safeRoute = typeof event.route === 'string' ? event.route.slice(0, 300) : '/';
+        session.eventsCount++;
+        session.lastRoute = safeRoute;
+        processedCount++;
+
+        if (event.eventType === 'page_view' || event.eventType === 'article_view') {
+          session.pagesViewed.add(safeRoute);
+        }
+
+        // Record interests based on category
+        if (event.category && typeof event.category === 'string') {
+          const cat = event.category.slice(0, 50) as ContentVertical;
+          const current = session.interestsMap.get(cat) || 0;
+          const add = event.eventType === 'cta_click' ? 3 : event.eventType === 'article_view' ? 2 : 1;
+          session.interestsMap.set(cat, current + add);
+        }
+
+        // Sanitize event metadata
+        let sanitizedMetadata: Record<string, string | number | boolean | null> | undefined = undefined;
+        if (event.metadata && typeof event.metadata === 'object') {
+          sanitizedMetadata = {};
+          const keys = Object.keys(event.metadata).slice(0, 10);
+          for (const key of keys) {
+            const val = event.metadata[key];
+            if (typeof val === 'string') {
+              sanitizedMetadata[key] = val.slice(0, 200);
+            } else if (typeof val === 'number' || typeof val === 'boolean' || val === null) {
+              sanitizedMetadata[key] = val;
+            }
+          }
+        }
+
+        const sanitizedEvent = {
+          ...event,
+          route: safeRoute,
+          metadata: sanitizedMetadata,
+        };
+
+        // Check for Level 3 high-priority key actions to alert immediately
+        await this.handleKeyActionTrigger(sanitizedEvent, session);
       }
-
-      // Record interests based on category
-      if (event.category) {
-        const cat = event.category as ContentVertical;
-        const current = session.interestsMap.get(cat) || 0;
-        const add = event.eventType === 'cta_click' ? 3 : event.eventType === 'article_view' ? 2 : 1;
-        session.interestsMap.set(cat, current + add);
-      }
-
-      // Check for Level 3 high-priority key actions to alert immediately
-      await this.handleKeyActionTrigger(event, session);
     }
 
     // Check if we should send or update Level 2 visitor summary
@@ -152,7 +217,7 @@ export class ServerIntelligenceService {
     }
 
     return {
-      processed: batch.events.length,
+      processed: processedCount,
       sessionId: session.sessionId,
     };
   }

@@ -180,7 +180,55 @@ async function runVisitorIntelligenceTests() {
   assert.ok(dailyText.includes('AIX MEDIA — DAILY MARKETING INTELLIGENCE'), 'Daily summary formatted');
   console.log('  ✓ PASS: Daily Intelligence Aggregator generated structured report.\n');
 
-  console.log('=== ALL VISITOR INTELLIGENCE TESTS PASSED (5/5) ===\n');
+  // Test 6: Event Allowlist Rejection & ID Validation
+  console.log('Test 6: Testing Event Allowlist Rejection & ID Validation...');
+  const maliciousBatch = {
+    visitorId: 'vf_valid_123',
+    sessionId: 'sess_valid_456',
+    isNewVisitor: true,
+    visitCount: 1,
+    sessionCount: 1,
+    firstSeen: Date.now(),
+    lastSeen: Date.now(),
+    firstTouch: { source: 'Direct' },
+    lastTouch: { source: 'Direct' },
+    device: testBatch.device,
+    events: [
+      {
+        eventId: 'evt_mal_1',
+        visitorId: 'vf_valid_123',
+        sessionId: 'sess_valid_456',
+        eventType: 'admin_action', // Privileged / unauthorized
+        route: '/admin',
+        timestamp: Date.now(),
+      },
+      {
+        eventId: 'evt_mal_2',
+        visitorId: 'vf_valid_123',
+        sessionId: 'sess_valid_456',
+        eventType: 'payment_completed', // Privileged / unauthorized
+        route: '/checkout',
+        timestamp: Date.now(),
+      },
+      {
+        eventId: 'evt_valid_1',
+        visitorId: 'vf_valid_123',
+        sessionId: 'sess_valid_456',
+        eventType: 'page_view', // Valid
+        route: '/markets',
+        timestamp: Date.now(),
+      },
+    ],
+  };
+
+  const malResult = await ServerIntelligenceService.processBatch(
+    maliciousBatch as unknown as VisitorBatchRequest,
+    headers
+  );
+  assert.strictEqual(malResult.processed, 1, 'Only 1 valid event should be processed; 2 unauthorized events rejected');
+  console.log('  ✓ PASS: Event allowlist successfully rejected unauthorized privileged events.\n');
+
+  console.log('=== ALL VISITOR INTELLIGENCE TESTS PASSED (6/6) ===\n');
 }
 
 runVisitorIntelligenceTests().catch((err) => {
