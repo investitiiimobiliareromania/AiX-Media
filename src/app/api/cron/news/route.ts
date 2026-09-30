@@ -1,11 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { runNewsIngestion } from "@/lib/rss-ingestion";
+import crypto from "crypto";
 
 export const dynamic = "force-dynamic";
+
+function timingSafeSecretCheck(provided: string | null | undefined, expected: string | undefined): boolean {
+  if (!provided || !expected) return false;
+  try {
+    const bufProvided = Buffer.from(provided);
+    const bufExpected = Buffer.from(expected);
+    if (bufProvided.length !== bufExpected.length) return false;
+    return crypto.timingSafeEqual(bufProvided, bufExpected);
+  } catch {
+    return false;
+  }
+}
 
 async function handleCronRequest(req: NextRequest) {
   const cronSecret = process.env.CRON_SECRET;
   
+  if (!cronSecret) {
+    console.error("[Cron API /api/cron/news] CRON_SECRET is not configured on server.");
+    return NextResponse.json(
+      { error: "Unauthorized: Endpoint authentication not configured" },
+      { status: 401 }
+    );
+  }
+
   // Verify authorization secret
   const authHeader = req.headers.get("authorization");
   const { searchParams } = new URL(req.url);
@@ -15,7 +36,7 @@ async function handleCronRequest(req: NextRequest) {
     ? authHeader.substring(7)
     : secretParam;
 
-  if (cronSecret && providedSecret !== cronSecret) {
+  if (!timingSafeSecretCheck(providedSecret, cronSecret)) {
     return NextResponse.json(
       { error: "Unauthorized: Invalid or missing CRON_SECRET" },
       { status: 401 }
@@ -35,7 +56,7 @@ async function handleCronRequest(req: NextRequest) {
         skipped: 0,
         errors: 1,
         durationMs: 0,
-        error: error instanceof Error ? error.message : "Internal Server Error",
+        error: "Execution failed",
       },
       { status: 500 }
     );
@@ -49,3 +70,4 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   return handleCronRequest(req);
 }
+
