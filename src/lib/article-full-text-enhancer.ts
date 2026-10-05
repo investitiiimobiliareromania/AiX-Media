@@ -6,11 +6,23 @@ import { cleanEditorialText, isBoilerplateParagraph, normalizeArticleString } fr
  * Strictly ignores site navigation, headers, currency tickers, ads, Google buttons, social widgets,
  * and comment sections.
  */
+const ALLOWED_ARTICLE_DOMAINS = new Set(['economedia.ro', 'www.economedia.ro', 'hotnews.ro', 'www.hotnews.ro']);
+
 export async function fetchFullArticleHtmlFromUrl(url: string): Promise<string | null> {
-  if (!url || !url.startsWith('http')) return null;
+  if (!url || !url.startsWith('https://')) return null;
 
   try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== 'https:') return null;
+    if (!ALLOWED_ARTICLE_DOMAINS.has(parsed.hostname.toLowerCase())) return null;
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+
     const res = await fetch(url, {
+      method: 'GET',
+      redirect: 'error',
+      signal: controller.signal,
       headers: {
         'User-Agent':
           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -18,6 +30,8 @@ export async function fetchFullArticleHtmlFromUrl(url: string): Promise<string |
       },
       next: { revalidate: 3600 },
     });
+    clearTimeout(timeout);
+
 
     if (!res.ok) return null;
     const htmlText = await res.text();

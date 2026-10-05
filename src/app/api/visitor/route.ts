@@ -36,6 +36,28 @@ export async function GET() {
   );
 }
 
+export async function PUT() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
+export async function PATCH() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
+
 export async function POST(req: NextRequest) {
   try {
     const contentLength = parseInt(req.headers.get("content-length") || "0", 10);

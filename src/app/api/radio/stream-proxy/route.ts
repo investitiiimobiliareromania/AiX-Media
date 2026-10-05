@@ -60,6 +60,8 @@ export async function GET(req: NextRequest) {
 
   try {
     const upstreamRes = await fetch(targetUrl, {
+      method: 'GET',
+      redirect: 'error',
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': '*/*',
@@ -78,8 +80,6 @@ export async function GET(req: NextRequest) {
       headers: {
         'Content-Type': contentType,
         'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
       },
     });
   } catch (error) {
@@ -87,3 +87,20 @@ export async function GET(req: NextRequest) {
     return new NextResponse('Failed to connect to radio stream', { status: 500 });
   }
 }
+
+export async function POST() {
+  return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'GET' } });
+}
+
+export async function PUT() {
+  return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'GET' } });
+}
+
+export async function DELETE() {
+  return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'GET' } });
+}
+
+export async function PATCH() {
+  return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'GET' } });
+}
+

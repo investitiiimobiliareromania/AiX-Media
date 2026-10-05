@@ -46,12 +46,12 @@ function formatDuration(seconds: number): string {
 }
 
 export function extractLocationFromHeaders(headers: Headers): LocationInfo {
-  const country =
+  const rawCountry =
     headers.get('x-vercel-ip-country') ||
     headers.get('cf-ipcountry') ||
     'RO';
 
-  const region =
+  const rawRegion =
     headers.get('x-vercel-ip-country-region') ||
     undefined;
 
@@ -59,15 +59,26 @@ export function extractLocationFromHeaders(headers: Headers): LocationInfo {
     headers.get('x-vercel-ip-city') ||
     undefined;
 
-  const city = rawCity ? decodeURIComponent(rawCity) : undefined;
+  let city: string | undefined = undefined;
+  if (rawCity) {
+    try {
+      city = decodeURIComponent(rawCity).replace(/[<>"'&]/g, '').trim().slice(0, 100);
+    } catch {
+      city = rawCity.replace(/[<>"'&]/g, '').trim().slice(0, 100);
+    }
+  }
+
+  const cleanCountry = rawCountry.replace(/[^a-zA-Z]/g, '').slice(0, 2).toUpperCase() || 'RO';
+  const cleanRegion = rawRegion ? rawRegion.replace(/[<>"'&]/g, '').trim().slice(0, 50) : undefined;
 
   return {
-    country: country.toUpperCase(),
-    region,
-    city,
+    country: cleanCountry,
+    region: cleanRegion,
+    city: city || undefined,
     precision: 'approximate',
   };
 }
+
 
 export function maskIp(ip: string | null | undefined): string {
   if (!ip) return '127.0.0.***';

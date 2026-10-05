@@ -51,10 +51,19 @@ const securityHeaders = [
       "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()",
   },
   {
+    key: "X-Permitted-Cross-Domain-Policies",
+    value: "none",
+  },
+  {
+    key: "Cross-Origin-Opener-Policy",
+    value: "same-origin-allow-popups",
+  },
+  {
     key: "Content-Security-Policy",
     value: contentSecurityPolicy,
   },
 ];
+
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,

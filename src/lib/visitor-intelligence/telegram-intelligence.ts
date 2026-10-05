@@ -27,8 +27,11 @@ function escapeHtml(text: string | null | undefined): string {
   return String(text)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
+
 
 async function fetchWithTimeout(
   url: string,

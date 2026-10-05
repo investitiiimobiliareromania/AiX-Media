@@ -58,6 +58,14 @@ export async function DELETE() {
   );
 }
 
+export async function PATCH() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "POST" } }
+  );
+}
+
+
 export async function POST(request: NextRequest) {
   try {
     const contentLength = parseInt(request.headers.get("content-length") || "0", 10);

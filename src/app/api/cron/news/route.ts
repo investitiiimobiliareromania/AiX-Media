@@ -5,12 +5,13 @@ import crypto from "crypto";
 export const dynamic = "force-dynamic";
 
 function timingSafeSecretCheck(provided: string | null | undefined, expected: string | undefined): boolean {
-  if (!provided || !expected) return false;
+  if (!provided || !expected || typeof provided !== "string" || typeof expected !== "string") {
+    return false;
+  }
   try {
-    const bufProvided = Buffer.from(provided);
-    const bufExpected = Buffer.from(expected);
-    if (bufProvided.length !== bufExpected.length) return false;
-    return crypto.timingSafeEqual(bufProvided, bufExpected);
+    const hashProvided = crypto.createHash("sha256").update(provided).digest();
+    const hashExpected = crypto.createHash("sha256").update(expected).digest();
+    return crypto.timingSafeEqual(hashProvided, hashExpected);
   } catch {
     return false;
   }
@@ -29,12 +30,13 @@ async function handleCronRequest(req: NextRequest) {
 
   // Verify authorization secret
   const authHeader = req.headers.get("authorization");
+  const customHeader = req.headers.get("x-cron-secret");
   const { searchParams } = new URL(req.url);
   const secretParam = searchParams.get("secret");
 
   const providedSecret = authHeader?.startsWith("Bearer ")
-    ? authHeader.substring(7)
-    : secretParam;
+    ? authHeader.substring(7).trim()
+    : (customHeader || secretParam);
 
   if (!timingSafeSecretCheck(providedSecret, cronSecret)) {
     return NextResponse.json(
@@ -70,4 +72,19 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   return handleCronRequest(req);
 }
+
+export async function PUT() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "GET, POST" } }
+  );
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { error: "Method Not Allowed" },
+    { status: 405, headers: { Allow: "GET, POST" } }
+  );
+}
+
 
