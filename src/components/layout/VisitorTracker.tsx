@@ -16,48 +16,62 @@ export function VisitorTracker() {
     const context = VisitorStore.initialize();
 
     // 2. Track initial or route change event
-    const fullPath = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
-    
+    const searchStr = searchParams?.toString();
+    const fullPath = pathname + (searchStr ? `?${searchStr}` : '');
+
     if (lastTrackedPath.current !== fullPath) {
       lastTrackedPath.current = fullPath;
       scrollMilestones.current.clear();
 
       let eventType: EventType = 'page_view';
-      if (
+      if (pathname.startsWith('/real-estate/') && pathname.length > '/real-estate/'.length) {
+        eventType = 'property_view';
+      } else if (
         pathname.startsWith('/news/') ||
         pathname.startsWith('/business/') ||
-        pathname.startsWith('/real-estate/') ||
         pathname.startsWith('/markets/') ||
         pathname.startsWith('/finance/') ||
         pathname.startsWith('/insurance/') ||
         pathname.startsWith('/credits/') ||
-        pathname.startsWith('/investments/')
+        pathname.startsWith('/investments/') ||
+        pathname.startsWith('/companies/')
       ) {
         eventType = 'article_view';
       } else if (
         pathname === '/business' ||
         pathname === '/real-estate' ||
         pathname === '/markets' ||
+        pathname === '/companies' ||
         pathname === '/finance' ||
         pathname === '/insurance' ||
         pathname === '/credits' ||
-        pathname === '/investments'
+        pathname === '/investments' ||
+        pathname === '/video' ||
+        pathname === '/tv'
       ) {
         eventType = 'category_view';
+      } else if (pathname === '/search') {
+        eventType = 'search';
       }
 
       const isFirst = context.isNewVisitor && context.visitCount === 1;
       if (isFirst && !sessionStorage.getItem('aix_initial_start_sent')) {
         sessionStorage.setItem('aix_initial_start_sent', 'true');
-        VisitorStore.pushEvent('session_start', fullPath);
+        VisitorStore.pushEvent('session_start', fullPath, {
+          landingPage: fullPath,
+        });
       } else if (!isFirst && context.visitCount > 1 && !sessionStorage.getItem('aix_return_sent')) {
         sessionStorage.setItem('aix_return_sent', 'true');
-        VisitorStore.pushEvent('return_visit', fullPath);
+        VisitorStore.pushEvent('return_visit', fullPath, {
+          visitCount: context.visitCount,
+        });
       }
 
       VisitorStore.pushEvent(eventType, fullPath, {
         title: typeof document !== 'undefined' ? document.title : '',
+        query: searchParams?.get('q') || null,
       });
+
     }
 
     // 3. Passive Scroll Depth Milestone Listener
@@ -90,16 +104,31 @@ export function VisitorTracker() {
       if (!target) return;
 
       const href = target.getAttribute('href') || '';
-      const text = (target.textContent || '').trim().slice(0, 60);
+      const text = (target.textContent || '').trim().slice(0, 80);
 
       if (href.startsWith('tel:')) {
-        VisitorStore.pushEvent('phone_click', fullPath, { phone: href.replace('tel:', ''), cta: text });
+        VisitorStore.pushEvent('phone_click', fullPath, {
+          phone: href.replace('tel:', ''),
+          cta: text || 'Apel Telefonic',
+        });
       } else if (href.includes('wa.me') || href.includes('whatsapp.com')) {
-        VisitorStore.pushEvent('whatsapp_click', fullPath, { target: href, cta: text });
+        VisitorStore.pushEvent('whatsapp_click', fullPath, {
+          target: href,
+          cta: text || 'WhatsApp Chat',
+        });
       } else if (href.includes('t.me/') || href.includes('telegram.me/')) {
-        VisitorStore.pushEvent('telegram_click', fullPath, { target: href, cta: text });
-      } else if (target.hasAttribute('data-cta') || (text && /solicită|contact|cere oferta|informații|abonează/i.test(text))) {
-        VisitorStore.pushEvent('cta_click', fullPath, { cta: text, target: href || 'action' });
+        VisitorStore.pushEvent('telegram_click', fullPath, {
+          target: href,
+          cta: text || 'Canal Telegram',
+        });
+      } else if (
+        target.hasAttribute('data-cta') ||
+        (text && /solicită|contact|cere oferta|informații|abonează|programare|discută/i.test(text))
+      ) {
+        VisitorStore.pushEvent('cta_click', fullPath, {
+          cta: text || 'CTA Interaction',
+          target: href || 'action',
+        });
       }
     };
 

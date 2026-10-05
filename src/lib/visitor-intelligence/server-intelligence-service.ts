@@ -3,6 +3,7 @@ import {
   DerivedInterest,
   EngagementLevel,
   EnrichedSessionData,
+  IntentLevel,
   LocationInfo,
   TimelineEntry,
   VisitorBatchRequest,
@@ -12,6 +13,7 @@ import {
   sendNavigationAlert,
   sendVisitorSessionSummary,
 } from './telegram-intelligence';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export interface StoredSession {
   sessionId: string;
@@ -27,12 +29,20 @@ export interface StoredSession {
   pagesViewed: Set<string>;
   maxScrollDepth: number;
   eventsCount: number;
+  articlesCount: number;
+  propertiesCount: number;
+  videosCount: number;
+  searchesCount: number;
+  ctasCount: number;
   interestsMap: Map<ContentVertical, number>;
   location: LocationInfo;
   device: VisitorBatchRequest['device'];
   attribution: VisitorBatchRequest['firstTouch'];
   timeline: TimelineEntry[];
+  journeySteps: string[];
   initialAlertSent: boolean;
+  lastNotifiedPageCount: number;
+  lastNotifiedIntent?: IntentLevel;
 }
 
 // In-memory active session store
@@ -70,15 +80,16 @@ export function extractLocationFromHeaders(headers: Headers): LocationInfo {
 
   const cleanCountry = rawCountry.replace(/[^a-zA-Z]/g, '').slice(0, 2).toUpperCase() || 'RO';
   const cleanRegion = rawRegion ? rawRegion.replace(/[<>"'&]/g, '').trim().slice(0, 50) : undefined;
+  const timezone = headers.get('x-vercel-ip-timezone') || 'Europe/Bucharest';
 
   return {
     country: cleanCountry,
     region: cleanRegion,
     city: city || undefined,
+    timezone,
     precision: 'approximate',
   };
 }
-
 
 export function maskIp(ip: string | null | undefined): string {
   if (!ip) return '127.0.0.***';
@@ -98,8 +109,10 @@ export function maskIp(ip: string | null | undefined): string {
 const ALLOWED_EVENT_TYPES = new Set<string>([
   'session_start',
   'page_view',
+  'return_visit',
   'article_view',
   'category_view',
+  'property_view',
   'search',
   'cta_click',
   'contact_open',
@@ -113,7 +126,6 @@ const ALLOWED_EVENT_TYPES = new Set<string>([
   'video_play',
   'video_complete',
   'scroll_depth',
-  'return_visit',
 ]);
 
 const ID_REGEX = /^[a-zA-Z0-9_-]{3,64}$/;
@@ -139,9 +151,10 @@ export class ServerIntelligenceService {
     let session = activeSessions.get(safeSessionId);
 
     if (!session) {
-      const initialLanding = typeof batch.firstTouch?.landingPage === 'string'
-        ? batch.firstTouch.landingPage.slice(0, 300)
-        : (batch.events?.[0]?.route?.slice(0, 300) || '/');
+      const initialLanding =
+        typeof batch.firstTouch?.landingPage === 'string'
+          ? batch.firstTouch.landingPage.slice(0, 300)
+          : (batch.events?.[0]?.route?.slice(0, 300) || '/');
 
       session = {
         sessionId: safeSessionId,
@@ -157,12 +170,19 @@ export class ServerIntelligenceService {
         pagesViewed: new Set<string>(),
         maxScrollDepth: typeof batch.maxScrollDepth === 'number' ? Math.min(Math.max(batch.maxScrollDepth, 0), 100) : 0,
         eventsCount: 0,
+        articlesCount: 0,
+        propertiesCount: 0,
+        videosCount: 0,
+        searchesCount: 0,
+        ctasCount: 0,
         interestsMap: new Map<ContentVertical, number>(),
         location,
         device: batch.device,
         attribution: batch.firstTouch || batch.lastTouch || {},
         timeline: [],
+        journeySteps: [initialLanding],
         initialAlertSent: false,
+        lastNotifiedPageCount: 0,
       };
       activeSessions.set(safeSessionId, session);
     }
@@ -177,8 +197,9 @@ export class ServerIntelligenceService {
 
     let processedCount = 0;
     let hasNewRoute = false;
+    let hasSearch = false;
 
-    // Process all incoming events with strict allowlist and boundary validation
+    // Process incoming events with deterministic scoring and timeline enrichment
     if (Array.isArray(batch.events)) {
       for (const event of batch.events) {
         if (!event || typeof event !== 'object') continue;
@@ -188,22 +209,79 @@ export class ServerIntelligenceService {
         session.eventsCount++;
         processedCount++;
 
-        const isNavEvent = event.eventType === 'page_view' || event.eventType === 'article_view' || event.eventType === 'category_view';
+        // Track content counts
+        if (event.eventType === 'article_view') session.articlesCount++;
+        else if (event.eventType === 'property_view') session.propertiesCount++;
+        else if (event.eventType === 'video_play' || event.eventType === 'video_complete') session.videosCount++;
+        else if (event.eventType === 'search') {
+          session.searchesCount++;
+          hasSearch = true;
+        } else if (
+          event.eventType === 'cta_click' ||
+          event.eventType === 'phone_click' ||
+          event.eventType === 'whatsapp_click' ||
+          event.eventType === 'telegram_click' ||
+          event.eventType === 'contact_open' ||
+          event.eventType === 'contact_submit'
+        ) {
+          session.ctasCount++;
+        }
+
+        const isNavEvent =
+          event.eventType === 'page_view' ||
+          event.eventType === 'article_view' ||
+          event.eventType === 'category_view' ||
+          event.eventType === 'property_view';
+
         if (isNavEvent) {
           session.pagesViewed.add(safeRoute);
           if (session.lastRoute !== safeRoute) {
             session.previousRoute = session.lastRoute;
             session.lastRoute = safeRoute;
             hasNewRoute = true;
+            if (!session.journeySteps.includes(safeRoute)) {
+              session.journeySteps.push(safeRoute);
+            }
           }
         }
 
-        // Record interests based on category
+        // Deterministic Interest Scoring
         if (event.category && typeof event.category === 'string') {
           const cat = event.category.slice(0, 50) as ContentVertical;
           const current = session.interestsMap.get(cat) || 0;
-          const add = event.eventType === 'cta_click' ? 3 : event.eventType === 'article_view' ? 2 : 1;
-          session.interestsMap.set(cat, current + add);
+          let weight = 1;
+
+          switch (event.eventType) {
+            case 'contact_submit':
+              weight = 15;
+              break;
+            case 'phone_click':
+            case 'whatsapp_click':
+            case 'telegram_click':
+              weight = 8;
+              break;
+            case 'cta_click':
+            case 'contact_open':
+              weight = 5;
+              break;
+            case 'property_view':
+            case 'video_complete':
+              weight = 4;
+              break;
+            case 'search':
+              weight = 3;
+              break;
+            case 'article_view':
+            case 'category_view':
+            case 'video_play':
+              weight = 2;
+              break;
+            default:
+              weight = 1;
+              break;
+          }
+
+          session.interestsMap.set(cat, current + weight);
         }
 
         // Sanitize event metadata
@@ -241,10 +319,13 @@ export class ServerIntelligenceService {
             timelineLabel = 'Page View';
             break;
           case 'article_view':
-            timelineLabel = 'Article';
+            timelineLabel = 'Article View';
+            break;
+          case 'property_view':
+            timelineLabel = 'Property View';
             break;
           case 'category_view':
-            timelineLabel = 'Category';
+            timelineLabel = 'Category View';
             break;
           case 'scroll_depth':
             timelineLabel = `Scroll ${sanitizedMetadata?.depth || 0}%`;
@@ -256,10 +337,10 @@ export class ServerIntelligenceService {
             timelineLabel = 'Phone Call';
             break;
           case 'whatsapp_click':
-            timelineLabel = 'WhatsApp';
+            timelineLabel = 'WhatsApp Chat';
             break;
           case 'telegram_click':
-            timelineLabel = 'Telegram';
+            timelineLabel = 'Telegram Channel';
             break;
           case 'contact_open':
             timelineLabel = 'Contact Open';
@@ -297,7 +378,7 @@ export class ServerIntelligenceService {
           details: typeof sanitizedMetadata?.details === 'string' ? sanitizedMetadata.details : undefined,
         });
 
-        if (session.timeline.length > 15) {
+        if (session.timeline.length > 20) {
           session.timeline.shift();
         }
 
@@ -307,15 +388,20 @@ export class ServerIntelligenceService {
           metadata: sanitizedMetadata,
         };
 
-        // Check for Level 3 high-priority key actions to alert immediately
+        // Level 3 High-Value Alert Trigger
         await this.handleKeyActionTrigger(sanitizedEvent, session);
       }
     }
 
-    // Evaluate notifications: Level 2A Initial Arrival vs Level 2B Navigation Update
-    await this.evaluateNotifications(session, batch, hasNewRoute);
+    // Evaluate notifications: Level 1 Arrival vs Level 2 Live Intelligence
+    await this.evaluateNotifications(session, batch, hasNewRoute, hasSearch);
 
-    // Maintenance cleanup
+    // Asynchronous Database Persistence (Non-blocking / best-effort)
+    this.persistToSupabaseAsync(session, batch.events).catch((err) => {
+      console.warn('[ServerIntelligenceService] Supabase persistence skipped/errored:', err?.message || err);
+    });
+
+    // In-memory maintenance cleanup
     if (activeSessions.size > 3000) {
       const cutoff = now - 2 * 60 * 60 * 1000; // 2 hours
       for (const [sid, s] of activeSessions.entries()) {
@@ -336,7 +422,7 @@ export class ServerIntelligenceService {
     const pagesCount = session.pagesViewed.size;
     const scroll = session.maxScrollDepth;
 
-    if (pagesCount >= 4 || durationSec >= 180 || scroll >= 80) {
+    if (pagesCount >= 5 || durationSec >= 180 || scroll >= 80) {
       return 'High';
     }
     if (pagesCount >= 2 || durationSec >= 45 || scroll >= 50) {
@@ -345,16 +431,63 @@ export class ServerIntelligenceService {
     return 'Low';
   }
 
+  private static calculateIntent(session: StoredSession): IntentLevel {
+    if (
+      session.ctasCount >= 2 ||
+      session.propertiesCount >= 3 ||
+      session.searchesCount >= 2 ||
+      session.visitCount >= 3
+    ) {
+      return 'High';
+    }
+
+    if (
+      session.propertiesCount >= 1 ||
+      session.searchesCount >= 1 ||
+      session.ctasCount >= 1 ||
+      session.pagesViewed.size >= 4 ||
+      session.visitCount >= 2
+    ) {
+      return 'Medium';
+    }
+
+    return 'Low';
+  }
+
   private static getTopInterests(session: StoredSession): DerivedInterest[] {
     const sorted = Array.from(session.interestsMap.entries())
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3);
 
-    return sorted.map(([category, score]) => ({
-      category,
-      score,
-      evidence: [`${score} interaction points`],
-    }));
+    return sorted.map(([category, score]) => {
+      let intensity: 'HIGH' | 'MEDIUM' | 'LOW' = 'LOW';
+      let bar = '███░░░░░░░';
+
+      if (score >= 12) {
+        intensity = 'HIGH';
+        bar = '██████████';
+      } else if (score >= 6) {
+        intensity = 'MEDIUM';
+        bar = '███████░░░';
+      } else {
+        intensity = 'LOW';
+        bar = '███░░░░░░░';
+      }
+
+      return {
+        category,
+        score,
+        intensity,
+        bar,
+        evidence: [`${score} puncte de interacțiune`],
+      };
+    });
+  }
+
+  private static buildJourneySummary(session: StoredSession): string {
+    const source = session.attribution?.source || 'Direct';
+    const recentRoutes = session.journeySteps.slice(-5).map((r) => (r === '/' ? 'Home' : r.replace('/', '')));
+    return [source, ...recentRoutes].join(' → ');
   }
 
   private static async handleKeyActionTrigger(
@@ -371,38 +504,38 @@ export class ServerIntelligenceService {
       case 'phone_click':
         shouldAlert = true;
         label = 'Phone Call Initiated';
-        details = metadata?.phone ? String(metadata.phone) : 'Click on phone number link';
+        details = metadata?.phone ? String(metadata.phone) : 'Click pe număr de telefon';
         break;
       case 'whatsapp_click':
         shouldAlert = true;
-        label = 'WhatsApp Inquiry Initiated';
-        details = metadata?.target ? String(metadata.target) : 'Click on WhatsApp button';
+        label = 'WhatsApp Chat Initiated';
+        details = metadata?.target ? String(metadata.target) : 'Click pe buton WhatsApp';
         break;
       case 'telegram_click':
         shouldAlert = true;
         label = 'Telegram Channel / Chat Click';
-        details = metadata?.target ? String(metadata.target) : 'Click on Telegram link';
+        details = metadata?.target ? String(metadata.target) : 'Click pe link Telegram';
         break;
       case 'contact_open':
         shouldAlert = true;
         label = 'Contact Form Opened';
-        details = `Opened on ${route}`;
+        details = `Deschis pe ${route}`;
         break;
       case 'contact_submit':
         shouldAlert = true;
         label = 'Contact Form Submission';
-        details = metadata?.source ? `Context: ${metadata.source}` : 'Contact submitted';
+        details = metadata?.source ? `Context: ${metadata.source}` : 'Formular trimis';
         break;
       case 'newsletter_signup':
         shouldAlert = true;
         label = 'Newsletter Subscription';
-        details = metadata?.email ? String(metadata.email) : 'Submitted newsletter form';
+        details = metadata?.email ? String(metadata.email) : 'Abonat la newsletter';
         break;
       case 'search':
         if (metadata?.query && String(metadata.query).trim().length > 1) {
           shouldAlert = true;
           label = 'Site Search Performed';
-          details = `Query: "${metadata.query}" (${metadata.resultsCount ?? 0} results)`;
+          details = `Căutare: "${metadata.query}"`;
         }
         break;
       case 'cta_click':
@@ -412,14 +545,9 @@ export class ServerIntelligenceService {
           details = metadata.target ? `Target: ${metadata.target}` : undefined;
         }
         break;
-      case 'external_link_click':
-        shouldAlert = true;
-        label = 'External Link Clicked';
-        details = metadata?.target ? String(metadata.target) : undefined;
-        break;
       case 'download':
         shouldAlert = true;
-        label = 'File / Report Download';
+        label = 'Report / File Download';
         details = metadata?.file ? String(metadata.file) : undefined;
         break;
       case 'video_play':
@@ -429,7 +557,7 @@ export class ServerIntelligenceService {
         break;
       case 'video_complete':
         shouldAlert = true;
-        label = 'Video Play Completed';
+        label = 'Video Completed';
         details = metadata?.title ? String(metadata.title) : undefined;
         break;
       default:
@@ -438,18 +566,29 @@ export class ServerIntelligenceService {
 
     if (shouldAlert) {
       const durationSec = Math.max(0, Math.floor((session.lastActivityAt - session.startedAt) / 1000));
+      const topInterests = this.getTopInterests(session);
+
       await sendKeyActionAlert({
         visitorId: session.visitorId,
         sessionId: session.sessionId,
+        isNewVisitor: session.isNewVisitor,
+        visitCount: session.visitCount,
         eventType,
         label,
         details,
         route,
         location: { city: session.location.city, country: session.location.country },
         device: session.device,
-        attribution: { source: session.attribution?.source, medium: session.attribution?.medium },
+        attribution: {
+          source: session.attribution?.source,
+          medium: session.attribution?.medium,
+          landingPage: session.landingPage,
+        },
         durationFormatted: formatDuration(durationSec),
         pagesCount: session.pagesViewed.size,
+        articlesCount: session.articlesCount,
+        propertiesCount: session.propertiesCount,
+        topInterests,
       });
     }
   }
@@ -457,11 +596,14 @@ export class ServerIntelligenceService {
   private static async evaluateNotifications(
     session: StoredSession,
     batch: VisitorBatchRequest,
-    hasNewRoute: boolean
+    hasNewRoute: boolean,
+    hasSearch: boolean
   ): Promise<void> {
     const durationSec = Math.max(0, Math.floor((session.lastActivityAt - session.startedAt) / 1000));
     const topInterests = this.getTopInterests(session);
     const engagement = this.calculateEngagement(session);
+    const intent = this.calculateIntent(session);
+    const journeySummary = this.buildJourneySummary(session);
 
     const enriched: EnrichedSessionData = {
       sessionId: session.sessionId,
@@ -493,8 +635,20 @@ export class ServerIntelligenceService {
       device: session.device,
       location: session.location,
       topInterests,
+      primaryInterest: topInterests[0]?.category,
+      secondaryInterest: topInterests[1]?.category,
       engagement,
+      intent,
       maxScrollDepth: session.maxScrollDepth,
+      contentStats: {
+        pagesCount: session.pagesViewed.size,
+        articlesCount: session.articlesCount,
+        propertiesCount: session.propertiesCount,
+        videosCount: session.videosCount,
+        searchesCount: session.searchesCount,
+        ctasCount: session.ctasCount,
+      },
+      journeySummary,
       timeline: session.timeline,
       lastAction: batch.events[batch.events.length - 1]
         ? {
@@ -507,9 +661,105 @@ export class ServerIntelligenceService {
 
     if (!session.initialAlertSent) {
       session.initialAlertSent = true;
+      session.lastNotifiedPageCount = session.pagesViewed.size;
+      session.lastNotifiedIntent = intent;
       await sendVisitorSessionSummary(enriched, true);
-    } else if (hasNewRoute) {
-      await sendNavigationAlert(enriched, false);
+    } else {
+      // Level 2 Intelligence: Fire on meaningful threshold crossings
+      const isSignificantPageThreshold =
+        session.pagesViewed.size >= 3 &&
+        session.pagesViewed.size > session.lastNotifiedPageCount;
+
+      const isIntentUpgrade = intent === 'High' && session.lastNotifiedIntent !== 'High';
+
+      if (hasNewRoute && (isSignificantPageThreshold || isIntentUpgrade || hasSearch)) {
+        session.lastNotifiedPageCount = session.pagesViewed.size;
+        session.lastNotifiedIntent = intent;
+        await sendNavigationAlert(enriched, false);
+      }
+    }
+  }
+
+  private static async persistToSupabaseAsync(
+    session: StoredSession,
+    events: VisitorBatchRequest['events']
+  ): Promise<void> {
+    try {
+      const supabase = createAdminClient();
+      const nowIso = new Date().toISOString();
+      const topInterests = this.getTopInterests(session);
+
+      // Upsert visitor profile
+      await supabase.from('visitors').upsert({
+        visitor_id: session.visitorId,
+        last_seen: nowIso,
+        visit_count: session.visitCount,
+        session_count: session.sessionCount,
+        first_source: session.attribution?.source || 'Direct',
+        last_source: session.attribution?.source || 'Direct',
+        first_landing_page: session.landingPage,
+        last_landing_page: session.lastRoute,
+        country: session.location.country,
+        region: session.location.region || null,
+        city: session.location.city || null,
+        language: session.device?.language || 'ro-RO',
+        timezone: session.location.timezone || 'Europe/Bucharest',
+        device_type: session.device?.deviceType || 'Desktop',
+        os: session.device?.os || 'Unknown',
+        browser: session.device?.browser || 'Unknown',
+        screen: session.device?.screen || '1920x1080',
+        primary_interest: topInterests[0]?.category || null,
+        secondary_interest: topInterests[1]?.category || null,
+        engagement_level: this.calculateEngagement(session),
+        intent_level: this.calculateIntent(session),
+        updated_at: nowIso,
+      }, { onConflict: 'visitor_id' });
+
+      // Upsert session
+      const durationSec = Math.max(0, Math.floor((session.lastActivityAt - session.startedAt) / 1000));
+      await supabase.from('visitor_sessions').upsert({
+        session_id: session.sessionId,
+        visitor_id: session.visitorId,
+        last_activity_at: nowIso,
+        duration_seconds: durationSec,
+        landing_page: session.landingPage,
+        last_route: session.lastRoute,
+        source: session.attribution?.source || 'Direct',
+        medium: session.attribution?.medium || 'none',
+        campaign: session.attribution?.campaign || null,
+        referrer: session.attribution?.referrer || 'Direct',
+        country: session.location.country,
+        city: session.location.city || null,
+        device_type: session.device?.deviceType || 'Desktop',
+        os: session.device?.os || 'Unknown',
+        browser: session.device?.browser || 'Unknown',
+        page_count: session.pagesViewed.size,
+        event_count: session.eventsCount,
+        max_scroll_depth: session.maxScrollDepth,
+        engagement_level: this.calculateEngagement(session),
+        intent_level: this.calculateIntent(session),
+        primary_interest: topInterests[0]?.category || null,
+        updated_at: nowIso,
+      }, { onConflict: 'session_id' });
+
+      // Append events
+      if (Array.isArray(events) && events.length > 0) {
+        const rows = events.map((e) => ({
+          event_id: e.eventId,
+          session_id: session.sessionId,
+          visitor_id: session.visitorId,
+          event_type: e.eventType,
+          route: e.route,
+          category: e.category || null,
+          content_id: e.contentId || null,
+          metadata: e.metadata ? JSON.parse(JSON.stringify(e.metadata)) : null,
+          created_at: new Date(e.timestamp || Date.now()).toISOString(),
+        }));
+
+        await supabase.from('visitor_events').insert(rows);
+      }
+    } catch {
+      // Best-effort asynchronous logging: continue cleanly without raising
     }
   }
 

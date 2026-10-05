@@ -1,36 +1,38 @@
 export type EventType =
   | 'session_start'
   | 'page_view'
+  | 'return_visit'
   | 'article_view'
   | 'category_view'
+  | 'property_view'
+  | 'video_play'
+  | 'video_complete'
+  | 'download'
   | 'search'
   | 'cta_click'
   | 'contact_open'
   | 'contact_submit'
-  | 'newsletter_signup'
   | 'phone_click'
   | 'whatsapp_click'
   | 'telegram_click'
   | 'external_link_click'
-  | 'download'
-  | 'video_play'
-  | 'video_complete'
-  | 'scroll_depth'
-  | 'return_visit';
+  | 'newsletter_signup'
+  | 'scroll_depth';
 
 export type EngagementLevel = 'Low' | 'Medium' | 'High';
+export type IntentLevel = 'Low' | 'Medium' | 'High';
 
 export type ContentVertical =
   | 'Real Estate'
   | 'Business'
-  | 'Finance'
   | 'Markets'
   | 'Insurance'
   | 'Credits'
-  | 'Investments'
-  | 'Dubai'
-  | 'Technology'
-  | 'Culture';
+  | 'Companies'
+  | 'Video'
+  | 'News'
+  | 'Finance'
+  | 'Investments';
 
 export interface AttributionData {
   source?: string;
@@ -39,6 +41,7 @@ export interface AttributionData {
   term?: string;
   content?: string;
   referrer?: string;
+  rawReferrer?: string;
   landingPage?: string;
 }
 
@@ -55,13 +58,16 @@ export interface LocationInfo {
   country: string;
   region?: string;
   city?: string;
+  timezone?: string;
   precision: 'approximate';
 }
 
 export interface DerivedInterest {
   category: ContentVertical;
   score: number;
-  evidence: string[];
+  intensity: 'HIGH' | 'MEDIUM' | 'LOW';
+  bar: string;
+  evidence?: string[];
 }
 
 export interface VisitorEventPayload {
@@ -101,6 +107,15 @@ export interface TimelineEntry {
   details?: string;
 }
 
+export interface ContentStats {
+  pagesCount: number;
+  articlesCount: number;
+  propertiesCount: number;
+  videosCount: number;
+  searchesCount: number;
+  ctasCount: number;
+}
+
 export interface EnrichedSessionData {
   sessionId: string;
   visitorId: string;
@@ -119,8 +134,13 @@ export interface EnrichedSessionData {
   device: DeviceInfo;
   location: LocationInfo;
   topInterests: DerivedInterest[];
+  primaryInterest?: ContentVertical;
+  secondaryInterest?: ContentVertical;
   engagement: EngagementLevel;
+  intent: IntentLevel;
   maxScrollDepth: number;
+  contentStats?: ContentStats;
+  journeySummary?: string;
   timeline?: TimelineEntry[];
   lastAction?: {
     type: EventType;

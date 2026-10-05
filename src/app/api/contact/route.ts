@@ -178,11 +178,31 @@ export async function POST(request: NextRequest) {
       telegramSuccess = await sendTelegramAlert(sanitizedLead);
     }
 
+    // Persist lead to Supabase asynchronously
+    try {
+      const { createAdminClient } = await import('@/lib/supabase/admin');
+      const supabase = createAdminClient();
+      await supabase.from('visitor_leads').insert([
+        {
+          visitor_id: visitorId || existingSession?.visitorId || null,
+          session_id: sessionId || existingSession?.sessionId || null,
+          name: name.trim().slice(0, 100),
+          contact: contact.trim().slice(0, 120),
+          message: typeof message === "string" ? message.trim().slice(0, 1000) : "—",
+          source_context: typeof cta === "string" ? cta.trim().slice(0, 100) : "AiX Media Contact",
+          page_url: typeof pageUrl === "string" ? pageUrl.trim().slice(0, 200) : "N/A",
+        }
+      ]);
+    } catch {
+      // Best-effort logging
+    }
+
     if (telegramSuccess) {
       console.log("[Contact API] Lead accepted + Telegram delivered successfully.");
     } else {
       console.warn("[Contact API] Lead accepted + Telegram delivery failed or credentials missing.");
     }
+
 
     return NextResponse.json(
       {

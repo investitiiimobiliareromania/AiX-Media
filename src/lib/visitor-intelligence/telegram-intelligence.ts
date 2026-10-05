@@ -1,5 +1,6 @@
 import {
   DeviceInfo,
+  DerivedInterest,
   EnrichedLeadData,
   EnrichedSessionData,
   EventType,
@@ -9,14 +10,14 @@ const MAX_RETRIES = 2;
 const INITIAL_BACKOFF_MS = 800;
 const TIMEOUT_MS = 15000;
 
-// Session-level cooldown maps to prevent notification spam while ensuring live updates
+// Session-level cooldown maps to prevent notification spam
 const sessionSummaryCooldown = new Map<string, number>();
 const navigationAlertCooldown = new Map<string, number>();
 const keyActionCooldown = new Map<string, number>();
 
-const NAVIGATION_COOLDOWN_MS = 8 * 1000; // 8 seconds minimum between navigation alerts for the same session
+const NAVIGATION_COOLDOWN_MS = 15 * 1000; // 15 seconds minimum between Level 2 navigation alerts for the same session
 const KEY_ACTION_COOLDOWN_MS = 5 * 1000; // 5 seconds per key action type per session
-const SUMMARY_COOLDOWN_MS = 15 * 60 * 1000; // 15 min for full summary refreshes
+const SUMMARY_COOLDOWN_MS = 30 * 60 * 1000; // 30 min for full summary refreshes
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -31,7 +32,6 @@ function escapeHtml(text: string | null | undefined): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
-
 
 async function fetchWithTimeout(
   url: string,
@@ -102,19 +102,229 @@ async function postToTelegram(text: string): Promise<boolean> {
 }
 
 /**
- * Level 1: Identified Lead / Contact Form Notification
+ * Level 1: New Visitor / Session Start Alert
+ */
+export function buildVisitorSummaryMessage(session: EnrichedSessionData): string {
+  const visitorType = session.isNewVisitor ? 'New Visitor' : `Returning Visitor (Visit #${session.visitCount})`;
+  const vid = escapeHtml(session.visitorId);
+  const sid = escapeHtml(session.sessionId);
+
+  const city = session.location?.city ? escapeHtml(session.location.city) : '';
+  const country = session.location?.country ? escapeHtml(session.location.country) : 'Romania';
+  const flag = country === 'RO' || country.toLowerCase() === 'romania' ? '🇷🇴' : '🌍';
+  const locationStr = city ? `${flag} ${country} · ${city}` : `${flag} ${country}`;
+
+  const source = escapeHtml(session.attribution?.source || 'Direct');
+  const medium = escapeHtml(session.attribution?.medium || 'none');
+  const campaign = session.attribution?.campaign ? escapeHtml(session.attribution.campaign) : '—';
+  const referrer = escapeHtml(session.attribution?.referrer || 'Direct');
+  const landing = escapeHtml(session.landingPage || '/');
+
+  const device = session.device;
+  const deviceStr = `${escapeHtml(device.deviceType)} · ${escapeHtml(device.os)} · ${escapeHtml(device.browser)}`;
+  const screenStr = `${escapeHtml(device.screen)} · ${escapeHtml(device.language)}`;
+
+  const firstAction = session.primaryInterest
+    ? `Viewed: ${escapeHtml(session.primaryInterest)}`
+    : `Landed on: ${landing}`;
+
+  return [
+    `👤 <b>NEW VISITOR ARRIVAL</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>VISITOR</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Visitor: <code>${vid}</code>`,
+    `Session: <code>${sid}</code>`,
+    `Status: ${visitorType}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>WHEN</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `${escapeHtml(session.startedAt)}`,
+    `🟢 Active now`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>SOURCE & ATTRIBUTION</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Source: <b>${source}</b>`,
+    `Medium: ${medium}`,
+    `Campaign: ${campaign}`,
+    `Referrer: ${referrer}`,
+    `Landing: <code>${landing}</code>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>LOCATION (APPROXIMATE)</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `${locationStr}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>DEVICE</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `${deviceStr}`,
+    `${screenStr}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>FIRST ACTION</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `${firstAction}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>AIX MEDIA Visitor Intelligence</b>`,
+  ].join('\n');
+}
+
+/**
+ * Level 2: Live Visitor Activity & Journey Update
+ */
+export function buildNavigationActivityMessage(session: EnrichedSessionData): string {
+  const vid = escapeHtml(session.visitorId);
+  const sid = escapeHtml(session.sessionId);
+
+  const source = escapeHtml(session.attribution?.source || 'Direct');
+  const deviceStr = `${escapeHtml(session.device.deviceType)} · ${escapeHtml(session.device.os)} / ${escapeHtml(session.device.browser)}`;
+
+  const timelineLines: string[] = [];
+  if (session.timeline && session.timeline.length > 0) {
+    const recentTimeline = session.timeline.slice(-6);
+    for (const t of recentTimeline) {
+      timelineLines.push(`• <code>${escapeHtml(t.time)}</code> ${escapeHtml(t.label)} → <code>${escapeHtml(t.route)}</code>`);
+    }
+  }
+
+  const interestLines: string[] = [];
+  if (session.topInterests && session.topInterests.length > 0) {
+    for (const item of session.topInterests) {
+      interestLines.push(`${escapeHtml(item.category)} ${item.bar} <b>${item.intensity}</b>`);
+    }
+  } else {
+    interestLines.push(`General News ███░░░░░░░ <b>LOW</b>`);
+  }
+
+  const lastActionStr = session.lastAction
+    ? `${escapeHtml(session.lastAction.label)}${session.lastAction.details ? `: ${escapeHtml(session.lastAction.details)}` : ''}`
+    : 'Page navigation';
+
+  return [
+    `🔎 <b>VISITOR ACTIVITY INTELLIGENCE</b>`,
+    `Visitor: <code>${vid}</code> · Session: <code>${sid}</code>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>JOURNEY & TIMELINE</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ...(timelineLines.length > 0 ? timelineLines : [`• ${escapeHtml(session.lastRoute)}`]),
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>INTEREST SCORING</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ...interestLines,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>ENGAGEMENT & INTENT</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Pages: ${session.pageCount} · Durată: ${escapeHtml(session.sessionDurationFormatted)} · Scroll: ${session.maxScrollDepth}%`,
+    `Engagement: <b>${session.engagement.toUpperCase()}</b> · Intent: <b>${session.intent.toUpperCase()}</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>LAST ACTION</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `⚡ ${lastActionStr}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>ACQUISITION & DEVICE</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `${source} · ${deviceStr}`,
+  ].join('\n');
+}
+
+/**
+ * Level 3: High-Value Commercial Intent Alert
+ */
+export function buildImportantActivityMessage(data: {
+  visitorId: string;
+  sessionId: string;
+  isNewVisitor?: boolean;
+  visitCount?: number;
+  eventType: EventType;
+  label: string;
+  details?: string;
+  route: string;
+  location?: { city?: string; country?: string };
+  device?: DeviceInfo;
+  attribution?: { source?: string; medium?: string; landingPage?: string };
+  durationFormatted?: string;
+  pagesCount?: number;
+  articlesCount?: number;
+  propertiesCount?: number;
+  topInterests?: DerivedInterest[];
+}): string {
+  const vid = escapeHtml(data.visitorId);
+  const sid = escapeHtml(data.sessionId);
+  const visitorStatus = data.isNewVisitor ? 'New visitor' : `Returning visitor (Visit #${data.visitCount || 2})`;
+
+  const city = data.location?.city ? escapeHtml(data.location.city) : '';
+  const country = data.location?.country ? escapeHtml(data.location.country) : 'Romania';
+  const flag = country === 'RO' || country.toLowerCase() === 'romania' ? '🇷🇴' : '🌍';
+  const locationStr = city ? `${flag} ${country}, ${city}` : `${flag} ${country}`;
+
+  const source = escapeHtml(data.attribution?.source || 'Direct');
+  const landing = escapeHtml(data.attribution?.landingPage || '/');
+
+  const pages = data.pagesCount || 1;
+  const props = data.propertiesCount || 0;
+  const arts = data.articlesCount || 0;
+  const duration = data.durationFormatted || 'Active';
+
+  const interestLines: string[] = [];
+  if (data.topInterests && data.topInterests.length > 0) {
+    for (const item of data.topInterests) {
+      interestLines.push(`• ${escapeHtml(item.category)}: <b>${item.intensity}</b> (${item.score} pct)`);
+    }
+  }
+
+  return [
+    `🚨 <b>HIGH-INTENT VISITOR ALERT</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>VISITOR</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Visitor: <code>${vid}</code> · Session: <code>${sid}</code>`,
+    `Status: ${visitorStatus}`,
+    `Location: ${locationStr}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>SOURCE</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Source: <b>${source}</b> · Landing: <code>${landing}</code>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>BEHAVIOR & DEPTH</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Pagini: ${pages} · Proprietăți: ${props} · Articole: ${arts}`,
+    `Durată Sesiune: ${duration}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>TRIGGER ACTION</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `🎯 <b>${escapeHtml(data.label)}</b>`,
+    ...(data.details ? [`💬 ${escapeHtml(data.details)}`] : []),
+    `📄 Rută: <code>${escapeHtml(data.route)}</code>`,
+    ...(interestLines.length > 0
+      ? [
+          `━━━━━━━━━━━━━━━━━━━━`,
+          `<b>INTEREST PROFILE</b>`,
+          `━━━━━━━━━━━━━━━━━━━━`,
+          ...interestLines,
+        ]
+      : []),
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>STATUS: 🟢 ACTIVE</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>RECOMMENDED ACTION</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Monitorizați traseul de conversie și pregătiți consultanța comercială.`,
+  ].join('\n');
+}
+
+/**
+ * Level 3: Identified Known Lead / Form Submission
  */
 export function buildLeadNotificationMessage(lead: EnrichedLeadData): string {
   const name = escapeHtml(lead.name);
   const contact = escapeHtml(lead.contact);
   const message = escapeHtml(lead.message || '—');
-  const sourceContext = escapeHtml(lead.sourceContext || 'AiX Media');
+  const sourceContext = escapeHtml(lead.sourceContext || 'AiX Media Form');
   const pageUrl = escapeHtml(lead.pageUrl);
   const time = escapeHtml(lead.timestamp);
 
   const city = lead.location?.city ? escapeHtml(lead.location.city) : '';
   const country = lead.location?.country ? escapeHtml(lead.location.country) : 'Romania';
-  const locationStr = city ? `${city}, ${country}` : country;
+  const flag = country === 'RO' || country.toLowerCase() === 'romania' ? '🇷🇴' : '🌍';
+  const locationStr = city ? `${flag} ${country}, ${city}` : `${flag} ${country}`;
 
   const acqSource = escapeHtml(lead.attribution?.source || 'Direct');
   const acqMedium = escapeHtml(lead.attribution?.medium || 'none');
@@ -127,209 +337,42 @@ export function buildLeadNotificationMessage(lead: EnrichedLeadData): string {
   const historyLines: string[] = [];
   if (lead.previousActivitySummary) {
     const { pageCount, topInterests, visitCount } = lead.previousActivitySummary;
-    historyLines.push(`• Total pagini: ${pageCount} | Vizite: ${visitCount}`);
+    historyLines.push(`• Total pagini: ${pageCount} · Număr vizite: ${visitCount}`);
     if (topInterests && topInterests.length > 0) {
-      historyLines.push(`• Interese detectate: ${topInterests.map(escapeHtml).join(', ')}`);
+      historyLines.push(`• Interese: ${topInterests.map(escapeHtml).join(', ')}`);
     }
   }
 
   const deviceStr = lead.device
-    ? `${escapeHtml(lead.device.deviceType)} • ${escapeHtml(lead.device.os)} / ${escapeHtml(lead.device.browser)}`
+    ? `${escapeHtml(lead.device.deviceType)} · ${escapeHtml(lead.device.os)} / ${escapeHtml(lead.device.browser)}`
     : 'N/A';
 
   return [
-    `🚨 <b>AIX MEDIA — NEW LEAD IDENTIFIED</b>`,
-    `─────────────────────`,
+    `👤 <b>KNOWN LEAD IDENTIFIED</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>LEAD IDENTITY</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
     `👤 <b>Name:</b> ${name}`,
     `📞 <b>Contact:</b> ${contact}`,
     `💬 <b>Message:</b> ${message}`,
     `🎯 <b>Form Context:</b> ${sourceContext}`,
-    `📍 <b>Location (Approx):</b> ${locationStr}`,
-    `🌐 <b>Acquisition:</b> ${acquisition}`,
-    `💻 <b>Device:</b> ${deviceStr}`,
-    `📄 <b>Page:</b> ${pageUrl}`,
-    `🕒 <b>Time:</b> ${time}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `<b>VISITOR PROFILE & LOCATION</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `Identity: <code>${vid}</code> · Session: <code>${sid}</code>`,
+    `Location: ${locationStr}`,
+    `Acquisition: ${acquisition}`,
+    `Device: ${deviceStr}`,
+    `Page: <code>${pageUrl}</code>`,
+    `Time: ${time}`,
     ...(historyLines.length > 0
       ? [
-          `\n📊 <b>PREVIOUS SESSION CONTEXT</b>`,
+          `━━━━━━━━━━━━━━━━━━━━`,
+          `<b>SESSION CONTEXT & HISTORY</b>`,
+          `━━━━━━━━━━━━━━━━━━━━`,
           ...historyLines,
         ]
       : []),
-    `\n🔗 <b>Identity:</b> ${vid} | <b>Session:</b> ${sid}`,
-  ].join('\n');
-}
-
-/**
- * Level 2A: Visitor Session Start / Initial Summary
- */
-export function buildVisitorSummaryMessage(session: EnrichedSessionData): string {
-  const visitorType = session.isNewVisitor ? 'New Visitor' : `Returning Visitor (Visit #${session.visitCount})`;
-  const vid = escapeHtml(session.visitorId);
-  const sid = escapeHtml(session.sessionId);
-
-  const city = session.location?.city ? escapeHtml(session.location.city) : '';
-  const country = session.location?.country ? escapeHtml(session.location.country) : 'Romania';
-  const locationStr = city ? `${city}, ${country}` : country;
-
-  const source = escapeHtml(session.attribution?.source || 'Direct');
-  const medium = escapeHtml(session.attribution?.medium || 'none');
-  const campaign = session.attribution?.campaign ? ` • Campanie: ${escapeHtml(session.attribution.campaign)}` : '';
-  const landing = escapeHtml(session.landingPage || '/');
-
-  const device = session.device;
-  const deviceStr = `${escapeHtml(device.deviceType)} • ${escapeHtml(device.os)} • ${escapeHtml(device.browser)} • ${escapeHtml(device.screen)}`;
-
-  const interestsStr =
-    session.topInterests.length > 0
-      ? session.topInterests.map((i) => escapeHtml(i.category)).join(', ')
-      : 'General News';
-
-  const lastActionStr = session.lastAction
-    ? `${escapeHtml(session.lastAction.label)}${session.lastAction.details ? `: ${escapeHtml(session.lastAction.details)}` : ''}`
-    : 'Page navigation';
-
-  return [
-    `🔔 <b>AIX MEDIA — VISITOR ARRIVAL</b>`,
-    `─────────────────────`,
-    `👤 <b>VISITOR</b>`,
-    `Status: ${visitorType}`,
-    `ID: <code>${vid}</code> • Session: <code>${sid}</code>`,
-    ``,
-    `🕐 <b>TIME & DURATION</b>`,
-    `${escapeHtml(session.startedAt)} • Durată: ${escapeHtml(session.sessionDurationFormatted)}`,
-    ``,
-    `📍 <b>LOCATION (APPROXIMATE)</b>`,
-    `${locationStr}`,
-    ``,
-    `🌐 <b>ACQUISITION & SOURCE</b>`,
-    `Sursă: ${source} / ${medium}${campaign}`,
-    `Landing: ${landing}`,
-    ``,
-    `💻 <b>DEVICE</b>`,
-    `${deviceStr} (${escapeHtml(device.language)})`,
-    ``,
-    `📄 <b>ACTIVITY & BEHAVIOR</b>`,
-    `${session.pageCount} pagini vizualizate • Scroll max: ${session.maxScrollDepth}%`,
-    `Ultima rută: ${escapeHtml(session.lastRoute)}`,
-    `Nivel implicare: <b>${session.engagement}</b>`,
-    ``,
-    `🎯 <b>DERIVED INTERESTS</b>`,
-    `${interestsStr}`,
-    ``,
-    `⚡ <b>LAST ACTION</b>`,
-    `${lastActionStr}`,
-  ].join('\n');
-}
-
-/**
- * Level 2B: Visitor Navigation Activity Update
- */
-export function buildNavigationActivityMessage(session: EnrichedSessionData): string {
-  const vid = escapeHtml(session.visitorId);
-  const sid = escapeHtml(session.sessionId);
-
-  const city = session.location?.city ? escapeHtml(session.location.city) : '';
-  const country = session.location?.country ? escapeHtml(session.location.country) : 'Romania';
-  const locationStr = city ? `${city}, ${country}` : country;
-
-  const source = escapeHtml(session.attribution?.source || 'Direct');
-  const medium = escapeHtml(session.attribution?.medium || 'none');
-
-  const device = session.device;
-  const deviceStr = `${escapeHtml(device.deviceType)} • ${escapeHtml(device.os)} / ${escapeHtml(device.browser)}`;
-
-  const currentRoute = escapeHtml(session.lastRoute || '/');
-  const prevRoute = session.previousRoute ? escapeHtml(session.previousRoute) : undefined;
-
-  const interestsStr =
-    session.topInterests.length > 0
-      ? session.topInterests.map((i) => escapeHtml(i.category)).join(', ')
-      : 'General News';
-
-  const timelineLines: string[] = [];
-  if (session.timeline && session.timeline.length > 0) {
-    const recentTimeline = session.timeline.slice(-6);
-    for (const t of recentTimeline) {
-      timelineLines.push(`• <code>${escapeHtml(t.time)}</code> ${escapeHtml(t.label)} → <code>${escapeHtml(t.route)}</code>`);
-    }
-  }
-
-  return [
-    `⚡ <b>AIX MEDIA — VISITOR NAVIGATION</b>`,
-    `─────────────────────`,
-    `👤 <b>Visitor:</b> <code>${vid}</code> • Session: <code>${sid}</code>`,
-    `🕒 <b>Time:</b> ${escapeHtml(session.lastActivityAt)} • Durată: ${escapeHtml(session.sessionDurationFormatted)}`,
-    `📍 <b>Location (Approx):</b> ${locationStr}`,
-    `🌐 <b>Source:</b> ${source} / ${medium}`,
-    `💻 <b>Device:</b> ${deviceStr}`,
-    ``,
-    `📄 <b>NAVIGATION</b>`,
-    ...(prevRoute ? [`Precedent: <code>${prevRoute}</code>`] : []),
-    `Curent: <b>${currentRoute}</b>`,
-    ``,
-    `🎯 <b>Current Interest:</b> ${interestsStr}`,
-    `📊 <b>Session Progress:</b> ${session.pageCount} pagini • Scroll max: ${session.maxScrollDepth}%`,
-    `Nivel implicare: <b>${session.engagement}</b>`,
-    ...(timelineLines.length > 0
-      ? [
-          ``,
-          `🧭 <b>SESSION TIMELINE</b>`,
-          ...timelineLines,
-        ]
-      : []),
-  ].join('\n');
-}
-
-/**
- * Level 3: Important Activity Event Alert
- */
-export function buildImportantActivityMessage(data: {
-  visitorId: string;
-  sessionId: string;
-  eventType: EventType;
-  label: string;
-  details?: string;
-  route: string;
-  location?: { city?: string; country?: string };
-  device?: DeviceInfo;
-  attribution?: { source?: string; medium?: string };
-  durationFormatted?: string;
-  pagesCount?: number;
-}): string {
-  const vid = escapeHtml(data.visitorId);
-  const city = data.location?.city ? escapeHtml(data.location.city) : '';
-  const country = data.location?.country ? escapeHtml(data.location.country) : 'Romania';
-  const locationStr = city ? `${city}, ${country}` : country;
-
-  const deviceStr = data.device
-    ? `${escapeHtml(data.device.deviceType)} • ${escapeHtml(data.device.os)} / ${escapeHtml(data.device.browser)}`
-    : 'Unknown';
-
-  const sourceStr = `${escapeHtml(data.attribution?.source || 'Direct')} / ${escapeHtml(data.attribution?.medium || 'none')}`;
-
-  const nowFormatted = new Date().toLocaleString('ro-RO', {
-    timeZone: 'Europe/Bucharest',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  });
-
-  return [
-    `⚡ <b>AIX MEDIA — KEY ACTION TRIGGERED</b>`,
-    `─────────────────────`,
-    `👤 <b>Visitor:</b> <code>${vid}</code>`,
-    `🕐 <b>Time:</b> ${nowFormatted}`,
-    `📍 <b>Location (Approx):</b> ${locationStr}`,
-    `🌐 <b>Source:</b> ${sourceStr}`,
-    `💻 <b>Device:</b> ${deviceStr}`,
-    `📄 <b>Route:</b> ${escapeHtml(data.route)}`,
-    ``,
-    `🎯 <b>ACTION:</b> <b>${escapeHtml(data.label)}</b>`,
-    ...(data.details ? [`💬 <b>Details:</b> ${escapeHtml(data.details)}`] : []),
-    ...(data.pagesCount ? [`📊 <b>Session Progress:</b> ${data.pagesCount} pagini • ${data.durationFormatted || 'Active'}`] : []),
   ].join('\n');
 }
 
@@ -373,7 +416,7 @@ export async function sendNavigationAlert(
   const now = Date.now();
   const lastSent = navigationAlertCooldown.get(session.sessionId);
 
-  // 8s throttle per session to prevent spam from rapid clicks
+  // 15s throttle per session to prevent spam from rapid clicks
   if (!force && lastSent && now - lastSent < NAVIGATION_COOLDOWN_MS) {
     return false;
   }
@@ -395,15 +438,20 @@ export async function sendNavigationAlert(
 export async function sendKeyActionAlert(data: {
   visitorId: string;
   sessionId: string;
+  isNewVisitor?: boolean;
+  visitCount?: number;
   eventType: EventType;
   label: string;
   details?: string;
   route: string;
   location?: { city?: string; country?: string };
   device?: DeviceInfo;
-  attribution?: { source?: string; medium?: string };
+  attribution?: { source?: string; medium?: string; landingPage?: string };
   durationFormatted?: string;
   pagesCount?: number;
+  articlesCount?: number;
+  propertiesCount?: number;
+  topInterests?: DerivedInterest[];
 }): Promise<boolean> {
   const now = Date.now();
   const key = `${data.sessionId}_${data.eventType}`;

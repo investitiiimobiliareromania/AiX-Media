@@ -5,9 +5,10 @@
 
 import assert from 'assert';
 import crypto from 'crypto';
-import { extractLocationFromHeaders, maskIp, ServerIntelligenceService } from '../src/lib/visitor-intelligence/server-intelligence-service';
-import { buildLeadNotificationMessage, buildVisitorSummaryMessage, buildNavigationActivityMessage, buildImportantActivityMessage } from '../src/lib/visitor-intelligence/telegram-intelligence';
+import { extractLocationFromHeaders, ServerIntelligenceService } from '../src/lib/visitor-intelligence/server-intelligence-service';
+import { buildLeadNotificationMessage } from '../src/lib/visitor-intelligence/telegram-intelligence';
 import { fetchFullArticleHtmlFromUrl } from '../src/lib/article-full-text-enhancer';
+
 
 async function runSecuritySuite() {
   console.log('\n=== AIX MEDIA — AUTOMATED ZERO-TRUST SECURITY AUDIT SUITE ===\n');

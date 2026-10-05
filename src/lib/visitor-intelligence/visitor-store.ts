@@ -54,8 +54,11 @@ export function parseAttribution(): AttributionData {
   const utmTerm = urlParams.get('utm_term') || undefined;
   const utmContent = urlParams.get('utm_content') || undefined;
 
+  let rawReferrer = '';
   let referrerHost = 'Direct';
+
   if (document.referrer) {
+    rawReferrer = document.referrer;
     try {
       const refUrl = new URL(document.referrer);
       if (refUrl.hostname !== window.location.hostname) {
@@ -66,48 +69,66 @@ export function parseAttribution(): AttributionData {
     }
   }
 
-  // Derive source from referrer if UTM source is absent
-  let source = utmSource;
-  let medium = utmMedium;
+  // Derive normalized source
+  let normalizedSource = utmSource;
+  let normalizedMedium = utmMedium;
 
-  if (!source && referrerHost !== 'Direct') {
-    if (/google\./i.test(referrerHost)) {
-      source = 'Google';
-      medium = 'organic';
-    } else if (/facebook\.|fb\.me|instagram\./i.test(referrerHost)) {
-      source = 'Meta';
-      medium = 'social';
-    } else if (/t\.co|twitter\.|x\.com/i.test(referrerHost)) {
-      source = 'X/Twitter';
-      medium = 'social';
-    } else if (/t\.me|telegram\./i.test(referrerHost)) {
-      source = 'Telegram';
-      medium = 'social';
-    } else if (/linkedin\./i.test(referrerHost)) {
-      source = 'LinkedIn';
-      medium = 'social';
-    } else if (/economedia\./i.test(referrerHost)) {
-      source = 'Economedia';
-      medium = 'referral';
-    } else if (/hotnews\./i.test(referrerHost)) {
-      source = 'HotNews';
-      medium = 'referral';
+  if (utmSource) {
+    const s = utmSource.toLowerCase();
+    if (s.includes('telegram') || s === 'tg') normalizedSource = 'Telegram';
+    else if (s.includes('instagram') || s === 'ig') normalizedSource = 'Instagram';
+    else if (s.includes('facebook') || s === 'fb') normalizedSource = 'Facebook';
+    else if (s.includes('youtube') || s === 'yt') normalizedSource = 'YouTube';
+    else if (s.includes('google')) normalizedSource = 'Google';
+    else if (s.includes('linkedin')) normalizedSource = 'LinkedIn';
+    else if (s.includes('newsletter') || s.includes('email')) normalizedSource = 'Newsletter';
+    else normalizedSource = utmSource;
+  } else if (referrerHost !== 'Direct') {
+    const ref = referrerHost.toLowerCase();
+    if (ref.includes('google.')) {
+      normalizedSource = 'Google';
+      normalizedMedium = 'organic';
+    } else if (ref.includes('instagram.') || ref.includes('l.instagram.')) {
+      normalizedSource = 'Instagram';
+      normalizedMedium = 'social';
+    } else if (ref.includes('facebook.') || ref.includes('fb.me') || ref.includes('l.facebook.')) {
+      normalizedSource = 'Facebook';
+      normalizedMedium = 'social';
+    } else if (ref.includes('t.me') || ref.includes('telegram.')) {
+      normalizedSource = 'Telegram';
+      normalizedMedium = 'social';
+    } else if (ref.includes('youtube.') || ref.includes('youtu.be')) {
+      normalizedSource = 'YouTube';
+      normalizedMedium = 'social';
+    } else if (ref.includes('linkedin.') || ref.includes('lnkd.in')) {
+      normalizedSource = 'LinkedIn';
+      normalizedMedium = 'social';
+    } else if (ref.includes('twitter.') || ref.includes('x.com') || ref.includes('t.co')) {
+      normalizedSource = 'X/Twitter';
+      normalizedMedium = 'social';
+    } else if (ref.includes('economedia.')) {
+      normalizedSource = 'Economedia';
+      normalizedMedium = 'referral';
+    } else if (ref.includes('hotnews.')) {
+      normalizedSource = 'HotNews';
+      normalizedMedium = 'referral';
     } else {
-      source = referrerHost;
-      medium = 'referral';
+      normalizedSource = 'Referral';
+      normalizedMedium = 'referral';
     }
-  } else if (!source) {
-    source = 'Direct';
-    medium = 'none';
+  } else {
+    normalizedSource = 'Direct';
+    normalizedMedium = 'none';
   }
 
   return {
-    source,
-    medium,
+    source: normalizedSource,
+    medium: normalizedMedium || 'none',
     campaign: utmCampaign,
     term: utmTerm,
     content: utmContent,
     referrer: referrerHost,
+    rawReferrer: rawReferrer || undefined,
     landingPage: window.location.pathname,
   };
 }
@@ -166,11 +187,13 @@ export function detectRouteCategory(path: string): string | undefined {
   if (p.startsWith('/real-estate')) return 'Real Estate';
   if (p.startsWith('/business')) return 'Business';
   if (p.startsWith('/finance')) return 'Finance';
-  if (p.startsWith('/markets') || p.startsWith('/companies')) return 'Markets';
+  if (p.startsWith('/markets')) return 'Markets';
+  if (p.startsWith('/companies')) return 'Companies';
   if (p.startsWith('/insurance')) return 'Insurance';
   if (p.startsWith('/credits')) return 'Credits';
   if (p.startsWith('/investments')) return 'Investments';
-  if (p.startsWith('/tv') || p.startsWith('/video') || p.startsWith('/podcast')) return 'Dubai & Media';
+  if (p.startsWith('/tv') || p.startsWith('/video') || p.startsWith('/podcast')) return 'Video';
+  if (p.startsWith('/news')) return 'News';
   return undefined;
 }
 
@@ -241,7 +264,6 @@ export class VisitorStore {
       }
       localStorage.setItem(STORAGE_KEYS.LAST_SEEN, now.toString());
     } catch {
-      // Storage restricted
       visitorId = visitorId || generateId('vf');
     }
 
@@ -260,7 +282,6 @@ export class VisitorStore {
         sessionStorage.setItem(SESSION_KEYS.PAGES_VIEWED, JSON.stringify([window.location.pathname]));
         sessionStorage.setItem(SESSION_KEYS.LAST_TOUCH, JSON.stringify(lastTouch));
 
-        // Increment visit count for returning visitors starting a new session
         if (!isNewVisitor) {
           visitCount += 1;
           try {
@@ -333,7 +354,7 @@ export class VisitorStore {
       interests[category] = (interests[category] || 0) + weight;
       localStorage.setItem(STORAGE_KEYS.INTERESTS, JSON.stringify(interests));
     } catch {
-      // Restricted
+      // Storage restricted
     }
   }
 
@@ -353,7 +374,7 @@ export class VisitorStore {
       try {
         sessionStorage.setItem(SESSION_KEYS.MAX_SCROLL, depthPercent.toString());
       } catch {
-        // Restricted
+        // Storage restricted
       }
     }
   }
@@ -379,7 +400,21 @@ export class VisitorStore {
     const category = detectRouteCategory(route);
 
     if (category) {
-      const weight = eventType === 'cta_click' ? 3 : eventType === 'article_view' ? 2 : 1;
+      const weight =
+        eventType === 'contact_submit'
+          ? 15
+          : eventType === 'phone_click' || eventType === 'whatsapp_click' || eventType === 'telegram_click'
+          ? 8
+          : eventType === 'cta_click' || eventType === 'contact_open'
+          ? 5
+          : eventType === 'property_view' || eventType === 'video_complete'
+          ? 4
+          : eventType === 'search'
+          ? 3
+          : eventType === 'article_view' || eventType === 'category_view' || eventType === 'video_play'
+          ? 2
+          : 1;
+
       this.recordInterest(category, weight);
     }
 
@@ -405,6 +440,7 @@ export class VisitorStore {
       eventType === 'page_view' ||
       eventType === 'article_view' ||
       eventType === 'category_view' ||
+      eventType === 'property_view' ||
       eventType === 'phone_click' ||
       eventType === 'whatsapp_click' ||
       eventType === 'telegram_click' ||
@@ -412,6 +448,7 @@ export class VisitorStore {
       eventType === 'contact_open' ||
       eventType === 'contact_submit' ||
       eventType === 'newsletter_signup' ||
+      eventType === 'search' ||
       eventType === 'session_start' ||
       eventType === 'return_visit';
 
@@ -478,7 +515,12 @@ export class VisitorStore {
     };
 
     try {
-      if (typeof navigator !== 'undefined' && navigator.sendBeacon && eventsToSend.length === 1 && eventsToSend[0]?.eventType === 'scroll_depth') {
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.sendBeacon &&
+        eventsToSend.length === 1 &&
+        eventsToSend[0]?.eventType === 'scroll_depth'
+      ) {
         const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
         navigator.sendBeacon('/api/visitor', blob);
       } else {
