@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { getEcosystemCategorized } from "@/config/ecosystem";
+import { getEcosystemCategorized, AIX_ECOSYSTEM_NODES } from "@/config/ecosystem";
 import { X, ChevronDown, ExternalLink } from "lucide-react";
 
 export const EcosystemMenu: React.FC = () => {
@@ -86,7 +86,7 @@ export const EcosystemMenu: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[9px] font-mono text-neutral-400 border border-neutral-800 rounded px-1.5 py-0.5">
-                  9 Platforms
+                  {AIX_ECOSYSTEM_NODES.length} Platforms
                 </span>
                 <button
                   onClick={() => setIsOpen(false)}
