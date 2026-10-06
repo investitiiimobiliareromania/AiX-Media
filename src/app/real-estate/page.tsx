@@ -10,6 +10,8 @@ import { FinancingReportsNewsModule } from '@/components/real-estate-intelligenc
 import { DataDisclaimer } from '@/components/common/DataDisclaimer';
 import { NewsletterBox } from '@/components/media/NewsletterBox';
 import { neighborhoodProfiles, developerProfiles, projectItems } from '@/lib/real-estate-intelligence-service';
+import { BucharestSectorWatch } from '@/components/real-estate/BucharestSectorWatch';
+import Link from 'next/link';
 
 import { siteConfig } from '@/config/site';
 
@@ -62,6 +64,32 @@ export default async function RealEstatePage() {
 
       {/* 2. Bucharest Neighborhoods Market Intelligence */}
       <BucharestNeighborhoodsModule />
+
+      {/* 2.5. Bucharest & Ilfov Sector Watch Module */}
+      <BucharestSectorWatch />
+
+      {/* 2.6. Dubai Property Intelligence Banner */}
+      <section className="p-6 md:p-8 rounded-2xl bg-gradient-to-r from-neutral-950 via-[var(--surface-elevated)] to-amber-950/30 border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className="space-y-2">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+            INTERNATIONAL REAL ESTATE WATCH
+          </span>
+          <h3 className="font-serif text-2xl font-bold text-white">
+            Dubai Property Intelligence: Randamente, DLD &amp; Golden Visa
+          </h3>
+          <p className="text-xs sm:text-sm text-neutral-300 font-serif max-w-2xl leading-relaxed">
+            Descoperă analizele detaliate pe zonele Palm Jumeirah, Downtown și Dubai Marina, împreună cu comparația de randament 1M€ București vs. Dubai.
+          </p>
+        </div>
+
+        <Link
+          href="/dubai"
+          className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs font-mono uppercase tracking-wider transition-all shrink-0 flex items-center gap-2 shadow-lg"
+        >
+          <span>Explorează Hub-ul Dubai</span>
+          <span className="text-lg">→</span>
+        </Link>
+      </section>
 
       {/* 3 & 4. Residential & Commercial Real Estate */}
       <ResidentialCommercialModule />

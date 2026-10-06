@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { getMarketData } from "@/lib/market-data";
 import { IntelligenceDashboard } from "@/components/media/IntelligenceDashboard";
+import { MortgageCalculator } from "@/components/calculator/MortgageCalculator";
 
 export const metadata: Metadata = {
   title: {
@@ -172,6 +173,53 @@ export default async function CreditsPage() {
         title="Indicatori Monetari &amp; Dobânzi BNR"
         description="Cotații oficiale de referință privind indicii IRCC, ROBOR și rata dobânzii BNR."
       />
+
+      {/* 2.5. AiX Mortgage Calculator Engine */}
+      <section id="calculator" className="pt-2">
+        <MortgageCalculator />
+      </section>
+
+      {/* 2.6. Financial Explainers: IRCC +1% and 500,000 RON Mortgage */}
+      <section className="p-6 md:p-8 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-6 shadow-xl">
+        <div className="border-b border-[var(--border)] pb-3">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+            ANALIZĂ DE SENSIBILITATE &amp; SCENARII
+          </span>
+          <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-1">
+            Ghid Financiar: Impactul Variației Indicilor Monetari
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-serif text-neutral-300">
+          <div className="p-5 rounded-xl bg-neutral-950/80 border border-neutral-800 space-y-3">
+            <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase">
+              <TrendingUp className="w-4 h-4" />
+              Ce se întâmplă dacă IRCC crește cu +1,00 punct procentual?
+            </div>
+            <p className="leading-relaxed">
+              La un credit ipotecar de <strong>350.000 RON pe 25 de ani</strong>, o creștere a indicelui IRCC cu 1 punct procentual (de exemplu de la 5,86% la 6,86%) determină o creștere a ratei lunare de aproximativ <strong>+240 - 270 RON/lună</strong>.
+            </p>
+            <p className="text-neutral-400 text-[11px] leading-relaxed">
+              Pe parcursul unui an întreg, costul suplimentar cu dobânda se ridică la ~3.000 RON. De aceea, pentru debitorii cu venituri fixe, o opțiune cu dobândă fixă în primii 3-5 ani oferă protecție împotriva volatilității monetare.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-xl bg-neutral-950/80 border border-neutral-800 space-y-3">
+            <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase">
+              <DollarSign className="w-4 h-4" />
+              Cât costă un credit ipotecar tipic de 500.000 RON?
+            </div>
+            <p className="leading-relaxed">
+              Pentru un împrumut de <strong>500.000 RON pe 30 de ani</strong> cu o dobândă totală de <strong>7,96%</strong> (IRCC 5,86% + marjă bancară 2,10%):
+            </p>
+            <ul className="space-y-1 font-mono text-[11px] text-neutral-300 bg-neutral-900/50 p-2.5 rounded-lg border border-neutral-800">
+              <li>• Rată lunară inițială: <strong>~3.655 RON/lună</strong></li>
+              <li>• Venit net minim recomandat (DTI 40% BNR): <strong>~9.140 RON/lună</strong></li>
+              <li>• Total dobândă pe 30 ani: <strong>~815.000 RON</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       {/* 3. TIPURI DE CREDITE (01 TO 05 VISUAL CARDS) */}
       <section className="space-y-8">

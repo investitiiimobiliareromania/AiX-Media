@@ -7,7 +7,9 @@ export interface NavItem {
 
 export const mainNavigation: NavItem[] = [
   { label: "News", href: "/news", category: "news" },
+  { label: "Data", href: "/data", category: "data" },
   { label: "Real Estate", href: "/real-estate", category: "real-estate" },
+  { label: "Dubai", href: "/dubai", category: "dubai" },
   { label: "Insurance", href: "/insurance", category: "insurance" },
   { label: "Credits", href: "/credits", category: "credits" },
   { label: "Markets", href: "/markets", category: "markets" },
@@ -20,7 +22,9 @@ export const mainNavigation: NavItem[] = [
 export const footerNavigation = {
   intelligence: [
     { label: "Știri &amp; Macroeconomie", href: "/news" },
+    { label: "AiX Data • Indicatori", href: "/data" },
     { label: "Piața Imobiliară", href: "/real-estate" },
+    { label: "Dubai Property Intelligence", href: "/dubai" },
     { label: "Asigurări &amp; Risc", href: "/insurance" },
     { label: "Credite &amp; Finanțare", href: "/credits" },
     { label: "Piețe Financiare &amp; BNR", href: "/markets" },

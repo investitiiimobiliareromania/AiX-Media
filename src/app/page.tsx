@@ -19,6 +19,8 @@ import { AncpiMarketStatus } from "@/components/media/AncpiMarketStatus";
 import { EcosystemGrid } from "@/components/ecosystem/EcosystemGrid";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
 import { EditorialVerticalsTriptych } from "@/components/editorial/EditorialVerticalsTriptych";
+import { DailyBriefingSection } from "@/components/intelligence/DailyBriefingSection";
+import { MarketCloseTicker } from "@/components/intelligence/MarketCloseTicker";
 
 const RadioPlayer = dynamic(
   () => import("@/components/media/RadioPlayer").then((m) => m.RadioPlayer)
@@ -182,11 +184,17 @@ export default async function HomePage() {
         {mainFeatured && <FeaturedArticle article={mainFeatured} />}
       </section>
 
+      {/* 1.5. Daily Market Close Official Summary */}
+      <MarketCloseTicker />
+
       {/* 2. Executive Intelligence Briefing Box */}
       <AiXIntelligenceBox />
 
       {/* 3. Three Editorial Verticals & Ecosystem Triptych Module */}
       <EditorialVerticalsTriptych />
+
+      {/* 3.5. AiX Intelligence — 5 Things That Matter Today */}
+      <DailyBriefingSection />
 
       {/* 4. Real Estate Vertical Section */}
       <section className="space-y-6 pt-4">
