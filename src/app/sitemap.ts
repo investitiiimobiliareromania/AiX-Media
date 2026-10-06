@@ -4,6 +4,7 @@ import { articleService } from "@/services/article.service";
 import { institutionalDossiers } from "@/lib/institutional-company-dossiers";
 import { bvbCompanies } from "@/lib/bvb-data";
 import { verifiedVideos } from "@/config/youtube";
+import { getAllEducationalArticles } from "@/lib/education/education-service";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
@@ -116,8 +117,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/academy`,
       lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/why-aix`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/search`,
@@ -148,7 +155,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  // 3. Dynamic Published Articles
+  // 3. Dynamic Educational Articles (Academy Hub)
+  const eduArticles = getAllEducationalArticles();
+  const educationalRoutes: MetadataRoute.Sitemap = eduArticles.map((art) => ({
+    url: `${baseUrl}/academy/${art.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  // 4. Dynamic Published Articles
   const publishedArticles = await articleService.getPublishedArticles(500);
   const articleRoutes: MetadataRoute.Sitemap = publishedArticles.map((article) => {
     let articleDate = now;
@@ -167,7 +183,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  // 4. Dynamic Company Profiles
+  // 5. Dynamic Company Profiles
   const companySlugs = Array.from(
     new Set([
       ...institutionalDossiers.map((d) => d.slug),
@@ -182,7 +198,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 5. Dynamic Video Routes
+  // 6. Dynamic Video Routes
   const videoRoutes: MetadataRoute.Sitemap = verifiedVideos.map((video) => ({
     url: `${baseUrl}/video/${video.slug || video.id}`,
     lastModified: now,
@@ -193,6 +209,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...coreRoutes,
     ...legalRoutes,
+    ...educationalRoutes,
     ...articleRoutes,
     ...companyRoutes,
     ...videoRoutes,

@@ -161,6 +161,338 @@ Indicatori Principali din Raportul ASF
     },
   },
   {
+    id: "baar-amiabila-digitala-constatare-auto",
+    slug: "baar-asf-adoptare-amiabila-digitala-accidente-auto",
+    title: "BAAR & ASF: Peste 450.000 de șoferi au utilizat aplicația 'Amiabila' pentru constatarea digitală a accidentelor",
+    excerpt:
+      "Biroul Asigurătorilor de Autovehicule din România (BAAR) raportează accelerarea adopției protocolului digital de constatare amiabilă, reducând timpul mediu de deschidere a dosarului de daună RCA.",
+    content: `
+Digitalizarea Pieței RCA: Bilanțul Protocolului Amiabila
+
+Biroul Asigurătorilor de Autovehicule din România (BAAR), sub supravegherea ASF, a publicat bilanțul utilizării platformei naționale „Amiabila” pentru avizarea electronică a accidentelor rutiere fără victime.
+
+Date Statistice & Impact Operațional
+
+• Utilizatori activi: Peste 450.000 de descărcări și formulare digitale inițiate de conducătorii auto.
+• Timp mediu de completare: 12-15 minute direct pe smartphone, prin desenarea schemei electronice a accidentului și fotografierea documentelor.
+• Integrare cu asigurătorii: Transmiterea automată a documentelor către toți asigurătorii RCA licențiați de ASF, eliminând necesitatea deplasării fizice pentru depunerea formularului clasic tipărit.
+• Acuratețe geolocație: Localizarea GPS precisă a coliziunii reduce disputele privind circumstanțele accidentului.
+    `,
+    source: "BAAR",
+    sourceUrl: "https://baar.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/baar-asf-adoptare-amiabila-digitala-accidente-auto",
+    publishedAt: "2026-10-04",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Inovație RCA & Digitalizare",
+    image: "/fallbacks/story-automotive-lepas.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Asigurări",
+    readTime: "4 min read",
+    featured: true,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Digitalizarea constatării amiabile reduce frauda din dosarele RCA și scurtează durata de soluționare a daunelor materiale.",
+      businessImpact:
+        "Asigurătorii auto optimizează costurile administrative de procesare a dosarelor și accelerează eliberarea notelor de intrare în reparație către service-uri.",
+      marketConnection:
+        "Eficiența procesării dosarelor reduce presiunea pe ratele daunei combinate din portofoliile RCA.",
+      whatToWatchNext:
+        "Extinderea integrării cu sistemele de decontare directă și arhivarea digitală a dosarelor de daună.",
+    },
+  },
+  {
+    id: "casco-costuri-reparatii-senzori-adas",
+    slug: "piata-casco-costuri-reparatii-senzori-adas-faruri-led",
+    title: "Piața CASCO: Creșterea costului mediu al reparațiilor pe fondul tehnologiilor ADAS și senzorilor auto complecși",
+    excerpt:
+      "Analiza pieței CASCO indică o majorare cu 14% a costului mediu per daună auto, determinată de echipamentele electronice avansate (senzori radar, camere video, faruri Matrix LED) montate pe vehiculele de generație nouă.",
+    content: `
+Dinamica Reparațiilor CASCO: Impactul Noilor Tehnologii Auto
+
+Evoluția industriei auto către vehicule echipate cu sisteme avansate de asistență a conducerii (ADAS) și propulsie hibridă/electrică modifică fundamental structura costurilor de despăgubire pe polițele CASCO.
+
+Concluzii Tehnice & Date de Piață
+
+1. Calibrarea Senzorilor ADAS: Înlocuirea unui parbriz cu senzori de menținere a benzii sau a unei bare de protecție necesită recalibrare software dedicată, adăugând 1.500 - 3.500 RON la devizul standard.
+2. Faruri Tehnologie LED/Laser: Costul unui singur bloc optic de ultimă generație poate depăși 12.000 - 18.000 RON pe modelele din clasele medie și premium.
+3. Componente din Aluminiu & Fibră: Reparațiile de caroserie necesită ateliere autorizate cu tehnologii speciale de sudură și îndreptare la rece.
+    `,
+    source: "ASF & UNSAR",
+    sourceUrl: "https://unsar.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/piata-casco-costuri-reparatii-senzori-adas-faruri-led",
+    publishedAt: "2026-10-04",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Analiză CASCO & Costuri Auto",
+    image: "/fallbacks/story-automotive-lepas.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Asigurări Auto",
+    readTime: "5 min read",
+    featured: false,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "O coliziune minoră de parcare la un autoturism modern poate genera un deviz de peste 20.000 RON din cauza senzorilor din barele de protecție, făcând polița CASCO esențială pentru protecția bugetului.",
+      businessImpact:
+        "Service-urile auto independente sunt nevoite să investească în echipamente de diagnoză și calibrare optică agreate de producători.",
+      marketConnection:
+        "Subscrierile CASCO rămân cel mai dinamic segment non-viață cu creștere a primelor brute de peste 10% anual.",
+      whatToWatchNext:
+        "Evoluția franșizelor la reînnoirea polițelor CASCO pentru vehicule electrice și hibride.",
+    },
+  },
+  {
+    id: "paid-fond-locativ-asigurare-dezastre",
+    slug: "paid-romania-fond-locativ-asigurare-dezastre-naturale",
+    title: "PAID România: Peste 2,15 milioane de locuințe asigurate obligatoriu împotriva dezastrelor naturale",
+    excerpt:
+      "Datele oficiale ale Pool-ului de Asigurare Împotriva Dezastrelor Naturale (PAID) consemnează menținerea gradului de cuprindere în asigurarea obligatorie PAD la peste 22% din fondul locativ național.",
+    content: `
+Bilanțul Asigurărilor Obligatorii de Locuințe (PAD)
+
+PAID România a prezentat datele statistice actualizate privind numărul polițelor PAD active la nivel național, emise conform Legii nr. 260/2008.
+
+Sinteză Statistică
+
+• Polițe active: 2.155.400 de locuințe asigurate împotriva cutremurelor, inundațiilor naturale și alunecărilor de teren.
+• Distribuție urban vs. rural: 74% din polițe sunt încheiate în mediul urban (București, Ilfov, Cluj, Timiș, Brașov).
+• Suma Asigurată Legală: 20.000 EUR pentru clădirile Tip A (structură din beton, cărămidă) și 10.000 EUR pentru Tip B.
+• Prima anuală legală: 130 RON/an pentru locuințe Tip A și 50 RON/an pentru locuințe Tip B.
+    `,
+    source: "PAID România",
+    sourceUrl: "https://paidromania.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/paid-romania-fond-locativ-asigurare-dezastre-naturale",
+    publishedAt: "2026-10-02",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Asigurări Imobiliare PAD",
+    image: "/fallbacks/fallback-2.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Imobiliară & Asigurări",
+    readTime: "4 min read",
+    featured: false,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Polița PAD constituie baza legală obligatorie pentru protecția locuințelor, fiind condiție prealabilă pentru încheierea unei asigurări facultative extinse.",
+      businessImpact:
+        "Băncile creditoare solicită obligatoriu menținerea în vigoare a poliței PAD și a celei facultative cesionate pe toată durata creditului ipotecar.",
+      marketConnection:
+        "Protejează colateralul imobiliar al sistemului bancar românesc evaluat la peste 100 de miliarde de lei.",
+      whatToWatchNext:
+        "Campaniile de conștientizare derulate de autoritățile locale pentru creșterea gradului de cuprindere în mediul rural.",
+    },
+  },
+  {
+    id: "asigurari-sanatate-privata-crestere",
+    slug: "asigurari-private-sanatate-crestere-spitalizare-clinici",
+    title: "Asigurările Private de Sănătate: Creștere de 18% a subscrierilor pe fondul cererii de spitalizare și intervenții chirurgicale",
+    excerpt:
+      "Piața asigurărilor private de sănătate continuă să fie cel mai dinamic segment facultativ din România, cererea migrând dinspre abonamentele medicale de bază către polițe complete cu acoperire spitalicească.",
+    content: `
+Evoluția Asigurărilor Private de Sănătate
+
+Conform rapoartelor agregate de ASF și asociațiile de profil, segmentul asigurărilor de sănătate a consemnat o expansiune de 18% în volumul primelor brute subscrise.
+
+Diferențiatori & Tendințe
+
+1. Trecerea de la Abonament la Poliță: Dacă abonamentul clinic acoperă doar consultații și analize uzuale de laborator, asigurarea privată de sănătate decontează intervențiile chirurgicale complexe, spitalizarea în rețele private și accesul la a doua opinie medicală internațională (Second Medical Opinion).
+2. Pachete Corporate ca Beneficiu de Retenție: Peste 80% din volumul polițelor de sănătate este generat de companiile din IT, servicii financiare, farma și producție industrială.
+3. Deducere Fiscală: Legislația fiscală permite angajatorilor și angajaților o deducere de până la 400 EUR/an per persoană pentru primele de asigurare voluntară de sănătate.
+    `,
+    source: "ASF & UNSAR",
+    sourceUrl: "https://asfromania.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/asigurari-private-sanatate-crestere-spitalizare-clinici",
+    publishedAt: "2026-10-04",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Sănătate & Protecție Personală",
+    image: "/fallbacks/story-banking-finance.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Sănătate & Asigurări",
+    readTime: "5 min read",
+    featured: false,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Asigurarea de sănătate oferă securitate financiară în fața cheltuielilor neprevăzute de spitalizare sau tratamente chirurgicale care pot depăși 30.000 - 50.000 RON.",
+      businessImpact:
+        "Companiile folosesc polițele de sănătate pentru a diminua absenteismul și a crește fidelitatea talentelor cheie.",
+      marketConnection:
+        "Dezvoltarea continuă a marilor rețele de spitale private (MedLife, Regina Maria, Sanador) este strâns legată de decontările directe din polițe.",
+      whatToWatchNext:
+        "Noile produse de asigurare de sănătate cu acoperire transfrontalieră europeană.",
+    },
+  },
+  {
+    id: "cyber-insurance-directiva-nis2-imm",
+    slug: "asigurari-riscuri-cibernetice-directiva-nis2-imm-romania",
+    title: "Cyber Insurance: Directiva Europeană NIS2 accelerează cererea de asigurări împotriva atacurilor cibernetice",
+    excerpt:
+      "Companiile din sectoare esențiale și importante accelerează contractarea de polițe Cyber Insurance pentru a acoperi costurile de investigație forensic, restabilirea bazelor de date și răspunderea civilă pentru breșe de date.",
+    content: `
+Gestiunea Riscului Cibernetic: Directiva NIS2 și Asigurările Cyber
+
+Directiva Europeană NIS2 impune cerințe stricte de securitate cibernetică și raportare a incidentelor pentru mii de companii mijlocii și mari din energie, transporturi, bănci, sănătate, infrastructură digitală și producție.
+
+Ce Acoperă o Poliță Cyber Risk Modernă
+
+• Răspundere față de Terți: Despăgubiri și cheltuieli de apărare juridică generate de scurgerea neautorizată de date cu caracter personal (GDPR) sau date confidențiale de business.
+• Daune Directe (First Party): Costurile de investigare tehnică IT forensic, decontarea echipelor de răspuns la incidente și cheltuielile de refacere a sistemelor informatice.
+• Pierderi din Întreruperea Activității (Business Interruption): Compensarea profitului operațional nerealizat pe durata indisponibilității serverelor și platformelor de tranzacționare.
+• Negociere și Răscumpărare Ransomware: Asistență specializată de criză și consultanță legală.
+    `,
+    source: "Directoratul Național de Securitate Cibernetică & ASF",
+    sourceUrl: "https://dnsc.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/asigurari-riscuri-cibernetice-directiva-nis2-imm-romania",
+    publishedAt: "2026-10-05",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Cyber Risk & Securitate Digitală",
+    image: "/fallbacks/story-ai-startup.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Cyber & Risk",
+    readTime: "6 min read",
+    featured: false,
+    trending: true,
+    intelligence: {
+      whyItMatters:
+        "Amenzile administrative NIS2 și GDPR, cumulate cu pierderile din oprirea producției, pot periclita solvabilitatea unei companii fără un scut de reasigurare cibernetică.",
+      businessImpact:
+        "Consiliile de administrație și directorii IT includ cerințele de asigurare cyber în cererile de ofertă transmise partenerilor comerciali.",
+      marketConnection:
+        "Piața europeană de cyber insurance înregistrează ritmuri medii anuale de creștere de peste 20%.",
+      whatToWatchNext:
+        "Ghidurile tehnice emise de DNSC pentru clasificarea entităților esențiale și importante.",
+    },
+  },
+  {
+    id: "asigurari-raspundere-profesionala-malpraxis",
+    slug: "asigurari-raspundere-profesionala-malpraxis-directori-do",
+    title: "Asigurările de Răspundere Profesională & D&O: Creștere a acoperirilor pentru administratori, medici și specialiști IT",
+    excerpt:
+      "Piața polițelor de răspundere civilă profesională și Directors & Officers (D&O) consemnează o cerere ridicată în contextul litigiilor contractuale și al complexității deciziilor executive.",
+    content: `
+Protecția Răspunderii Profesionale și Managementului
+
+Asigurările de răspundere profesională protejează specialiștii (avocați, notari, medici, arhitecți, contabili, dezvoltatori software) și echipele executive împotriva pretențiilor de despăgubire formulate de clienți sau terți pentru erori, omisiuni sau neglijențe în exercitarea atribuțiilor.
+
+Linii de Protecție Cheie
+
+1. Polițe D&O (Directors and Officers Liability): Protejează patrimoniul personal al administratorilor și membrilor consiliului de administrație împotriva proceselor intentate de acționari, autorități de reglementare sau creditori.
+2. Răspundere Profesională IT & Tech: Acoperă pierderile financiare suferite de clienți în cazul nefuncționării aplicațiilor software livrate sau al erorilor de codare ce cauzează blocaje operaționale.
+3. Malpraxis Medical: Acoperă daunele materiale și morale solicitate de pacienți ca urmare a actelor medicale.
+    `,
+    source: "ASF",
+    sourceUrl: "https://asfromania.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/asigurari-raspundere-profesionala-malpraxis-directori-do",
+    publishedAt: "2026-10-03",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Răspundere Profesională & D&O",
+    image: "/fallbacks/story-banking-finance.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Asigurări Comerciale",
+    readTime: "5 min read",
+    featured: false,
+    trending: false,
+    intelligence: {
+      whyItMatters:
+        "Polița D&O și răspunderea profesională previn executarea silită a averii personale a specialiștilor și directorilor în cazul unor litigii comerciale complexe.",
+      businessImpact:
+        "Investitorii instituționali și fondurile de venture capital impun deținerea unei polițe D&O ca o condiție obligatorie pentru numirea noilor administratori.",
+      marketConnection:
+        "Direct corelat cu volumul de fuziuni, achiziții (M&A) și proiecte de anvergură din economie.",
+      whatToWatchNext:
+        "Standardizarea clauzelor de 'retroactive date' și 'extended reporting period' în contractele de consultanță internaționale.",
+    },
+  },
+  {
+    id: "asigurari-riscuri-speciale-marine-aviatie",
+    slug: "asigurari-riscuri-speciale-aeronave-private-iahturi-maritime",
+    title: "Asigurări de Risc Special: Dinamica protecției activelor de mare valoare, aeronavelor private și navigației maritime",
+    excerpt:
+      "Segmentul riscurilor speciale (marine, aviation & high-value assets) înregistrează soluții personalizate de sindicate de reasigurare pentru proprietarii de aeronave de afaceri, ambarcațiuni și colecții de artă.",
+    content: `
+Ghidul Asigurărilor pentru Active de Mare Valoare (Special Risks)
+
+Managementul riscului pentru active de patrimoniu ridicat impune structuri contractuale specializate, sindicate internaționale de subscriere și inspecții tehnice riguroase de risc.
+
+Domenii de Acoperire
+
+• Aviație Generală și Zboruri Private: Asigurarea corpului aeronavei (Hull All Risks), răspunderea civilă față de pasageri și terți la sol, precum și acoperirea riscurilor de război și confiscare.
+• Ambarcațiuni Maritime și Fluviale (Marine Hull & P&I): Protecția iahturilor și navelor comerciale împotriva avariei particulare, furtunii, eșuării și poluării accidentale.
+• Colecții de Artă & Bunuri de Lux: Clauze tip „Fine Art All Risks” cu evaluări periodice efectuate de experți independenți autorizați.
+    `,
+    source: "EIOPA & Asigurători Specializați",
+    sourceUrl: "https://www.eiopa.europa.eu",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/asigurari-riscuri-speciale-aeronave-private-iahturi-maritime",
+    publishedAt: "2026-10-01",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Special Risks • Aviație & Marine",
+    image: "/fallbacks/story-maritime-port.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Riscuri Speciale",
+    readTime: "6 min read",
+    featured: false,
+    trending: false,
+    intelligence: {
+      whyItMatters:
+        "Activele de mobilitate premium (aeronave, ambarcațiuni) operează transfrontalier și necesită acoperiri conforme cu convențiile internaționale (ICAO, IMO).",
+      businessImpact:
+        "Operatorii de chartere private și companiile de management naval își asigură continuitatea licențelor de operare prin polițe globale agreate internațional.",
+      marketConnection:
+        "Corelare cu piața globală de reasigurare de la Londra și centrele financiare europene.",
+      whatToWatchNext:
+        "Evoluția cerințelor de asigurare pentru noile aeronave sustenabile și combustibili alternativi SAF.",
+    },
+  },
+  {
+    id: "asigurari-calatorie-storno-urgente",
+    slug: "asigurari-calatorie-storno-acoperire-urgente-medicale",
+    title: "Asigurările de Călătorie: Ponderea clauzelor Storno și asistență medicală de urgență în străinătate",
+    excerpt:
+      "Polițele de călătorie moderne integrează acoperiri extinse pentru anularea vacanțelor (Storno), repatriere medicală de urgență și pierderea bagajelor pe rutele internaționale aglomerate.",
+    content: `
+Sinteza Asigurărilor de Călătorie & Asistență Medicală
+
+Asigurarea de călătorie reprezintă un instrument esențial de prevenție financiară pentru deplasările turistice și de business în afara granițelor României.
+
+Elemente Critice de Acoperire
+
+• Asistență Medicală & Spitalizare de Urgență: Decontarea directă a costurilor de tratament în spitale străine, unde o zi de spitalizare poate depăși 2.000 - 5.000 EUR.
+• Repatriere Sanitară: Acoperirea transportului medical asistat către România în caz de accident grav sau afecțiune acută.
+• Clauza Storno (Anulare Călătorie): Rambursarea biletelor de avion și a cazărilor nerambursabile dacă deplasarea nu mai poate avea loc din motive medicale dovedite sau evenimente fortuite.
+• Bagaje & Întârzieri de Zbor: Despăgubiri fixe pentru cumpărarea de bunuri de primă necesitate în cazul întârzierii bagajelor de cală peste 6-12 ore.
+    `,
+    source: "UNSAR",
+    sourceUrl: "https://unsar.ro",
+    canonicalUrl: "https://aixmedia.cristianvaduva.com/insurance/asigurari-calatorie-storno-acoperire-urgente-medicale",
+    publishedAt: "2026-10-02",
+    fetchedAt: "2026-10-06",
+    category: "insurance",
+    categoryLabel: "Travel Insurance & Asistență",
+    image: "/fallbacks/story-travel-bulgaria.jpg",
+    author: "AiX Media Editorial Desk",
+    authorRole: "Redacția Travel & Protecție",
+    readTime: "4 min read",
+    featured: false,
+    trending: false,
+    intelligence: {
+      whyItMatters:
+        "Cardul European de Sănătate (CEASS) acoperă doar serviciile de bază în sistemul public, pe când asigurarea privată de călătorie decontează clinicile private și repatrierea sanitară completă.",
+      businessImpact:
+        "Companiile care trimit angajați în delegații externe contractează polițe anuale corporate multi-trip cu acoperire globală.",
+      marketConnection:
+        "Direct corelat cu volumele de pasageri înregistrate pe aeroporturile internaționale din România.",
+      whatToWatchNext:
+        "Noile opțiuni de despăgubire automată instantanee pe card în caz de întârziere confirmată a zborurilor.",
+    },
+  },
+  {
     id: "bvb-bet-indice-record-trimestru-4",
     slug: "bvb-indice-bet-performanta-trimestrul-patru",
     title: "Bursa de Valori București: Indicele BET deschide trimestrul IV peste pragul de 18.600 de puncte",

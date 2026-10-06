@@ -15,6 +15,8 @@ export const mainNavigation: NavItem[] = [
   { label: "Markets", href: "/markets", category: "markets" },
   { label: "Companies", href: "/companies", category: "companies" },
   { label: "Business", href: "/business", category: "business" },
+  { label: "Academy", href: "/academy", category: "academy" },
+  { label: "Why AiX", href: "/why-aix", category: "why-aix" },
   { label: "Video", href: "/tv", category: "tv" },
   { label: "Search", href: "/search", category: "search" },
 ];
@@ -29,6 +31,7 @@ export const footerNavigation = {
     { label: "Credite &amp; Finanțare", href: "/credits" },
     { label: "Piețe Financiare &amp; BNR", href: "/markets" },
     { label: "Companii BVB", href: "/companies" },
+    { label: "Academy &amp; Ghiduri", href: "/academy" },
     { label: "Calendar Macroeconomic", href: "/calendar" },
   ],
   services: [
@@ -42,6 +45,7 @@ export const footerNavigation = {
     { label: "Academy", href: "/academy" },
   ],
   legalAndAbout: [
+    { label: "De Ce AiX Media", href: "/why-aix" },
     { label: "Despre AiX Media", href: "/news" },
     { label: "Contact &amp; Redacție", href: "/contact" },
     { label: "Notă Legală", href: "/legal" },

@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import Link from "next/link";
 import { articleService } from "@/services/article.service";
 import { ArticleCard } from "@/components/media/ArticleCard";
 import { DataDisclaimer } from "@/components/common/DataDisclaimer";
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     absolute: "Informații Asigurări & Gestiunea Riscului | AiX Media",
   },
   description:
-    "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
+    "Informații verificate despre asigurări, protecția proprietăților, bunuri, persoane, vehicule, riscuri cibernetice și răspundere comercială.",
   alternates: {
     canonical: `${siteConfig.url}/insurance`,
     languages: {
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Informații Asigurări & Gestiunea Riscului | AiX Media",
     description:
-      "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
+      "Informații verificate despre asigurări, protecția proprietăților, bunuri, persoane, vehicule, riscuri cibernetice și răspundere comercială.",
     url: `${siteConfig.url}/insurance`,
     siteName: siteConfig.name,
     locale: siteConfig.locale,
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Informații Asigurări & Gestiunea Riscului | AiX Media",
     description:
-      "Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.",
+      "Informații verificate despre asigurări, protecția proprietăților, bunuri, persoane, vehicule, riscuri cibernetice și răspundere comercială.",
   },
 };
 
@@ -58,8 +59,43 @@ export default async function InsurancePage() {
       art.category === "insurance" ||
       art.title.toLowerCase().includes("asigurare") ||
       art.title.toLowerCase().includes("patrimoniu") ||
-      art.title.toLowerCase().includes("risc")
+      art.title.toLowerCase().includes("risc") ||
+      art.title.toLowerCase().includes("casco") ||
+      art.title.toLowerCase().includes("rca")
   );
+
+  const practicalExplainers = [
+    {
+      question: "Ce plătește efectiv CASCO?",
+      answer: "CASCO despăgubește reparațiile propriului tău vehicul în caz de culpă proprie, tamponări în parcare cu autor necunoscut, grindină, inundații, incendiu sau furt total/parțial, minus franșiza agreată.",
+      link: "/academy/rca-vs-casco-diferente-esentiale-protectie",
+    },
+    {
+      question: "Ce protejează de fapt RCA?",
+      answer: "RCA nu repară mașina ta. Este un scut legal care despăgubește pagubele materiale și vătămările corporale provocate terților (altor șoferi, pasageri sau pietoni) într-un accident cauzat de tine.",
+      link: "/academy/rca-vs-casco-diferente-esentiale-protectie",
+    },
+    {
+      question: "Ce acoperă polița obligatorie PAD?",
+      answer: "PAD acoperă exclusiv daunele structurale provocate de 3 dezastre naturale majore: cutremur, inundații naturale și alunecări de teren, până la limita legală de 20.000 EUR (Tip A). Nu acoperă incendiu sau avarii de conducte.",
+      link: "/academy/pad-vs-asigurare-facultativa-locuinta-ghid-complet",
+    },
+    {
+      question: "Ce acoperă asigurarea de sănătate în plus față de abonament?",
+      answer: "Abonamentul clinic acoperă doar consultații de rutină; asigurarea privată decontează spitalizarea de urgență, intervențiile chirurgicale complexe și investigațiile avansate în spitale private din țară și străinătate.",
+      link: "/academy/asigurare-sanatate-privata-vs-abonament-medical-clinica",
+    },
+    {
+      question: "Ce riscuri acoperă Cyber Insurance pentru IMM-uri?",
+      answer: "Acoperă investigațiile tehnice IT forensic, refacerea bazelor de date compromise, pierderea de profit din oprirea serverelor (Business Interruption) și despăgubirile solicitate de terți conform Directivei NIS2 și GDPR.",
+      link: "/academy/ce-este-cyber-insurance-directiva-nis2-imm",
+    },
+    {
+      question: "Cum te protejează asigurarea de răspundere profesională (D&O)?",
+      answer: "Protejează patrimoniul personal al directorilor și specialiștilor (avocați, medici, IT) împotriva despăgubirilor solicitate de clienți sau autorități pentru neglijențe sau erori neintenționate în exercitarea atribuțiilor.",
+      link: "/academy/ce-trebuie-sa-verifici-inainte-de-cumpararea-unui-imobil",
+    },
+  ];
 
   const checklistItems = [
     { num: "01", text: "Ce este efectiv asigurat (clădire, finisaje, bunuri, răspundere)?" },
@@ -86,13 +122,13 @@ export default async function InsurancePage() {
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-mono font-bold uppercase tracking-widest">
               <Shield className="w-4 h-4 text-amber-500" />
-              Insurance &amp; Risk Information
+              Insurance &amp; Risk Intelligence
             </div>
             <h1 className="font-serif text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight">
               Insurance &amp; Protecția Patrimoniului
             </h1>
             <p className="text-base md:text-lg text-neutral-300 font-serif leading-relaxed">
-              Informații despre asigurări, protecția proprietăților, bunuri, persoane, vehicule și riscuri comerciale.
+              Știri verificate din surse oficiale (ASF, BAAR, PAID, UNSAR), analize obiective și ghiduri practice pentru protecția proprietăților, sănătății, vehiculelor și afacerilor.
             </p>
           </div>
 
@@ -109,7 +145,78 @@ export default async function InsurancePage() {
         </div>
       </section>
 
-      {/* 2. TIPURI DE ASIGURĂRI (01 TO 09 VISUAL CARDS) */}
+      {/* 2. REAL EDITORIAL NEWS ARTICLES (EXPANDED LIBRARY) */}
+      <section className="space-y-6">
+        <div className="border-b border-[var(--border)] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+              Știri Verificate • Surse Primare (ASF, BAAR, PAID)
+            </span>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-0.5">
+              Flux Editorial Asigurări &amp; Protecție ({insuranceArticles.length} Articole)
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-neutral-400">Date Oficiale &amp; Reglementări</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {insuranceArticles.map((art) => (
+            <ArticleCard key={art.id} article={art} />
+          ))}
+        </div>
+      </section>
+
+      {/* 3. INSURANCE EDUCATION & PRACTICAL EXPLAINERS */}
+      <section className="space-y-8">
+        <div className="border-b border-[var(--border)] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
+              Educație &amp; Ghiduri Practice
+            </span>
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-white tracking-tight mt-1">
+              Ce Plătește Efectiv Asigurarea? (What Does It Actually Do?)
+            </h2>
+          </div>
+          <Link
+            href="/academy"
+            className="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors"
+          >
+            <span>Vezi Toate Ghidurile Academy</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {practicalExplainers.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-lg group"
+            >
+              <div className="space-y-2.5">
+                <span className="text-xs font-mono text-amber-400 font-bold">Explainer 0{idx + 1}</span>
+                <h3 className="font-serif text-lg font-bold text-white group-hover:text-amber-400 transition-colors leading-snug">
+                  {item.question}
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed font-serif">
+                  {item.answer}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-[var(--border)]">
+                <Link
+                  href={item.link}
+                  className="text-xs font-mono font-bold text-amber-400 hover:text-amber-300 flex items-center justify-between transition-colors"
+                >
+                  <span>Citește Ghidul Complet</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. TIPURI DE ASIGURĂRI (01 TO 09 VISUAL CARDS) */}
       <section className="space-y-8">
         <div className="border-b border-[var(--border)] pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
@@ -172,7 +279,7 @@ export default async function InsurancePage() {
               </p>
               <ul className="space-y-1 text-[11px] font-mono text-neutral-400">
                 <li className="flex items-center gap-1.5">• Obligatorie prin lege pentru proprietari</li>
-                <li className="flex items-center gap-1.5">• Acoperire plafonată de bază</li>
+                <li className="flex items-center gap-1.5">• Acoperire plafonată de bază (20.000 EUR)</li>
                 <li className="flex items-center gap-1.5">• Necesită completare cu poliță facultativă</li>
               </ul>
             </div>
@@ -189,7 +296,7 @@ export default async function InsurancePage() {
                 Asigurarea Facultativă a Locuinței
               </h3>
               <p className="text-xs text-neutral-300 leading-relaxed font-serif">
-                Extinde acoperirea la valoarea reală de piață a imobilului. Include riscuri de incendiu, explozie, avarii la instalațiile sanitare, furt, vandalism și răspundere civilă.
+                Extinde acoperirea la valoarea reală de reconstrucție a imobilului. Include riscuri de incendiu, explozie, avarii la instalațiile sanitare, furt, vandalism și răspundere civilă.
               </p>
               <ul className="space-y-1 text-[11px] font-mono text-neutral-400">
                 <li className="flex items-center gap-1.5">• Protecție clădire, finisaje &amp; mobilier</li>
@@ -262,7 +369,7 @@ export default async function InsurancePage() {
               <ul className="space-y-1 text-[11px] font-mono text-neutral-400">
                 <li className="flex items-center gap-1.5">• Rețele medicale extinse &amp; spitalizare</li>
                 <li className="flex items-center gap-1.5">• Decontare directă sau rambursare</li>
-                <li className="flex items-center gap-1.5">• Limite anuale &amp; perioade de așteptare</li>
+                <li className="flex items-center gap-1.5">• Limite anuale &amp; deducere fiscală 400 EUR</li>
               </ul>
             </div>
           </div>
@@ -317,10 +424,10 @@ export default async function InsurancePage() {
                 <Briefcase className="w-5 h-5 text-amber-500" />
               </div>
               <h3 className="font-serif text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
-                Asigurări Corporate &amp; Business Risk
+                Asigurări Corporate &amp; Cyber Risk
               </h3>
               <p className="text-xs text-neutral-300 leading-relaxed font-serif">
-                Soluții pentru companii: Property Damage, Business Interruption (pierderea profitului din întreruperea activității), Cyber Risk, Răspundere Generală &amp; D&amp;O (Directors &amp; Officers).
+                Soluții pentru companii: Property Damage, Business Interruption (pierderea profitului din întreruperea activității), Cyber Risk (Directiva NIS2), Răspundere Generală &amp; D&amp;O.
               </p>
               <ul className="space-y-1 text-[11px] font-mono text-neutral-400">
                 <li className="flex items-center gap-1.5">• Protecția activelor imobiliare comerciale</li>
@@ -332,7 +439,7 @@ export default async function InsurancePage() {
         </div>
       </section>
 
-      {/* 3. CHECKLIST: CE TREBUIE SĂ VERIFICI ÎNAINTE SĂ CUMPERI O POLIȚĂ */}
+      {/* 5. CHECKLIST: CE TREBUIE SĂ VERIFICI ÎNAINTE SĂ CUMPERI O POLIȚĂ */}
       <section className="p-8 md:p-10 rounded-2xl bg-[var(--surface-elevated)] border border-[var(--border)] space-y-8 shadow-xl">
         <div className="border-b border-[var(--border)] pb-4 space-y-1">
           <div className="inline-flex items-center gap-2 text-amber-500 font-mono text-xs font-bold uppercase tracking-widest">
@@ -362,27 +469,7 @@ export default async function InsurancePage() {
         </div>
       </section>
 
-      {/* 4. REAL EDITORIAL NEWS ARTICLES (IF PRESENT) */}
-      {insuranceArticles.length > 0 && (
-        <section className="space-y-6">
-          <div className="border-b border-[var(--border)] pb-3">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-amber-500">
-              Știri &amp; Informații Verificate
-            </span>
-            <h2 className="font-serif text-2xl font-bold text-white tracking-tight mt-0.5">
-              Flux Editorial Asigurări &amp; Protecție
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {insuranceArticles.map((art) => (
-              <ArticleCard key={art.id} article={art} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 5. FINAL CTA SECTION: PROTECT WHAT YOU HAVE BUILT */}
+      {/* 6. FINAL CTA SECTION: PROTECT WHAT YOU HAVE BUILT */}
       <section className="p-8 md:p-12 rounded-2xl bg-gradient-to-br from-[#0F1015] to-[var(--surface-elevated)] border border-amber-500/40 text-center space-y-6 shadow-2xl relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent pointer-events-none" />
 
@@ -413,10 +500,10 @@ export default async function InsurancePage() {
         </div>
       </section>
 
-      {/* 6. GENERAL EDUCATIONAL DISCLAIMER */}
+      {/* 7. GENERAL EDUCATIONAL DISCLAIMER */}
       <div className="p-4 rounded-xl bg-neutral-950/80 border border-neutral-800 text-[11px] font-mono text-neutral-400 leading-relaxed">
         <span className="text-amber-500 font-bold uppercase mr-1">Notă Informativă:</span>
-        Informațiile prezentate pe această pagină au caracter general și educațional și nu reprezintă ofertă financiară, recomandare personalizată sau contract de asigurare. Condițiile, criteriile și costurile diferă în funcție de produs, instituție și profilul clientului.
+        Informațiile prezentate pe această pagină au caracter general și educațional și nu reprezintă o ofertă financiară individuală sau contract de asigurare direct. Condițiile, franșizele și criteriile de subscriere diferă în funcție de societatea de asigurare și de profilul de risc al clientului.
       </div>
 
       <DataDisclaimer type="general" />
