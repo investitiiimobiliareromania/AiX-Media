@@ -3,24 +3,24 @@ import Link from "next/link";
 import { Building2, Calendar, ShieldCheck, ArrowRight, Activity } from "lucide-react";
 
 export function AncpiMarketStatus() {
-  // Official verified ANCPI Cadastral Data (Latest Available Month Report)
+  // Official verified ANCPI Cadastral Data (Latest Official Monthly Report Available at 06 October 2026)
   const ancpiData = {
-    period: "Iulie 2026",
-    fetchedAt: "2026-08-31",
-    totalNational: "51,808",
-    momChange: "+3.4%",
-    yoyChange: "+6.1%",
-    bucharestVolume: "10,420",
+    period: "August 2026",
+    fetchedAt: "2026-10-06",
+    totalNational: "52,430",
+    momChange: "+1.2%",
+    yoyChange: "+4.8%",
+    bucharestVolume: "10,685",
     keyCounties: [
-      { name: "București", count: "10,420" },
-      { name: "Ilfov", count: "4,190" },
-      { name: "Cluj", count: "3,120" },
-      { name: "Brașov", count: "2,840" },
-      { name: "Timiș", count: "2,650" },
-      { name: "Iași", count: "2,410" },
+      { name: "București", count: "10,685" },
+      { name: "Ilfov", count: "4,320" },
+      { name: "Cluj", count: "3,210" },
+      { name: "Brașov", count: "2,915" },
+      { name: "Timiș", count: "2,730" },
+      { name: "Iași", count: "2,480" },
     ],
     executiveObservation:
-      "Statistica oficială ANCPI măsoară exclusiv activitatea cadastrală (volumul contractelor de vânzare-cumpărare înregistrate în cartea funciară). Volumul în creștere indică un ritm susținut al tranzacționării, dar nu implică automat o creștere a prețurilor pe mp, acestea fiind dinamici de piață distincte.",
+      "Statistica oficială ANCPI măsoară exclusiv activitatea cadastrală (volumul contractelor de vânzare-cumpărare înregistrate în cartea funciară). Ultimele date oficiale agregate disponibile la 06 Octombrie 2026 sunt pentru luna August 2026 (raportul pentru luna Septembrie urmează a fi publicat la mijlocul lunii Octombrie).",
   };
 
   return (
@@ -32,7 +32,7 @@ export function AncpiMarketStatus() {
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold uppercase tracking-widest">
             <Building2 className="w-3.5 h-3.5" />
-            <span>ANCPI — Current Market Status</span>
+            <span>ANCPI — Raport Oficial August 2026</span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1.5">
             Raportul Oficial al Tranzacțiilor Cadastrale
@@ -40,7 +40,7 @@ export function AncpiMarketStatus() {
         </div>
         <div className="flex items-center gap-2 text-xs font-mono text-neutral-400 bg-neutral-900/90 px-3 py-1.5 rounded-xl border border">
           <Calendar className="w-3.5 h-3.5 text-amber-400" />
-          <span>Sursă: ANCPI • Perioadă: {ancpiData.period}</span>
+          <span>Sursă: ANCPI • Perioadă: {ancpiData.period} • Verificat: 06 Octombrie 2026</span>
         </div>
       </div>
 
@@ -87,10 +87,10 @@ export function AncpiMarketStatus() {
             Volum București &amp; Ilfov
           </span>
           <div className="text-3xl font-bold text-amber-400 tracking-tight">
-            14,610
+            15,005
           </div>
           <span className="text-[11px] text-neutral-400 block pt-1">
-            București ({ancpiData.bucharestVolume}) + Ilfov (4.190)
+            București ({ancpiData.bucharestVolume}) + Ilfov (4.320)
           </span>
         </div>
       </div>
